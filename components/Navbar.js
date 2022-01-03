@@ -1,9 +1,9 @@
 import { FaPollH } from "react-icons/fa";
 function Navbar() {
   return (
-    <div className="text-white bg-gradient-to-br from-blue-900 via-blue-700 to-blue-900 h-28 flex px-10  justify-between">
+    <div className="text-white bg-gradient-to-r from-blue-900 via-blue-700 to-blue-900 h-16 flex px-10  justify-between">
       <img src="main.png" className="rounded-md m-2 shadow-lg" />
-      <div className="flex items-center w-3/5 justify-around text-xl font-semibold">
+      <div className="flex items-center w-3/5 justify-around text-lg font-semibold">
         <p className="cursor-pointer ">MATCHES</p>
         <p className="cursor-pointer ">STATS</p>
         <p className="cursor-pointer ">POINTS TABLE</p>
