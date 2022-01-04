@@ -1,15 +1,31 @@
+import { useState } from "react";
 import LoseSymbol from "./LoseSymbol";
 import WinSymbol from "./WinSymbol";
 
 function PointsTable() {
+  const [showStandings, setShowStandings] = useState(true);
   return (
-    <div className="h-full w-2/5">
+    <div className="h-full w-2/5 mr-2">
       {/* for heading */}
       <div className="w-full flex text-white mt-2">
-        <p className="bg-yellow-600 w-1/2 text-center p-3 text-xl font-bold">
+        <p
+          onClick={() => {
+            setShowStandings(true);
+          }}
+          className={` ${
+            showStandings ? "bg-yellow-600" : "bg-blue-600"
+          } w-1/2 text-center p-3 text-xl font-bold cursor-pointer`}
+        >
           Standings
         </p>
-        <p className="bg-blue-600 w-1/2 text-center p-3 text-xl font-bold">
+        <p
+          onClick={() => {
+            setShowStandings(false);
+          }}
+          className={` ${
+            !showStandings ? "bg-yellow-600" : "bg-blue-600"
+          } w-1/2 text-center p-3 text-xl font-bold cursor-pointer`}
+        >
           Playoffs
         </p>
       </div>
@@ -19,15 +35,13 @@ function PointsTable() {
         <div className="flex justify-evenly  font-bold w-11/12">
           <p>TEAM</p>
           <p>PLD</p>
-          <p>NET RR</p>
+
           <p>FORM</p>
         </div>
         <div>
-          <div className="flex justify-evenly bg-white text-black  font-bold w-full my-2 p-2 shadow-md">
+          <div className="flex justify-evenly items-center bg-white text-black  font-bold my-2 mx-2 p-2 shadow-md rounded-lg">
             <p>Akkadians</p>
             <p>14</p>
-            <p>+0.481</p>
-
             <p className="flex w-32 justify-evenly">
               <LoseSymbol />
               <WinSymbol />
