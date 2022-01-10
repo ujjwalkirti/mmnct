@@ -3,6 +3,8 @@ import FollowBar from "../components/FollowBar";
 import Navbar from "../components/Navbar";
 import PointsTable from "../components/PointsTable";
 import Slideshow from "../components/Slideshow";
+import TopMoments from "../components/TopMoments";
+import TournamentLeaders from "../components/TournamentLeaders";
 
 export default function Home() {
   return (
@@ -18,6 +20,8 @@ export default function Home() {
         <Slideshow />
         <PointsTable />
       </div>
+      <TopMoments/>
+      <TournamentLeaders/>
     </div>
   );
 }

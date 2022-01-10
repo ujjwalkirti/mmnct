@@ -1,3 +1,15 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.sizeIncrease {
+  transition: all 0.2s ease-in-out;
+  overflow-x: scroll;
+}
+.sizeIncrease:hover {
+  transform: scale(1.05);
+}
+
+.autoHeight {
+  height: 568px;
+}
