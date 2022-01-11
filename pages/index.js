@@ -1,4 +1,5 @@
 import Head from "next/head";
+import AboutUs from "../components/AboutUs";
 import FollowBar from "../components/FollowBar";
 import Navbar from "../components/Navbar";
 import PointsTable from "../components/PointsTable";
@@ -22,6 +23,7 @@ export default function Home() {
       </div>
       <TopMoments/>
       <TournamentLeaders/>
+      <AboutUs/>
     </div>
   );
 }
