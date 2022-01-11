@@ -117,7 +117,7 @@ function PointsTable() {
           <div className=" flex items-center justify-center  mt-2 h-80">
             <div className="text-black p-2 rounded-lg bg-gradient-to-r from-blue-500 to-blue-800">
               <p className="text-2xl text-white font-bold">
-                Playoffs haven't started yet.
+                Playoffs havenot started yet.
               </p>
             </div>
           </div>
