@@ -2,7 +2,7 @@ import { FaFacebookSquare, FaInstagram } from "react-icons/fa";
 
 function FollowBar() {
   return (
-    <div className="bg-white text-black h-6 flex justify-between mx-4 my-1 font-semibold">
+    <div className="bg-white text-black h-6 hidden lg:flex justify-between mx-4 my-1 font-semibold">
       <p>Dates to be announced soon!</p>
       <div className="flex items-center">
         <img className="h-full" src="svnit_logo.jpg" />
