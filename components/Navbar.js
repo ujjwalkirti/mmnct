@@ -13,9 +13,9 @@ const options = [
 export default function Navbar({}) {
   const [showHiddenMenu, setShowHiddenMenu] = useState(false);
   const navMenuStyle =
-    "text-center cursor-pointer hover:shadow-md px-2 py-1 m-2 hover:text-white hover:bg-black";
+    " cursor-pointer hover:shadow-md text-gray-500 px-2 py-1 m-2 hover:text-white hover:bg-black";
   return (
-    <div className="flex justify-evenly w-full items-center mt-2">
+    <div className="flex justify-evenly w-full items-center pt-2 z-20 bg-white fixed top-0">
       <span className="text-center font-bold w-4/5 text-4xl">
         <p>Manoj Memorial </p>
         <p className="text-2xl">Night Cricket Tournament</p>
@@ -25,7 +25,7 @@ export default function Navbar({}) {
         onClick={() => setShowHiddenMenu(true)}
       />
       {showHiddenMenu && (
-        <div className="absolute md:hidden bg-white z-10 p-4 text-2xl top-4 flex flex-col shadow-md shadow-orange-600 rounded-lg">
+        <div className="absolute md:hidden bg-white z-10 p-4 text-2xl top-4 flex flex-col shadow-md shadow-orange-600 rounded-lg w-full transition duration-200 ease-in">
           {options.map((option) => {
             return (
               <a className={navMenuStyle} href={option.url}>

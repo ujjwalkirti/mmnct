@@ -1,6 +1,7 @@
 import Image from "next/image";
 import React, { useState } from "react";
 import CarouselComponent from "./CarouselComponent";
+import { BsPinMapFill } from "react-icons/bs";
 
 const Description = () => {
   const description =
@@ -23,12 +24,35 @@ const Description = () => {
       <hr />
       <CarouselComponent />
 
-      <p className="text-center px-4 my-24 text-8xl font-semibold">
-        <p className="text-6xl">SVNIT's</p> largest{" "}
-        <p className="text-6xl">Cricket tournament!</p>
+      <p className="text-center text-gray-500 px-4 my-24 text-8xl font-semibold">
+        <p className="text-6xl">"SVNIT's</p> largest{" "}
+        <p className="text-6xl">Cricket tournament"</p>
       </p>
       <hr />
-      <div className="my-20"></div>
+      <div
+        className="my-20 text-white text-4xl text-center mx-6 flex flex-col justify-evenly"
+        style={{
+          backgroundImage: "url(/carousel/c-4.JPG)",
+          backgroundAttachment: "fixed",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+          backgroundSize: "cover",
+          minHeight: "500px",
+        }}
+      >
+        {" "}
+        <p className="text-sm -mb-16 font-semibold">
+          Jaunary 25<sup>th</sup> - 29<sup>th</sup>
+        </p>
+        <p className="text-9xl font-semibold">SVNIT</p>
+        <p className="text-2xl flex justify-center items-center">
+          <BsPinMapFill className="mr-3"/> SAC Ground
+        </p>
+        <p className=" border-2 border-white w-3/5 mx-auto p-4 cursor-pointer hover:bg-white hover:text-black transition duration-150 ease-in-out">
+          View Fixtures
+        </p>
+      </div>
+      <hr />
     </div>
   );
 };
