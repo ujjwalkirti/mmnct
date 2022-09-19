@@ -44,11 +44,11 @@ const Description = () => {
         <p className="text-sm -mb-16 font-semibold">
           Jaunary 25<sup>th</sup> - 29<sup>th</sup>
         </p>
-        <p className="text-9xl font-semibold">SVNIT</p>
+        <p className="sm:text-9xl text-8xl font-semibold">SVNIT</p>
         <p className="text-2xl flex justify-center items-center">
-          <BsPinMapFill className="mr-3"/> SAC Ground
+          <BsPinMapFill className="mr-3" /> SAC Ground
         </p>
-        <p className=" border-2 border-white w-3/5 mx-auto p-4 cursor-pointer hover:bg-white hover:text-black transition duration-150 ease-in-out">
+        <p className=" border-2 text-2xl sm:text-4xl border-white w-3/5 mx-auto p-4 cursor-pointer hover:bg-white hover:text-black transition duration-150 ease-in-out">
           View Fixtures
         </p>
       </div>

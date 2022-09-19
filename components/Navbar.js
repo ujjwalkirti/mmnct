@@ -25,7 +25,7 @@ export default function Navbar({}) {
         onClick={() => setShowHiddenMenu(true)}
       />
       {showHiddenMenu && (
-        <div className="absolute md:hidden bg-white z-10 p-4 text-2xl top-4 flex flex-col shadow-md shadow-orange-600 rounded-lg w-full transition duration-200 ease-in">
+        <div className="absolute md:hidden bg-white z-10 p-4 text-2xl top-0 flex flex-col shadow-md rounded-lg w-full transition duration-200 ease-in">
           {options.map((option) => {
             return (
               <a className={navMenuStyle} href={option.url}>
