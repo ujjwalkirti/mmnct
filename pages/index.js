@@ -1,11 +1,7 @@
 import Head from "next/head";
-import AboutUs from "../components/AboutUs";
 import FollowBar from "../components/FollowBar";
 import Navbar from "../components/Navbar";
-import PointsTable from "../components/PointsTable";
-import Slideshow from "../components/Slideshow";
-import TopMoments from "../components/TopMoments";
-import TournamentLeaders from "../components/TournamentLeaders";
+
 
 export default function Home() {
   return (
@@ -17,13 +13,7 @@ export default function Home() {
       </Head>
       <FollowBar />
       <Navbar />
-      <div className="flex">
-        <Slideshow />
-        <PointsTable />
-      </div>
-      <TopMoments/>
-      <TournamentLeaders/>
-      <AboutUs/>
+     
     </div>
   );
 }

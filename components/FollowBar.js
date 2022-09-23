@@ -3,7 +3,7 @@ import { FaFacebookSquare, FaInstagram } from "react-icons/fa";
 function FollowBar() {
   return (
     <div className="bg-white text-black h-6 flex justify-between mx-4 my-1 font-semibold">
-      <p>Dates to be announced soon!</p>
+      <p>25<sup>th</sup> Jan - 29<sup>th</sup> Jan, 2023</p>
       <div className="flex items-center">
         <img className="h-full" src="svnit_logo.jpg" />
         <a href="https://svnit.ac.in/">
