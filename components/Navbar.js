@@ -1,35 +1,46 @@
-import { FaPollH } from "react-icons/fa";
-function Navbar() {
+import React, { useState } from "react";
+import { GiHamburgerMenu } from "react-icons/gi";
+
+const options = [
+  { title: "Fixtures", url: "/fixtures" },
+  { title: "Points Table", url: "/points-table" },
+  { title: "Polls", url: "/polls" },
+  { title: "Trivias", url: "/trivias" },
+  { title: "Memories", url: "/memories" },
+  { title: "About the organisers!", url: "/organisers" },
+];
+
+export default function Navbar({}) {
+  const [showHiddenMenu, setShowHiddenMenu] = useState(false);
+  const navMenuStyle =
+    " cursor-pointer hover:shadow-md text-gray-500 px-2 py-1 m-2 hover:text-white hover:bg-black";
   return (
-    <div className="text-white bg-gradient-to-r from-blue-900 via-blue-700 to-blue-900 h-16 flex px-10  justify-between">
-      <a className="h-full items-center flex" href="/">
-        <img src="main.png" className="rounded-md mx-2 shadow-lg h-14" />
-      </a>
-      <div className="flex items-center w-3/5 justify-around text-lg font-semibold">
-        <a href="/matches" className="cursor-pointer ">
-          MATCHES
-        </a>
-        {/* <a href="/stats" className="cursor-pointer ">STATS</a> */}
-        <a href="/stats" className="cursor-pointer ">
-          POINTS TABLE
-        </a>
-        <a href="/teams" className="cursor-pointer ">
-          TEAMS
-        </a>
-        {/* <a className="cursor-pointer "></a> */}
-      </div>
-      <a
-        href="/polls"
-        className="flex items-center text-2xl font-bold cursor-pointer text-yellow-500"
-      >
-        <FaPollH className="mx-2" />
-        Polls
-        {/* <span className=" text-2xl font-bold bg-gradient-to-r from-red-500 via-yellow-500 to-red-400">
-          <p className="text-transparent">Polls</p>
-        </span> */}
-      </a>
+    <div className="flex justify-evenly w-full items-center pt-2 z-20 bg-white fixed top-0">
+      <span className="text-center font-bold w-4/5 text-4xl">
+        <p>Manoj Memorial </p>
+        <p className="text-2xl">Night Cricket Tournament</p>
+      </span>
+      <GiHamburgerMenu
+        className="text-3xl cursor-pointer md:hidden  hover:shadow-sm hover:shadow-orange-500"
+        onClick={() => setShowHiddenMenu(true)}
+      />
+      {showHiddenMenu && (
+        <div className="absolute md:hidden bg-white z-10 p-4 text-2xl top-0 flex flex-col shadow-md rounded-lg w-full transition duration-200 ease-in">
+          {options.map((option) => {
+            return (
+              <a className={navMenuStyle} href={option.url}>
+                {option.title}
+              </a>
+            );
+          })}
+          <p
+            className="absolute right-0 font-bold w-10 h-10 text-center flex items-center justify-center top-0 ml-4 border rounded-full hover:bg-black hover:text-white cursor-pointer"
+            onClick={() => setShowHiddenMenu(false)}
+          >
+            X
+          </p>
+        </div>
+      )}
     </div>
   );
 }
-
-export default Navbar;
