@@ -18,13 +18,13 @@ function Navbar() {
         height={30}
         width={30}
         alt="Man playing cricket"
-        className="hover:shadow-lg cursor-pointer"
+        className="hover:shadow-lg  cursor-pointer"
         onClick={() => {
           setShowMenu(true);
         }}
       />
       {showMenu && (
-        <div className="absolute flex flex-col w-full h-screen z-40 top-0 left-0 bg-white px-4 py-2">
+        <div className="absolute flex flex-col w-full md:w-2/5 z-40 xl:w-1/5 top-0 right-0 bg-white px-4 py-2">
           <VscCloseAll
             className="font-semibold text-2xl absolute top-0 right-0 m-4 hover:cursor-pointer"
             onClick={() => {
@@ -33,7 +33,7 @@ function Navbar() {
           />
           {options.map((option) => (
             <a
-              className="my-4 font-semibold text-3xl hover:underline"
+              className="my-4 font-semibold hover:bg-slate-600 hover:text-white px-4 py-2 text-3xl"
               href={option.url}
             >
               {option.name}

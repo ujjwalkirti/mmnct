@@ -1,4 +1,5 @@
 import Head from "next/head";
+import Followup from "../components/Followup";
 import HomePage from "../components/Home";
 import Navbar from "../components/Navbar";
 import Trivia from "../components/Trivia";
@@ -14,7 +15,8 @@ export default function Home() {
       <Navbar />
 
       <HomePage />
-      <Trivia />
+      <Followup/>
+      {/* <Trivia /> */}
     </div>
   );
 }
