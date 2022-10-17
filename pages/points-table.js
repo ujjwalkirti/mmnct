@@ -1,8 +1,9 @@
 import React from 'react'
+import Navbar from '../components/Navbar'
 
 function PointsTable() {
   return (
-    <div>PointsTable</div>
+    <div><Navbar/></div>
   )
 }
 

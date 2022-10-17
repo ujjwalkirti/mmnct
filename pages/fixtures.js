@@ -1,9 +1,12 @@
-import React from 'react'
+import React from "react";
+import Navbar from "../components/Navbar";
 
 function Fixtures() {
   return (
-    <div>Fixtures</div>
-  )
+    <div>
+      <Navbar />
+    </div>
+  );
 }
 
-export default Fixtures
+export default Fixtures;

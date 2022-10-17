@@ -1,9 +1,12 @@
-import React from 'react'
+import React from "react";
+import Navbar from "../components/Navbar";
 
 function Polls() {
   return (
-    <div>Polls</div>
-  )
+    <div>
+      <Navbar />
+    </div>
+  );
 }
 
-export default Polls
+export default Polls;

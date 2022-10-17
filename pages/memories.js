@@ -1,7 +1,8 @@
 import React from "react";
+import Navbar from "../components/Navbar";
 
 function Memories() {
-  return <div>Memories</div>;
+  return <div><Navbar/></div>;
 }
 
 export default Memories;

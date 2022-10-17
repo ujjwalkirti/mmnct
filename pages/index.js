@@ -7,7 +7,7 @@ import Trivia from "../components/Trivia";
 
 export default function Home() {
   return (
-    <div className="">
+    <div className="text-xl">
       <Head>
         <title>MMNCT</title>
         <meta name="description" content="MMNCT, SVNIT, Surat" />
