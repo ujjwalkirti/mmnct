@@ -3,7 +3,6 @@ import Followup from "../components/Followup";
 import Footer from "../components/Footer";
 import HomePage from "../components/Home";
 import Navbar from "../components/Navbar";
-import Trivia from "../components/Trivia";
 
 export default function Home() {
   return (
@@ -17,8 +16,8 @@ export default function Home() {
 
       <HomePage />
       <Followup />
-      {/* <Trivia /> */}
 
+      
       <Footer />
     </div>
   );
