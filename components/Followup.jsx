@@ -13,7 +13,7 @@ const Followup = () => {
       {/* About Section */}
       <div className="mx-2">
         <Image src="/main.png" width={200} height={200} />
-        <p>{description}</p>
+        <p className="text-left">{description}</p>
       </div>
       {/* Details */}
       <TournamentDetails />
