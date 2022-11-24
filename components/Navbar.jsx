@@ -13,10 +13,15 @@ function Navbar() {
   const [showMenu, setShowMenu] = useState(false);
   return (
     <div className="p-2 relative flex justify-end">
+      {/* <div className="flex items-center font-bold">
+        <Image src="/main.png" height={80} width={100} alt="logo" />
+        <p className="ml-2 text-3xl">MMNCT</p>
+      </div> */}
       <Image
         src="/ham.png"
         height={30}
         width={30}
+        layout="fixed"
         alt="Man playing cricket"
         className="hover:shadow-lg  cursor-pointer"
         onClick={() => {

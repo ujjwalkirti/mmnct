@@ -1,10 +1,12 @@
 import Image from "next/image";
 import React from "react";
 import { SiGooglemaps } from "react-icons/si";
+import Banner from "./Banner";
 function HomePage() {
   return (
-    <div className="flex flex-col justify-center items-center my-20 font-extrabold">
-      <p className="text-5xl text-center md:text-left ">Manoj Memorial</p>
+    <div className="flex flex-col justify-center items-center font-extrabold">
+      <Banner/>
+      <p className="text-5xl mt-5 text-center md:text-left ">Manoj Memorial</p>
       <p className="text-2xl text-center md:text-left">
         Night Cricket Tournament
       </p>
