@@ -6,15 +6,15 @@ function HomePage() {
   return (
     <div className="flex flex-col justify-center items-center font-extrabold">
       <Banner />
-      <div className="mt-6 relative">
-        <div className="blur">
+      <div className="mt-6 ">
+        {/* <div className="blur">
           <Image src="/8.JPG" height={400} width={400} />
-        </div>
-        <div className="tournament-name absolute top-1/3 text-white text-center w-full">
-          <p className=" my-5  text-center md:text-left ">
+        </div> */}
+        <div className=" text-center w-full">
+          <p className=" text-4xl my-5  text-center md:text-left ">
             Manoj Memorial
           </p>
-          <p className="text-4xl text-center md:text-left">
+          <p className="text-2xl text-center md:text-left">
             Night Cricket Tournament
           </p>
         </div>
