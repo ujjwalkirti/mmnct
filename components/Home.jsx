@@ -5,11 +5,20 @@ import Banner from "./Banner";
 function HomePage() {
   return (
     <div className="flex flex-col justify-center items-center font-extrabold">
-      <Banner/>
-      <p className="text-5xl mt-5 text-center md:text-left ">Manoj Memorial</p>
-      <p className="text-2xl text-center md:text-left">
-        Night Cricket Tournament
-      </p>
+      <Banner />
+      <div className="mt-6 relative">
+        <div className="blur">
+          <Image src="/8.JPG" height={400} width={400} />
+        </div>
+        <div className="tournament-name absolute top-1/3 text-white text-center w-full">
+          <p className=" my-5  text-center md:text-left ">
+            Manoj Memorial
+          </p>
+          <p className="text-4xl text-center md:text-left">
+            Night Cricket Tournament
+          </p>
+        </div>
+      </div>
 
       <Image src="/vector-1.jpg" width={300} height={300} />
       <div className="text-center flex items-center">
