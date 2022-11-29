@@ -6,4 +6,6 @@
    background-color: #002380; 
    display: flex;
    justify-content: space-between;
+   width: 94%;
+   
 }
