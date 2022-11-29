@@ -1,0 +1,9 @@
+.team-logo{
+    height: 60px;
+}
+
+.match-card{
+   background-color: #002380; 
+   display: flex;
+   justify-content: space-between;
+}
