@@ -23,6 +23,9 @@ function Memories() {
 
   return (
     <>
+      <Head>
+        <title>Memories from the past versions!</title>
+      </Head>
       <Navbar />
       <div className="bg-black">
         <div className="flex text-white text-center h-72 bg-gray-900 bg-opacity-40">
