@@ -3,7 +3,6 @@ import React, { useState } from "react";
 import { VscCloseAll } from "react-icons/vsc";
 import { GiHamburgerMenu } from "react-icons/gi";
 
-
 const options = [
   { name: "Fixtures", url: "/fixtures" },
   { name: "Points Table", url: "/points-table" },
@@ -47,10 +46,11 @@ function Navbar() {
               setShowMenu(false);
             }}
           />
-          {options.map((option) => (
+          {options.map((option, index) => (
             <a
               className="my-4 font-semibold hover:bg-slate-600 hover:text-white px-4 py-2 text-3xl"
               href={option.url}
+              key={index}
             >
               {option.name}
             </a>
@@ -64,8 +64,8 @@ function Navbar() {
           <p className="text-green-700">MMNCT</p>
         </div>
         <div className="">
-          {options.map((option) => (
-            <a className="my-4  px-4 py-2" href={option.url}>
+          {options.map((option, index) => (
+            <a className="my-4  px-4 py-2" href={option.url} key={index}>
               {option.name}
             </a>
           ))}

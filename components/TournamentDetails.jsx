@@ -17,11 +17,11 @@ const TournamentDetails = () => {
         .fill(1)
         .map((el, i) => (
           <div className="text-left my-4 p-2">
-            <tr>{i+1}. When will the tournament be conducted?</tr>
-            <tr>
+            <p>{i + 1}. When will the tournament be conducted?</p>
+            <p>
               The final dates are as follows: 26<sup>th</sup> January - 29
               <sup>th</sup> January, 2023.
-            </tr>
+            </p>
           </div>
         ))}
     </div>

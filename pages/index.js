@@ -8,10 +8,6 @@ export default function Home() {
   return (
     <div className="text-xl">
       <Head>
-        <style>
-          @import
-          url('https://fonts.googleapis.com/css2?family=Rancho&display=swap');
-        </style>
         <title>MMNCT</title>
         <meta name="description" content="MMNCT, SVNIT, Surat" />
         <link rel="icon" href="/favicon.ico" />
