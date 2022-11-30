@@ -2,9 +2,9 @@ import "../styles/globals.css";
 import "../styles/Banner.css";
 import "../styles/GlowingButton.css";
 import "../styles/Home.css";
-import { Montserrat } from "@next/font/google";
+import { Raleway } from "@next/font/google";
 
-const inter = Montserrat({ subsets: ["latin"] });
+const inter = Raleway({ subsets: ["latin"] });
 
 function MyApp({ Component, pageProps }) {
   return (
