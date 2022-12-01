@@ -4,7 +4,7 @@ const Banner = () => {
   const teamStyle =
     "text-white flex text-gray-400 justify-evenly items-center text-sm w-1/2 my-5";
   return (
-    <div className=" w-full text-center font-normal md:flex py-5">
+    <div className=" w-full text-center font-normal md:flex">
       <p className="py-3 bg-green-600 font-semibold text-lg w-3/5 mx-auto my-5 rounded-full px-10 button">
         Ongoing Match
       </p>

@@ -14,13 +14,13 @@ const options = [
 function Navbar() {
   const [showMenu, setShowMenu] = useState(false);
   return (
-    <div className="p-2 relative flex justify-end bg-black text-white">
+    <div className="p-2 relative flex justify-end ">
       {/* <div className="flex items-center font-bold">
-        <Image src="/main.png" height={80} width={100} alt="logo" />
+        
         <p className="ml-2 text-3xl">MMNCT</p>
       </div> */}
-      <div className="hover:shadow-lg cursor-pointer flex justify-between w-full items-center px-5 mb-5 md:hidden">
-        <p className="text-green-600 mt-5 font-bold text-2xl">MMNCT</p>
+      <div className="hover:shadow-lg cursor-pointer flex justify-between w-full items-center px-5 md:hidden">
+        <Image src="/main.png" height={60} width={80} alt="logo" />
         {/* <Image
           src="/ham.png"
           height={30}
@@ -61,7 +61,7 @@ function Navbar() {
       {/* content to be shown when screen size is medium and above */}
       <div className="w-full md:flex font-semibold text-3xl justify-between hidden ">
         <div>
-          <p className="text-green-700">MMNCT</p>
+          <Image src="/main.png" height={60} width={80} alt="logo" />
         </div>
         <div className="">
           {options.map((option, index) => (

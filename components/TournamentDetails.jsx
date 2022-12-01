@@ -1,11 +1,23 @@
+import { CiCircleChevRight } from "react-icons/ci";
 import React from "react";
+import Link from "next/link";
 
 const TournamentDetails = () => {
   return (
     <div className="mt-10 p-4 mb-5 bg-gradient-to-br from-red-600 to-yellow-300 via-red-400">
-      <div className=" bg-black text-white p-4 rounded-lg shadow-xl">
-        <p>Having some queries related to tournament?</p>
-        <p>Well, worry not! here are some of the frequently asked!</p>
+      <div className=" bg-black flex flex-col text-white p-4 rounded-lg shadow-xl w-full">
+        <p>
+          Never heard of MMNCT before? or having some queries related to
+          tournament?
+        </p>
+        <p>Well, worry not, we have got you covered!</p>
+        <Link
+          href="/faq"
+          className="bg-white flex items-center font-bold text-2xl text-black px-5 py-2 w-30 rounded-lg"
+          style={{ margin: "5px auto" }}
+        >
+          FAQs <CiCircleChevRight className="ml-4"/>
+        </Link>
       </div>
     </div>
   );

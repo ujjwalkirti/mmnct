@@ -13,16 +13,15 @@ function HomePage() {
         {/* <div className="blur">
           <Image src="/8.JPG" height={400} width={400} />
         </div> */}
-        <div className=" text-center w-full">
-          <p className=" text-4xl my-5  text-center md:text-left ">
-            Manoj Memorial
-          </p>
-          <p className="text-2xl text-center md:text-left">
+        <div className="text-center w-full">
+          {/* <p className=" my-5  text-center md:text-left ">Manoj Memorial</p> */}
+          <h2 style={{ marginBottom: "60px", marginTop:"30px" }}> Manoj</h2>
+          <h2 style={{ marginBottom: "40px" }}> Memorial</h2>
+          <p className="text-3xl text-center md:text-left">
             Night Cricket Tournament
           </p>
         </div>
       </div>
-
 
       {/* graphic and venue */}
       <Image src="/vector-1.jpg" width={300} height={300} />
@@ -33,8 +32,6 @@ function HomePage() {
           <p>SAC Ground</p>
         </div>
       </div>
-
-      
     </div>
   );
 }

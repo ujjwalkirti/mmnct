@@ -25,7 +25,7 @@ span {
 } */
 
 
-.tournament-name{
+.tournament-name-animated{
   font-size:70px;
   /* margin-top:45vh; */
   color:white;
@@ -39,4 +39,32 @@ span {
 @keyframes glow{
   from{text-shadow:0px 0px 5px #fff,0px 0px 5px #614ad3;}
   to{text-shadow:0px 0px 20px #fff,0px 0px 20px #614ad3;}
+}
+
+
+
+h2{
+  font-size:80px;
+  
+ 
+  text-shadow: 2px 0 4px red;
+  animation: text-animation 5s linear infinite;
+}
+    
+@keyframes text-animation {
+      0%{
+        text-shadow:3px 0 6px red;
+      }
+      25%{
+        text-shadow:3px 0 13px green;
+      }
+     50%{
+        text-shadow:3px 0 18px yellow;
+      }
+      75%{
+        text-shadow:3px 0 13px orange;
+      }
+      100%{
+        text-shadow:3px 0 6px purple;
+      }
 }
