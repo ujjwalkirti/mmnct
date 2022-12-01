@@ -48,6 +48,7 @@ function Memories() {
                     <LazyLoadImage
                       className="shadow-lg rounded-md"
                       placeholderSrc="/loading.jpg"
+                      effect="blur"
                       src={url}
                     />
                   </div>
