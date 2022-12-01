@@ -10,10 +10,10 @@ const TournamentDetails = () => {
           Never heard of MMNCT before? or having some queries related to
           tournament?
         </p>
-        <p>Well, worry not, we have got you covered!</p>
+        <p className="mb-6">Well, worry not, we have got you covered!</p>
         <Link
           href="/faq"
-          className="bg-white flex items-center font-bold text-2xl text-black px-5 py-2 w-30 rounded-lg"
+          className="bg-white flex btn btn-hover items-center font-bold text-2xl text-black px-5 py-2 w-30 rounded-lg"
           style={{ margin: "5px auto" }}
         >
           FAQs <CiCircleChevRight className="ml-4"/>

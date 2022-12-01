@@ -1,0 +1,78 @@
+$anim-duration: 5; // in seconds
+$anim-speed: 0.65; // in seconds
+
+:root {
+  --btn-border: 1px solid rgba(255, 255, 255, 0.2);
+  --btn-bg: transparent; // #333
+  --btn-shadow: 1px 1px 25px 10px rgba(255, 255, 255, 0.5);
+  --btn-text-color: white;
+
+  --shine-degree: 120deg;
+  --shine-color: rgba(255, 255, 255, 0.2);
+  --shine-effect: linear-gradient(
+    var(--shine-degree),
+    transparent,
+    var(--shine-color),
+    transparent
+  );
+  --shine-transition: all #{$anim-speed}s ease-in-out;
+}
+
+.btn {
+  position: relative;
+  overflow: hidden; // debug
+  
+  // last element should not have margin
+  &:not(:last-child) {
+    margin-bottom: 3rem;
+  }
+  font-size: 2rem;
+  padding: 1rem 3rem;
+  border-radius: 4px;
+  text-decoration: none;
+  border: var(--btn-border);
+  color: var(--btn-text-color);
+  background: var(--btn-bg);
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--shine-effect);
+  }
+}
+
+.btn-hover {
+  &::before {
+    left: -100%;
+    transition: var(--shine-transition);
+  }
+
+  &:hover {
+    box-shadow: var(--btn-shadow);
+
+    &::before {
+      left: 100%;
+    }
+  }
+}
+
+.btn-anim {
+  &::before {
+    animation: shine #{$anim-duration}s ease-in-out infinite;
+  }
+}
+
+@keyframes shine {
+  0% {
+    left: -100%;
+    transition-property: left;
+  }
+  #{($anim-speed / ($anim-duration + $anim-speed) * 100%)},
+  100% {
+    left: 100%;
+    transition-property: left;
+  }
+}
