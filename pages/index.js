@@ -5,6 +5,7 @@ import HomePage from "../components/Home";
 import Navbar from "../components/Navbar";
 import SponsorCarousel from "../components/SponsorCarousel";
 import TournamentDetails from "../components/TournamentDetails";
+import UpcomingMatches from "../components/UpcomingMatches";
 
 export default function Home() {
   return (
@@ -19,6 +20,7 @@ export default function Home() {
       <HomePage />
       <Followup />
       <SponsorCarousel />
+      <UpcomingMatches />
       <TournamentDetails />
       <Footer />
     </div>

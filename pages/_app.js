@@ -3,6 +3,7 @@ import "../styles/Banner.css";
 import "../styles/GlowingButton.css";
 import "../styles/Home.css";
 import "../styles/Shine-on-hover.scss"
+
 import { Raleway } from "@next/font/google";
 
 const inter = Raleway({ subsets: ["latin"] });

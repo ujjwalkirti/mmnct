@@ -4,7 +4,7 @@ import Link from "next/link";
 
 const TournamentDetails = () => {
   return (
-    <div className="mt-10 p-4 mb-5 bg-gradient-to-br from-red-600 to-yellow-300 via-red-400">
+    <div className=" p-4 mb-5 bg-gradient-to-br from-red-600 to-yellow-300 via-red-400">
       <div className=" bg-black flex flex-col text-white p-4 rounded-lg shadow-xl w-full">
         <p>
           Never heard of MMNCT before? or having some queries related to
