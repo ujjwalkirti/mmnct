@@ -1,17 +1,43 @@
-import Image from "next/image";
 import React from "react";
-import TournamentDetails from "./TournamentDetails";
-import { SlCalender } from "react-icons/sl";
-import { MdOutlineFormatListBulleted, MdPoll } from "react-icons/md";
-import { AiFillPicture } from "react-icons/ai";
-import { BsArrowDownCircle, BsFillArrowRightCircleFill } from "react-icons/bs";
+import { BsArrowDownCircle } from "react-icons/bs";
+import OptionsRouter from "./OptionsRouter";
 
 const options = [
-  { name: "Fixtures", url: "/fixtures" },
-  { name: "Points Table", url: "/points-table" },
-  { name: "Polls", url: "/polls" },
-  { name: "Memories", url: "/memories" },
-  { name: "Organising Team", url: "/organisers" },
+  {
+    name: "FIXTURES",
+    url: "/fixtures",
+    from: "from-purple-400",
+    via: "via-purple-600 ",
+    to: "to-purple-900",
+  },
+  {
+    name: "POINTS TABLE",
+    url: "/points-table",
+    from: "from-green-400",
+    via: "via-green-600",
+    to: "to-green-900",
+  },
+  {
+    name: "POLLS",
+    url: "/polls",
+    from: "from-red-700",
+    via: "via-red-400",
+    to: "to-orange-500",
+  },
+  {
+    name: "MEMORIES",
+    url: "/memories",
+    from: "from-yellow-400",
+    via: "via-yellow-600",
+    to: "to-orange-700",
+  },
+  {
+    name: "ORGANISING TEAM",
+    url: "/organisers",
+    from: "from-blue-700",
+    via: "via-blue-500",
+    to: "to-purple-500",
+  },
 ];
 
 const description =
@@ -30,37 +56,20 @@ const Followup = () => {
       {/* </div> */}
       {/* Options to go to */}
       <div>
-        <div className="flex items-center rounded-lg justify-between px-5 py-6 bg-gradient-to-r from-red-700 via-red-400 mx-4 to-orange-500 text-white mb-4">
-          <div className="flex items-center">
-            <MdPoll className="text-3xl" />
-            <p className="ml-4 text-lg font-semibold">POLLS</p>
-          </div>
-          <BsFillArrowRightCircleFill className="text-2xl" />
-        </div>
-        <div className="flex items-center rounded-lg justify-between px-5 py-6 bg-gradient-to-r from-purple-400 via-purple-600 mx-4 to-purple-900 text-white mb-4">
-          <div className="flex items-center">
-            <SlCalender className="text-3xl" />
-            <p className="ml-4 text-lg font-semibold">FIXTURES</p>
-          </div>
-          <BsFillArrowRightCircleFill className="text-2xl" />
-        </div>
-        <div className="flex items-center rounded-lg justify-between px-5 py-6 bg-gradient-to-r from-green-400 via-green-600 mx-4 to-green-900 text-white mb-4">
-          <div className="flex items-center">
-            <MdOutlineFormatListBulleted className="text-3xl" />
-            <p className="ml-4 text-lg font-semibold">POINTS TABLE</p>
-          </div>
-          <BsFillArrowRightCircleFill className="text-2xl" />
-        </div>
-        <div className="flex items-center rounded-lg justify-between px-5 py-6 bg-gradient-to-r from-yellow-400 via-yellow-600 mx-4 to-orange-700 text-white">
-          <div className="flex items-center">
-            <AiFillPicture className="text-3xl" />
-            <p className="ml-4 text-lg font-semibold">MEMORIES</p>
-          </div>
-          <BsFillArrowRightCircleFill className="text-2xl" />
-        </div>
+        {options.map((option) => {
+          return (
+            <OptionsRouter
+              from={option.from}
+              via={option.via}
+              to={option.to}
+              title={option.name}
+              route={option.url}
+            />
+          );
+        })}
       </div>
       {/* Details */}
-      <TournamentDetails />
+      
     </div>
   );
 };

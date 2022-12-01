@@ -3,6 +3,8 @@ import Followup from "../components/Followup";
 import Footer from "../components/Footer";
 import HomePage from "../components/Home";
 import Navbar from "../components/Navbar";
+import SponsorCarousel from "../components/SponsorCarousel";
+import TournamentDetails from "../components/TournamentDetails";
 
 export default function Home() {
   return (
@@ -16,7 +18,8 @@ export default function Home() {
 
       <HomePage />
       <Followup />
-
+      <SponsorCarousel />
+      <TournamentDetails />
       <Footer />
     </div>
   );

@@ -9,3 +9,9 @@
    width: 94%;
    
 }
+
+
+/* this css file also contains style for SponsorCarousel component */
+.sponsor-title{
+    background-color: #002380;
+}
