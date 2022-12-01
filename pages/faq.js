@@ -1,8 +1,12 @@
+import Head from "next/head";
 import React from "react";
+import Navbar from "../components/Navbar";
 
 function FAQ() {
   return (
     <div>
+      <Head><title>FAQs-MMNCT</title></Head>
+      <Navbar/>
       {Array(10)
         .fill(1)
         .map((el, i) => (

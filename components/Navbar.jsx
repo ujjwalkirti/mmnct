@@ -2,6 +2,7 @@ import Image from "next/image";
 import React, { useState } from "react";
 import { VscCloseAll } from "react-icons/vsc";
 import { GiHamburgerMenu } from "react-icons/gi";
+import Link from "next/link";
 
 const options = [
   { name: "Fixtures", url: "/fixtures" },
@@ -14,13 +15,15 @@ const options = [
 function Navbar() {
   const [showMenu, setShowMenu] = useState(false);
   return (
-    <div className="p-2 relative flex justify-end ">
+    <div className="pt-2 relative flex justify-end shadow-md">
       {/* <div className="flex items-center font-bold">
         
         <p className="ml-2 text-3xl">MMNCT</p>
       </div> */}
-      <div className="hover:shadow-lg cursor-pointer flex justify-between w-full items-center px-5 md:hidden">
-        <Image src="/main.png" height={60} width={80} alt="logo" />
+      <div className="hover:shadow-lg cursor-pointer flex justify-between w-full px-5 md:hidden">
+        <Link href="/">
+          <Image src="/main.png" height={60} width={80} alt="logo" />
+        </Link>
         {/* <Image
           src="/ham.png"
           height={30}
@@ -32,7 +35,7 @@ function Navbar() {
           }}
         /> */}
         <GiHamburgerMenu
-          className="mt-5 hover:text-green-600 text-2xl"
+          className="mt-6 hover:text-green-600  text-4xl border border-gray-500 rounded-md"
           onClick={() => {
             setShowMenu(true);
           }}

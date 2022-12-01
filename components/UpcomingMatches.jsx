@@ -22,7 +22,7 @@ const UpcomingMatches = () => {
     <div className="bg-gray-100 py-6 text-center">
       <p className=" font-semibold text-3xl text-gray-700">Upcoming Matches</p>
 
-      <div className="flex">
+      <div className="flex justify-center">
         <p
           onClick={() => {
             setShowMenMatches(true);
@@ -50,8 +50,12 @@ const UpcomingMatches = () => {
       <MatchCard />
       <MatchCard />
       <MatchCard />
-      <MatchCard />
-      <MatchCard />
+      {showMenMatches && (
+        <>
+          <MatchCard />
+          <MatchCard />
+        </>
+      )}
     </div>
   );
 };
