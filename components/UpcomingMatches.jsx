@@ -69,7 +69,7 @@ export const MatchCard = () => {
   const teamName = "font-extrabold text-lg";
 
   return (
-    <div className="flex bg-white md:justify-evenly md:w-4/5 md:mx-auto my-4 text-sm items-center shadow-lg py-4 mx-4 rounded-lg">
+    <div className="flex bg-white md:justify-evenly md:w-4/5 md:mx-auto my-4 text-sm items-center justify-center shadow-lg py-4 mx-4 rounded-lg">
       {/* team 1 */}
       <div className={teamStyle}>
         <p className={teamName}>Team 1</p>
