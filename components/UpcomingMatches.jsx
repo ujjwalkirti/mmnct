@@ -27,7 +27,7 @@ const UpcomingMatches = () => {
           onClick={() => {
             setShowMenMatches(true);
           }}
-          className={`flex font-bold mt-4 ${buttonColorCalculator(
+          className={`flex cursor-pointer font-bold mt-4 ${buttonColorCalculator(
             "male"
           )} justify-center items-center  w-2/5 mx-auto py-4 rounded-full`}
         >
@@ -38,7 +38,7 @@ const UpcomingMatches = () => {
           onClick={() => {
             setShowMenMatches(false);
           }}
-          className={`flex font-bold mt-4 ${buttonColorCalculator(
+          className={`flex cursor-pointer font-bold mt-4 ${buttonColorCalculator(
             "female"
           )} shadow-md justify-center items-center w-2/5 mx-auto py-4 rounded-full`}
         >
