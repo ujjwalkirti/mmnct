@@ -23,7 +23,7 @@ function Navbar() {
       </div> */}
       <div className="hover:shadow-lg cursor-pointer flex justify-between w-full px-5 md:hidden">
         <Link href="/">
-          <Image src="/main.png" height={60} width={80} alt="logo" />
+          <Image src="/main.png" height={40} width={60} alt="logo" />
         </Link>
         {/* <Image
           src="/ham.png"
@@ -36,7 +36,7 @@ function Navbar() {
           }}
         /> */}
         <GiHamburgerMenu
-          className="mt-6 hover:text-green-600  text-4xl border border-gray-500 rounded-md"
+          className="mt-4 hover:text-green-600  text-4xl border border-gray-500 rounded-md"
           onClick={() => {
             setShowMenu(true);
           }}
@@ -63,9 +63,9 @@ function Navbar() {
       )}
 
       {/* content to be shown when screen size is medium and above */}
-      <div className="w-full md:flex font-semibold px-10 text-3xl justify-between hidden ">
+      <div className="w-full md:flex font-bold px-10 text-xl justify-between hidden ">
         <Link href="/">
-          <Image src="/main.png" height={60} width={80} alt="logo" />
+          <Image src="/main.png" height={40} width={60} alt="logo" />
         </Link>
         <div className="flex items-center">
           {options.map((option, index) => (
@@ -85,7 +85,9 @@ function Navbar() {
 
 function emphasiseRoute(url) {
   const router = useRouter();
-  return router.asPath === url ? "" : " hover:underline text-gray-300 text-xl";
+  return router.asPath === url
+    ? ""
+    : "text-gray-300 text-xl font-normal hover:font-semibold hover:text-black";
 }
 
 export default Navbar;

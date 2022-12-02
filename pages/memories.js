@@ -6,6 +6,7 @@ import { app } from "../components/db/Firebase";
 import { getStorage, getDownloadURL, listAll, ref } from "firebase/storage";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import "react-lazy-load-image-component/src/effects/blur.css";
+import Footer from "../components/Footer";
 
 function Memories() {
   const storage = getStorage(app);
@@ -28,11 +29,11 @@ function Memories() {
         <title>Memories from the past versions!</title>
       </Head>
       <Navbar />
-      <div>
-        <div className="flex mb-2 text-white text-center h-72 bg-gradient-to-t from-gray-600 via-gray-900 to-black ">
-          <div className="m-auto">
+      <div className="min-h-screen">
+        <div className="flex items-center justify-center mb-4 text-gray-800 text-center h-72 bg-gradient-to-r from-red-200 via-red-300 to-yellow-200">
+          <div className="p-5 bg-white bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-20 border-transparent shadow-xl rounded-lg">
             <p className="text-4xl font-bold">Memories</p>
-            <p className="mt-8 font-light md:text-2xl">
+            <p className="mt-4 font-light md:text-2xl">
               Have a look how spectacle the past versions were!
             </p>
           </div>
@@ -58,6 +59,7 @@ function Memories() {
           </Masonry>
         </ResponsiveMasonry>
       </div>
+      <Footer />
     </>
   );
 }
