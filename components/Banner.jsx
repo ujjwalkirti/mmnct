@@ -1,13 +1,15 @@
+import Image from "next/image";
 import React from "react";
 
 const Banner = () => {
   const teamStyle =
     "text-white flex text-gray-400 justify-evenly items-center text-sm w-1/2 my-5";
   return (
-    <div className=" w-full text-center font-normal md:flex">
-      <p className="py-3 bg-green-600 font-semibold text-lg w-3/5 mx-auto my-5 rounded-full px-10 button">
+    <div className=" w-full text-center font-normal">
+      <p className="py-3 bg-green-600 font-semibold text-lg w-3/5 md:w-1/5 mx-auto my-5 rounded-full px-10 button">
         Ongoing Match
       </p>
+
       <div className="match-card mx-auto rounded-xl shadow-lg shadow-blue-400">
         {/* team 1 details */}
         <div className={teamStyle}>
@@ -21,6 +23,10 @@ const Banner = () => {
             <p>36</p>
           </div>
         </div>
+
+        {/* vs graphic only visible when md is crossed */}
+        {/* <Image width={40} height={40} src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTH7KgIAZWupG0SEb3pzMcaPIseVTr-Coj_2EFVcAU&s" /> */}
+
         {/* team 2 details */}
         <div className={teamStyle}>
           <div className="text-end">

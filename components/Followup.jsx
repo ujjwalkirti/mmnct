@@ -68,7 +68,7 @@ const Followup = () => {
       {/* <p className="text-left">{description}</p> */}
       {/* </div> */}
       {/* Options to go to */}
-      <div>
+      <div className="md:grid md:grid-cols-3 xl:grid-cols-4 md:mx-auto md:w-10/12">
         {options.map((option) => {
           return (
             <OptionsRouter

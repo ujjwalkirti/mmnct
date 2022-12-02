@@ -19,7 +19,7 @@ const UpcomingMatches = () => {
   };
 
   return (
-    <div className="bg-gray-100 py-6 text-center">
+    <div className="bg-gray-100 py-6 text-center md:w-3/5 md:mx-auto">
       <p className=" font-semibold text-3xl text-gray-700">Upcoming Matches</p>
 
       <div className="flex justify-center">
@@ -56,6 +56,8 @@ const UpcomingMatches = () => {
           <MatchCard />
         </>
       )}
+
+   
     </div>
   );
 };
@@ -67,7 +69,7 @@ export const MatchCard = () => {
   const teamName = "font-extrabold text-lg";
 
   return (
-    <div className="flex bg-white justify-center my-4 text-sm items-center shadow-lg py-4 mx-4 rounded-lg">
+    <div className="flex bg-white md:justify-evenly md:w-4/5 md:mx-auto my-4 text-sm items-center shadow-lg py-4 mx-4 rounded-lg">
       {/* team 1 */}
       <div className={teamStyle}>
         <p className={teamName}>Team 1</p>
@@ -76,6 +78,9 @@ export const MatchCard = () => {
           src="https://mir-s3-cdn-cf.behance.net/projects/404/168243107813919.Y3JvcCwzMDAwLDIzNDYsMCw0MjM.jpg"
         />
       </div>
+
+
+
       {/* timing and date */}
       <div>
         <p className="text-orange-500 font-bold">6:30 pm</p>
@@ -83,6 +88,9 @@ export const MatchCard = () => {
           27<sup>th</sup> JAN
         </p>
       </div>
+
+
+
       {/* Team 2 */}
       <div className={teamStyle}>
         <img

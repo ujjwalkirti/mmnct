@@ -4,9 +4,9 @@ import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a lo
 
 const SponsorCarousel = () => {
   return (
-    <div className="my-10 ">
+    <div className="my-10  md:w-3/5 md:mx-auto">
       <div>
-        <p className="sponsor-title font-extrabold text-4xl px-2 py-6 text-white">
+        <p className="sponsor-title lg:text-5xl font-extrabold text-4xl px-2 py-6 text-white">
           Our proud Sponsors{" "}
         </p>
       </div>

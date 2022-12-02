@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { VscCloseAll } from "react-icons/vsc";
 import { GiHamburgerMenu } from "react-icons/gi";
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 const options = [
   { name: "Fixtures", url: "/fixtures" },
@@ -50,32 +51,41 @@ function Navbar() {
             }}
           />
           {options.map((option, index) => (
-            <a
+            <Link
               className="my-4 font-semibold hover:bg-slate-600 hover:text-white px-4 py-2 text-3xl"
               href={option.url}
               key={index}
             >
               {option.name}
-            </a>
+            </Link>
           ))}
         </div>
       )}
 
       {/* content to be shown when screen size is medium and above */}
-      <div className="w-full md:flex font-semibold text-3xl justify-between hidden ">
-        <div>
+      <div className="w-full md:flex font-semibold px-10 text-3xl justify-between hidden ">
+        <Link href="/">
           <Image src="/main.png" height={60} width={80} alt="logo" />
-        </div>
-        <div className="">
+        </Link>
+        <div className="flex items-center">
           {options.map((option, index) => (
-            <a className="my-4  px-4 py-2" href={option.url} key={index}>
+            <Link
+              className={`my-4  px-4 py-2  ${emphasiseRoute(option.url)}`}
+              href={option.url}
+              key={index}
+            >
               {option.name}
-            </a>
+            </Link>
           ))}
         </div>
       </div>
     </div>
   );
+}
+
+function emphasiseRoute(url) {
+  const router = useRouter();
+  return router.asPath === url ? "" : " hover:underline text-gray-300 text-xl";
 }
 
 export default Navbar;
