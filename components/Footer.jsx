@@ -12,22 +12,13 @@ const Footer = () => {
 
       <div className="grid grid-cols-3 gap-x-16">
         <a href="https://www.instagram.com/mmnct_svnit/">
-          <img
-            src="https://assets.stickpng.com/thumbs/580b57fcd9996e24bc43c521.png"
-            className="h-11"
-          />
+          <img src="/ig.png" className="h-11" alt="IG" />
         </a>
         <a href="https://www.facebook.com/mmnctsvnit/">
-          <img
-            src="https://www.edigitalagency.com.au/wp-content/uploads/Facebook-logo-blue-circle-large-transparent-png.png"
-            className="h-11"
-          />
+          <img src="/fb.png" className="h-11" alt="FB" />
         </a>
         <a href="#">
-          <img
-            src="http://assets.stickpng.com/thumbs/5a2fe3efcc45e43754640848.png"
-            className="h-11"
-          />
+          <img src="/twitter.png" className="h-11" alt="Twitter" />
         </a>
       </div>
       <div>
