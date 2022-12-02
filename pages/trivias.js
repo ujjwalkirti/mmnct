@@ -1,4 +1,5 @@
 import React from "react";
+import Navbar from "../components/Navbar";
 
 const data = [
   {
@@ -13,7 +14,13 @@ const data = [
   },
 ];
 function Trivias() {
-  return <div>Trivias</div>;
+  return (
+    <div>
+      <Navbar />
+      Trivias
+      
+    </div>
+  );
 }
 
 export default Trivias;

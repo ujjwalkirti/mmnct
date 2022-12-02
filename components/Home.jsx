@@ -37,7 +37,7 @@ function HomePage() {
         </div>
 
         {/* more information about the tournament */}
-        <div className="mb-4 mmnct-about md:w-1/2 md:text-2xl md:rounded-lg">
+        <div className="mb-4 mmnct-about md:w-1/2 md:text-xl xl:text-2xl md:rounded-lg">
           <p className="font-normal w-full px-2 bg-white rounded-lg shadow-lg md:shadown-xl  ">
             <span className="font-bold text-5xl">"</span>
             <span className="text-4xl font-bold">M</span>anoj Memorial Night

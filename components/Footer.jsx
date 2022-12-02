@@ -23,7 +23,7 @@ const Footer = () => {
       </div>
       <div>
         <p className="font-light tracking-wide text-sm text-white">
-          © All the Rights are Reserved to MMNCT
+          © All the Rights are Reserved with MMNCT
         </p>
       </div>
     </div>
