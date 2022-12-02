@@ -4,11 +4,20 @@ import OptionsRouter from "./OptionsRouter";
 
 const options = [
   {
+    name: "TRIVIAS",
+    url: "/trivias",
+    from: "",
+    via: "",
+    to: "",
+    special: true,
+  },
+  {
     name: "FIXTURES",
     url: "/fixtures",
     from: "from-purple-400",
     via: "via-purple-600 ",
     to: "to-purple-900",
+    special: false,
   },
   {
     name: "POINTS TABLE",
@@ -16,6 +25,7 @@ const options = [
     from: "from-green-400",
     via: "via-green-600",
     to: "to-green-900",
+    special: false,
   },
   {
     name: "POLLS",
@@ -23,6 +33,7 @@ const options = [
     from: "from-red-700",
     via: "via-red-400",
     to: "to-orange-500",
+    special: false,
   },
   {
     name: "MEMORIES",
@@ -30,6 +41,7 @@ const options = [
     from: "from-yellow-400",
     via: "via-yellow-600",
     to: "to-orange-700",
+    special: false,
   },
   {
     name: "ORGANISING TEAM",
@@ -37,6 +49,7 @@ const options = [
     from: "from-blue-700",
     via: "via-blue-500",
     to: "to-purple-500",
+    special: false,
   },
 ];
 
@@ -64,12 +77,12 @@ const Followup = () => {
               to={option.to}
               title={option.name}
               route={option.url}
+              special={option.special}
             />
           );
         })}
       </div>
       {/* Details */}
-      
     </div>
   );
 };

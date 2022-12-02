@@ -5,14 +5,17 @@ import { MdOutlineFormatListBulleted, MdPoll } from "react-icons/md";
 import { AiFillPicture } from "react-icons/ai";
 import { BsFillArrowRightCircleFill } from "react-icons/bs";
 import { RiTeamFill } from "react-icons/ri";
+import { TbZoomQuestion } from "react-icons/tb";
 
-const OptionsRouter = ({ from, via, to, title, route }) => {
+const OptionsRouter = ({ from, via, to, title, route, special }) => {
   return (
     <Link
       href={route}
-      className={`flex items-center rounded-lg justify-between px-5 py-6 bg-gradient-to-r ${from} ${via} mx-4 ${to} text-white mb-4`}
+      className={`flex items-center rounded-lg justify-between px-5 py-6 bg-gradient-to-r ${from} ${via} mx-4 ${to} text-white mb-4 ${specialDecorations(
+        special
+      )}`}
     >
-      <div className="flex items-center">
+      <div className={`flex items-center w-full`}>
         {iconDecider(title)}
         <p className="ml-4 text-lg font-semibold">{title}</p>
       </div>
@@ -21,6 +24,13 @@ const OptionsRouter = ({ from, via, to, title, route }) => {
   );
 };
 
+//function to provide special decorations
+function specialDecorations(isSpecial) {
+  const decorations = "trivia";
+  return isSpecial ? decorations : "";
+}
+
+// function to decide what kind of icons will be used
 function iconDecider(title) {
   title = title.toLowerCase();
   switch (title) {
@@ -36,6 +46,8 @@ function iconDecider(title) {
       return <AiFillPicture className="text-3xl" />;
     case "organising team":
       return <RiTeamFill className="text-3xl" />;
+    case "trivias":
+      return <TbZoomQuestion className="text-3xl" />;
     default:
     // code block
   }
