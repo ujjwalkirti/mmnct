@@ -6,7 +6,7 @@ const Footer = () => {
     <div className="mt-4 pt-4 pb-1 h-44 bg-gray-800 grid grid-rows-3 justify-items-center items-center gap-y-1">
       <div>
         <p className="font-semibold tracking-wide text-xl text-white">
-          Follow MMNCT Page on Social Media
+          Follow MMNCT on Social Media
         </p>
       </div>
 
@@ -32,7 +32,7 @@ const Footer = () => {
       </div>
       <div>
         <p className="font-light tracking-wide text-sm text-white">
-          © All the Rights are Reserved to MMNCT, SVNIT-Surat
+          © All the Rights are Reserved to MMNCT
         </p>
       </div>
     </div>
