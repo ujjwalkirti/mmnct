@@ -16,7 +16,7 @@ const options = [
 function Navbar() {
   const [showMenu, setShowMenu] = useState(false);
   return (
-    <div className="pt-2 relative flex justify-end shadow-md">
+    <div className="pt-2 relative flex bg-white justify-end shadow-md">
       {/* <div className="flex items-center font-bold">
         
         <p className="ml-2 text-3xl">MMNCT</p>
