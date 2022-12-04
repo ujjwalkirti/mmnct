@@ -5,7 +5,7 @@ import Link from "next/link";
 const TournamentDetails = () => {
   return (
     <div className=" p-4 mb-5 md:my-10 md:w-2/5 md:mx-auto  bg-gradient-to-br from-red-600 to-yellow-300 via-red-400">
-      <div className=" bg-black flex flex-col text-white p-4 rounded-lg shadow-xl w-full">
+      <div className=" bg-black text-center flex flex-col text-white p-4 rounded-lg shadow-xl w-full">
         <p>Want to know more about MMNCT?</p>
         <p className="mb-6"> Find answers to your queries below!</p>
         <Link

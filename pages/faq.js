@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../components/db/Firebase";
-import Footer from "../components/Footer";
 
 function FAQ() {
   const [questions, setQuestions] = useState([]);
@@ -20,7 +19,6 @@ function FAQ() {
         Here's the answer to all your queries!
       </p>
       <div>
-        {" "}
         {Array(3)
           .fill(1)
           .map((el, i) => (
