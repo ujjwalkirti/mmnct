@@ -23,7 +23,13 @@ function Navbar() {
       </div> */}
       <div className="hover:shadow-lg cursor-pointer flex justify-between w-full px-5 md:hidden">
         <Link href="/">
-          <Image src="/main.png" height={40} width={60} alt="logo" />
+          <Image
+            src="/main.png"
+            height={50}
+            width={51}
+            alt="logo"
+            className="pb-2"
+          />
         </Link>
         {/* <Image
           src="/ham.png"
@@ -36,7 +42,7 @@ function Navbar() {
           }}
         /> */}
         <GiHamburgerMenu
-          className="mt-4 hover:text-green-600  text-4xl border border-gray-500 rounded-md"
+          className="mt-2 hover:text-green-600  text-4xl border border-gray-500 rounded-md"
           onClick={() => {
             setShowMenu(true);
           }}
@@ -65,12 +71,12 @@ function Navbar() {
       {/* content to be shown when screen size is medium and above */}
       <div className="w-full md:flex font-bold px-10 text-xl justify-between hidden ">
         <Link href="/">
-          <Image src="/main.png" height={40} width={60} alt="logo" />
+          <Image src="/main.png" height={54} width={55} alt="logo" />
         </Link>
         <div className="flex items-center">
           {options.map((option, index) => (
             <Link
-              className={`my-4  px-4 py-2  ${emphasiseRoute(option.url)}`}
+              className={`my-2  px-4 py-2  ${emphasiseRoute(option.url)}`}
               href={option.url}
               key={index}
             >
