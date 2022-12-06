@@ -4,8 +4,13 @@ import React, { useEffect, useState } from "react";
 import { AiOutlineCloseCircle } from "react-icons/ai";
 import Navbar from "../components/Navbar";
 import { FaWindowClose } from "react-icons/fa";
+import { useSession, signIn, signOut } from "next-auth/react";
 
 function Polls() {
+  const [matches, setMatches] = useState([]);
+  useEffect(() => {
+    // you have to fetch all the matches here and store it in matches array
+  }, []);
   return (
     <div>
       <Head>
@@ -20,6 +25,9 @@ function Polls() {
         (Tap on any one of the matches for whom you wish to vote, and then tap
         on your favorite team!)
       </p>
+      {matches.map((match) => (
+        <div></div>
+      ))}
       <div>
         <ShowMatch />
         <ShowMatch />
@@ -35,11 +43,14 @@ function Polls() {
 
 export default Polls;
 
+// this is the component to show individual matches and collect polls for them
 function ShowMatch() {
   const [showModal, setShowModal] = useState(false);
   const [alreadyVoted, setAlreadyVoted] = useState(false);
   const [showPercentage, setShowPercentage] = useState(false);
   const [showError, setShowError] = useState(false);
+
+  const { data: session } = useSession();
 
   const handleClose = () => {
     return setShowModal(false);
@@ -59,21 +70,21 @@ function ShowMatch() {
   };
 
   useEffect(() => {
-    //check whether the current ip address has voted before for this match or not
+    //check whether the current singed in user has voted before for this match or not
   }, []);
 
   const teamStyle =
     " flex flex-col justify-evenly items-center text-lg w-1/2 my-5";
 
   return (
-    <div
-      onClick={() => {
-        setShowModal(true);
-      }}
-      className="flex cursor-pointer bg-gradient-to-br from-yellow-400 via-orange-400 to-orange-600 mx-2 flex-col  my-4 rounded-xl shadow-lg "
-    >
+    <div className="flex cursor-pointer bg-gradient-to-br from-yellow-400 via-orange-400 to-orange-600 mx-2 flex-col  my-4 rounded-xl shadow-lg ">
       {!showModal && (
-        <div className="flex mx-2 bg-white my-4 rounded-xl shadow-lg ">
+        <div
+          onClick={() => {
+            setShowModal(true);
+          }}
+          className="flex mx-2 bg-white my-4 rounded-xl shadow-lg "
+        >
           {/* team 1 details */}
           <div className={teamStyle}>
             <img
@@ -104,12 +115,9 @@ function ShowMatch() {
       )}
 
       {/* modal for voting */}
-      {showModal && (
+      {showModal && session && (
         <div className="bg-opacity-70 rounded-xl w-full bg-gray-300 py-4 px-2">
           <div className="bg-white px-4 py-2 h-full w-full">
-
-
-
             {/* error box */}
             {showError && (
               <div className="flex items-center my-3 justify-between border border-red-600 rounded-md px-3 py-2 bg-red-200 text-red-700 font-semibold text-lg">
@@ -165,6 +173,21 @@ function ShowMatch() {
               Close
             </p>
           </div>
+        </div>
+      )}
+      {showModal && !session && (
+        <div className="bg-white mx-2 my-3 rounded-lg px-2">
+          <div
+            className="font-semibold hover:bg-black hover:text-white hover:shadow-lg hover:shadow-amber-400 cursor-pointer text-center text-3xl  w-2/5 mx-auto border px-3 rounded-full border-black py-1 my-1"
+            onClick={signIn}
+          >
+            Sign-in
+          </div>
+          <p className="mb-3"> as you need to register in order to vote!</p>
+          <p className="mb-4 px-2 border border-yellow-800 bg-yellow-100 text-yellow-600">
+            Don't worry we don't store your email, it is a gmail based
+            authentication to make sure that one person doesn't vote twice!
+          </p>
         </div>
       )}
     </div>
