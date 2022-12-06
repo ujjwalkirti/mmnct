@@ -10,7 +10,7 @@
   "dependencies": {
     "@next/font": "^13.0.5",
     "autoprefixer": "^10.4.1",
-    "firebase": "^9.12.1",
+    "firebase": "^9.13.0",
     "next": "13.0.5",
     "next-auth": "^4.18.0",
     "postcss": "^8.4.5",

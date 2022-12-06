@@ -1,9 +1,11 @@
 import Head from "next/head";
 import Image from "next/image";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
 import { AiFillInstagram } from "react-icons/ai";
 import Link from "next/link";
+import { doc, onSnapshot } from "firebase/firestore";
+import { db } from "../components/db/Firebase";
 
 const data = [
   {
@@ -18,6 +20,13 @@ const data = [
   },
 ];
 function Trivias() {
+  const [question, setQuestion] = useState("");
+
+  useEffect(() => {
+    const unsub = onSnapshot(doc(db, "trivia", "question"), (doc) => {
+      console.log("Current data: ", doc.data());
+    });
+  }, []);
   return (
     <div>
       <Head>
@@ -29,11 +38,11 @@ function Trivias() {
         <Image src="" alt="MMNCT trivia image" />
       </div>
 
-      <div></div>
+      <div>{process.env.NEXT_PUBLIC_SECRET}</div>
 
       <p>Alternatively you can also DM us the answers here:</p>
       <Link href="" className="flex justify-center">
-        <Image src="/ig.png" width={60} height={60}/>
+        <Image src="/ig.png" width={60} height={60} />
       </Link>
     </div>
   );
