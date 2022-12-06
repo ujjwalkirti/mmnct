@@ -10,7 +10,8 @@ const options = [
   { name: "Points Table", url: "/points-table" },
   { name: "Polls", url: "/polls" },
   { name: "Memories", url: "/memories" },
-  { name: "Organising Team", url: "/organisers" },
+  { name: "Trivias", url: "/trivias" },
+  // { name: "Organising Team", url: "/organisers" },
 ];
 
 function Navbar() {

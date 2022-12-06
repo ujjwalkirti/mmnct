@@ -38,8 +38,8 @@ function HomePage() {
 
         {/* more information about the tournament */}
         <div className="mb-4 mmnct-about md:w-1/2 md:text-xl xl:text-2xl md:rounded-lg">
-          <p className="font-normal w-full px-2 bg-white rounded-lg shadow-lg md:shadown-xl  ">
-            <span className="font-bold text-5xl">"</span>
+          <p className="font-normal w-full px-2 bg-white rounded-lg py-8 shadow-lg md:shadown-xl  ">
+            {/* <span className="font-bold text-5xl">"</span> */}
             <span className="text-4xl font-bold">M</span>anoj Memorial Night
             Cricket Tournament, popularly known as <strong>MMNCT</strong>, is a
             day-night cricket tournament organized by SVNIT, Surat. It began in
@@ -59,7 +59,7 @@ function HomePage() {
             The tournament features 15 men's and 5 women's teams competing
             against each other to claim the ultimate title in their category.
             {/* <br /> */}
-            <span className="font-bold text-5xl"> "</span>
+            {/* <span className="font-bold text-5xl"> "</span> */}
           </p>
         </div>
       </div>
