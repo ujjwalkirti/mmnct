@@ -2,14 +2,13 @@ import Head from "next/head";
 import React, { useState, useEffect } from "react";
 import Navbar from "../components/Navbar";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
-import { app } from "../components/db/Firebase";
-import { getStorage, getDownloadURL, listAll, ref } from "firebase/storage";
+import { storage } from "../components/db/Firebase";
+import { getDownloadURL, listAll, ref } from "firebase/storage";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import "react-lazy-load-image-component/src/effects/blur.css";
 import Footer from "../components/Footer";
 
 function Memories() {
-  const storage = getStorage(app);
   const [imageList, setImageList] = useState([]);
   const imageListRef = ref(storage, "memories/");
 
