@@ -1,5 +1,6 @@
 import Image from "next/image";
 import React from "react";
+import Link from "next/link";
 
 const Footer = () => {
   return (
@@ -11,15 +12,15 @@ const Footer = () => {
       </div>
 
       <div className="grid grid-cols-3 gap-x-16">
-        <a href="https://www.instagram.com/mmnct_svnit/">
-          <img src="/ig.png" className="h-11" alt="IG" />
-        </a>
-        <a href="https://www.facebook.com/mmnctsvnit/">
-          <img src="/fb.png" className="h-11" alt="FB" />
-        </a>
-        <a href="#">
-          <img src="/twitter.png" className="h-11" alt="Twitter" />
-        </a>
+        <Link href="https://www.instagram.com/mmnct_svnit/">
+          <Image src="/ig.png" height={44} width={44} alt="IG" />
+        </Link>
+        <Link href="https://www.facebook.com/mmnctsvnit/">
+          <Image src="/fb.png" height={44} width={44} alt="FB" />
+        </Link>
+        <Link href="#">
+          <Image src="/twitter.png" height={44} width={44} alt="Twitter" />
+        </Link>
       </div>
       <div>
         <p className="font-light tracking-wide text-sm text-white">
