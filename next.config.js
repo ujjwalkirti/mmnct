@@ -6,6 +6,6 @@ module.exports = {
     ignoreDuringBuilds: true,
   },
   images: {
-    domains: ["encrypted-tbn0.gstatic.com"],
+    domains: ["encrypted-tbn0.gstatic.com", "firebasestorage.googleapis.com"],
   },
 };
