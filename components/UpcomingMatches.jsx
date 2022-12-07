@@ -43,7 +43,7 @@ const UpcomingMatches = () => {
           )} shadow-md justify-center items-center w-2/5 mx-auto py-4 rounded-full`}
         >
           <AiOutlineWoman className="mr-4" />
-          Womens'
+          Womens
         </p>
       </div>
 

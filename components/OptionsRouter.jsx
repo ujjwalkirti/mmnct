@@ -11,13 +11,13 @@ const OptionsRouter = ({ from, via, to, title, route, special }) => {
   return (
     <Link
       href={route}
-      className={`flex items-center rounded-lg justify-between px-5 py-6 bg-gradient-to-r ${from} ${via} mx-4 ${to} text-white mb-4 ${specialDecorations(
+      className={`flex items-center rounded-lg md:text-sm justify-between px-5 py-6 bg-gradient-to-r ${from} ${via} ml-2 ${to} text-white mb-4 ${specialDecorations(
         special
       )}`}
     >
       <div className={`flex items-center w-full`}>
         {iconDecider(title)}
-        <p className="ml-4 text-lg font-semibold">{title}</p>
+        <p className="ml-4 text-lg md:text-sm font-semibold">{title}</p>
       </div>
       <BsFillArrowRightCircleFill className="text-2xl" />
     </Link>

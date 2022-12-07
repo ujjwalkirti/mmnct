@@ -14,12 +14,12 @@ function Polls() {
   return (
     <div>
       <Head>
-        <title>Polls</title>
+        <title>Polls - Make your favorite Team win!</title>
       </Head>
       <Navbar />
       <p className="font-bold text-3xl my-7 text-center">
         Who do you think
-        <br /> is going to win today??
+        <br className="md:hidden"/> is going to win today??
       </p>
       <p className="text-center">
         (Tap on any one of the matches for whom you wish to vote, and then tap
@@ -28,7 +28,7 @@ function Polls() {
       {matches.map((match) => (
         <div></div>
       ))}
-      <div>
+      <div className="md:grid md:grid-cols-3 lg:w-11/12 lg:mx-auto">
         <ShowMatch />
         <ShowMatch />
         <ShowMatch />
@@ -42,6 +42,26 @@ function Polls() {
 }
 
 export default Polls;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // this is the component to show individual matches and collect polls for them
 function ShowMatch() {
@@ -77,7 +97,7 @@ function ShowMatch() {
     " flex flex-col justify-evenly items-center text-lg w-1/2 my-5";
 
   return (
-    <div className="flex cursor-pointer bg-gradient-to-br from-yellow-400 via-orange-400 to-orange-600 mx-2 flex-col  my-4 rounded-xl shadow-lg ">
+    <div className="flex md:hover:shadow-xl cursor-pointer bg-gradient-to-br from-yellow-400 via-orange-400 to-orange-600 mx-2 flex-col  my-4 rounded-xl ">
       {!showModal && (
         <div
           onClick={() => {
@@ -98,7 +118,7 @@ function ShowMatch() {
           </div>
 
           {/* vs graphic only visible when md is crossed */}
-          <Image width={100} height={40} src="/vector-8.png" className="py-4" />
+          <Image width={100} alt="versus image" height={40} src="/vector-8.png" className="py-4" />
 
           {/* team 2 details */}
           <div className={teamStyle}>
