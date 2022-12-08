@@ -37,7 +37,6 @@ const AddTrivia = () => {
       (error) => {
         // Handle unsuccessful uploads
         alert("Please try again, the process failed!");
-        console.log(error.message);
       },
       () => {
         // Handle successful uploads on complete
@@ -58,9 +57,8 @@ const AddTrivia = () => {
           } else {
             // doc.data() will be undefined in this case
             //insert new question or answer
-            const docRef = await addDoc(collection(db, "trivia"), {
-              name: uploadType,
-              country: downloadURL,
+            const docRef = await addDoc(collection(db, "trivia", uploadType), {
+              src: downloadURL,
             });
           }
         });
