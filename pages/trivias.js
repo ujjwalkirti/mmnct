@@ -56,15 +56,15 @@ function Trivias() {
       </Head>
       <Navbar />
       <p className="text-center text-4xl font-bold md:my-5 mt-5">Trivias</p>
-      <div className="w-11/12 md:w-3/5 mx-auto py-2 px-2 md:flex md:justify-evenly">
+      <div className="w-11/12 xl:w-3/5 md:gap-4 mx-auto py-2 px-2 md:flex md:justify-evenly">
         <Image
           src={`${question.length !== 0 ? question : "/loader.gif"}`}
           width={330}
           height={400}
-          className="w-full md:w-2/5 md:mx-auto md:rounded-xl"
+          className="w-full lg:w-2/5 md:mx-auto md:rounded-xl"
           alt="MMNCT trivia image"
         />
-        <div className="border px-5 my-4 py-4 bg-white rounded-lg h-[550px] shadow-xl">
+        <div className="border px-5 my-4 py-4 bg-white rounded-lg lg:h-[550px]  shadow-xl">
           <p className="text-center font-semibold text-2xl">
             Wanna answer? here you go!
           </p>
