@@ -5,6 +5,8 @@ import { GrContactInfo } from "react-icons/gr";
 import { AiOutlineWhatsApp } from "react-icons/ai";
 import Link from "next/link";
 import Footer from "../components/Footer";
+import { FaRegHandPointDown } from "react-icons/fa";
+import { SiGmail } from "react-icons/si";
 
 const Sponsors = () => {
   const [brochureLink, setBrochureLink] = useState("");
@@ -32,18 +34,18 @@ const Sponsors = () => {
     },
   ];
   return (
-    <div>
+    <div className=" bg-gray-100 ">
       <Head>
         <title>Sponsorship-MMNCT</title>
       </Head>
       <Navbar />
       {/* Sponsors */}
       <div
-        className={` bg-gray-100 lg:items-center min-h-screen pt-5 lg:flex lg:justify-center lg:gap-[60px]`}
+        className={`lg:items-center md:min-h-scree pt-5 lg:flex lg:flex-col lg:justify-center lg:gap-[60px]`}
       >
         <div>
           <p className="font-bold text-5xl lg:text-[100px] text-center mb-4">
-            Coming Soon
+            
           </p>
         </div>
 
@@ -72,7 +74,19 @@ const Sponsors = () => {
           </div>
         </div>
       </div>
-      <Footer/>
+      <div className="text-center">
+        <p className="flex flex-col font-bold gap-2 items-center justify-center lg:text-3xl">
+          Alternatively you can also mail us your queries.
+          <FaRegHandPointDown className="text-3xl" />
+        </p>
+        <p className="flex justify-center items-center gap-4 bg-white py-3 w-3/5 lg:w-2/5  mx-auto shadow-xl rounded-lg mt-2 border border-red-600 cursor-pointer">
+          <Link href="mailto:mmnct.info@gmail.com">
+            <SiGmail  className="text-red-600"/>
+          </Link>
+          <Link href="mailto:mmnct.info@gmail.com">mmnct.info@gmail.com</Link>
+        </p>
+      </div>
+      <Footer />
     </div>
   );
 };

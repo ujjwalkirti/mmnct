@@ -12,13 +12,14 @@ function HomePage() {
         <div className="text-center w-full">
           <h2
             style={{ marginBottom: "60px", marginTop: "30px" }}
-            className="flex"
+            className="md:flex hidden "
           >
             Manoj <span className="hidden md:flex md:ml-4"> Memorial</span>
           </h2>
-          <h2 style={{ marginBottom: "40px" }} className="md:hidden">
-            Memorial
+          <h2 style={{ marginBottom: "40px" ,marginTop:"30px"}} className="md:hidden">
+            MMNCT
           </h2>
+          <p className="text-3xl text-center">Manoj Memorial</p>
           <p className="text-3xl text-center">Night Cricket Tournament</p>
         </div>
       </div>
