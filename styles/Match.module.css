@@ -5,6 +5,13 @@
 	height: 100vh;
 	background-repeat: no-repeat;
 }
+.pointtablemain {
+	background-image: url("../public/pointable.jpg");
+	background-size: cover;
+	height: 100vh;
+	background-repeat: no-repeat;
+}
+
 .cs{
 	color: white;
 	text-align: center;
