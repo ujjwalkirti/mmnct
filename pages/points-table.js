@@ -3,6 +3,7 @@ import React from "react";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import styles from "../styles/Match.module.css";
+import Footer from "../components/Footer";
 
 function PointsTable() {
   return (
