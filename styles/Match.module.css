@@ -1,0 +1,178 @@
+.main {
+	
+	background-image: url("../public/cricket.png");
+	background-size: cover;
+	height: 100vh;
+	background-repeat: no-repeat;
+}
+.cs{
+	color: white;
+	text-align: center;
+	font-size: 80px;
+	margin-top: 70px;
+}
+.main_card_container {
+	display: flex;
+	flex-direction: column;
+	flex: 1;
+	align-items: center;
+	
+}
+
+.card_container {
+	display: grid;
+	grid-template-columns: auto auto auto auto auto auto auto;
+	gap: 10px;
+	background-color: #0a0000;
+	color: white;
+	width: 70vw;
+	padding-top: 10px;
+	padding-bottom: 20px;
+	margin-top: 20px;
+	border-radius: 25px;
+	transition: width 0.6s, height 0.6s;
+}
+
+.grid-container>div {
+	background-color: rgba(255, 255, 255, 0.8);
+	padding: 20px 0;
+	font-size: 30px;
+}
+
+.team1 {
+
+	text-align: right;
+	grid-column-start: 1;
+	grid-column-end: 2;
+}
+
+.sc1 {
+	margin-top: 65px;
+	grid-column-start: 2;
+	grid-column-end: 3;
+}
+
+.vs {
+	padding-top: 40px;
+	text-align: center;
+	grid-column-start: 3;
+	grid-column-end: 6;
+}
+
+.sc2 {
+	margin-top: 65px;
+	text-align: right;
+	grid-column-start: 6;
+	grid-column-end: 7;
+}
+
+.img {
+	width: 200px;
+	height: 300px;
+	object-fit: cover;
+}
+
+.team2 {
+
+	text-align: left;
+	grid-column-start: 7;
+	grid-column-end: 8;
+}
+
+
+.navbar1 {
+	
+	height: 350px;
+	min-width: auto;
+	display: flex;
+	flex-direction: column;
+	flex: 1;
+	justify-content: center;
+	align-items: center;
+
+}
+.btn_group__item {
+	color: white;
+	border: none;
+	background-color: Transparent;
+	padding: 20px;
+}
+
+.btn_group__item:hover {
+	border-bottom: 2px solid #fc5a03;
+	color: #fc5a03;
+	transition: 0.7s;
+}
+
+.card_container:hover {
+	color: #fc5a03;
+	transition: 0.7s;
+}
+
+.card_container:visited {
+	color: #fc5a03;
+	transition: 0.7s;
+}
+
+.l1 {
+	height: 100px;
+	width: 100px;
+	margin-top: 50px;
+}
+
+.x4,
+.x1 {
+	font-size: 20px;
+}
+
+.x3 {
+	font-size: 25px;
+}
+
+.txt1,
+.txt2 {
+	font-size: 20px;
+}
+
+@media only screen and (max-width: 560px){
+	.btn_group__item {
+	    color: white;
+	    border: none;
+	    background-color: Transparent;
+	    padding: 7px;
+	    font-size: 13px;
+	}
+	.cs{
+		font-size: 75px;
+	}
+}
+@media only screen and (max-width: 844px) {
+	.card_container {
+		width: 95vw;
+	}
+
+	.txt1 h4,
+	.txt2 h4 {
+		font-size: 16px;
+	}
+
+	.l1 {
+		height: 50px;
+		width: 50px;
+		margin-top: 50px;
+	}
+
+	.x4 {
+		font-size: 15px;
+	}
+
+	.x3 {
+		font-size: 20px;
+	}
+
+	.txt1,
+	.txt2 {
+		font-size: 15px;
+	}
+}
+

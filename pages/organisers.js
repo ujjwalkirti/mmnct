@@ -1,11 +1,35 @@
 import Head from "next/head";
-// import Image from "next/image";
 import React from "react";
 import Navbar from "../components/Navbar";
 import Teamcard from "../components/Teamcard";
 import Footer from "../components/Footer";
+import { collection, getDocs } from "firebase/firestore";
+import { db } from "../components/db/Firebase";
+import { useEffect, useState } from "react";
+import Image from "next/image";
 
 function Organisers() {
+  const [coordinators, setCoordinator] = useState([]);
+  const [developers, setDeveloper] = useState([]);
+  const [volunteers, setVolunteer] = useState([]);
+
+  useEffect(() => {
+    async function getAllDocs() {
+      const querySnapshot = await getDocs(collection(db, "team"));
+      let list = [];
+      querySnapshot.forEach((doc) => {
+        let data = doc.data();
+        if (data.position == "coordinator") {
+          setCoordinator((coordinators) => [...coordinators, data]);
+        } else if (data.position == "developer") {
+          setDeveloper((developers) => [...developers, data]);
+        } else {
+          setVolunteer((volunteers) => [...volunteers, data]);
+        }
+      });
+    }
+    getAllDocs();
+  }, []);
   return (
     <div>
       <Head>
@@ -14,18 +38,56 @@ function Organisers() {
       <Navbar />
       <div className="text-center my-10">
         <h1 className="text-3xl font-bold mb-10">Coordinators</h1>
+        {coordinators.length == 0 && (
+          <Image
+            src="/loader.gif"
+            width={330}
+            height={400}
+            className="w-full md:w-2/5 md:mx-auto md:rounded-xl"
+            alt="MMNCT trivia image"
+          />
+        )}
         <div className="grid gap-2 lg:grid-cols-2 justify-items-center place-items-center ">
-          <Teamcard />
-          <Teamcard />
+          {coordinators.length != 0 &&
+            coordinators.map((coordinator, index) => {
+              return <Teamcard details={coordinator} key={index} />;
+            })}
         </div>
       </div>
-      <div className="text-center mt-48 mb-24">
+      <div className="text-center mt-40 mb-24">
         <h1 className="text-3xl font-bold mb-10">Developers</h1>
+        {developers.length == 0 && (
+          <Image
+            src="/loader.gif"
+            width={330}
+            height={400}
+            className="w-full md:w-2/5 md:mx-auto md:rounded-xl"
+            alt="MMNCT trivia image"
+          />
+        )}
         <div className="grid gap-2 lg:grid-cols-2 justify-items-center place-items-center ">
-          <Teamcard />
-          <Teamcard />
-          <Teamcard />
-          <Teamcard />
+          {developers.length != 0 &&
+            developers.map((developer, index) => {
+              return <Teamcard details={developer} key={index} />;
+            })}
+        </div>
+      </div>
+      <div className="text-center mt-40 mb-24">
+        <h1 className="text-3xl font-bold mb-10">Volunteers</h1>
+        {volunteers.length == 0 && (
+          <Image
+            src="/loader.gif"
+            width={330}
+            height={400}
+            className="w-full md:w-2/5 md:mx-auto md:rounded-xl"
+            alt="MMNCT trivia image"
+          />
+        )}
+        <div className="grid gap-2 lg:grid-cols-2 justify-items-center place-items-center ">
+          {volunteers.length != 0 &&
+            volunteers.map((volunteer, index) => {
+              return <Teamcard details={volunteer} key={index} />;
+            })}
         </div>
       </div>
       <Footer />
