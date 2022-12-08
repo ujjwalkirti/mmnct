@@ -64,7 +64,7 @@ function Trivias() {
           className="w-full lg:w-2/5 md:mx-auto md:rounded-xl"
           alt="MMNCT trivia image"
         />
-        <div className="border px-5 my-4 py-4 bg-white rounded-lg md:h-[550px]  shadow-xl">
+        <div className="border px-5 my-4 py-4 bg-white rounded-lg lg:h-[550px]  shadow-xl">
           <p className="text-center font-semibold text-2xl">
             Wanna answer? here you go!
           </p>
