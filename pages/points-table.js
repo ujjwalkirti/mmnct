@@ -29,7 +29,6 @@ function PointsTable() {
         </nav>
         <h1 className={styles.cs}>Coming Soon....</h1>
       </div>
-<Footer />
     </div>
   );
 }
