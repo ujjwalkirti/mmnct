@@ -1,16 +1,16 @@
 import Head from "next/head";
 import React from "react";
 import Navbar from "../components/Navbar";
+import Match from "../pages/matchUpdate/Match"
 
 function Fixtures() {
-  const status = "this is a status";
   return (
     <div>
       <Head>
-        <title>Fxitures</title>
+        <title>Fixtures</title>
       </Head>
       <Navbar />
-      {status}
+      <Match />
     </div>
   );
 }
