@@ -3,7 +3,7 @@ import React from "react";
 import Navbar from "../components/Navbar";
 import Teamcard from "../components/Teamcard";
 import Footer from "../components/Footer";
-import { collection, getDocs } from "firebase/firestore";
+import { collection, getDocs, query, orderBy } from "firebase/firestore";
 import { db } from "../components/db/Firebase";
 import { useEffect, useState } from "react";
 import Image from "next/image";
@@ -15,8 +15,9 @@ function Organisers() {
 
   useEffect(() => {
     async function getAllDocs() {
-      const querySnapshot = await getDocs(collection(db, "team"));
-      let list = [];
+      const querySnapshot = await getDocs(
+        query(collection(db, "team"), orderBy("name", "desc"))
+      );
       querySnapshot.forEach((doc) => {
         let data = doc.data();
         if (data.position == "coordinator") {
@@ -36,25 +37,7 @@ function Organisers() {
         <title>Organising Team</title>
       </Head>
       <Navbar />
-      <div className="text-center my-10">
-        <h1 className="text-3xl font-bold mb-10">Coordinators</h1>
-        {coordinators.length == 0 && (
-          <Image
-            src="/loader.gif"
-            width={330}
-            height={400}
-            className="w-full md:w-2/5 md:mx-auto md:rounded-xl"
-            alt="MMNCT trivia image"
-          />
-        )}
-        <div className="grid gap-2 lg:grid-cols-2 justify-items-center place-items-center ">
-          {coordinators.length != 0 &&
-            coordinators.map((coordinator, index) => {
-              return <Teamcard details={coordinator} key={index} />;
-            })}
-        </div>
-      </div>
-      <div className="text-center mt-40 mb-24">
+      <div className="text-center mt-10 mb-24">
         <h1 className="text-3xl font-bold mb-10">Developers</h1>
         {developers.length == 0 && (
           <Image
@@ -72,7 +55,25 @@ function Organisers() {
             })}
         </div>
       </div>
-      <div className="text-center mt-40 mb-24">
+      <div className="text-center mt-28">
+        <h1 className="text-3xl font-bold mb-10">Coordinators</h1>
+        {coordinators.length == 0 && (
+          <Image
+            src="/loader.gif"
+            width={330}
+            height={400}
+            className="w-full md:w-2/5 md:mx-auto md:rounded-xl"
+            alt="MMNCT trivia image"
+          />
+        )}
+        <div className="grid gap-2 lg:grid-cols-2 justify-items-center place-items-center ">
+          {coordinators.length != 0 &&
+            coordinators.map((coordinator, index) => {
+              return <Teamcard details={coordinator} key={index} />;
+            })}
+        </div>
+      </div>
+      <div className="text-center mt-28 mb-24">
         <h1 className="text-3xl font-bold mb-10">Volunteers</h1>
         {volunteers.length == 0 && (
           <Image
