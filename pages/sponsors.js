@@ -66,7 +66,7 @@ const Sponsors = () => {
           Welcome,
         </p>
         <div className="w-full lg:w-10/12 px-2 hidden lg:flex">
-          {brochureLink.length === 0 ? (
+          {brochureLink.length !== 0 ? (
             <object
               data={brochureLink}
               className="mx-auto"
