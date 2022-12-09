@@ -38,24 +38,6 @@ function Organisers() {
       </Head>
       <Navbar />
       <div className="text-center mt-10 mb-24">
-        <h1 className="text-3xl font-bold mb-10">Developers</h1>
-        {developers.length == 0 && (
-          <Image
-            src="/loader.gif"
-            width={330}
-            height={400}
-            className="w-full md:w-2/5 md:mx-auto md:rounded-xl"
-            alt="MMNCT trivia image"
-          />
-        )}
-        <div className="grid gap-2 lg:grid-cols-2 justify-items-center place-items-center ">
-          {developers.length != 0 &&
-            developers.map((developer, index) => {
-              return <Teamcard details={developer} key={index} />;
-            })}
-        </div>
-      </div>
-      <div className="text-center mt-28">
         <h1 className="text-3xl font-bold mb-10">Coordinators</h1>
         {coordinators.length == 0 && (
           <Image
@@ -63,7 +45,7 @@ function Organisers() {
             width={330}
             height={400}
             className="w-full md:w-2/5 md:mx-auto md:rounded-xl"
-            alt="MMNCT trivia image"
+            alt="loading"
           />
         )}
         <div className="grid gap-2 lg:grid-cols-2 justify-items-center place-items-center ">
@@ -73,24 +55,25 @@ function Organisers() {
             })}
         </div>
       </div>
-      <div className="text-center mt-28 mb-24">
-        <h1 className="text-3xl font-bold mb-10">Volunteers</h1>
-        {volunteers.length == 0 && (
+      <div className="text-center mt-28">
+        <h1 className="text-3xl font-bold mb-10">Developers</h1>
+        {developers.length == 0 && (
           <Image
             src="/loader.gif"
             width={330}
             height={400}
             className="w-full md:w-2/5 md:mx-auto md:rounded-xl"
-            alt="MMNCT trivia image"
+            alt="loading"
           />
         )}
         <div className="grid gap-2 lg:grid-cols-2 justify-items-center place-items-center ">
-          {volunteers.length != 0 &&
-            volunteers.map((volunteer, index) => {
-              return <Teamcard details={volunteer} key={index} />;
+          {developers.length != 0 &&
+            developers.map((developer, index) => {
+              return <Teamcard details={developer} key={index} />;
             })}
         </div>
       </div>
+
       <Footer />
     </div>
   );

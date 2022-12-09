@@ -20,11 +20,13 @@ const Teamcard = (props) => {
         <div className="text-gray-500 text-sm text-center pb-4">
           <p className="font-semibold">{props.details.branch}</p>
           <p className="pt-4">{props.details.year}</p>
-          <p>Phone No.- {props.details.mob_number}</p>
+          {props.details.position != "developer" && (
+            <p>Phone No.- {props.details.mob_number}</p>
+          )}
         </div>
       </div>
       {props.details.position == "developer" && (
-        <div className="flex items-center justify-center flex-col mb-4 mt-2">
+        <div className="flex items-center justify-center flex-col mb-4">
           <p className="text-gray-700 text-center">Get connected</p>
           <div className="flex mt-3 mb-1">
             <Link href={props.details.linkedin}>
