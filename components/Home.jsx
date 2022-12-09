@@ -19,13 +19,12 @@ function HomePage() {
           <h2 style={{ marginBottom: "40px" ,marginTop:"30px"}} className="md:hidden">
             MMNCT
           </h2>
-          <p className="text-3xl text-center">Manoj Memorial</p>
+          <p className="text-3xl text-center md:hidden">Manoj Memorial</p>
           <p className="text-3xl text-center">Night Cricket Tournament</p>
         </div>
       </div>
 
       <div className="flex flex-col items-center md:w-1/2">
-        {/* name of tournament */}
 
         {/* graphic and venue */}
         <Image src="/vector-1.jpg" width={300} height={300} />
