@@ -66,7 +66,7 @@ const Sponsors = () => {
           Welcome,
         </p>
         <div className="w-full lg:w-10/12 px-2 hidden lg:flex">
-          {brochureLink.length !== 0 ? (
+          {brochureLink.length === 0 ? (
             <object
               data={brochureLink}
               className="mx-auto"
@@ -74,8 +74,8 @@ const Sponsors = () => {
               height={800}
             ></object>
           ) : (
-            <div className="flex flex-col justify-center items-center">
-              <Image src="/loader.gif" height={200} width={500} className="" />
+            <div className="w-full">
+              <Image src="/loader.gif" height={200} width={500} className="mx-auto" />
             </div>
           )}
         </div>
