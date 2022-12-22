@@ -75,13 +75,14 @@ h2 {
   margin: 20px 0px;
 }
 
-.contest-image-container {
+.contest-image {
   position: absolute;
   width: 440px;
   height: 455px;
-  /* left: 101px; */
+  right:-140px;
   bottom: 0px;
-  right:-160px;
+  /* z-index: 4; */
+  
 }
 
 .left-icon {
