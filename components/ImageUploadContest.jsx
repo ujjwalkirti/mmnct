@@ -2,6 +2,188 @@ import React, { useState } from "react";
 import { AiOutlineDoubleLeft } from "react-icons/ai";
 import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
+import { FaAngleUp } from "react-icons/fa";
+
+const ImageUploadContest = () => {
+  return <Page1 />;
+};
+
+export default ImageUploadContest;
+
+function Page1() {
+  const [showDetails, setShowDetails] = useState(false);
+  const [showButton, setShowButton] = useState(false);
+
+  return (
+    <div className="relative lg:w-4/5 lg:3/5 lg:mx-auto">
+      <div className="">
+        <motion.div
+          drag="x"
+          dragConstraints={{ left: -380, right: 0 }}
+          onDrag={(event, info) => {
+            // console.log(info.point.x);
+            if (info.point.x < 140) {
+              setShowButton(true);
+            } else {
+              setShowButton(false);
+            }
+          }}
+          className="mt-5 shadow-lg bg-gradient-to-b from-white via-white to-[#FFD9CD] pt-3 text-left px-3 ml-[20px] overflow-hidden rounded-bl-xl text-[#411F0D] leading-tight lg:flex lg:justify-center"
+        >
+          <div className="">
+            <p className="font-semibold text-3xl px-2 mb-5">Hey! 👋</p>
+            <p className="text-justify my-3 px-2">
+              We have something exciting
+              <br className="lg:hidden" /> coming up for you,
+              <br /> and it is called..
+            </p>
+            <p className="bg-[#FFD9CD] w-[270px] lg:w-[500px] contest-title my-4 px-2 text-2xl lg:text-5xl py-1 lg:py-2 lg:px-2">
+              CLICK-A-SENSATION
+            </p>
+            <p className="px-2 my-4">Confused? Curious?</p>
+            <p className="text-justify px-2">
+              Well, here's all the <br className="lg:hidden" />
+              what-abouts
+              <br className="hidden lg:flex" /> for the
+              <br className="lg:hidden" /> tournament
+            </p>
+            <div className="lg:flex lg:flex-col hidden">
+              <button
+                onClick={() => {
+                  setShowDetails(!showDetails);
+                  console.log("button clicked");
+                }}
+                className="bg-[#F4A68D] text-white cursor-pointer py-2 px-4 rounded-lg w-[70px] mt-40 h-[60px] ml-2 shadow-lg"
+              >
+                <AiOutlineDoubleLeft className="left-icon font-extrabold text-3xl md:hidden" />
+                <FaAngleUp className="left-icon font-extrabold text-4xl hidden md:flex " />
+              </button>
+
+              <p className="text-sm font-medium pl-2 pb-20 pt-4 md:hidden">
+                Swipe left to know More
+              </p>
+
+              <p className="text-sm font-medium pl-2 pb-20 pt-4 hidden md:flex">
+                Click to know More
+              </p>
+            </div>
+          </div>
+          <Image
+            src={`/vector-3.jpg`}
+            height={400}
+            width={550}
+            className="hidden lg:flex"
+          />
+          <div className="relative h-full justify-between lg:hidden">
+            <div className="lg:hidden">
+              <button
+                onClick={() => {
+                  setShowDetails(!showDetails);
+                  console.log("button clicked");
+                }}
+                className="bg-[#F4A68D] text-white cursor-pointer py-2 px-4 rounded-lg mt-40 h-[60px] ml-2 shadow-lg"
+              >
+                <AiOutlineDoubleLeft className="left-icon font-extrabold text-3xl" />
+              </button>
+              <p className="text-sm font-medium pl-2 pb-20 pt-4">
+                Swipe left to know More
+              </p>
+            </div>
+
+            <img
+              alt="picture of a girl with camera"
+              src="/vector-3.jpg"
+              className="contest-image"
+            />
+          </div>
+        </motion.div>
+
+        {/* 2nd component for questions will pop up */}
+
+        <motion.div
+          drag="x"
+          dragConstraints={{ left: -375, right: 0 }}
+          className="absolute lg:hidden top-0 mt-5 -z-10 bg-white flex flex-col ml-[20px] rounded-l-lg text-xl"
+        >
+          <Image
+            src={`/vector-2.jpg`}
+            width={400}
+            height={400}
+            className="rounded-l-lg"
+            alt="a man playing cricket in evening"
+          />
+
+          {questions.map((question, index) => {
+            if (index < 2) {
+              return (
+                <div className="text-left my-2 pl-2">
+                  <p className="font-semibold mb-2">
+                    {index + 1}. {question.q}
+                  </p>
+                  <p>{question.a}</p>
+                </div>
+              );
+            }
+          })}
+        </motion.div>
+      </div>
+
+      {showDetails && (
+        <div className="text-xl pl-[20px] lg:hidden">
+          {questions.map((question, index) => {
+            if (index >= 2) {
+              return (
+                <div className="text-left my-2 pl-2">
+                  <p className="font-semibold mb-2">
+                    {index + 1}. {question.q}
+                  </p>
+                  <p>{question.a}</p>
+                </div>
+              );
+            }
+          })}
+        </div>
+      )}
+
+      <AnimatePresence>
+        {showButton && (
+          <motion.div
+            className="mt-10 mb-7 flex w-full lg:hidden"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+          >
+            <button
+              className="w-3/5 mx-auto border-yellow-600 border bg-gradient-to-br from-red-600 via-orange-500 to-yellow-400 text-white font-semibold py-3 px-2 rounded-lg"
+              onClick={() => {
+                setShowDetails(!showDetails);
+              }}
+            >
+              {showDetails ? "Show less!" : "Show more!"}
+            </button>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {showDetails && (
+        <div className="text-xl pl-[20px] hidden lg:flex lg:flex-col lg:w-3/5 lg:mx-auto lg:text-3xl lg:mt-5">
+          {questions.map((question, index) => {
+            if (index > -1) {
+              return (
+                <div className="text-left my-2 pl-2">
+                  <p className="font-semibold mb-2">
+                    {index + 1}. {question.q}
+                  </p>
+                  <p className="lg:text-xl lg:pl-7">{question.a}</p>
+                </div>
+              );
+            }
+          })}
+        </div>
+      )}
+    </div>
+  );
+}
 
 const questions = [
   {
@@ -33,140 +215,3 @@ const questions = [
     a: "A surprise gift awaits you at the end of the tournament.",
   },
 ];
-
-const ImageUploadContest = () => {
-  return <Page1 />;
-};
-
-export default ImageUploadContest;
-
-function Page1() {
-  const [showDetails, setShowDetails] = useState(false);
-  const [showButton, setShowButton] = useState(false);
-
-  return (
-    <div className="relative">
-      <div className=" overflow-x-scroll">
-        <motion.div
-          drag="x"
-          dragConstraints={{ left: -380, right: 0 }}
-          onDrag={(event, info) => {
-            // console.log(info.point.x);
-            if (info.point.x < 140) {
-              setShowButton(true);
-            } else {
-              setShowButton(false);
-            }
-          }}
-          className="mt-5 shadow-lg bg-gradient-to-b from-white via-white to-[#FFD9CD] pt-3 text-left px-3 ml-[20px] overflow-hidden rounded-bl-xl text-[#411F0D] leading-tight"
-        >
-          <p className="font-semibold text-3xl px-2 mb-5">Hey! 👋</p>
-          <p className="text-justify my-3 px-2">
-            We have something exciting
-            <br /> coming up for you,
-            <br /> and it is called..
-          </p>
-
-          <p className="bg-[#FFD9CD] w-[270px] contest-title my-4 px-2 text-2xl py-1">
-            CLICK-A-SENSATION
-          </p>
-
-          <p className="px-2 my-4">Confused? Curious?</p>
-          <p className="text-justify px-2">
-            Well, here's all the <br />
-            what-abouts for the
-            <br /> tournament
-          </p>
-          <div className="relative h-full justify-between">
-            <div className="">
-              <button
-                onClick={() => {
-                  setShowDetails(!showDetails);
-                  console.log("button clicked");
-                }}
-                className="bg-[#F4A68D] text-white cursor-pointer py-2 px-4 rounded-lg mt-40 h-[60px] ml-2 shadow-lg"
-              >
-                <AiOutlineDoubleLeft className="left-icon font-extrabold text-3xl" />
-              </button>
-              <p className="text-sm font-medium pl-2 pb-20 pt-4">
-                Swipe left to know More
-              </p>
-            </div>
-
-            <img
-              alt="picture of a girl with camera"
-              src="/vector-3.jpg"
-              className="contest-image"
-            />
-          </div>
-        </motion.div>
-
-        {/* 2nd component for questions will pop up */}
-
-        <motion.div
-          drag="x"
-          dragConstraints={{ left: -375, right: 0 }}
-          className="absolute top-0 mt-5 -z-10 bg-white flex flex-col ml-[20px] rounded-l-lg text-xl"
-        >
-          <Image
-            src={`/vector-2.jpg`}
-            width={400}
-            height={400}
-            className="rounded-l-lg"
-            alt="a man playing cricket in evening"
-          />
-
-          {questions.map((question, index) => {
-            if (index < 2) {
-              return (
-                <div className="text-left my-2 pl-2">
-                  <p className="font-semibold mb-2">
-                    {index + 1}. {question.q}
-                  </p>
-                  <p>{question.a}</p>
-                </div>
-              );
-            }
-          })}
-        </motion.div>
-      </div>
-
-      {showDetails && (
-        <div className="text-xl pl-[20px]">
-          {questions.map((question, index) => {
-            if (index >= 2) {
-              return (
-                <div className="text-left my-2 pl-2">
-                  <p className="font-semibold mb-2">
-                    {index + 1}. {question.q}
-                  </p>
-                  <p>{question.a}</p>
-                </div>
-              );
-            }
-          })}
-        </div>
-      )}
-
-      <AnimatePresence>
-        {showButton && (
-          <motion.div
-            className="mt-10 mb-7 flex w-full"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-          >
-            <button
-              className="w-3/5 mx-auto border-yellow-600 border bg-gradient-to-br from-red-600 via-orange-500 to-yellow-400 text-white font-semibold py-3 px-2 rounded-lg"
-              onClick={() => {
-                setShowDetails(!showDetails);
-              }}
-            >
-              {showDetails ? "Show less!" : "Show more!"}
-            </button>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </div>
-  );
-}

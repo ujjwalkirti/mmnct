@@ -5,6 +5,7 @@ import { AiOutlineCloseCircle } from "react-icons/ai";
 import Navbar from "../components/Navbar";
 import { FaWindowClose } from "react-icons/fa";
 import { useSession, signIn, signOut } from "next-auth/react";
+import Footer from "../components/Footer";
 
 function Polls() {
   const [matches, setMatches] = useState([]);
@@ -12,7 +13,7 @@ function Polls() {
     // you have to fetch all the matches here and store it in matches array
   }, []);
   return (
-    <div>
+    <div className="flex flex-col justify-between h-screen">
       <Head>
         <title>Polls - Make your favorite Team win!</title>
       </Head>
@@ -26,11 +27,11 @@ function Polls() {
         on your favorite team!)
       </p>
       {matches.length === 0 ? (
-        <div className="text-center font-bold text-3xl text-red-500">
+        <div className="text-center font-bold md:text-3xl text-xl text-red-500">
           <div className="flex justify-center">
             <Image src="/vector-6.jpg" height={400} width={400} />
           </div>
-          <p className="mt-10">Sorry there are no matches available!</p>
+          <p className="">Sorry there are no matches available!</p>
           <p>Try back again sometime.</p>
         </div>
       ) : (
@@ -43,7 +44,7 @@ function Polls() {
       {/* <div className="md:grid md:grid-cols-3 lg:w-11/12 lg:mx-auto">
         <ShowMatch />
       </div> */}
-      {/* <Footer /> */}
+      <Footer />
     </div>
   );
 }

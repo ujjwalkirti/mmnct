@@ -4,7 +4,7 @@ import Link from "next/link";
 
 const Footer = () => {
   return (
-    <div className="mt-4 pt-4 pb-1 h-44 bg-gray-800 grid grid-rows-3 justify-items-center items-center gap-y-1">
+    <div className="mt-4 pt-4 pb-1 sticky h-44 bg-gray-800 grid grid-rows-3 justify-items-center items-center gap-y-1">
       <div>
         <p className="font-semibold tracking-wide text-xl text-white">
           Follow MMNCT on Social Media

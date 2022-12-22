@@ -10,27 +10,26 @@ const SuggestionsFromUsers = () => {
       suggestion: message,
     })
       .then((docRef) => {
-        console.log(
-          "you have successfully submitted your suggestion with id: " +
-            docRef.id
-        );
+        alert("you have successfully submitted your suggestion");
         setMessage("");
       })
-      .catch((e) => console.log("try again"));
+      .catch((e) => alert("try again"));
   };
   return (
-    <div className="px-2 text-justify">
-      <p className="">
-        We firmly believe that nothing is built perfect in first attempt and
-        often requires iteration after iteration in order to become the best.
-      </p>
-      <p>
-        Hence, if you got any suggestions to incorporate in the website, don't
-        hesitate to leave your suggestions and reviews!
-      </p>
+    <div className="px-2 text-justify lg:flex lg:items-center lg:justify-center lg:w-4/5 lg:mx-auto lg:gap-4 bg-red-400 text-white py-2 lg:px-6 lg:text-2xl">
+      <div className="lg:w-2/4">
+        <p className="">
+          We firmly believe that nothing is built perfect in first attempt and
+          often requires iteration after iteration in order to become the best.
+        </p>
+        <p>
+          Hence, if you got any suggestions to incorporate in the website, don't
+          hesitate to leave your suggestions and reviews!
+        </p>
+      </div>
       <form
         onSubmit={handleSubmit}
-        className="mt-3 shadow-lg px-2 flex flex-col py-2 border"
+        className="mt-3 lg:my-3 shadow-lg px-2 flex flex-col py-2 border lg:w-2/4 lg:mx-auto lg:rounded-lg bg-white"
       >
         <textarea
           placeholder="Write here"
@@ -43,7 +42,7 @@ const SuggestionsFromUsers = () => {
         />
         <input
           type="submit"
-          className="my-2 bg-[#F4A68D] text-white w-3/5 mx-auto font-semibold text-3xl rounded-lg py-2 cursor-pointer"
+          className="my-2 bg-[#F4A68D] hover:text-[#F4A68D] hover:bg-white border-[#F4A68D] border text-white w-3/5 mx-auto font-semibold text-3xl rounded-lg py-2 cursor-pointer"
         />
       </form>
     </div>

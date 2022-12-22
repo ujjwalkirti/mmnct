@@ -25,8 +25,11 @@ export default function Home() {
       {/* new feature where users can upload there selfies on the matchdays with unique moments which will then be voted by others and one who receives most votes will win */}
       <ImageUploadContest />
       <SponsorCarousel />
+
       <TournamentDetails />
-      <SuggestionsFromUsers/>
+
+      <SuggestionsFromUsers />
+
       <Footer />
     </div>
   );
