@@ -1,8 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
+import { collection, addDoc } from "firebase/firestore";
+import { db } from "./db/Firebase";
 
 const SuggestionsFromUsers = () => {
-  const handleSubmit = (e) => {
+  const [message, setMessage] = useState("");
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    const docRef = await addDoc(collection(db, "cities"), {
+      suggestion: message,
+    });
   };
   return (
     <div className="px-2 text-justify">
@@ -18,7 +24,14 @@ const SuggestionsFromUsers = () => {
         onSubmit={handleSubmit}
         className="mt-3 shadow-lg px-2 flex flex-col py-2 border"
       >
-        <textarea placeholder="Write here" className="px-2 py-1 h-[150px]" required />
+        <textarea
+          placeholder="Write here"
+          className="px-2 py-1 h-[150px]"
+          required
+          onChange={(e) => {
+            setMessage(e.target.value);
+          }}
+        />
         <input
           type="submit"
           className="my-2 bg-[#F4A68D] text-white w-3/5 mx-auto font-semibold text-3xl rounded-lg py-2 cursor-pointer"
