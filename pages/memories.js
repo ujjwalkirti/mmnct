@@ -47,7 +47,12 @@ export default function Memories({ imageList }) {
         <ResponsiveMasonry columnsCountBreakPoints={{ 350: 1, 750: 2, 900: 3 }}>
           <Masonry>
             {imageList.length == 0 ? (
-              <img src="/loading.jpg" className="mx-1 rounded-md" />
+              <Image
+                className="shadow-lg rounded-md"
+                src="/loading.jpg"
+                width={500}
+                height={450}
+              />
             ) : (
               imageList.map((url, index) => {
                 return (
