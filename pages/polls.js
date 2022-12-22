@@ -19,23 +19,30 @@ function Polls() {
       <Navbar />
       <p className="font-bold text-3xl my-7 text-center">
         Who do you think
-        <br className="md:hidden"/> is going to win today??
+        <br className="md:hidden" /> is going to win today??
       </p>
       <p className="text-center">
         (Tap on any one of the matches for whom you wish to vote, and then tap
         on your favorite team!)
       </p>
-      {matches.map((match) => (
-        <div></div>
-      ))}
-      <div className="md:grid md:grid-cols-3 lg:w-11/12 lg:mx-auto">
+      {matches.length === 0 ? (
+        <div className="text-center font-bold text-3xl text-red-500">
+          <div className="flex justify-center">
+            <Image src="/vector-6.jpg" height={400} width={400} />
+          </div>
+          <p className="mt-10">Sorry there are no matches available!</p>
+          <p>Try back again sometime.</p>
+        </div>
+      ) : (
+        matches.map((match) => (
+          <div className="md:grid md:grid-cols-3 lg:w-11/12 lg:mx-auto">
+            <ShowMatch />
+          </div>
+        ))
+      )}
+      {/* <div className="md:grid md:grid-cols-3 lg:w-11/12 lg:mx-auto">
         <ShowMatch />
-        <ShowMatch />
-        <ShowMatch />
-        <ShowMatch />
-        <ShowMatch />
-        <ShowMatch />
-      </div>
+      </div> */}
       {/* <Footer /> */}
     </div>
   );
@@ -43,31 +50,13 @@ function Polls() {
 
 export default Polls;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // this is the component to show individual matches and collect polls for them
 function ShowMatch() {
   const [showModal, setShowModal] = useState(false);
+  const [hover, setHover] = useState(0);
   const [alreadyVoted, setAlreadyVoted] = useState(false);
   const [showPercentage, setShowPercentage] = useState(false);
+  const [chosenTeam, setChosenTeam] = useState(0);
   const [showError, setShowError] = useState(false);
 
   const { data: session } = useSession();
@@ -76,10 +65,10 @@ function ShowMatch() {
     return setShowModal(false);
   };
 
-  const vote = () => {
+  const vote = (teamNumber) => {
     if (!alreadyVoted) {
       //change the stats
-
+      setChosenTeam(teamNumber);
       setShowPercentage(true);
       setAlreadyVoted(true);
 
@@ -93,8 +82,22 @@ function ShowMatch() {
     //check whether the current singed in user has voted before for this match or not
   }, []);
 
+  function backgroundDecider(teamNumber) {
+    if (chosenTeam === teamNumber) {
+      return "bg-green-400 text-white pt-2 gap-2";
+    }
+  }
+
+  function borderDecider(choice) {
+    if (hover === choice) {
+      return "border-4 border-green-600";
+    } else {
+      return "border-4 border-yellow-500";
+    }
+  }
+
   const teamStyle =
-    " flex flex-col justify-evenly items-center text-lg w-1/2 my-5";
+    "flex flex-col justify-evenly items-center text-lg w-1/2 my-5";
 
   return (
     <div className="flex md:hover:shadow-xl cursor-pointer bg-gradient-to-br from-yellow-400 via-orange-400 to-orange-600 mx-2 flex-col  my-4 rounded-xl ">
@@ -118,7 +121,13 @@ function ShowMatch() {
           </div>
 
           {/* vs graphic only visible when md is crossed */}
-          <Image width={100} alt="versus image" height={40} src="/vector-8.png" className="py-4" />
+          <Image
+            width={100}
+            alt="versus image"
+            height={40}
+            src="/vector-8.png"
+            className="py-4"
+          />
 
           {/* team 2 details */}
           <div className={teamStyle}>
@@ -153,9 +162,22 @@ function ShowMatch() {
 
             <p>Tap on the team who you think is going to win!</p>
             <div className="flex">
+              {/* //team 1 */}
               <div
-                onClick={vote}
-                className={`${teamStyle} hover:shadow-lg rounded-md hover:text-xl border mr-4`}
+                onMouseEnter={() => {
+                  setHover(1);
+                }}
+                onMouseLeave={() => {
+                  setHover(0);
+                }}
+                onClick={() => {
+                  vote(1);
+                }}
+                className={`${teamStyle} ${borderDecider(
+                  1
+                )} ${backgroundDecider(
+                  1
+                )} hover:shadow-lg rounded-md hover:text-xl border mr-4`}
               >
                 <img
                   alt="team logo"
@@ -166,9 +188,23 @@ function ShowMatch() {
                   <p>Team name</p>
                 </div>
               </div>
+
+              {/* //team 2 */}
               <div
-                onClick={vote}
-                className={`${teamStyle} hover:shadow-lg rounded-md hover:text-xl border`}
+                onMouseEnter={() => {
+                  setHover(2);
+                }}
+                onMouseLeave={() => {
+                  setHover(0);
+                }}
+                onClick={() => {
+                  vote(2);
+                }}
+                className={`${teamStyle} ${borderDecider(
+                  2
+                )}  ${backgroundDecider(
+                  2
+                )} hover:shadow-lg rounded-md hover:text-xl border`}
               >
                 <img
                   className="team-logo rounded-lg"
@@ -198,14 +234,17 @@ function ShowMatch() {
       {showModal && !session && (
         <div className="bg-white mx-2 my-3 rounded-lg px-2">
           <div
-            className="font-semibold hover:bg-black hover:text-white hover:shadow-lg hover:shadow-amber-400 cursor-pointer text-center text-3xl  w-2/5 mx-auto border px-3 rounded-full border-black py-1 my-1"
+            className="font-semibold hover:bg-black hover:text-white hover:shadow-lg hover:shadow-amber-400 cursor-pointer text-center text-3xl md:w-3/5 w-2/5 mx-auto border px-3 rounded-full border-black py-1 my-1"
             onClick={signIn}
           >
             Sign-in
           </div>
-          <p className="mb-3"> as you need to register in order to vote!</p>
+          <p className="mb-3 text-center">
+            {" "}
+            as you need to register in order to vote!
+          </p>
           <p className="mb-4 px-2 border border-yellow-800 bg-yellow-100 text-yellow-600">
-            Don't worry we don't store your email, it is a gmail based
+            Don't worry we never store your email, it is a gmail based
             authentication to make sure that one person doesn't vote twice!
           </p>
         </div>
