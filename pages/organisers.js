@@ -7,6 +7,7 @@ import { collection, getDocs, query, orderBy } from "firebase/firestore";
 import { db } from "../components/db/Firebase";
 import { useEffect, useState } from "react";
 import Image from "next/image";
+import SuggestionsFromUsers from "../components/SuggestionsFromUsers";
 
 function Organisers() {
   const [coordinators, setCoordinator] = useState([]);
@@ -73,7 +74,7 @@ function Organisers() {
             })}
         </div>
       </div>
-
+      <SuggestionsFromUsers />
       <Footer />
     </div>
   );

@@ -28,7 +28,7 @@ export default function Home() {
 
       <TournamentDetails />
 
-      <SuggestionsFromUsers />
+      
 
       <Footer />
     </div>
