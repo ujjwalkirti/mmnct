@@ -51,7 +51,7 @@ function Page1() {
           drag="x"
           dragConstraints={{ left: -380, right: 0 }}
           onDrag={(event, info) => {
-            console.log(info.point.x);
+            // console.log(info.point.x);
             if (info.point.x < 140) {
               setShowButton(true);
             } else {
