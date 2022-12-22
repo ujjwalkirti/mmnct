@@ -5,7 +5,7 @@ import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 import { storage } from "../components/db/Firebase";
 import { getDownloadURL, listAll, ref } from "firebase/storage";
 // import { LazyLoadImage } from "react-lazy-load-image-component";
-import "react-lazy-load-image-component/src/effects/blur.css";
+// import "react-lazy-load-image-component/src/effects/blur.css";
 import Image from "next/image";
 
 // Next js navigation dynamic import
