@@ -52,6 +52,7 @@ export default function Memories({ imageList }) {
                 src="/loading.jpg"
                 width={500}
                 height={450}
+                alt="loading"
               />
             ) : (
               imageList.map((url, index) => {
@@ -66,6 +67,7 @@ export default function Memories({ imageList }) {
                     <Image
                       className="shadow-lg rounded-md"
                       src={url}
+                      alt="memory"
                       width={500}
                       height={450}
                       placeholder="blur"
