@@ -4,11 +4,19 @@ import { db } from "./db/Firebase";
 
 const SuggestionsFromUsers = () => {
   const [message, setMessage] = useState("");
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    const docRef = await addDoc(collection(db, "cities"), {
+    addDoc(collection(db, "suggestions"), {
       suggestion: message,
-    });
+    })
+      .then((docRef) => {
+        console.log(
+          "you have successfully submitted your suggestion with id: " +
+            docRef.id
+        );
+        setMessage("");
+      })
+      .catch((e) => console.log("try again"));
   };
   return (
     <div className="px-2 text-justify">
@@ -31,6 +39,7 @@ const SuggestionsFromUsers = () => {
           onChange={(e) => {
             setMessage(e.target.value);
           }}
+          value={message}
         />
         <input
           type="submit"
