@@ -24,54 +24,71 @@ span {
   padding: 10px 20px;
 } */
 
-
-.tournament-name-animated{
-  font-size:70px;
+.tournament-name-animated {
+  font-size: 70px;
   /* margin-top:45vh; */
-  color:white;
-  font-family: 'Rancho', cursive;
-  animation-name:glow;
-  animation-duration:1s;
-  animation-iteration-count:infinite;
-  animation-direction:alternate;
+  color: white;
+  font-family: "Rancho", cursive;
+  animation-name: glow;
+  animation-duration: 1s;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
 }
 
-@keyframes glow{
-  from{text-shadow:0px 0px 5px #fff,0px 0px 5px #614ad3;}
-  to{text-shadow:0px 0px 20px #fff,0px 0px 20px #614ad3;}
+@keyframes glow {
+  from {
+    text-shadow: 0px 0px 5px #fff, 0px 0px 5px #614ad3;
+  }
+  to {
+    text-shadow: 0px 0px 20px #fff, 0px 0px 20px #614ad3;
+  }
 }
 
+h2 {
+  font-size: 80px;
 
-
-h2{
-  font-size:80px;
-  
- 
   text-shadow: 2px 0 4px red;
   animation: text-animation 5s linear infinite;
 }
-    
+
 @keyframes text-animation {
-      0%{
-        text-shadow:3px 0 6px red;
-      }
-      25%{
-        text-shadow:3px 0 13px green;
-      }
-     50%{
-        text-shadow:3px 0 18px yellow;
-      }
-      75%{
-        text-shadow:3px 0 13px orange;
-      }
-      100%{
-        text-shadow:3px 0 6px purple;
-      }
+  0% {
+    text-shadow: 3px 0 6px red;
+  }
+  25% {
+    text-shadow: 3px 0 13px green;
+  }
+  50% {
+    text-shadow: 3px 0 18px yellow;
+  }
+  75% {
+    text-shadow: 3px 0 13px orange;
+  }
+  100% {
+    text-shadow: 3px 0 6px purple;
+  }
 }
 
-
-.mmnct-about{
+.mmnct-about {
   background-color: peachpuff;
   padding: 20px 9px;
   margin: 20px 0px;
 }
+
+.contest-image-container {
+  position: absolute;
+  width: 440px;
+  height: 455px;
+  /* left: 101px; */
+  bottom: 0px;
+  right:-160px;
+}
+
+.left-icon {
+  font-weight: 700;
+}
+
+.contest-title {
+  font-weight: 900;
+}
+

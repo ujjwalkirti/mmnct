@@ -15,9 +15,9 @@ const OptionsRouter = ({ from, via, to, title, route, special }) => {
         special
       )}`}
     >
-      <div className={`flex items-center w-full`}>
+      <div className={`gap-1 flex items-center w-full`}>
         {iconDecider(title)}
-        <p className="ml-4 text-lg md:text-sm font-semibold">{title}</p>
+        <p className=" text-lg md:text-sm font-semibold">{title}</p>
       </div>
       <BsFillArrowRightCircleFill className="text-2xl" />
     </Link>
