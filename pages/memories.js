@@ -8,20 +8,23 @@ import { LazyLoadImage } from "react-lazy-load-image-component";
 import "react-lazy-load-image-component/src/effects/blur.css";
 import Footer from "../components/Footer";
 
-function Memories() {
-  const [imageList, setImageList] = useState([]);
+export async function getServerSideProps() {
   const imageListRef = ref(storage, "memories/");
+  const imageList = await listAll(imageListRef);
+  const urls = await Promise.all(
+    imageList.items.map(async (imageRef) => {
+      const url = await getDownloadURL(imageRef);
+      return url;
+    })
+  );
+  return {
+    props: {
+      imageList: urls,
+    },
+  };
+}
 
-  useEffect(() => {
-    listAll(imageListRef).then((res) => {
-      res.items.forEach((itemRef) => {
-        getDownloadURL(itemRef).then((url) => {
-          setImageList((imageList) => [...imageList, url]);
-        });
-      });
-    });
-  }, []);
-
+export default function Memories({ imageList }) {
   return (
     <>
       <Head>
@@ -62,5 +65,3 @@ function Memories() {
     </>
   );
 }
-
-export default Memories;
