@@ -4,9 +4,13 @@ import Navbar from "../components/Navbar";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 import { storage } from "../components/db/Firebase";
 import { getDownloadURL, listAll, ref } from "firebase/storage";
-import { LazyLoadImage } from "react-lazy-load-image-component";
+// import { LazyLoadImage } from "react-lazy-load-image-component";
 import "react-lazy-load-image-component/src/effects/blur.css";
-import Footer from "../components/Footer";
+import Image from "next/image";
+
+// Next js navigation dynamic import
+import dynamic from "next/dynamic";
+const Footer = dynamic(() => import("../components/Footer"));
 
 export async function getServerSideProps() {
   const imageListRef = ref(storage, "memories/");
@@ -43,16 +47,29 @@ export default function Memories({ imageList }) {
         <ResponsiveMasonry columnsCountBreakPoints={{ 350: 1, 750: 2, 900: 3 }}>
           <Masonry>
             {imageList.length == 0 ? (
-              <img src="/loading.jpg" className="mx-1 rounded-md" />
+              <Image
+                className="shadow-lg rounded-md"
+                src="/loading.jpg"
+                width={500}
+                height={450}
+              />
             ) : (
               imageList.map((url, index) => {
                 return (
-                  <div className="mx-1" key={index}>
-                    <LazyLoadImage
+                  <div className="mx-1 pb-2" key={index}>
+                    {/* <LazyLoadImage
                       className="shadow-lg rounded-md"
                       placeholderSrc="/loading.jpg"
                       effect="blur"
                       src={url}
+                    /> */}
+                    <Image
+                      className="shadow-lg rounded-md"
+                      src={url}
+                      width={500}
+                      height={450}
+                      placeholder="blur"
+                      blurDataURL="/loading.jpg"
                     />
                   </div>
                 );
