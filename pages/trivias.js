@@ -68,7 +68,7 @@ function Trivias() {
               height={400}
               className="w-full lg:w-2/5 md:mx-auto md:rounded-xl"
               alt="MMNCT trivia image"
-              priority=""
+              priority
             />
             <div className="border px-5 my-4 py-4 bg-white rounded-lg md:h-[600px]  shadow-xl">
               <p className="text-center font-semibold text-2xl">

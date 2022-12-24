@@ -29,7 +29,12 @@ function Polls() {
       {matches.length === 0 ? (
         <div className="text-center font-bold md:text-3xl text-xl text-red-500">
           <div className="flex justify-center">
-            <Image src="/vector-6.jpg" height={400} width={400} />
+            <Image
+              src="/vector-6.jpg"
+              height={400}
+              width={400}
+              alt="man playing a shot in cricket match"
+            />
           </div>
           <p className="">Sorry there are no matches available!</p>
           <p>Try back again sometime.</p>

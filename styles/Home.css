@@ -79,10 +79,9 @@ h2 {
   position: absolute;
   width: 440px;
   height: 455px;
-  right:-140px;
+  right: -140px;
   bottom: 0px;
   /* z-index: 4; */
-  
 }
 
 .left-icon {
@@ -93,3 +92,10 @@ h2 {
   font-weight: 900;
 }
 
+.container--no-matches {
+  background-image: url("https://firebasestorage.googleapis.com/v0/b/mmnct-fac3f.appspot.com/o/pics%2Falessandro-bogliari-oDs_AxeR5g4-unsplash.jpg?alt=media&token=40188989-d39f-4ebd-a693-e48e5729ac8c");
+  color: white;
+  background-position: right bottom;
+  background-size: cover;
+  background-repeat: no-repeat;
+}

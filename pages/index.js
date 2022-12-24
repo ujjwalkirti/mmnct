@@ -5,7 +5,7 @@ import HomePage from "../components/Home";
 import ImageUploadContest from "../components/ImageUploadContest";
 import Navbar from "../components/Navbar";
 import SponsorCarousel from "../components/SponsorCarousel";
-import SuggestionsFromUsers from "../components/SuggestionsFromUsers";
+
 import TournamentDetails from "../components/TournamentDetails";
 import UpcomingMatches from "../components/UpcomingMatches";
 

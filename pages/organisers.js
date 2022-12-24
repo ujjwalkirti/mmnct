@@ -56,7 +56,7 @@ function Organisers() {
             })}
         </div>
       </div>
-      <div className="text-center mt-28">
+      <div className="text-center mt-28 mb-10">
         <h1 className="text-3xl font-bold mb-10">Developers</h1>
         {developers.length == 0 && (
           <Image

@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { AiOutlineDoubleLeft } from "react-icons/ai";
 import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
-import { FaAngleUp } from "react-icons/fa";
+import { FaAngleDown, FaAngleUp } from "react-icons/fa";
 
 const ImageUploadContest = () => {
   return <Page1 />;
@@ -13,13 +13,25 @@ export default ImageUploadContest;
 function Page1() {
   const [showDetails, setShowDetails] = useState(false);
   const [showButton, setShowButton] = useState(false);
+  const [leftDrag, setLeftDrag] = useState(0);
+
+  //don't convert this useEffect to getServerSideProps : shubham
+
+  useEffect(() => {
+    function leftExtentOfDrag() {
+      const limit = window.innerWidth;
+      // console.log(limit);
+      setLeftDrag(-1 * (limit - 20));
+    }
+    leftExtentOfDrag();
+  }, []);
 
   return (
     <div className="relative lg:w-4/5 lg:3/5 lg:mx-auto">
       <div className="">
         <motion.div
           drag="x"
-          dragConstraints={{ left: -380, right: 0 }}
+          dragConstraints={{ left: leftDrag, right: 0 }}
           onDrag={(event, info) => {
             // console.log(info.point.x);
             if (info.point.x < 140) {
@@ -43,27 +55,30 @@ function Page1() {
             <p className="px-2 my-4">Confused? Curious?</p>
             <p className="text-justify px-2">
               Well, here's all the <br className="lg:hidden" />
-              what-abouts
-              <br className="hidden lg:flex" /> for the
+              what-abouts <br className="hidden lg:flex" /> for the
               <br className="lg:hidden" /> tournament
             </p>
             <div className="lg:flex lg:flex-col hidden">
               <button
                 onClick={() => {
                   setShowDetails(!showDetails);
-                  console.log("button clicked");
+                  // console.log("button clicked");
                 }}
-                className="bg-[#F4A68D] text-white cursor-pointer py-2 px-4 rounded-lg w-[70px] mt-40 h-[60px] ml-2 shadow-lg"
+                className="bg-[#F4A68D] text-white cursor-pointer py-2 px-4 rounded-lg w-[70px] mt-40 h-[60px] ml-2 hover:shadow-lg"
               >
                 <AiOutlineDoubleLeft className="left-icon font-extrabold text-3xl md:hidden" />
-                <FaAngleUp className="left-icon font-extrabold text-4xl hidden md:flex " />
+                {showDetails ? (
+                  <FaAngleUp className="left-icon font-extrabold text-4xl hidden md:flex " />
+                ) : (
+                  <FaAngleDown className="left-icon font-extrabold text-4xl hidden md:flex " />
+                )}
               </button>
 
-              <p className="text-sm font-medium pl-2 pb-20 pt-4 md:hidden">
+              <p className="text-sm lg:text-lg font-medium pl-2 pb-20 pt-4 md:hidden">
                 Swipe left to know More
               </p>
 
-              <p className="text-sm font-medium pl-2 pb-20 pt-4 hidden md:flex">
+              <p className="text-sm lg:text-lg font-medium pl-2 pb-20 pt-4 hidden md:flex">
                 Click to know More
               </p>
             </div>
