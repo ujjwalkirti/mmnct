@@ -20,7 +20,7 @@ const Banner = () => {
   }
 
   return (
-    <div className=" w-full md:w-3/5 text-center font-normal">
+    <div className=" w-full md:w-3/5 text-center font-normal md:mt-4 md:rounded-lg">
       {matchHappening ? (
         <p
           className={`py-3 ${colorDecider} font-semibold text-lg w-3/5 md:w-2/5 mx-auto my-5 rounded-full px-10 button`}
@@ -35,7 +35,7 @@ const Banner = () => {
 
               <p>You can have a look at fixtures to know more</p>
               <Link href={`/fixtures`}>
-                <button className="w-3/5 bg-yellow-700 mx-auto cursor-pointer border py-3 text-2xl font-semibold px-2 my-2 rounded-lg shadow-lg hover:bg-white hover:text-[#F4A68D] flex justify-center items-center gap-2 ">
+                <button className="w-3/5 bg-yellow-700 mx-auto cursor-pointer border py-3 text-2xl font-semibold px-2 my-2 rounded-lg hover:shadow-lg hover:bg-white hover:text-[#F4A68D] flex justify-center items-center gap-2 ">
                   Go to Fixtures{" "}
                   <BsChevronDoubleRight className="animate-pulse" />
                 </button>

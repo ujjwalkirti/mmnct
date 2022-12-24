@@ -121,7 +121,7 @@ function CapHolders({ male }) {
   const [orangeCapHolder, setOrangeCapHolder] = useState({});
 
   const playerStyle =
-    "flex flex-col items-center justify-center mt-10 w-9/12 mx-auto";
+    "flex flex-col items-center justify-center mt-10 w-9/12 lg:w-1/2 mx-auto";
   return (
     <Tabs className={`my-10`}>
       <TabList>
@@ -142,7 +142,7 @@ function CapHolders({ male }) {
           <Image
             height={300}
             width={300}
-            className="rounded-t-lg shadow-lg"
+            className="rounded-t-lg shadow-lg w-full"
             alt="Orange cap winner"
             src={`https://firebasestorage.googleapis.com/v0/b/mmnct-fac3f.appspot.com/o/pics%2F8281625.jpg?alt=media&token=f7aa71b7-7746-42ec-b316-7fb95821eb0e`}
           />
@@ -158,7 +158,7 @@ function CapHolders({ male }) {
           <Image
             height={300}
             width={300}
-            className="rounded-t-lg shadow-lg"
+            className="rounded-t-lg shadow-lg w-full"
             alt="purple cap winner"
             src={`https://firebasestorage.googleapis.com/v0/b/mmnct-fac3f.appspot.com/o/pics%2Finvestec-ashes-third-test-day-one-manchester-england-august-james-anderson-celebrates-wicket-steven-smith-which-was-turned-55720665.jpg?alt=media&token=67d6bf1b-75e8-48ce-ab85-0a0f32fa5959`}
           />
