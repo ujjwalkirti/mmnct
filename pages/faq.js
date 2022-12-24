@@ -1,29 +1,28 @@
 import Head from "next/head";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Navbar from "../components/Navbar";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../components/db/Firebase";
 import Footer from "../components/Footer";
 import Image from "next/image";
 
-function FAQ() {
-  const [questions, setQuestions] = useState([]);
+// Next js server side props for getting data from firebase
+export async function getServerSideProps() {
+  const querySnapshot = await getDocs(collection(db, "faqs"));
+  let list = [];
+  querySnapshot.forEach((doc) => {
+    // doc.data() is never undefined for query doc snapshots
+    // console.log(doc.id, " => ", doc.data());
+    list.push(doc.data());
+  });
+  return {
+    props: {
+      questions: list,
+    },
+  };
+}
 
-  useEffect(() => {
-    async function getAllDocs() {
-      const querySnapshot = await getDocs(collection(db, "faqs"));
-      let list = [];
-      querySnapshot.forEach((doc) => {
-        // doc.data() is never undefined for query doc snapshots
-        // console.log(doc.id, " => ", doc.data());
-        list.push(doc.data());
-      });
-      setQuestions(list);
-    }
-
-    getAllDocs();
-  }, []);
-
+export default function FAQ({ questions }) {
   return (
     <div className="bg-gray-100 min-h-screen">
       <Head>
@@ -49,7 +48,12 @@ function FAQ() {
         </div>
       ) : (
         <div className="text-center font-bold text-2xl">
-          <Image src="/loader.gif" width={100} height={100}  className="w-3/5 mx-auto"/>
+          <Image
+            src="/loader.gif"
+            width={100}
+            height={100}
+            className="w-3/5 mx-auto"
+          />
           Loading
         </div>
       )}
@@ -57,5 +61,3 @@ function FAQ() {
     </div>
   );
 }
-
-export default FAQ;

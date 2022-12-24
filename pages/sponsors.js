@@ -1,5 +1,5 @@
 import Head from "next/head";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Navbar from "../components/Navbar";
 import { GrContactInfo } from "react-icons/gr";
 import { AiOutlineWhatsApp } from "react-icons/ai";
@@ -36,23 +36,24 @@ const contact_persons = [
   },
 ];
 
-const Sponsors = () => {
-  const [brochureLink, setBrochureLink] = useState("");
+// Next js server side props for fetching sponsorship data from firebase
+export async function getServerSideProps() {
+  const docRef = doc(db, "sponsorship", "brochure");
+  const docSnap = await getDoc(docRef);
+  let brochureLink = "";
+  if (docSnap.exists()) {
+    brochureLink = docSnap.data().src;
+  } else {
+    // doc.data() will be undefined in this case
+  }
+  return {
+    props: {
+      brochureLink,
+    },
+  };
+}
 
-  useEffect(() => {
-    async function getBrochureUrl() {
-      const docRef = doc(db, "sponsorship", "brochure");
-      const docSnap = await getDoc(docRef);
-
-      if (docSnap.exists()) {
-        setBrochureLink(docSnap.data().src);
-        // console.log(brochureLink);
-      } else {
-        // doc.data() will be undefined in this case
-      }
-    }
-    getBrochureUrl();
-  }, []);
+export default function Sponsors({ brochureLink }) {
   return (
     <div className=" bg-gray-100 ">
       <Head>
@@ -147,6 +148,4 @@ const Sponsors = () => {
       <Footer />
     </div>
   );
-};
-
-export default Sponsors;
+}

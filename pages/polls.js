@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import { AiOutlineCloseCircle } from "react-icons/ai";
 import Navbar from "../components/Navbar";
 import { FaWindowClose } from "react-icons/fa";
-import { useSession, signIn, signOut } from "next-auth/react";
+import { useSession, signIn } from "next-auth/react";
 import Footer from "../components/Footer";
 
 function Polls() {

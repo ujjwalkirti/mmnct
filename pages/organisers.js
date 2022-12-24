@@ -5,33 +5,37 @@ import Teamcard from "../components/Teamcard";
 import Footer from "../components/Footer";
 import { collection, getDocs, query, orderBy } from "firebase/firestore";
 import { db } from "../components/db/Firebase";
-import { useEffect, useState } from "react";
 import Image from "next/image";
 import SuggestionsFromUsers from "../components/SuggestionsFromUsers";
 
-function Organisers() {
-  const [coordinators, setCoordinator] = useState([]);
-  const [developers, setDeveloper] = useState([]);
-  const [volunteers, setVolunteer] = useState([]);
-
-  useEffect(() => {
-    async function getAllDocs() {
-      const querySnapshot = await getDocs(
-        query(collection(db, "team"), orderBy("name", "desc"))
-      );
-      querySnapshot.forEach((doc) => {
-        let data = doc.data();
-        if (data.position == "coordinator") {
-          setCoordinator((coordinators) => [...coordinators, data]);
-        } else if (data.position == "developer") {
-          setDeveloper((developers) => [...developers, data]);
-        } else {
-          setVolunteer((volunteers) => [...volunteers, data]);
-        }
-      });
+//Net js server side props for fetching data from firebase
+export async function getServerSideProps() {
+  const querySnapshot = await getDocs(
+    query(collection(db, "team"), orderBy("name", "desc"))
+  );
+  const coordinators = [];
+  const developers = [];
+  const volunteers = [];
+  querySnapshot.forEach((doc) => {
+    let data = doc.data();
+    if (data.position == "coordinator") {
+      coordinators.push(data);
+    } else if (data.position == "developer") {
+      developers.push(data);
+    } else {
+      volunteers.push(data);
     }
-    getAllDocs();
-  }, []);
+  });
+  return {
+    props: {
+      coordinators,
+      developers,
+      volunteers,
+    },
+  };
+}
+
+export default function Organisers({ coordinators, developers, volunteers }) {
   return (
     <div>
       <Head>
@@ -79,5 +83,3 @@ function Organisers() {
     </div>
   );
 }
-
-export default Organisers;
