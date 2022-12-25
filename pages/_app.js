@@ -6,12 +6,14 @@ import "../styles/Shine-on-hover.scss";
 import { SessionProvider } from "next-auth/react";
 
 import { Raleway } from "@next/font/google";
+import { Montserrat } from "@next/font/google";
 
 const inter = Raleway({ subsets: ["latin"] });
+const montserrat = Montserrat({ subsets: ["latin"] });
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }) {
   return (
-    <main className={inter.className}>
+    <main className={(inter.className, montserrat.className)}>
       <SessionProvider session={session}>
         <Component {...pageProps} />
       </SessionProvider>

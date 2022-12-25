@@ -56,7 +56,7 @@ const options = [
 const Followup = () => {
   return (
     <div className="text-center">
-      <p>We are glad that you dropped by.</p>
+      <p className="mt-4">We are glad that you dropped by.</p>
       <p>Please scroll down to know more!</p>
       <BsArrowDownCircle className="animate-pulse text-center w-full text-3xl my-4" />
       {/* About Section */}
