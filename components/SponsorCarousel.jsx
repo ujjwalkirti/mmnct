@@ -9,7 +9,7 @@ const SponsorCarousel = () => {
   return (
     <div className="my-10  md:w-3/5 md:mx-auto">
       <div>
-        <p className="sponsor-title text-center lg:text-5xl font-extrabold text-4xl px-2 py-6 text-white">
+        <p className="sponsor-title text-center lg:text-5xl font-extrabold text-3xl px-2 py-6 text-white">
           Our proud Sponsors{" "}
         </p>
       </div>
