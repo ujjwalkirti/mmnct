@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { AiOutlineMan, AiOutlineWoman } from "react-icons/ai";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
+import MatchCard from "./MatchCard";
 
 const UpcomingMatches = () => {
   const [showMenMatches, setShowMenMatches] = useState(true);
@@ -78,41 +79,6 @@ const UpcomingMatches = () => {
 };
 
 export default UpcomingMatches;
-
-export const MatchCard = () => {
-  const teamStyle = "flex items-center justify-center";
-  const teamName = "font-extrabold text-lg";
-
-  return (
-    <div className="flex bg-white md:justify-evenly md:w-4/5 md:mx-auto my-4 text-sm items-center justify-center shadow-lg py-4 mx-4 rounded-lg">
-      {/* team 1 */}
-      <div className={teamStyle}>
-        <p className={teamName}>Team 1</p>
-        <img
-          className="team-logo"
-          src="https://mir-s3-cdn-cf.behance.net/projects/404/168243107813919.Y3JvcCwzMDAwLDIzNDYsMCw0MjM.jpg"
-        />
-      </div>
-
-      {/* timing and date */}
-      <div>
-        <p className="text-orange-500 font-bold">6:30 pm</p>
-        <p className="text-gray-400">
-          27<sup>th</sup> JAN
-        </p>
-      </div>
-
-      {/* Team 2 */}
-      <div className={teamStyle}>
-        <img
-          className="team-logo"
-          src="https://mir-s3-cdn-cf.behance.net/projects/404/168243107813919.Y3JvcCwzMDAwLDIzNDYsMCw0MjM.jpg"
-        />
-        <p className={teamName}>Team 2</p>
-      </div>
-    </div>
-  );
-};
 
 // purple and orange cap holders in all genders
 

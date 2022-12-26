@@ -4,6 +4,7 @@ import Footer from "../components/Footer";
 import HomePage from "../components/Home";
 import ImageUploadContest from "../components/ImageUploadContest";
 import Navbar from "../components/Navbar";
+import ParticipatingTeams from "../components/ParticipatingTeams";
 import SponsorCarousel from "../components/SponsorCarousel";
 
 import TournamentDetails from "../components/TournamentDetails";
@@ -22,13 +23,12 @@ export default function Home() {
       <HomePage />
       <Followup />
       <UpcomingMatches />
+      <ParticipatingTeams />
       {/* new feature where users can upload there selfies on the matchdays with unique moments which will then be voted by others and one who receives most votes will win */}
       <ImageUploadContest />
       <SponsorCarousel />
 
       <TournamentDetails />
-
-      
 
       <Footer />
     </div>

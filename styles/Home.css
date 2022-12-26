@@ -1,5 +1,3 @@
-
-
 .tournament-name-container {
   color: white;
   background: linear-gradient(
@@ -71,4 +69,13 @@
   background-position: right bottom;
   background-size: cover;
   background-repeat: no-repeat;
+}
+
+.team-container {
+  background: linear-gradient(
+    265.42deg,
+    #272caa -43.02%,
+    rgba(39, 44, 170, 0) 98.25%
+  );
+  /* transform: rotate(-90deg); */
 }
