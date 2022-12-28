@@ -3,7 +3,7 @@ import React from "react";
 
 const TournamentHistory = () => {
   return (
-    <div className="mmnct-about md:mx-auto md:text-xl xl:text-2xl xl:flex">
+    <div className="mmnct-about md:mx-auto md:text-xl xl:text-2xl xl:items-center xl:flex">
       {/* <span className="font-bold text-5xl">"</span> */}
       <div className="xl:w-1/2">
         <div className="bg-white h-[297px] xl:h-[493px] w-[297px] xl:w-[493px] rounded-full flex justify-center items-center mx-auto shadow-lg mt-5">

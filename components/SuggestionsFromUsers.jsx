@@ -17,6 +17,7 @@ const SuggestionsFromUsers = () => {
   };
   return (
     <div className="px-2 text-justify lg:flex lg:items-center lg:justify-center lg:w-4/5 lg:mx-auto lg:gap-4 bg-red-400 text-white py-6 lg:px-6 lg:text-2xl text-xl">
+      <p className="text-center font-bold text-xl mb-4">Message from <span className="underline">Developers</span></p>
       <div className="lg:w-2/4">
         <p className="">
           We firmly believe that nothing is built perfect in first attempt and

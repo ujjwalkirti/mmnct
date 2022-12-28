@@ -49,14 +49,14 @@ function Page1() {
               <br className="lg:hidden" /> coming up for you,
               <br /> and it is called..
             </p>
-            <p className="bg-[#FFD9CD] w-[270px] lg:w-[500px] contest-title my-4 px-2 text-2xl lg:text-4xl text-center py-1 lg:py-2 lg:px-2">
+            <p className="bg-[#FFD9CD] w-[300px] lg:w-[500px] contest-title my-4 px-2 text-2xl lg:text-4xl text-center py-1 lg:py-2 lg:px-2">
               CLICK-A-SENSATION
             </p>
             <p className="px-2 my-4">Confused? Curious?</p>
             <p className="text-justify px-2">
               Well, here's all the <br className="lg:hidden" />
               what-abouts <br className="hidden lg:flex" /> for the
-              <br className="lg:hidden" /> tournament
+              <br className="lg:hidden" /> contest.
             </p>
             <div className="lg:flex lg:flex-col hidden">
               <button

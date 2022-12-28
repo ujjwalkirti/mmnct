@@ -17,7 +17,7 @@ const ParticipatingTeams = () => {
       if (gender === "male") {
         return "bg-[#508CD4] font-[700] text-[20px] md:text-[39px] md:w-auto md:h-[71px] leading-[24.38px] text-white h-[51px] w-[103px] px-2 shadow-lg";
       } else if (gender === "female") {
-        return "bg-[#CE3AB3] font-[700] text-[20px] md:text-[39px] md:w-auto md:h-[71px] leading-[24.38px] text-white h-[51px] w-[103px] px-2 shadow-lg";
+        return "bg-[#CE3AB3] font-[700] text-[20px] md:text-[39px] md:w-auto md:h-[71px] leading-[24.38px] text-white h-[51px] w-[124px] px-2 shadow-lg";
       }
     } else {
       return "";
@@ -75,7 +75,7 @@ const ParticipatingTeams = () => {
             onClick={() => {
               setSelectedGender("male");
             }}
-            className={` h-[44px] flex justify-center items-center`}
+            className={`cursor-pointer h-[44px] flex justify-center items-center`}
           >
             <p
               className={`${StylesBasedonGender(
@@ -89,7 +89,7 @@ const ParticipatingTeams = () => {
             onClick={() => {
               setSelectedGender("female");
             }}
-            className={` h-[44px] flex justify-center items-center`}
+            className={`cursor-pointer h-[44px] flex justify-center items-center`}
           >
             <p
               className={`${StylesBasedonGender(

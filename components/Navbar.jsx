@@ -17,7 +17,7 @@ const options = [
 function Navbar() {
   const [showMenu, setShowMenu] = useState(false);
   return (
-    <div className="pt-2 relative flex bg-white justify-end shadow-md">
+    <div className="pt-2 relative flex md:h-[91px] bg-white justify-end shadow-md">
       {/* <div className="flex items-center font-bold">
         
         <p className="ml-2 text-3xl">MMNCT</p>
@@ -70,14 +70,16 @@ function Navbar() {
       )}
 
       {/* content to be shown when screen size is medium and above */}
-      <div className="w-full md:flex font-bold px-10 text-xl justify-between hidden ">
+      <div className="w-full md:flex font-bold px-10 text-xl justify-between hidden  items-center">
         <Link href="/">
-          <Image src="/main.png" height={54} width={55} alt="logo" />
+          <Image src="/main.png" height={54} width={65} alt="logo" />
         </Link>
         <div className="flex items-center">
           {options.map((option, index) => (
             <Link
-              className={`my-2  px-4 py-2  ${emphasiseRoute(option.url)}`}
+              className={`my-2  px-4 py-2 border-white hover:text-[#F8C156] border-b-4 mx-2 hover:border-b-[#F8C156] ${emphasiseRoute(
+                option.url
+              )}`}
               href={option.url}
               key={index}
             >
@@ -93,8 +95,8 @@ function Navbar() {
 function emphasiseRoute(url) {
   const router = useRouter();
   return router.asPath === url
-    ? ""
-    : "text-gray-300 text-xl font-normal hover:font-semibold hover:text-black";
+    ? "text-[#F8C156]"
+    : "text-black text-xl font-normal";
 }
 
 export default Navbar;
