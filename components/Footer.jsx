@@ -85,7 +85,7 @@ const Footer = () => {
         </div>
       </div>
       <div className="w-full h-[2px] bg-white mt-8" />
-      <div className="pt-2 text-sm lg:text-base tracking-wider flex justify-center lg:justify-start">
+      <div className="font-light pt-2 text-sm lg:text-base flex justify-center lg:justify-start">
         <p>© All the Rights are Reserved with MMNCT</p>{" "}
       </div>
     </div>
