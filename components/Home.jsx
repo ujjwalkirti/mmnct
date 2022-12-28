@@ -58,10 +58,12 @@ function HomePage() {
         </div>
         <div className="h-[200px] lg:hidden relative">
           <div className="w-full ">
-            <img
+            <Image
+              height={230}
+              width={459}
               src={`/vector-1.png`}
               alt="ground picture"
-              className="absolute md:relative top-0 -left-[72px] w-[510px] h-[230px] lg:w-[791px] lg:h-[396px]"
+              className="absolute md:relative top-0 -left-[72px] w-[510px] h-[230px]"
             />
             <Image
               src={`/location-pointer.png`}
