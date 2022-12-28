@@ -1,18 +1,33 @@
+import Link from "next/link";
+import { ImCircleRight } from "react-icons/im";
+
 const MatchCard = ({ type }) => {
   const teamStyle = "flex items-center justify-center";
   const teamName = "font-extrabold text-lg";
 
-  const shortformstyle = "h-[48px]";
+  const shortformstyle = "h-[48px] md:h-[60px]";
 
   if (type === "short") {
     return (
-      <div className="flex flex-col justify-center items-center my-2 bg-white w-[160px] h-[79px] rounded-[8px] mx-auto px-2 shadow-lg">
+      <div className="flex flex-col md:flex-row  justify-center md:justify-evenly items-center my-2 bg-white w-full lg:w-full  h-[79px] lg:h-[90px] xl:h-[150px] rounded-[8px] mx-auto px-2 shadow-lg ">
         <img
           alt="team-logo"
           className={shortformstyle}
           src="https://mir-s3-cdn-cf.behance.net/projects/404/168243107813919.Y3JvcCwzMDAwLDIzNDYsMCw0MjM.jpg"
         />
-        <p className="text-[15px] font-[600]">Team's Name</p>
+        <div className="flex flex-col">
+          {" "}
+          <p className="text-[15px] xl:text-[25px] lg:text-[20px] font-[600]">Team's Name</p>
+          <p className="text-[15px] hidden lg:flex text-gray-600 font-[600]">
+            Team's year
+          </p>
+          <Link
+            href={`/team-detail`}
+            className="text-[20px] bg-orange-500 hidden xl:flex text-white justify-center items-center gap-2 font-[600] py-2 px-4 rounded-lg hover:shadow-lg"
+          >
+            Full squad <ImCircleRight />
+          </Link>
+        </div>
       </div>
     );
   } else {

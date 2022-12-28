@@ -1,37 +1,86 @@
-.tournament-name-container {
-  color: white;
-  background: linear-gradient(
-      159.16deg,
-      #f8c156 28.52%,
-      rgba(245, 191, 85, 0.297195) 64.89%,
-      rgba(244, 190, 85, 0) 88.82%
-    ),
-    linear-gradient(
-      74.49deg,
-      #fb63be -21.56%,
-      rgba(253, 97, 191, 0.288542) 19.39%,
-      rgba(254, 97, 191, 0) 46.79%
-    );
+@media only screen and (max-width: 500px) {
+  .tournament-name-container {
+    color: white;
+    background: linear-gradient(
+        159.16deg,
+        #f8c156 28.52%,
+        rgba(245, 191, 85, 0.297195) 64.89%,
+        rgba(244, 190, 85, 0) 88.82%
+      ),
+      linear-gradient(
+        74.49deg,
+        #fb63be -21.56%,
+        rgba(253, 97, 191, 0.288542) 19.39%,
+        rgba(254, 97, 191, 0) 46.79%
+      );
+  }
 }
 
-.tournament-name {
-  /* font-family: "Montserrat"; */
-  font-style: normal;
-  font-weight: 900;
-  font-size: 64px;
-  line-height: 78px;
-  /* identical to box height */
-
-  color: #fffdfa;
+@media only screen and (min-width: 500px) {
+  .tournament-name-container {
+    color: white;
+    width: 100%;
+    background: linear-gradient(
+        97.03deg,
+        #f8c156 15.01%,
+        rgba(245, 191, 85, 0.297195) 59.28%,
+        rgba(244, 190, 85, 0) 88.39%
+      ),
+      linear-gradient(
+        39.33deg,
+        #fb63be -24.72%,
+        rgba(253, 97, 191, 0.288542) 8.51%,
+        rgba(254, 97, 191, 0) 46.14%
+      );
+  }
 }
-.tournament-name-fullform {
-  /* font-family: "Montserrat"; */
-  font-style: normal;
-  font-weight: 600;
-  font-size: 16px;
-  line-height: 20px;
 
-  color: #fffdfa;
+@media only screen and (max-width: 500px) {
+  .tournament-name {
+    /* font-family: "Montserrat"; */
+    font-style: normal;
+    font-weight: 900;
+    font-size: 64px;
+    line-height: 78px;
+    /* identical to box height */
+
+    color: #fffdfa;
+  }
+}
+@media only screen and (min-width: 500px) {
+  .tournament-name {
+    /* font-family: "Montserrat"; */
+    font-style: normal;
+    font-weight: 900;
+    font-size: 152px;
+    line-height: 185.29px;
+    /* identical to box height */
+
+    color: #fffdfa;
+  }
+}
+
+@media only screen and (max-width: 500px) {
+  .tournament-name-fullform {
+    /* font-family: "Montserrat"; */
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 20px;
+
+    color: #fffdfa;
+  }
+}
+@media only screen and (min-width: 500px) {
+  .tournament-name-fullform {
+    /* font-family: "Montserrat"; */
+    font-style: normal;
+    font-weight: 600;
+    font-size: 32px;
+    line-height: 39.01px;
+
+    color: #fffdfa;
+  }
 }
 
 .days-counter {
@@ -41,9 +90,14 @@
 }
 
 .mmnct-about {
-  background-color: peachpuff;
+  background: linear-gradient(
+    177.16deg,
+    #f8c156 -20.93%,
+    rgba(245, 191, 85, 0.297195) 31.28%,
+    rgba(244, 190, 85, 0) 65.61%
+  );
   padding: 20px 9px;
-  margin: 20px 0px;
+  /* margin: 20px 0px; */
 }
 
 .contest-image {
