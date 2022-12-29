@@ -4,9 +4,14 @@ import Navbar from "../../components/Navbar";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { db, storage } from "../../components/db/Firebase";
 import { collection, setDoc, doc, getDoc, getDocs } from "firebase/firestore";
-
 import Image from "next/image";
-import Modal from "../../components/Modal";
+import dynamic from "next/dynamic";
+
+//Next js dynamic import Modal
+const Modal = dynamic(() => import("../../components/Modal"));
+
+//Next js dynamic import Footer
+const Footer = dynamic(() => import("../../components/Footer"));
 
 // Next js getserversideprops for getting the data from the database
 export async function getServerSideProps() {
@@ -296,6 +301,7 @@ const AddTeams = ({ teams }) => {
           </div>
         </div>
       )}
+      <Footer />
     </div>
   );
 };
