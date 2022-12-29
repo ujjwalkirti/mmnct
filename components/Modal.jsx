@@ -15,15 +15,32 @@ export default function Modal({ details }) {
 
   const updateTeamDetails = async (e) => {
     e.preventDefault();
-    // Get file from input
-    let file = e.target[0].files[0];
-    //Get Team name from input
-    let teamName = e.target[1].value;
-    //Get Team type from input
-    let teamType = e.target[2].value;
-    //Get Team gender from input
-    let teamGender = e.target[3].value;
-
+    let removeLogo = false;
+    let file = null;
+    let teamName = "";
+    let teamType = "";
+    let teamGender = "";
+    if (details.teamLogo != "") {
+      // Get input for removing background
+      removeLogo = e.target[0].checked;
+      // Get input for file
+      file = e.target[1].files[0];
+      //Get Team name from input
+      teamName = e.target[2].value;
+      //Get Team type from input
+      teamType = e.target[3].value;
+      //Get Team gender from input
+      teamGender = e.target[4].value;
+    } else {
+      // Get input for file
+      file = e.target[0].files[0];
+      //Get Team name from input
+      teamName = e.target[1].value;
+      //Get Team type from input
+      teamType = e.target[2].value;
+      //Get Team gender from input
+      teamGender = e.target[3].value;
+    }
     const metadata = {
       contentType: "image/jpeg",
     };
@@ -42,6 +59,19 @@ export default function Modal({ details }) {
 
     let storageRef = ref(storage, `teams_logo/${teamName}.jpg`);
 
+    if (removeLogo && file == null) {
+      // Create a reference to the file to delete
+      const desertRef = ref(storage, `teams_logo/${details.teamName}.jpg`);
+      await deleteObject(desertRef)
+        .then(() => {
+          console.log("File deleted successfully");
+          details.teamLogo = "";
+        })
+        .catch((error) => {
+          alert(error);
+        });
+    }
+
     if (file != null) {
       await uploadBytes(storageRef, file, metadata).then(
         async (snapshot) => {
@@ -50,7 +80,7 @@ export default function Modal({ details }) {
             details.teamLogo = downloadURL;
           });
 
-          if (teamName != details.teamName) {
+          if (teamName != details.teamName && details.teamLogo != "") {
             // Create a reference to the file to delete
             const desertRef = ref(
               storage,
@@ -113,16 +143,23 @@ export default function Modal({ details }) {
                 >
                   <div class="mb-6 ml-2 md:ml-6">
                     {details.teamLogo != "" ? (
-                      <Image
-                        src={details.teamLogo}
-                        width={300}
-                        height={300}
-                        className="border"
-                      />
+                      <div>
+                        <Image
+                          src={details.teamLogo}
+                          width={300}
+                          height={300}
+                          className="border"
+                        />
+                        <div className="mt-4">
+                          <input type="radio" id="removeLogo" />
+                          <label for="removeLogo">Remove Logo</label>
+                        </div>
+                      </div>
                     ) : (
                       <p className="py-3">No logo uploaded</p>
                     )}
                   </div>
+
                   <div class="md:flex md:items-center mb-6">
                     <div class="md:w-1/3">
                       <label

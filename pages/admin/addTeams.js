@@ -120,14 +120,14 @@ const AddTeams = ({ teams }) => {
         <div>
           <p className="text-center my-10 text-3xl">Existing Team details</p>
           <div className="flex justify-center text-center px-1">
-            <div className="text-sm md:text-base">
+            <div className="text-sm md:text-base overflow-x-auto">
               <table className="table-auto">
                 <thead className="border-b bg-gray-800 text-white">
                   <tr>
-                    <th className="px-4 md:px-10 py-2">Team Logo</th>
-                    <th className="px-4 md:px-10 py-2">Team Name</th>
-                    <th className="px-4 md:px-10 py-2">Team Type</th>
-                    <th className="px-4 md:px-10 py-2">Gender</th>
+                    <th className="px-10 py-2">Team Logo</th>
+                    <th className="px-12 py-2">Team Name</th>
+                    <th className="px-12 py-2">Team Type</th>
+                    <th className="px-8 py-2">Gender</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -143,7 +143,7 @@ const AddTeams = ({ teams }) => {
                             alt="No logo"
                           />
                         ) : (
-                          <p className="text-left pl-3">No logo</p>
+                          <p className="text-center">No logo</p>
                         )}
                       </td>
                       <td className="px-4 py-auto">{team.teamName}</td>
@@ -159,7 +159,7 @@ const AddTeams = ({ teams }) => {
       )}
 
       {newTeam && (
-        <div>
+        <div className="overflow-x-auto">
           <p className="text-center my-10 text-3xl">Add Team details</p>
 
           <form class="w-full max-w-sm mx-auto px-4" onSubmit={addTeamDetails}>
@@ -260,15 +260,15 @@ const AddTeams = ({ teams }) => {
         <div>
           <p className="text-center my-10 text-3xl">Update Team details</p>
           <div className="flex justify-center text-center px-1">
-            <div className="text-sm md:text-base">
+            <div className="text-sm md:text-base overflow-x-auto">
               <table className="table-auto">
                 <thead className="border-b bg-gray-800 text-white">
                   <tr>
-                    <th className="px-4 md:px-10 py-2">Update</th>
-                    <th className="px-4 md:px-10 py-2">Team Logo</th>
-                    <th className="px-4 md:px-10 py-2">Team Name</th>
-                    <th className="px-4 md:px-10 py-2">Team Type</th>
-                    <th className="px-4 md:px-10 py-2">Gender </th>
+                    <th className="px-4 py-2">Update</th>
+                    <th className="px-10 py-2">Team Logo</th>
+                    <th className="px-12 py-2">Team Name</th>
+                    <th className="px-12 py-2">Team Type</th>
+                    <th className="px-8 py-2">Gender </th>
                   </tr>
                 </thead>
                 <tbody>
@@ -287,7 +287,7 @@ const AddTeams = ({ teams }) => {
                             alt="Team Logo"
                           />
                         ) : (
-                          <p className="text-left pl-3">No logo</p>
+                          <p className="text-center">No logo</p>
                         )}
                       </td>
                       <td className="px-4 py-auto">{team.teamName}</td>
