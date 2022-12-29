@@ -52,13 +52,27 @@
     /* font-family: "Montserrat"; */
     font-style: normal;
     font-weight: 900;
-    font-size: 152px;
-    line-height: 185.29px;
+    font-size: 92px;
+    line-height: 125.29px;
     /* identical to box height */
 
     color: #fffdfa;
   }
 }
+
+@media only screen and (min-width: 1024px) {
+  .tournament-name {
+    /* font-family: "Montserrat"; */
+    font-style: normal;
+    font-weight: 900;
+    font-size: 132px;
+    line-height: 165.29px;
+    /* identical to box height */
+
+    color: #fffdfa;
+  }
+}
+
 
 @media only screen and (max-width: 500px) {
   .tournament-name-fullform {
@@ -71,6 +85,8 @@
     color: #fffdfa;
   }
 }
+
+
 @media only screen and (min-width: 500px) {
   .tournament-name-fullform {
     /* font-family: "Montserrat"; */
