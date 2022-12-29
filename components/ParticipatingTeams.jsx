@@ -3,14 +3,13 @@ import React, { useEffect, useState } from "react";
 import MatchCard from "./MatchCard";
 import { BsChevronLeft, BsChevronRight } from "react-icons/bs";
 
-const ParticipatingTeams = () => {
-  const [teams, SetTeams] = useState([
-    1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15,
-  ]);
+const ParticipatingTeams = ({ teamList }) => {
   const [selectedGender, setSelectedGender] = useState("male");
   const [page, setPage] = useState(1);
   const [range, setRange] = useState({ start: 0, end: 5 });
   const [totalPages, setTotalPages] = useState(0);
+  const [maleTeams, setMaleTeams] = useState([]);
+  const [femaleTeams, setFemaleTeams] = useState([]);
 
   const StylesBasedonGender = (gender) => {
     if (selectedGender === gender) {
@@ -24,18 +23,48 @@ const ParticipatingTeams = () => {
     }
   };
 
+  function divisionOfTeamsbasedonGender() {
+    let localMaleTeams = [];
+    let localFemaleTeams = [];
+    teamList.map((team) => {
+      if (team.teamGender.toLowerCase() === "male") {
+        localMaleTeams.push(team);
+      } else {
+        localFemaleTeams.push(team);
+      }
+    });
+    setMaleTeams(localMaleTeams);
+    setFemaleTeams(localFemaleTeams);
+  }
+
   //don't convert both these useEffect to getServerSideProps
   useEffect(() => {
     setRange({ start: 5 * (page - 1), end: 5 * page });
   }, [page]);
 
   useEffect(() => {
-    let pages = teams.length / 5;
-    if (teams.length % 5 !== 0) {
-      pages += 1;
+    divisionOfTeamsbasedonGender();
+
+    if (teamList.length !== 0) {
+      let maleCount = maleTeams.length;
+      let femaleCount = femaleTeams.length;
+
+      let pages = 0;
+      if (selectedGender === "male") {
+        pages = maleCount / 5;
+        if (maleCount % 5 !== 0) {
+          pages++;
+        }
+      } else {
+        pages = femaleCount / 5;
+        if (femaleCount % 5 !== 0) {
+          pages++;
+        }
+      }
+      console.log(maleCount, femaleCount);
+      setTotalPages(pages);
     }
-    setTotalPages(pages);
-  }, [teams]);
+  }, [teamList, selectedGender]);
 
   function colorDeciderForRange(buttonType) {
     if (buttonType === "previous") {
@@ -101,13 +130,21 @@ const ParticipatingTeams = () => {
           </div>
         </div>
         <div className="relative h-[540px] overflow-x-hidden mx-auto">
-          <div className="grid grid-cols-2 gap-2 mx-auto w-[360px]">
-            {teams.map((team, index) => {
-              if (index >= range.start && index < range.end) {
-                return <MatchCard type={`short`} key={index} />;
-              }
-            })}
-          </div>
+          {selectedGender === "male" ? (
+            <div className="grid grid-cols-2 gap-2 mx-auto w-[360px]">
+              {maleTeams.map((team, index) => {
+                if (index >= range.start && index < range.end) {
+                  return <MatchCard type={`short`} team={team} key={index} />;
+                }
+              })}
+            </div>
+          ) : (
+            <div className="grid grid-cols-2 gap-2 mx-auto w-[360px]">
+              {femaleTeams.map((team, index) => {
+                return <MatchCard type={`short`} team={team} key={index} />;
+              })}
+            </div>
+          )}
           {selectedGender === "male" && (
             <div className="flex ml-[20px] items-center font-bold my-5">
               <BsChevronLeft
@@ -219,13 +256,22 @@ const ParticipatingTeams = () => {
             </p>
           </div>
           <div className="float-none ">
-            <div className="grid gap-3 mr-4 grid-cols-2 ">
-              {teams.map((team, index) => {
-                if (index >= range.start && index < range.end) {
-                  return <MatchCard type={`short`} key={index} />;
-                }
-              })}
-            </div>
+            {selectedGender === "male" ? (
+              <div className="grid gap-3 mr-4 grid-cols-2 ">
+                {maleTeams.map((team, index) => {
+                  if (index >= range.start && index < range.end) {
+                    return <MatchCard type={`short`} team={team} key={index} />;
+                  }
+                })}
+              </div>
+            ) : (
+              <div className="grid gap-3 mr-4 grid-cols-2 ">
+                {femaleTeams.map((team, index) => {
+                  return <MatchCard type={`short`} team={team} key={index} />;
+                })}
+              </div>
+            )}
+
             {selectedGender === "male" && (
               <div className="flex ml-[20px] text-4xl items-center font-bold my-5">
                 <BsChevronLeft

@@ -43,7 +43,7 @@ function Navbar() {
           }}
         /> */}
         <GiHamburgerMenu
-          className="mt-2 hover:text-green-600  text-4xl border border-gray-500 rounded-md"
+          className="mt-2 hover:text-green-600  text-4xl"
           onClick={() => {
             setShowMenu(true);
           }}

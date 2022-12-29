@@ -1,25 +1,27 @@
 import Link from "next/link";
+import { useEffect } from "react";
 import { ImCircleRight } from "react-icons/im";
 
-const MatchCard = ({ type }) => {
+const MatchCard = ({ type, team }) => {
   const teamStyle = "flex items-center justify-center";
   const teamName = "font-extrabold text-lg";
-
   const shortformstyle = "h-[48px] md:h-[60px]";
 
   if (type === "short") {
     return (
-      <div className="flex flex-col md:flex-row  justify-center md:justify-evenly items-center my-2 bg-white w-full lg:w-full  h-[79px] lg:h-[90px] xl:h-[150px] rounded-[8px] mx-auto px-2 shadow-lg ">
+      <div className="flex flex-col md:flex-row  justify-center md:justify-evenly items-center my-2 bg-white w-full lg:w-full  h-[89px] lg:h-[90px] xl:h-[150px] rounded-[8px] mx-auto px-2 py-2 shadow-lg ">
         <img
           alt="team-logo"
           className={shortformstyle}
-          src="https://mir-s3-cdn-cf.behance.net/projects/404/168243107813919.Y3JvcCwzMDAwLDIzNDYsMCw0MjM.jpg"
+          src={`${imageUrlProducer(team?.teamLogo)} `}
         />
         <div className="flex flex-col">
           {" "}
-          <p className="text-[15px] xl:text-[25px] lg:text-[20px] font-[600]">Team's Name</p>
+          <p className="text-[15px] xl:text-[25px] lg:text-[20px] font-[600]">
+            {team?.teamName}
+          </p>
           <p className="text-[15px] hidden lg:flex text-gray-600 font-[600]">
-            Team's year
+            {team?.teamType}
           </p>
           <Link
             href={`/team-detail`}
@@ -66,3 +68,11 @@ const MatchCard = ({ type }) => {
 };
 
 export default MatchCard;
+
+function imageUrlProducer(url) {
+  if (url?.length !== 0) {
+    return url;
+  } else {
+    return "https://mir-s3-cdn-cf.behance.net/projects/404/168243107813919.Y3JvcCwzMDAwLDIzNDYsMCw0MjM.jpg";
+  }
+}

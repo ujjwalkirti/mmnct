@@ -57,24 +57,15 @@ function HomePage() {
           </p>
         </div>
         <div className="h-[200px] lg:hidden relative">
-          <div className="w-full ">
+          <div className={` w-[${screenSize}] h-[230px]`}>
             <Image
-              height={230}
-              width={459}
+              height={250}
+              width={392}
               src={`/vector-1.png`}
               alt="ground picture"
-              className="absolute md:relative top-0 -left-[72px] w-[510px] h-[230px]"
+              priority
+              className={`z-40 absolute md:relative top-0 -left-[60px]`}
             />
-            <Image
-              src={`/location-pointer.png`}
-              height={200}
-              width={70}
-              className="absolute left-[90px] top-[15px]"
-            />
-          </div>
-          <div className="absolute font-[700] text-[14px] leading-[17px] text-[#392908] left-[153px] top-[20px]">
-            <p>SAC Ground</p>
-            <p>SVNIT</p>
           </div>
         </div>
 
@@ -85,17 +76,9 @@ function HomePage() {
             <img
               src={`/vector-1.png`}
               alt="ground picture"
+              priority
               className="w-[791px] h-[396px]"
             />
-            <img
-              src={`/location-pointer.png`}
-              alt="location Pointer"
-              className={`w-[143px] absolute h-[143px] top-0 right-[320px]`}
-            />
-          </div>
-          <div className=" font-[700] absolute text-[14px] leading-[17px] text-[#392908] top-[40px] right-[240px]">
-            <p>SAC Ground</p>
-            <p>SVNIT</p>
           </div>
         </div>
       </div>
