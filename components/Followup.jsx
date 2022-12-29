@@ -66,12 +66,13 @@ const Followup = () => {
       {/* </div> */}
       {/* Options to go to */}
       <div className="md:grid md:grid-cols-3 xl:grid-cols-6 md:mx-auto md:w-11/12">
-        {options.map((option) => {
+        {options.map((option, index) => {
           return (
             <OptionsRouter
               from={option.from}
               via={option.via}
               to={option.to}
+              key={index}
               title={option.name}
               route={option.url}
               special={option.special}
@@ -83,7 +84,6 @@ const Followup = () => {
       {/* ask for suggestions from viewers */}
       <div></div>
 
-      
       {/* Details */}
     </div>
   );

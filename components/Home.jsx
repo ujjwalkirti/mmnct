@@ -76,7 +76,7 @@ function HomePage() {
             <img
               src={`/vector-1.png`}
               alt="ground picture"
-              priority
+              priority="true"
               className="w-[791px] h-[396px]"
             />
           </div>

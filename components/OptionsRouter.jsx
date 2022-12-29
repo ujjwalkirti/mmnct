@@ -11,7 +11,7 @@ const OptionsRouter = ({ from, via, to, title, route, special }) => {
   return (
     <Link
       href={route}
-      className={`flex items-center rounded-lg md:text-sm justify-between px-5 py-6 bg-gradient-to-r ${from} ${via} ml-2 ${to} text-white mb-4 ${specialDecorations(
+      className={`flex items-center hover:shadow-lg rounded-lg md:text-sm justify-between px-5 py-6 bg-gradient-to-r ${from} ${via} ml-2 ${to} text-white mb-4 ${specialDecorations(
         special
       )}`}
     >

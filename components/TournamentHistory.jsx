@@ -31,8 +31,8 @@ const TournamentHistory = () => {
         </strong>
         . <br />
         <br />
-        The <strong>16th</strong> edition of the tournament will commence on
-        <strong>January 26</strong> and end with the{" "}
+        The <strong>16th</strong> edition of the tournament will commence on 
+        <strong> January 26</strong> and end with the{" "}
         <strong>finale on January 29</strong>. <br />
         <br />
         The teams will comprise of B.Tech, M.Sc., M.Tech, Ph.D. students,

@@ -44,7 +44,9 @@ const ParticipatingTeams = ({ teamList }) => {
 
   useEffect(() => {
     divisionOfTeamsbasedonGender();
+  }, []);
 
+  useEffect(() => {
     let maleCount = maleTeams.length;
 
     let pages = maleCount / 5;

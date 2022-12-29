@@ -131,7 +131,7 @@ function Page1() {
           {questions.map((question, index) => {
             if (index < 2) {
               return (
-                <div className="text-left my-2 pl-2">
+                <div key={index} className="text-left my-2 pl-2">
                   <p className="font-semibold mb-2">
                     {index + 1}. {question.q}
                   </p>
