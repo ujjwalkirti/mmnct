@@ -21,6 +21,8 @@ export default function Modal({ details }) {
     let teamName = e.target[1].value;
     //Get Team type from input
     let teamType = e.target[2].value;
+    //Get Team gender from input
+    let teamGender = e.target[3].value;
 
     const metadata = {
       contentType: "image/jpeg",
@@ -32,6 +34,10 @@ export default function Modal({ details }) {
 
     if (teamType == "") {
       teamType = details.teamType;
+    }
+
+    if (teamGender == "") {
+      teamGender = details.teamGender;
     }
 
     let storageRef = ref(storage, `teams_logo/${teamName}.jpg`);
@@ -75,6 +81,7 @@ export default function Modal({ details }) {
       teamName: teamName,
       teamType: teamType,
       teamLogo: details.teamLogo,
+      teamGender: teamGender,
     });
     alert("Team details updated successfully");
     setShowModal(false);
@@ -105,12 +112,16 @@ export default function Modal({ details }) {
                   onSubmit={updateTeamDetails}
                 >
                   <div class="mb-6 ml-2 md:ml-6">
-                    <Image
-                      src={details.teamLogo}
-                      width={300}
-                      height={300}
-                      className="border"
-                    />
+                    {details.teamLogo != "" ? (
+                      <Image
+                        src={details.teamLogo}
+                        width={300}
+                        height={300}
+                        className="border"
+                      />
+                    ) : (
+                      <p className="py-3">No logo uploaded</p>
+                    )}
                   </div>
                   <div class="md:flex md:items-center mb-6">
                     <div class="md:w-1/3">
@@ -161,6 +172,40 @@ export default function Modal({ details }) {
                         type="text"
                         placeholder={details.teamType}
                       />
+                    </div>
+                  </div>
+
+                  <div class="md:flex md:items-center mb-6">
+                    <div class="md:w-1/3">
+                      <label
+                        className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4"
+                        for="team_gender"
+                      >
+                        Team Type
+                      </label>
+                    </div>
+                    <div class="md:w-2/3">
+                      <select
+                        class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
+                        id="team_gender"
+                        required
+                      >
+                        {details.teamGender === "Male" ? (
+                          <>
+                            <option value="Male" selected>
+                              Male
+                            </option>
+                            <option value="Female"> Female </option>
+                          </>
+                        ) : (
+                          <>
+                            <option value="Male">Male</option>
+                            <option value="Female" selected>
+                              Female
+                            </option>
+                          </>
+                        )}
+                      </select>
                     </div>
                   </div>
 

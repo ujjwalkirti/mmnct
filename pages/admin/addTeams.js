@@ -3,14 +3,7 @@ import React, { useState } from "react";
 import Navbar from "../../components/Navbar";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { db, storage } from "../../components/db/Firebase";
-import {
-  collection,
-  setDoc,
-  updateDoc,
-  doc,
-  getDoc,
-  getDocs,
-} from "firebase/firestore";
+import { collection, setDoc, doc, getDoc, getDocs } from "firebase/firestore";
 
 import Image from "next/image";
 import Modal from "../../components/Modal";
@@ -42,6 +35,8 @@ const AddTeams = ({ teams }) => {
     const teamName = e.target[1].value;
     //Get Team type from input
     const teamType = e.target[2].value;
+    //Get Team gender from input
+    const teamGender = e.target[3].value;
 
     let storageRef = ref(storage, `teams_logo/${teamName}.jpg`);
 
@@ -57,30 +52,32 @@ const AddTeams = ({ teams }) => {
       alert("Team already exists");
       setLoading(false);
     } else {
-      //Upload image to firebase storage
-      uploadBytes(storageRef, file, metadata).then(
-        (snapshot) => {
-          console.log("Uploaded the file!");
-
-          //Get the download url of the image
-          getDownloadURL(storageRef).then(async (downloadURL) => {
-            // console.log(downloadURL);
-            //Add the team name and download url to the database
-            await setDoc(doc(db, "participating-teams", teamName), {
-              teamName: teamName,
-              teamType: teamType,
-              teamLogo: downloadURL,
+      let downloadURL = "";
+      if (file != null) {
+        //Upload image to firebase storage
+        await uploadBytes(storageRef, file, metadata).then(
+          (snapshot) => {
+            console.log("Uploaded the file!");
+            //Get the download url of the image
+            getDownloadURL(storageRef).then(async (URL) => {
+              downloadURL = URL;
             });
-            alert("Team added successfully");
+          },
+          (error) => {
+            console.log(error);
             setLoading(false);
-            location.reload();
-          });
-        },
-        (error) => {
-          console.log(error);
-          setLoading(false);
-        }
-      );
+          }
+        );
+      }
+      await setDoc(doc(db, "participating-teams", teamName), {
+        teamName: teamName,
+        teamType: teamType,
+        teamLogo: downloadURL,
+        teamGender: teamGender,
+      });
+      alert("Team added successfully");
+      setLoading(false);
+      location.reload();
     }
   };
   return (
@@ -110,7 +107,11 @@ const AddTeams = ({ teams }) => {
         </button>
       </div>
 
-      {!newTeam && !updateTeam && (
+      {teams.length == 0 && !newTeam && (
+        <p className="text-center my-10 text-3xl">No teams added yet</p>
+      )}
+
+      {teams.length != 0 && !newTeam && !updateTeam && (
         <div>
           <p className="text-center my-10 text-3xl">Existing Team details</p>
           <div className="flex justify-center text-center px-1">
@@ -121,22 +122,28 @@ const AddTeams = ({ teams }) => {
                     <th className="px-4 md:px-10 py-2">Team Logo</th>
                     <th className="px-4 md:px-10 py-2">Team Name</th>
                     <th className="px-4 md:px-10 py-2">Team Type</th>
+                    <th className="px-4 md:px-10 py-2">Gender</th>
                   </tr>
                 </thead>
                 <tbody>
                   {teams.map((team, index) => (
                     <tr className="border-b" key={index}>
                       <td className="px-4 py-2">
-                        <Image
-                          src={team.teamLogo}
-                          width={100}
-                          height={100}
-                          className="border"
-                          alt="Team Logo"
-                        />
+                        {team.teamLogo != "" ? (
+                          <Image
+                            src={team.teamLogo}
+                            width={100}
+                            height={100}
+                            className="border"
+                            alt="No logo"
+                          />
+                        ) : (
+                          <p className="text-left pl-3">No logo</p>
+                        )}
                       </td>
                       <td className="px-4 py-auto">{team.teamName}</td>
                       <td className="px-4 py-auto">{team.teamType}</td>
+                      <td className="px-4 py-auto">{team.teamGender}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -161,7 +168,7 @@ const AddTeams = ({ teams }) => {
                 </label>
               </div>
               <div class="md:w-2/3">
-                <input id="file" type="file" required />
+                <input id="file" type="file" />
               </div>
             </div>
 
@@ -203,6 +210,29 @@ const AddTeams = ({ teams }) => {
               </div>
             </div>
 
+            <div class="md:flex md:items-center mb-6">
+              <div class="md:w-1/3">
+                <label
+                  className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4"
+                  for="team_gender"
+                >
+                  Team Type
+                </label>
+              </div>
+              <div class="md:w-2/3">
+                <select
+                  class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
+                  id="team_gender"
+                  required
+                >
+                  <option value="Male" selected>
+                    Male
+                  </option>
+                  <option value="Female"> Female </option>
+                </select>
+              </div>
+            </div>
+
             <div class="md:flex md:items-center">
               <div class="md:w-1/3"></div>
               <div class="md:w-2/3">
@@ -221,7 +251,7 @@ const AddTeams = ({ teams }) => {
           )}
         </div>
       )}
-      {updateTeam && (
+      {teams.length != 0 && updateTeam && (
         <div>
           <p className="text-center my-10 text-3xl">Update Team details</p>
           <div className="flex justify-center text-center px-1">
@@ -229,29 +259,35 @@ const AddTeams = ({ teams }) => {
               <table className="table-auto">
                 <thead className="border-b bg-gray-800 text-white">
                   <tr>
+                    <th className="px-4 md:px-10 py-2">Update</th>
                     <th className="px-4 md:px-10 py-2">Team Logo</th>
                     <th className="px-4 md:px-10 py-2">Team Name</th>
                     <th className="px-4 md:px-10 py-2">Team Type</th>
-                    <th className="px-4 md:px-10 py-2">Update</th>
+                    <th className="px-4 md:px-10 py-2">Gender </th>
                   </tr>
                 </thead>
                 <tbody>
                   {teams.map((team, index) => (
                     <tr className="border-b" key={index}>
-                      <td className="px-4 py-2">
-                        <Image
-                          src={team.teamLogo}
-                          width={100}
-                          height={100}
-                          className="border"
-                          alt="Team Logo"
-                        />
-                      </td>
-                      <td className="px-4 py-auto">{team.teamName}</td>
-                      <td className="px-4 py-auto">{team.teamType}</td>
                       <td className="px-4 py-auto">
                         <Modal details={team} />
                       </td>
+                      <td className="px-4 py-2">
+                        {team.teamLogo != "" ? (
+                          <Image
+                            src={team.teamLogo}
+                            width={100}
+                            height={100}
+                            className="border"
+                            alt="Team Logo"
+                          />
+                        ) : (
+                          <p className="text-left pl-3">No logo</p>
+                        )}
+                      </td>
+                      <td className="px-4 py-auto">{team.teamName}</td>
+                      <td className="px-4 py-auto">{team.teamType}</td>
+                      <td className="px-4 py-auto">{team.teamGender}</td>
                     </tr>
                   ))}
                 </tbody>
