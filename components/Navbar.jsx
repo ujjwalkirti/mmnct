@@ -11,18 +11,18 @@ const options = [
   { name: "Polls", url: "/polls" },
   { name: "Memories", url: "/memories" },
   { name: "Trivias", url: "/trivias" },
-  // { name: "Organising Team", url: "/organisers" },
+  { name: "Organising Team", url: "/organisers" },
 ];
 
 function Navbar() {
   const [showMenu, setShowMenu] = useState(false);
   return (
-    <div className=" relative flex md:h-[75px] bg-white justify-end shadow-md">
+    <div className="relative flex md:h-[75px] bg-white justify-end shadow-md">
       {/* <div className="flex items-center font-bold">
         
         <p className="ml-2 text-3xl">MMNCT</p>
       </div> */}
-      <div className="hover:shadow-lg cursor-pointer flex justify-between w-full px-5 md:hidden">
+      <div className="hover:shadow-lg pt-2 cursor-pointer flex justify-between w-full px-5 md:hidden">
         <Link href="/">
           <Image
             src="/main.png"
@@ -75,17 +75,21 @@ function Navbar() {
           <Image src="/main.png" height={54} width={65} alt="logo" />
         </Link>
         <div className="flex items-center">
-          {options.map((option, index) => (
-            <Link
-              className={`my-2  px-4 py-2 border-white hover:text-[#F8C156] border-b-4 mx-2 hover:border-b-[#F8C156] ${emphasiseRoute(
-                option.url
-              )}`}
-              href={option.url}
-              key={index}
-            >
-              {option.name}
-            </Link>
-          ))}
+          {options.map((option, index) => {
+            if (option.name !== "Organising Team") {
+              return (
+                <Link
+                  className={`my-2  px-4 py-2 border-white hover:text-[#F8C156] border-b-4 mx-2 hover:border-b-[#F8C156] ${emphasiseRoute(
+                    option.url
+                  )}`}
+                  href={option.url}
+                  key={index}
+                >
+                  {option.name}
+                </Link>
+              );
+            }
+          })}
         </div>
       </div>
     </div>

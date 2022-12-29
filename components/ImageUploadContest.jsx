@@ -27,7 +27,7 @@ function Page1() {
   }, []);
 
   return (
-    <div className="relative lg:w-4/5 lg:3/5 lg:mx-auto">
+    <div className="relative lg:w-4/5 lg:3/5 lg:mt-10 lg:mx-auto">
       <div className="">
         <motion.div
           drag="x"
