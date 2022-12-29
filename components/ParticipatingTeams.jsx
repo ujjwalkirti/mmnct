@@ -45,26 +45,15 @@ const ParticipatingTeams = ({ teamList }) => {
   useEffect(() => {
     divisionOfTeamsbasedonGender();
 
-    if (teamList.length !== 0) {
-      let maleCount = maleTeams.length;
-      let femaleCount = femaleTeams.length;
+    let maleCount = maleTeams.length;
 
-      let pages = 0;
-      if (selectedGender === "male") {
-        pages = maleCount / 5;
-        if (maleCount % 5 !== 0) {
-          pages++;
-        }
-      } else {
-        pages = femaleCount / 5;
-        if (femaleCount % 5 !== 0) {
-          pages++;
-        }
-      }
-      console.log(maleCount, femaleCount);
-      setTotalPages(pages);
+    let pages = maleCount / 5;
+    if (maleCount % 5 !== 0) {
+      pages++;
     }
-  }, [teamList, selectedGender]);
+    // console.log(maleCount, femaleCount);
+    setTotalPages(pages);
+  }, [maleTeams]);
 
   function colorDeciderForRange(buttonType) {
     if (buttonType === "previous") {
@@ -255,44 +244,43 @@ const ParticipatingTeams = ({ teamList }) => {
               Participating Teams
             </p>
           </div>
-          <div className="float-none ">
-            {selectedGender === "male" ? (
-              <div className="grid gap-3 mr-4 grid-cols-2 ">
-                {maleTeams.map((team, index) => {
-                  if (index >= range.start && index < range.end) {
-                    return <MatchCard type={`short`} team={team} key={index} />;
-                  }
-                })}
-              </div>
-            ) : (
-              <div className="grid gap-3 mr-4 grid-cols-2 ">
-                {femaleTeams.map((team, index) => {
-                  return <MatchCard type={`short`} team={team} key={index} />;
-                })}
-              </div>
-            )}
 
-            {selectedGender === "male" && (
-              <div className="flex ml-[20px] text-4xl items-center font-bold my-5">
-                <BsChevronLeft
-                  onClick={() => {
-                    if (page > 1) {
-                      setPage(page - 1);
-                      // console.log(page);
-                    }
-                  }}
-                  className={`${colorDeciderForRange("previous")}`}
-                />
-                <BsChevronRight
-                  onClick={() => {
-                    if (page < totalPages) setPage(page + 1);
+          {selectedGender === "male" ? (
+            <div className="grid gap-3 mr-4 grid-cols-2 ">
+              {maleTeams.map((team, index) => {
+                if (index >= range.start && index < range.end) {
+                  return <MatchCard type={`short`} team={team} key={index} />;
+                }
+              })}
+            </div>
+          ) : (
+            <div className="grid gap-3 mr-4 grid-cols-2 ">
+              {femaleTeams.map((team, index) => {
+                return <MatchCard type={`short`} team={team} key={index} />;
+              })}
+            </div>
+          )}
+
+          {selectedGender === "male" && (
+            <div className="flex ml-[20px] text-4xl items-center font-bold my-5">
+              <BsChevronLeft
+                onClick={() => {
+                  if (page > 1) {
+                    setPage(page - 1);
                     // console.log(page);
-                  }}
-                  className={`${colorDeciderForRange("next")} z-10`}
-                />
-              </div>
-            )}
-          </div>
+                  }
+                }}
+                className={`${colorDeciderForRange("previous")}`}
+              />
+              <BsChevronRight
+                onClick={() => {
+                  if (page < totalPages) setPage(page + 1);
+                  // console.log(page);
+                }}
+                className={`${colorDeciderForRange("next")} z-10`}
+              />
+            </div>
+          )}
         </div>
       </div>
     </div>
