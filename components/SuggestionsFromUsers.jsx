@@ -17,7 +17,7 @@ const SuggestionsFromUsers = () => {
   };
   return (
     <div className=" bg-red-400 text-white py-6 px-4">
-      <p className="text-center font-bold lg:text-3xl mb-4 ">
+      <p className="text-center font-bold lg:text-3xl text-2xl mb-4 ">
         Message from <span className="underline">Developers</span>
       </p>
       <div className="px-2 text-justify lg:flex lg:items-center lg:justify-center lg:w-4/5 lg:mx-auto lg:gap-4  lg:px-6 lg:text-2xl text-xl">
