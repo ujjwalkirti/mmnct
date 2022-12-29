@@ -6,8 +6,13 @@ const TournamentHistory = () => {
     <div className="mmnct-about md:mx-auto md:text-xl xl:text-2xl xl:items-center xl:flex">
       {/* <span className="font-bold text-5xl">"</span> */}
       <div className="xl:w-1/2">
-        <div className="bg-white h-[297px] xl:h-[493px] w-[297px] xl:w-[493px] rounded-full flex justify-center items-center mx-auto shadow-lg mt-5">
-          <Image src="/main.png" height={191} width={307} />
+        <div className="bg-white h-[327px] xl:h-[493px] w-[327px] xl:w-[493px] rounded-full flex justify-center items-center mx-auto shadow-lg mt-5">
+          <Image
+            src="/main.png"
+            height={191}
+            width={307}
+            className="h-[250px] w-[250px] xl:h-[370px] xl:w-[370px]"
+          />
         </div>
       </div>
       <div className="text-[15px] md:text-[20px] font-[500] leading-[18.29px] md:leading-[25px]  text-justify w-11/12 xl:w-1/2 xl:px-5 mx-auto xl:mr-10 mt-10 text-[#302206]">
@@ -28,9 +33,11 @@ const TournamentHistory = () => {
         <br />
         The <strong>16th</strong> edition of the tournament will commence on
         <strong>January 26</strong> and end with the{" "}
-        <strong>finale on January 29</strong>. <br /><br/>
+        <strong>finale on January 29</strong>. <br />
+        <br />
         The teams will comprise of B.Tech, M.Sc., M.Tech, Ph.D. students,
-        localites, mess staff, and Faculty members. <br /><br/>
+        localites, mess staff, and Faculty members. <br />
+        <br />
         The tournament features 15 men's and 5 women's teams competing against
         each other to claim the ultimate title in their category.
       </div>
