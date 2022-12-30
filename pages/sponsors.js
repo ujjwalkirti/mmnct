@@ -104,7 +104,7 @@ export default function Sponsors({ brochureLink }) {
           </div>
         </div>
         <TournamentDetails />
-        <div className="mb-12 lg:w-1/2">
+        <div className="mt-10 lg:mt-0 mb-12 lg:w-1/2">
           <p className="text-center px-1 text-2xl font-semibold">
             Meanwhile if you have any queries, please contact:
           </p>
