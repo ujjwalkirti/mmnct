@@ -51,9 +51,18 @@ function Navbar() {
       </div>
       {showMenu && (
         <div className="absolute flex flex-col w-full md:w-2/5 z-50 xl:w-1/5 top-0 right-0 bg-white text-black px-4 py-2">
-          <div className="flex justify-end">
+          <div className="flex justify-between">
+            <Link href="/">
+              <Image
+                src="/main.png"
+                height={50}
+                width={51}
+                alt="MMNCT logo"
+                className="mb-2 ml-1"
+              />
+            </Link>
             <AiOutlineClose
-              className="mt-4 mb-2 mr-3 font-semibold text-3xl hover:cursor-pointer"
+              className="mt-3 mb-2 mr-2 font-semibold text-3xl hover:cursor-pointer"
               onClick={() => {
                 setShowMenu(false);
               }}
