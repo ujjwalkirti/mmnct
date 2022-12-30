@@ -139,7 +139,7 @@ export default function Sponsors({ brochureLink }) {
           Alternatively you can also mail us your queries.
           <FaRegHandPointDown className="text-3xl" />
         </p>
-        <p className="flex justify-center items-center gap-1 md:gap-3 lg:gap-4 bg-white py-3 w-3/5 lg:w-2/5  mx-auto hover:shadow-xl rounded-lg mt-2 border border-red-600 cursor-pointer">
+        <p className="flex justify-center items-center gap-1 md:gap-3 lg:gap-4 bg-white py-3 w-4/5 lg:w-2/5  mx-auto hover:shadow-xl rounded-lg mt-2 border border-red-600 cursor-pointer">
           <Link href="mailto:mmnct.info@gmail.com">
             <SiGmail className="text-red-600" />
           </Link>
