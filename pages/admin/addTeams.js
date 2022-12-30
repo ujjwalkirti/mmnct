@@ -1,11 +1,24 @@
 import Head from "next/head";
 import React, { useState } from "react";
 import Navbar from "../../components/Navbar";
-import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import {
+  ref,
+  uploadBytes,
+  getDownloadURL,
+  deleteObject,
+} from "firebase/storage";
 import { db, storage } from "../../components/db/Firebase";
-import { collection, setDoc, doc, getDoc, getDocs } from "firebase/firestore";
+import {
+  collection,
+  setDoc,
+  doc,
+  getDoc,
+  getDocs,
+  deleteDoc,
+} from "firebase/firestore";
 import Image from "next/image";
 import dynamic from "next/dynamic";
+import { AiFillDelete } from "react-icons/ai";
 
 //Next js dynamic import Modal
 const Modal = dynamic(() => import("../../components/Modal"));
@@ -61,10 +74,10 @@ const AddTeams = ({ teams }) => {
       if (file != null) {
         //Upload image to firebase storage
         await uploadBytes(storageRef, file, metadata).then(
-          (snapshot) => {
+          async (snapshot) => {
             console.log("Uploaded the file!");
             //Get the download url of the image
-            getDownloadURL(storageRef).then(async (URL) => {
+            await getDownloadURL(storageRef).then((URL) => {
               downloadURL = URL;
             });
           },
@@ -81,7 +94,47 @@ const AddTeams = ({ teams }) => {
         teamGender: teamGender,
       });
       alert("Team added successfully");
-      setLoading(false);
+      location.reload();
+    }
+  };
+
+  const deleteTeam = async (details) => {
+    //Prompt the user to confirm the deletion
+    const confirm = window.confirm(
+      "Are you sure you want to delete this team?"
+    );
+    if (!confirm) return;
+
+    setLoading(true);
+    const teamName = details.teamName;
+    const teamLogo = details.teamLogo;
+
+    //Delete the team from the database
+    await deleteDoc(doc(db, "participating-teams", teamName)).then(() => {
+      console.log("Team deleted successfully");
+    });
+
+    if (teamLogo != "") {
+      let jsonFile = teamLogo.split("?alt=media")[0];
+
+      // Fetch JSON file
+      let response = await fetch(jsonFile);
+      let data = await response.json();
+
+      // Get file name
+      let filePath = data.name;
+
+      // Create a reference to the file to delete
+      let desertRef = ref(storage, filePath);
+
+      // Delete the file
+      await deleteObject(desertRef)
+        .then(() => {
+          console.log("File deleted successfully");
+        })
+        .catch((error) => {
+          console.log(error);
+        });
       location.reload();
     }
   };
@@ -112,10 +165,20 @@ const AddTeams = ({ teams }) => {
         </button>
       </div>
 
+      {loading && (
+        <div className="fixed top-0 left-0 w-full h-full z-50 flex justify-center items-center bg-gray-200 bg-opacity-50">
+          <Image
+            src="/loader.gif"
+            alt="loading"
+            width={300}
+            height={300}
+            className="rounded-full"
+          />
+        </div>
+      )}
       {teams.length == 0 && !newTeam && (
         <p className="text-center my-10 text-3xl">No teams added yet</p>
       )}
-
       {teams.length != 0 && !newTeam && !updateTeam && (
         <div>
           <p className="text-center my-10 text-3xl">Existing Team details</p>
@@ -157,14 +220,16 @@ const AddTeams = ({ teams }) => {
           </div>
         </div>
       )}
-
       {newTeam && (
         <div className="overflow-x-auto">
           <p className="text-center my-10 text-3xl">Add Team details</p>
 
-          <form class="w-full max-w-sm mx-auto px-4" onSubmit={addTeamDetails}>
-            <div class="md:flex md:items-center mb-6">
-              <div class="md:w-1/3">
+          <form
+            className="w-full max-w-sm mx-auto px-4"
+            onSubmit={addTeamDetails}
+          >
+            <div className="md:flex md:items-center mb-6">
+              <div className="md:w-1/3">
                 <label
                   className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4"
                   for="file"
@@ -172,13 +237,13 @@ const AddTeams = ({ teams }) => {
                   Team Logo
                 </label>
               </div>
-              <div class="md:w-2/3">
+              <div className="md:w-2/3">
                 <input id="file" type="file" />
               </div>
             </div>
 
-            <div class="md:flex md:items-center mb-6">
-              <div class="md:w-1/3">
+            <div className="md:flex md:items-center mb-6">
+              <div className="md:w-1/3">
                 <label
                   className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4"
                   for="team_name"
@@ -186,9 +251,9 @@ const AddTeams = ({ teams }) => {
                   Team Name
                 </label>
               </div>
-              <div class="md:w-2/3">
+              <div className="md:w-2/3">
                 <input
-                  class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
+                  className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
                   id="team_name"
                   type="text"
                   required
@@ -196,8 +261,8 @@ const AddTeams = ({ teams }) => {
               </div>
             </div>
 
-            <div class="md:flex md:items-center mb-6">
-              <div class="md:w-1/3">
+            <div className="md:flex md:items-center mb-6">
+              <div className="md:w-1/3">
                 <label
                   className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4"
                   for="team_type"
@@ -205,9 +270,9 @@ const AddTeams = ({ teams }) => {
                   Team Type
                 </label>
               </div>
-              <div class="md:w-2/3">
+              <div className="md:w-2/3">
                 <input
-                  class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
+                  className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
                   id="team_type"
                   type="text"
                   required
@@ -215,8 +280,8 @@ const AddTeams = ({ teams }) => {
               </div>
             </div>
 
-            <div class="md:flex md:items-center mb-6">
-              <div class="md:w-1/3">
+            <div className="md:flex md:items-center mb-6">
+              <div className="md:w-1/3">
                 <label
                   className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4"
                   for="team_gender"
@@ -224,9 +289,9 @@ const AddTeams = ({ teams }) => {
                   Gender
                 </label>
               </div>
-              <div class="md:w-2/3">
+              <div className="md:w-2/3">
                 <select
-                  class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
+                  className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
                   id="team_gender"
                   required
                 >
@@ -238,11 +303,11 @@ const AddTeams = ({ teams }) => {
               </div>
             </div>
 
-            <div class="md:flex md:items-center">
-              <div class="md:w-1/3"></div>
-              <div class="md:w-2/3">
+            <div className="md:flex md:items-center">
+              <div className="md:w-1/3"></div>
+              <div className="md:w-2/3">
                 <button
-                  class="shadow bg-purple-500 hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
+                  className="shadow bg-purple-500 hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
                   type="submit"
                 >
                   Add Team
@@ -269,6 +334,7 @@ const AddTeams = ({ teams }) => {
                     <th className="px-12 py-2">Team Name</th>
                     <th className="px-12 py-2">Team Type</th>
                     <th className="px-8 py-2">Gender </th>
+                    <th className="px-4 py-2">Delete</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -293,6 +359,12 @@ const AddTeams = ({ teams }) => {
                       <td className="px-4 py-auto">{team.teamName}</td>
                       <td className="px-4 py-auto">{team.teamType}</td>
                       <td className="px-4 py-auto">{team.teamGender}</td>
+                      <td className="text-red-600 flex justify-center">
+                        <AiFillDelete
+                          className="cursor-pointer mt-3"
+                          onClick={() => deleteTeam(team)}
+                        />
+                      </td>
                     </tr>
                   ))}
                 </tbody>

@@ -13,6 +13,20 @@ import { setDoc, deleteDoc, doc } from "firebase/firestore";
 export default function Modal({ details }) {
   const [showModal, setShowModal] = React.useState(false);
 
+  const deleteLogo = async ({ fileName }) => {
+    // Create a reference to the file to delete
+    const desertRef = ref(storage, fileName);
+
+    // Delete the file
+    await deleteObject(desertRef)
+      .then(() => {
+        console.log("File deleted successfully");
+      })
+      .catch((error) => {
+        alert(error);
+      });
+  };
+
   const updateTeamDetails = async (e) => {
     e.preventDefault();
     let removeLogo = false;
@@ -59,17 +73,21 @@ export default function Modal({ details }) {
 
     let storageRef = ref(storage, `teams_logo/${teamName}.jpg`);
 
+    let fileName = "";
+    if (details.teamLogo != "") {
+      let jsonFile = details.teamLogo.split("?alt=media")[0];
+
+      // Fetch JSON file
+      let response = await fetch(jsonFile);
+      let data = await response.json();
+
+      // Get file name
+      fileName = data.name;
+    }
+
     if (removeLogo && file == null) {
-      // Create a reference to the file to delete
-      const desertRef = ref(storage, `teams_logo/${details.teamName}.jpg`);
-      await deleteObject(desertRef)
-        .then(() => {
-          console.log("File deleted successfully");
-          details.teamLogo = "";
-        })
-        .catch((error) => {
-          alert(error);
-        });
+      await deleteLogo({ fileName });
+      details.teamLogo = "";
     }
 
     if (file != null) {
@@ -81,20 +99,7 @@ export default function Modal({ details }) {
           });
 
           if (teamName != details.teamName && details.teamLogo != "") {
-            // Create a reference to the file to delete
-            const desertRef = ref(
-              storage,
-              `teams_logo/${details.teamName}.jpg`
-            );
-
-            // Delete the file
-            await deleteObject(desertRef)
-              .then(() => {
-                console.log("File deleted successfully");
-              })
-              .catch((error) => {
-                alert(error);
-              });
+            await deleteLogo({ fileName });
           }
         },
         (error) => {
@@ -138,10 +143,10 @@ export default function Modal({ details }) {
                 {/*body*/}
 
                 <form
-                  class="w-full max-w-sm mx-auto px-4 py-6"
+                  className="w-full max-w-sm mx-auto px-4 py-6"
                   onSubmit={updateTeamDetails}
                 >
-                  <div class="mb-6 ml-2 md:ml-6">
+                  <div className="mb-6 ml-2 md:ml-6">
                     {details.teamLogo != "" ? (
                       <div>
                         <Image
@@ -149,6 +154,7 @@ export default function Modal({ details }) {
                           width={300}
                           height={300}
                           className="border"
+                          alt="Team Logo"
                         />
                         <div className="mt-4">
                           <input type="radio" id="removeLogo" />
@@ -160,8 +166,8 @@ export default function Modal({ details }) {
                     )}
                   </div>
 
-                  <div class="md:flex md:items-center mb-6">
-                    <div class="md:w-1/3">
+                  <div className="md:flex md:items-center mb-6">
+                    <div className="md:w-1/3">
                       <label
                         className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4"
                         for="file"
@@ -169,13 +175,13 @@ export default function Modal({ details }) {
                         Team Logo
                       </label>
                     </div>
-                    <div class="md:w-2/3">
+                    <div className="md:w-2/3">
                       <input id="file" type="file" />
                     </div>
                   </div>
 
-                  <div class="md:flex md:items-center mb-6">
-                    <div class="md:w-1/3">
+                  <div className="md:flex md:items-center mb-6">
+                    <div className="md:w-1/3">
                       <label
                         className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4"
                         for="team_name"
@@ -183,9 +189,9 @@ export default function Modal({ details }) {
                         Team Name
                       </label>
                     </div>
-                    <div class="md:w-2/3">
+                    <div className="md:w-2/3">
                       <input
-                        class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
+                        className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
                         id="team_name"
                         type="text"
                         placeholder={details.teamName}
@@ -193,8 +199,8 @@ export default function Modal({ details }) {
                     </div>
                   </div>
 
-                  <div class="md:flex md:items-center mb-6">
-                    <div class="md:w-1/3">
+                  <div className="md:flex md:items-center mb-6">
+                    <div className="md:w-1/3">
                       <label
                         className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4"
                         for="team_type"
@@ -202,9 +208,9 @@ export default function Modal({ details }) {
                         Team Type
                       </label>
                     </div>
-                    <div class="md:w-2/3">
+                    <div className="md:w-2/3">
                       <input
-                        class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
+                        className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
                         id="team_type"
                         type="text"
                         placeholder={details.teamType}
@@ -212,8 +218,8 @@ export default function Modal({ details }) {
                     </div>
                   </div>
 
-                  <div class="md:flex md:items-center mb-6">
-                    <div class="md:w-1/3">
+                  <div className="md:flex md:items-center mb-6">
+                    <div className="md:w-1/3">
                       <label
                         className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4"
                         for="team_gender"
@@ -221,9 +227,9 @@ export default function Modal({ details }) {
                         Gender
                       </label>
                     </div>
-                    <div class="md:w-2/3">
+                    <div className="md:w-2/3">
                       <select
-                        class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
+                        className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
                         id="team_gender"
                         required
                       >
