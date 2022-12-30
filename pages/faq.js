@@ -33,7 +33,7 @@ export default function FAQ({ questions }) {
         Here's the answer to all your queries!
       </p>
       {questions.length !== 0 ? (
-        <div className="">
+        <div className="lg:w-4/5 lg:mx-auto">
           {questions.map((question, index) => (
             <div
               key={index}

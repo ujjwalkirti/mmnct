@@ -16,23 +16,23 @@ const contact_persons = [
   {
     name: "Avtar Kumar",
     position: "Coordinator, MMNCT",
-    contact: "8789276024",
+    contact: "918789276024",
   },
   {
     name: "Manish Kumar",
     position: "Coordinator, MMNCT",
-    contact: "6203215516",
+    contact: "916203215516",
   },
 
   {
     name: "Anupam Kumar",
     position: "Volunteer, MMNCT",
-    contact: "7463926104",
+    contact: "917463926104",
   },
   {
     name: "Ayushman",
     position: "Volunteer, MMNCT",
-    contact: "6202561409",
+    contact: "916202561409",
   },
 ];
 
@@ -102,10 +102,9 @@ export default function Sponsors({ brochureLink }) {
               Read here!
             </Link>
           </div>
-          <TournamentDetails />
         </div>
-
-        <div className="my-6 lg:w-1/2 ">
+        <TournamentDetails />
+        <div className="mb-6 lg:w-1/2 ">
           <p className="text-center px-1">
             Meanwhile if you have any queries, please contact:
           </p>
@@ -126,7 +125,9 @@ export default function Sponsors({ brochureLink }) {
                 >
                   {/* <FiPhoneCall /> */}
                   <AiOutlineWhatsApp />
-                  {contact_person.contact}
+                  <p>
+                    {showPhoneNumberinCorrectformat(contact_person.contact)}
+                  </p>
                 </Link>
               </div>
             ))}
@@ -138,7 +139,7 @@ export default function Sponsors({ brochureLink }) {
           Alternatively you can also mail us your queries.
           <FaRegHandPointDown className="text-3xl" />
         </p>
-        <p className="flex justify-center items-center gap-4 bg-white py-3 w-3/5 lg:w-2/5  mx-auto shadow-xl rounded-lg mt-2 border border-red-600 cursor-pointer">
+        <p className="flex justify-center items-center gap-1 md:gap-3 lg:gap-4 bg-white py-3 w-3/5 lg:w-2/5  mx-auto hover:shadow-xl rounded-lg mt-2 border border-red-600 cursor-pointer">
           <Link href="mailto:mmnct.info@gmail.com">
             <SiGmail className="text-red-600" />
           </Link>
@@ -148,4 +149,9 @@ export default function Sponsors({ brochureLink }) {
       <Footer />
     </div>
   );
+}
+
+function showPhoneNumberinCorrectformat(contactNumber) {
+  
+  return "+91-"+contactNumber.slice(2);
 }
