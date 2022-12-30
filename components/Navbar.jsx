@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { GiHamburgerMenu } from "react-icons/gi";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { AiFillCloseCircle } from "react-icons/ai";
+import { AiOutlineClose } from "react-icons/ai";
 
 const options = [
   { name: "Fixtures", url: "/fixtures" },
@@ -50,16 +50,18 @@ function Navbar() {
         />
       </div>
       {showMenu && (
-        <div className="absolute flex flex-col w-full md:w-2/5 z-40 xl:w-1/5 top-0 right-0 bg-white text-black px-4 py-2">
-          <AiFillCloseCircle
-            className="font-semibold text-2xl absolute top-0 right-0 m-4 hover:cursor-pointer"
-            onClick={() => {
-              setShowMenu(false);
-            }}
-          />
+        <div className="absolute flex flex-col w-full md:w-2/5 z-50 xl:w-1/5 top-0 right-0 bg-white text-black px-4 py-2">
+          <div className="flex justify-end">
+            <AiOutlineClose
+              className="mt-4 mb-2 mr-3 font-semibold text-3xl hover:cursor-pointer"
+              onClick={() => {
+                setShowMenu(false);
+              }}
+            />
+          </div>
           {options.map((option, index) => (
             <Link
-              className="my-4 font-semibold hover:bg-slate-600 hover:text-white px-4 py-2 text-3xl"
+              className="my-3 font-semibold hover:bg-slate-600 hover:text-white px-4 py-2 text-3xl"
               href={option.url}
               key={index}
             >
