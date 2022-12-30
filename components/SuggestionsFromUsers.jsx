@@ -16,13 +16,14 @@ const SuggestionsFromUsers = () => {
       .catch((e) => alert("try again"));
   };
   return (
-    <div className=" bg-red-400 text-white py-6 px-4">
-      <p className="text-center font-bold lg:text-3xl text-2xl mb-4 ">
-        Message from <span className="underline">Developers</span>
+    <div className=" bg-white text-black pt-20 px-4">
+      <p className="text-center font-semibold lg:text-3xl text-2xl mb-3 ">
+        Message from Developers
       </p>
-      <div className="px-2 text-justify lg:flex lg:items-center lg:justify-center lg:w-4/5 lg:mx-auto lg:gap-4  lg:px-6 lg:text-2xl text-xl">
-        <div className="lg:w-2/4">
-          <p className="">
+      <div className="border-b-4 border-[#F4A68D] w-full md:w-3/5 lg:w-2/5 mx-auto mb-8"></div>
+      <div className="px-2 text-justify lg:flex lg:items-center lg:justify-center lg:w-4/5 lg:mx-auto lg:gap-x-8 lg:px-6 text-sm lg:text-lg ">
+        <div className="lg:w-2/4 mb-6">
+          <p>
             We firmly believe that nothing is built perfect in first attempt and
             often requires iteration after iteration in order to become the
             best.
@@ -34,7 +35,7 @@ const SuggestionsFromUsers = () => {
         </div>
         <form
           onSubmit={handleSubmit}
-          className="mt-3 lg:my-3 shadow-lg px-2 flex flex-col py-2 border lg:w-2/4 lg:mx-auto lg:rounded-lg bg-white"
+          className="lg:my-3 shadow-lg px-2 flex flex-col py-2 border lg:w-2/4 lg:mx-auto rounded-lg bg-white"
         >
           <textarea
             placeholder="Write here"
@@ -47,7 +48,7 @@ const SuggestionsFromUsers = () => {
           />
           <input
             type="submit"
-            className="my-2 bg-[#F4A68D] hover:text-[#F4A68D] hover:bg-white border-[#F4A68D] border text-white w-3/5 mx-auto font-semibold text-3xl rounded-lg py-2 cursor-pointer"
+            className="my-3 py-1 px-6 bg-[#F4A68D] hover:text-[#F4A68D] hover:bg-white border-[#F4A68D] border text-white mx-auto font-semibold text-xl rounded-lg cursor-pointer"
           />
         </form>
       </div>

@@ -62,13 +62,13 @@ export default function Sponsors({ brochureLink }) {
       <Navbar />
       {/* Sponsors */}
       <div
-        className={`lg:items-center md:min-h-scree pt-5 lg:flex lg:flex-col lg:justify-center lg:gap-[60px]`}
+        className={`lg:items-center md:min-h-scree pt-20 lg:flex lg:flex-col lg:justify-center lg:gap-[60px]`}
       >
         <div className="flex flex-col justify-center gap-5">
           <p className="font-bold text-5xl lg:text-[50px] text-center">
             Welcome!
           </p>
-          <p className="text-xl text-justify px-2 lg:w-11/12 lg:mx-auto">
+          <p className="text-xl text-justify px-6 lg:w-9/12 lg:mx-auto py-6">
             MMNCT, has become a brand itself over the past several years due to
             consistency it has provided in terms of thrill, grandeur and
             excitement. The hype around this tournament is surreal in SVNIT,
@@ -97,18 +97,18 @@ export default function Sponsors({ brochureLink }) {
           </div>
         </div>
         <div className="w-full lg:hidden">
-          <div className="bg-white px-2 py-1 border-2 w-1/2 text-center text-2xl  my-4 rounded-lg text-pink-600 hover:text-white hover:bg-pink-600 border-pink-600 font-semibold mx-auto cursor-pointer">
+          <div className="bg-white px-2 py-1 border-2 w-1/2 text-center text-2xl mt-4 mb-8 rounded-lg text-pink-600 hover:text-white hover:bg-pink-600 border-pink-600 font-semibold mx-auto cursor-pointer">
             <Link href={`${brochureLink.length !== 0 ? brochureLink : ""}`}>
               Read here!
             </Link>
           </div>
         </div>
         <TournamentDetails />
-        <div className="mb-6 lg:w-1/2 ">
-          <p className="text-center px-1">
+        <div className="mb-12 lg:w-1/2">
+          <p className="text-center px-1 text-2xl font-semibold">
             Meanwhile if you have any queries, please contact:
           </p>
-          <div className="lg:grid lg:grid-cols-2 lg:w-full">
+          <div className="lg:grid lg:grid-cols-2 lg:w-full mt-8">
             {contact_persons.map((contact_person, index) => (
               <div
                 key={index}
@@ -121,7 +121,7 @@ export default function Sponsors({ brochureLink }) {
                 </p>
                 <Link
                   href={`https://wa.me/${contact_person.contact}`}
-                  className="bg-green-400 hover:bg-white hover:text-green-400 border border-green-400 text-2xl text-white py-2 rounded-lg flex justify-center items-center gap-3"
+                  className="mt-4 bg-green-400 hover:bg-white hover:text-green-400 border border-green-400 text-lg text-white py-2 rounded-lg flex justify-center items-center gap-3"
                 >
                   {/* <FiPhoneCall /> */}
                   <AiOutlineWhatsApp />
@@ -134,8 +134,8 @@ export default function Sponsors({ brochureLink }) {
           </div>
         </div>
       </div>
-      <div className="text-center">
-        <p className="flex flex-col font-bold gap-2 items-center justify-center lg:text-3xl">
+      <div className="text-center mb-8">
+        <p className="flex flex-col font-semibold gap-2 items-center justify-center lg:text-2xl">
           Alternatively you can also mail us your queries.
           <FaRegHandPointDown className="text-3xl" />
         </p>
@@ -152,6 +152,5 @@ export default function Sponsors({ brochureLink }) {
 }
 
 function showPhoneNumberinCorrectformat(contactNumber) {
-  
-  return "+91-"+contactNumber.slice(2);
+  return "+91-" + contactNumber.slice(2);
 }

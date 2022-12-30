@@ -91,13 +91,7 @@ function Page1() {
           />
           <div className="relative h-full justify-between lg:hidden">
             <div className="lg:hidden">
-              <button
-                onClick={() => {
-                  setShowDetails(!showDetails);
-                  console.log("button clicked");
-                }}
-                className="bg-[#F4A68D] text-white cursor-pointer py-2 px-4 rounded-lg mt-40 h-[60px] ml-2 shadow-lg"
-              >
+              <button className="bg-[#F4A68D] text-white cursor-pointer py-2 px-4 rounded-lg mt-40 h-[60px] ml-2 shadow-lg">
                 <AiOutlineDoubleLeft className="left-icon font-extrabold text-3xl" />
               </button>
               <p className="text-sm font-medium pl-2 pb-20 pt-4">
@@ -169,7 +163,7 @@ function Page1() {
             exit={{ opacity: 0 }}
           >
             <button
-              className="w-3/5 mx-auto border-yellow-600 border bg-gradient-to-br from-red-600 via-orange-500 to-yellow-400 text-white font-semibold py-3 px-2 rounded-lg"
+              className="w-3/5 mx-auto bg-[#191799] text-white font-semibold py-3 px-2 rounded-lg"
               onClick={() => {
                 setShowDetails(!showDetails);
               }}
