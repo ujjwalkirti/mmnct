@@ -120,7 +120,7 @@ const ParticipatingTeams = ({ teamList }) => {
             </p>
           </div>
         </div>
-        <div className="relative h-[540px] overflow-x-hidden mx-auto">
+        <div className="relative h-[740px] overflow-x-hidden mx-auto">
           {selectedGender === "male" ? (
             <div className="grid grid-cols-2 gap-2 mx-auto w-[360px]">
               {maleTeams.map((team, index) => {
@@ -209,7 +209,7 @@ const ParticipatingTeams = ({ teamList }) => {
           <div className="flex justify-center items-center">
             {/* buttons to switch between men and women team */}
             <div className="flex items-center justify-between mr-10 bg-white text-gray-500 px-4 py-2 gap-2 text-center rounded-lg font-[600] text-[30px]">
-              {/* male button */}
+              {/* men's button */}
               <div
                 onClick={() => {
                   setSelectedGender("male");

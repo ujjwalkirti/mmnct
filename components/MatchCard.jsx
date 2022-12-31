@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { useEffect } from "react";
 import { ImCircleRight } from "react-icons/im";
 
 const MatchCard = ({ type, team }) => {
@@ -9,18 +8,18 @@ const MatchCard = ({ type, team }) => {
 
   if (type === "short") {
     return (
-      <div className="flex flex-col md:flex-row  justify-center md:justify-evenly items-center my-2 bg-white w-full lg:w-full  h-[89px] lg:h-[90px] xl:h-[150px] rounded-[8px] mx-auto px-2 py-2 shadow-lg ">
+      <div className="flex flex-col md:flex-row  justify-center md:justify-evenly items-center my-2 bg-white w-full lg:w-full  h-[129px] lg:h-[90px] xl:h-[150px] rounded-[8px] mx-auto px-2 py-2 shadow-lg ">
         <img
           alt="team-logo"
           className={shortformstyle}
           src={`${imageUrlProducer(team?.teamLogo)} `}
         />
-        <div className="flex flex-col">
+        <div className="flex flex-col items-center">
           {" "}
           <p className="text-[15px] xl:text-[25px] lg:text-[20px] font-[600]">
             {team?.teamName}
           </p>
-          <p className="text-[15px] hidden lg:flex text-gray-600 font-[600]">
+          <p className="text-[15px] flex text-gray-600 font-[600]">
             {team?.teamType}
           </p>
           <Link
