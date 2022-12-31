@@ -10,7 +10,7 @@ import {
 import { db, storage } from "./db/Firebase";
 import { setDoc, deleteDoc, doc } from "firebase/firestore";
 
-export default function Modal({ details }) {
+export default function UpdateModal({ details }) {
   const [showModal, setShowModal] = React.useState(false);
 
   const deleteLogo = async ({ fileName }) => {
@@ -110,9 +110,9 @@ export default function Modal({ details }) {
 
     if (teamName != details.teamName) {
       // Delete the old document and create a new one
-      await deleteDoc(doc(db, "participating-teams", details.teamName));
+      await deleteDoc(doc(db, "participating-teams", details.id));
     }
-    await setDoc(doc(db, "participating-teams", teamName), {
+    await setDoc(doc(db, "participating-teams", details.id), {
       teamName: teamName,
       teamType: teamType,
       teamLogo: details.teamLogo,
