@@ -42,7 +42,9 @@ export async function getServerSideProps() {
 
   const querySnapshot = await getDocs(collection(db, "participating-teams"));
   querySnapshot.forEach((doc) => {
-    data.push(doc.data());
+    let temp = doc.data();
+    temp.id = doc.id;
+    data.push(temp);
   });
 
   return {

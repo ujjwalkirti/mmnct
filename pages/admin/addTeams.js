@@ -121,13 +121,50 @@ const AddTeams = ({ teams }) => {
     if (!confirm) return;
 
     setLoading(true);
-    const teamName = details.teamName;
     const teamLogo = details.teamLogo;
 
     //Delete the team from the database
-    await deleteDoc(doc(db, "participating-teams", details.id)).then(() => {
-      console.log("Team deleted successfully");
-    });
+    await deleteDoc(doc(db, "participating-teams", details.id)).then(
+      async () => {
+        console.log("Team deleted successfully");
+        // Delete all the players of the team which are in collection "participating-team-member"
+        const coll = collection(db, "participating-team-member");
+        const query_ = query(coll, where("teamId", "==", details.id));
+        const snapshot = await getDocs(query_);
+        snapshot.forEach(async (doc) => {
+          if (doc.data().imgUrl != "") {
+            // Delete the player image from the storage folder "players"
+            let jsonFile = doc.data().imgUrl.split("?alt=media")[0];
+
+            // Fetch JSON file
+            let response = await fetch(jsonFile);
+            let data = await response.json();
+
+            // Get file name
+            let filePath = data.name;
+
+            // Create a reference to the file to delete
+            let desertRef = ref(storage, filePath);
+
+            // Delete the file
+            await deleteObject(desertRef)
+              .then(() => {
+                console.log("Player image deleted successfully");
+              })
+              .catch((error) => {
+                console.log(error);
+              });
+          }
+
+          // Delete the player from the database
+          await deleteDoc(doc(db, "participating-team-member", doc.id)).then(
+            async () => {
+              console.log("Player deleted successfully");
+            }
+          );
+        });
+      }
+    );
 
     if (teamLogo != "") {
       let jsonFile = teamLogo.split("?alt=media")[0];

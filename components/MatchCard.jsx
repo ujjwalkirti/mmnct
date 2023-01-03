@@ -23,7 +23,7 @@ const MatchCard = ({ type, team }) => {
             {team?.teamType}
           </p>
           <Link
-            href={`/team-detail`}
+            href={`/team-details/${team.id}`}
             className="text-[20px] bg-orange-500 hidden xl:flex text-white justify-center items-center gap-2 font-[600] py-2 px-4 rounded-lg hover:shadow-lg"
           >
             Full squad <ImCircleRight />
