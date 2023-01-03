@@ -1,136 +1,135 @@
+import React, { useEffect } from "react";
+import { useState } from "react";
 import Head from "next/head";
-import React, { useState } from "react";
-import Navbar from "../../components/Navbar";
-import {
-  ref,
-  uploadBytes,
-  getDownloadURL,
-  deleteObject,
-} from "firebase/storage";
-import { db, storage } from "../../components/db/Firebase";
+import Navbar from "../../../components/Navbar";
+import Footer from "../../../components/Footer";
+import { db, storage } from "../../../components/db/Firebase";
 import {
   collection,
   addDoc,
   doc,
   query,
   getDocs,
+  getDoc,
   deleteDoc,
-  getCountFromServer,
   where,
 } from "firebase/firestore";
-import Image from "next/image";
-import dynamic from "next/dynamic";
-import { AiFillDelete } from "react-icons/ai";
-import Link from "next/link";
-import { GoLinkExternal } from "react-icons/go";
+import {
+  ref,
+  uploadBytes,
+  getDownloadURL,
+  deleteObject,
+} from "firebase/storage";
 import { useRouter } from "next/router";
+import Image from "next/image";
+import { AiFillDelete } from "react-icons/ai";
 
-//Next js dynamic import Modal
-const UpdateTeamModal = dynamic(() =>
-  import("../../components/UpdateTeamModal")
+import dynamic from "next/dynamic";
+// Dynamic import the UpdatePlayerModal component
+const UpdatePlayerModal = dynamic(
+  () => import("../../../components/UpdatePlayerModal"),
+  { ssr: false }
 );
 
-//Next js dynamic import Footer
-const Footer = dynamic(() => import("../../components/Footer"));
-
-// Next js getserversideprops for getting the data from the database
-export async function getServerSideProps() {
-  const teamsRef = collection(db, "participating-teams");
-  const teamsSnap = await getDocs(teamsRef);
-  const teams = teamsSnap.docs.map((doc) => doc.data());
-
-  // Store the id of the document in the data
-  teams.forEach((team, index) => {
-    team.id = teamsSnap.docs[index].id;
-  });
-
-  return {
-    props: {
-      teams: teams,
-    },
-  };
-}
-
-const AddTeams = ({ teams }) => {
+const teamId = () => {
+  const router = useRouter();
+  const [teamDetails, setTeamDetails] = useState({});
+  const [members, setMembers] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [newTeam, setNewTeam] = useState(false);
-  const [updateTeam, setUpdateTeam] = useState(false);
+  const [newMember, setNewMember] = useState(false);
+  const [updateMember, setUpdateMember] = useState(false);
 
-  const addTeamDetails = async (e) => {
+  const getTeamDetails = async (Id) => {
+    setLoading(true);
+    await getDoc(doc(db, "participating-teams", Id)).then((docSnap) => {
+      if (docSnap.exists()) {
+        let data = docSnap.data();
+        data.id = docSnap.id;
+        setTeamDetails(data);
+
+        // Get all the documents from the collection participating-team-member having the teamId as data.id
+        let member_col = collection(db, "participating-team-member");
+        let q = query(member_col, where("teamId", "==", data.id));
+        getDocs(q).then((querySnapshot) => {
+          let member = [];
+          querySnapshot.forEach((doc) => {
+            let data = doc.data();
+            data.id = doc.id;
+            data.teamId = Id;
+            member.push(data);
+          });
+          setMembers(member);
+        });
+      } else {
+        console.log("No such document!");
+      }
+    });
+    setLoading(false);
+  };
+
+  useEffect(() => {
+    //Wait for router to be ready before accessing query
+    if (!router.isReady) return;
+    const Id = router.query.teamId;
+    getTeamDetails(Id);
+  }, [router.isReady]);
+
+  const addNewMember = async (e) => {
     e.preventDefault();
     setLoading(true);
-    // Get file from input
+
     const file = e.target[0].files[0];
-    //Get Team name from input
-    const teamName = e.target[1].value;
-    //Get Team type from input
-    const teamType = e.target[2].value;
-    //Get Team gender from input
-    const teamGender = e.target[3].value;
+    const playerName = e.target[1].value;
+    const playerType = e.target[2].value;
+    const playerBranch = e.target[3].value;
 
-    let storageRef = ref(storage, `teams_logo/${teamName}.jpg`);
-
-    const metadata = {
-      contentType: "image/jpeg",
-    };
-
-    //Check if the team already exists
-    const coll = collection(db, "participating-teams");
-    const query_ = query(coll, where("teamName", "==", teamName));
-    const snapshot = await getCountFromServer(query_);
-
-    if (snapshot.data().count > 0) {
-      alert("Team already exists");
-      setLoading(false);
-    } else {
-      let downloadURL = "";
-      if (file != null) {
-        //Upload image to firebase storage
-        await uploadBytes(storageRef, file, metadata).then(
-          async (snapshot) => {
-            console.log("Uploaded the file!");
-            //Get the download url of the image
-            await getDownloadURL(storageRef).then((URL) => {
-              downloadURL = URL;
-            });
-          },
-          (error) => {
-            console.log(error);
-            setLoading(false);
-          }
-        );
-      }
-
-      await addDoc(collection(db, "participating-teams"), {
-        teamName: teamName,
-        teamType: teamType,
-        teamLogo: downloadURL,
-        teamGender: teamGender,
-      });
-
-      alert("Team added successfully");
-      location.reload();
+    let downloadURL = "";
+    if (file != null) {
+      const storageRef = ref(storage, `players/${file.name}`);
+      const metadata = {
+        contentType: "image/jpeg",
+      };
+      await uploadBytes(storageRef, file, metadata).then(
+        async (snapshot) => {
+          console.log("Uploaded the image!");
+          downloadURL = await getDownloadURL(storageRef);
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
     }
+    await addDoc(collection(db, "participating-team-member"), {
+      teamId: teamDetails.id,
+      name: playerName,
+      type: playerType,
+      imgUrl: downloadURL,
+      branch: playerBranch,
+    });
+
+    alert("Player added successfully");
+    location.reload();
   };
 
-  const deleteTeam = async (details) => {
+  const deletePlayer = async (details) => {
     //Prompt the user to confirm the deletion
     const confirm = await window.confirm(
-      "Are you sure you want to delete this team?"
+      "Are you sure you want to delete this player details?"
     );
     if (!confirm) return;
 
     setLoading(true);
-    const teamName = details.teamName;
-    const teamLogo = details.teamLogo;
+    const imgUrl = details.imgUrl;
 
     //Delete the team from the database
-    await deleteDoc(doc(db, "participating-teams", details.id)).then(() => {
-      console.log("Team deleted successfully");
-    });
+    await deleteDoc(doc(db, "participating-team-member", details.id)).then(
+      () => {
+        console.log("Player deleted successfully");
+      }
+    );
 
-    if (teamLogo != "") {
-      let jsonFile = teamLogo.split("?alt=media")[0];
+    if (imgUrl != "") {
+      let jsonFile = imgUrl.split("?alt=media")[0];
 
       // Fetch JSON file
       let response = await fetch(jsonFile);
@@ -151,85 +150,103 @@ const AddTeams = ({ teams }) => {
           console.log(error);
         });
     }
-    alert("Team deleted successfully");
+    alert("Player deleted successfully");
     location.reload();
   };
+
   return (
     <div>
       <Head>
-        <title>Team details update</title>
+        <title>Team members detail update</title>
       </Head>
       <Navbar />
+      {loading && (
+        <div className="fixed top-0 left-0 w-full h-full z-50 flex justify-center items-center bg-gray-200 bg-opacity-50">
+          <Image
+            src="/loader.gif"
+            alt="loading"
+            width={300}
+            height={300}
+            className="rounded-full"
+          />
+        </div>
+      )}
       <div className="min-h-screen">
+        <div className="flex justify-center">
+          <button
+            className="bg-gray-800 text-white px-8 py-2 rounded-lg mt-4"
+            onClick={() => router.back()}
+          >
+            Go back to Teams page
+          </button>
+        </div>
+        <div className="flex flex-col">
+          <p className="text-center mt-8 mb-4 text-3xl">Team details</p>
+          <div className="shadow-lg mx-auto p-8 w-9/12 md:w-1/3 text-center">
+            <p className="font-semibold mt-4">Team Name</p>
+            <p className="text-sm text-gray-500">{teamDetails.teamName}</p>
+            <p className="font-semibold mt-4">Team Type</p>
+            <p className="text-sm text-gray-500">{teamDetails.teamType}</p>
+            <p className="font-semibold mt-4">Gender</p>
+            <p className="text-sm text-gray-500">{teamDetails.teamGender}</p>
+          </div>
+        </div>
         <div className="flex justify-center items-center mt-8">
-          {newTeam == false ? (
+          {newMember == false ? (
             <button
               className="border border-black py-2 px-4 mx-2"
               onClick={() => {
-                setNewTeam(true);
-                setUpdateTeam(false);
+                setNewMember(true);
+                setUpdateMember(false);
               }}
             >
-              Add new Team
+              Add new Player
             </button>
           ) : (
             <button className="border border-black py-2 px-4 mr-2 bg-gray-800 text-white">
-              Add new Team
+              Add new Player
             </button>
           )}
-          {updateTeam == false ? (
+          {updateMember == false ? (
             <button
               className="border border-black py-2 px-4 mr-2"
               onClick={() => {
-                setNewTeam(false);
-                setUpdateTeam(true);
+                setNewMember(false);
+                setUpdateMember(true);
               }}
             >
-              Update existing Team
+              Update existing Players
             </button>
           ) : (
             <button className="border border-black py-2 px-4 mr-2 bg-gray-800 text-white">
-              Update existing Team
+              Update existing players
             </button>
           )}
         </div>
-
-        {loading && (
-          <div className="fixed top-0 left-0 w-full h-full z-50 flex justify-center items-center bg-gray-200 bg-opacity-50">
-            <Image
-              src="/loader.gif"
-              alt="loading"
-              width={300}
-              height={300}
-              className="rounded-full"
-            />
-          </div>
+        {members.length == 0 && !newMember && (
+          <p className="text-center my-10 text-3xl">No players added yet</p>
         )}
-        {teams.length == 0 && !newTeam && (
-          <p className="text-center my-10 text-3xl">No teams added yet</p>
-        )}
-        {teams.length != 0 && !newTeam && !updateTeam && (
+        {members.length != 0 && !newMember && !updateMember && (
           <div>
-            <p className="text-center my-10 text-3xl">Existing Team details</p>
+            <p className="text-center my-10 text-3xl">Team member details</p>
             <div className="flex justify-center text-center px-1">
               <div className="text-sm md:text-base overflow-x-auto">
                 <table className="table-auto">
                   <thead className="border-b bg-gray-800 text-white">
                     <tr>
-                      <th className="px-10 py-2">Team Logo</th>
-                      <th className="px-12 py-2">Team Name</th>
-                      <th className="px-12 py-2">Team Type</th>
-                      <th className="px-8 py-2">Gender</th>
-                      <th className="px-8 py-2">Members</th>
+                      <th className="px-10 py-2">Image</th>
+                      <th className="px-12 py-2">Name</th>
+                      <th className="px-12 py-2">Player Type</th>
+                      <th className="px-8 py-2">Branch</th>
                     </tr>
                   </thead>
                   <tbody>
-                    {teams.map((team, index) => (
+                    {members.map((member, index) => (
                       <tr className="border-b" key={index}>
                         <td className="px-4 py-2">
-                          {team.teamLogo != "" ? (
+                          {member.imgUrl != "" ? (
                             <Image
-                              src={team.teamLogo}
+                              src={member.imgUrl}
                               width={100}
                               height={100}
                               className="border"
@@ -239,17 +256,9 @@ const AddTeams = ({ teams }) => {
                             <p className="text-center">No logo</p>
                           )}
                         </td>
-                        <td className="px-4 py-auto">{team.teamName}</td>
-                        <td className="px-4 py-auto">{team.teamType}</td>
-                        <td className="px-4 py-auto">{team.teamGender}</td>
-                        <td className="flex justify-center">
-                          <Link
-                            className="pt-2"
-                            href={`/admin/addTeamMembers/${team.id}`}
-                          >
-                            <GoLinkExternal />
-                          </Link>
-                        </td>
+                        <td className="px-4 py-auto">{member.name}</td>
+                        <td className="px-4 py-auto">{member.type}</td>
+                        <td className="px-4 py-auto">{member.branch}</td>
                       </tr>
                     ))}
                   </tbody>
@@ -258,13 +267,13 @@ const AddTeams = ({ teams }) => {
             </div>
           </div>
         )}
-        {newTeam && (
+        {newMember && (
           <div className="overflow-x-auto">
-            <p className="text-center my-10 text-3xl">Add Team details</p>
+            <p className="text-center my-10 text-3xl">Add Player details</p>
 
             <form
               className="w-full max-w-sm mx-auto px-4"
-              onSubmit={addTeamDetails}
+              onSubmit={addNewMember}
             >
               <div className="md:flex md:items-center mb-6">
                 <div className="md:w-1/3">
@@ -272,7 +281,7 @@ const AddTeams = ({ teams }) => {
                     className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4"
                     for="file"
                   >
-                    Team Logo
+                    Image
                   </label>
                 </div>
                 <div className="md:w-2/3">
@@ -286,7 +295,7 @@ const AddTeams = ({ teams }) => {
                     className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4"
                     for="team_name"
                   >
-                    Team Name
+                    Name
                   </label>
                 </div>
                 <div className="md:w-2/3">
@@ -305,7 +314,7 @@ const AddTeams = ({ teams }) => {
                     className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4"
                     for="team_type"
                   >
-                    Team Type
+                    Type / Degree
                   </label>
                 </div>
                 <div className="md:w-2/3">
@@ -322,22 +331,17 @@ const AddTeams = ({ teams }) => {
                 <div className="md:w-1/3">
                   <label
                     className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4"
-                    for="team_gender"
+                    for="team_type"
                   >
-                    Gender
+                    Branch
                   </label>
                 </div>
                 <div className="md:w-2/3">
-                  <select
+                  <input
                     className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
-                    id="team_gender"
-                    required
-                  >
-                    <option value="Male" selected>
-                      Male
-                    </option>
-                    <option value="Female"> Female </option>
-                  </select>
+                    id="team_type"
+                    type="text"
+                  />
                 </div>
               </div>
 
@@ -348,7 +352,7 @@ const AddTeams = ({ teams }) => {
                     className="shadow bg-purple-500 hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
                     type="submit"
                   >
-                    Add Team
+                    Add Player
                   </button>
                 </div>
               </div>
@@ -359,7 +363,7 @@ const AddTeams = ({ teams }) => {
             )}
           </div>
         )}
-        {teams.length != 0 && updateTeam && (
+        {members.length != 0 && updateMember && (
           <div>
             <p className="text-center my-10 text-3xl">Update Team details</p>
             <div className="flex justify-center text-center px-1">
@@ -368,23 +372,23 @@ const AddTeams = ({ teams }) => {
                   <thead className="border-b bg-gray-800 text-white">
                     <tr>
                       <th className="px-4 py-2">Update</th>
-                      <th className="px-10 py-2">Team Logo</th>
-                      <th className="px-12 py-2">Team Name</th>
-                      <th className="px-12 py-2">Team Type</th>
-                      <th className="px-8 py-2">Gender </th>
+                      <th className="px-10 py-2">Image</th>
+                      <th className="px-12 py-2">Player Name</th>
+                      <th className="px-12 py-2">Player Type</th>
+                      <th className="px-8 py-2">Branch </th>
                       <th className="px-4 py-2">Delete</th>
                     </tr>
                   </thead>
                   <tbody>
-                    {teams.map((team, index) => (
+                    {members.map((member, index) => (
                       <tr className="border-b" key={index}>
                         <td className="px-4 py-auto">
-                          <UpdateTeamModal details={team} />
+                          <UpdatePlayerModal details={member} />
                         </td>
                         <td className="px-4 py-2">
-                          {team.teamLogo != "" ? (
+                          {member.imgUrl != "" ? (
                             <Image
-                              src={team.teamLogo}
+                              src={member.imgUrl}
                               width={100}
                               height={100}
                               className="border"
@@ -394,13 +398,13 @@ const AddTeams = ({ teams }) => {
                             <p className="text-center">No logo</p>
                           )}
                         </td>
-                        <td className="px-4 py-auto">{team.teamName}</td>
-                        <td className="px-4 py-auto">{team.teamType}</td>
-                        <td className="px-4 py-auto">{team.teamGender}</td>
+                        <td className="px-4 py-auto">{member.name}</td>
+                        <td className="px-4 py-auto">{member.type}</td>
+                        <td className="px-4 py-auto">{member.branch}</td>
                         <td className="px-4 py-auto text-red-600">
                           <AiFillDelete
-                            className="cursor-pointer mt-3"
-                            onClick={() => deleteTeam(team)}
+                            className="cursor-pointer"
+                            onClick={() => deletePlayer(member)}
                           />
                         </td>
                       </tr>
@@ -417,4 +421,4 @@ const AddTeams = ({ teams }) => {
   );
 };
 
-export default AddTeams;
+export default teamId;

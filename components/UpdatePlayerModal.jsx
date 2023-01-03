@@ -8,10 +8,11 @@ import {
   deleteObject,
 } from "firebase/storage";
 import { db, storage } from "./db/Firebase";
-import { setDoc, deleteDoc, doc } from "firebase/firestore";
+import { setDoc, doc } from "firebase/firestore";
 
-export default function UpdateModal({ details }) {
+export default function UpdatePlayerModal({ details }) {
   const [showModal, setShowModal] = React.useState(false);
+  const [loading, setLoading] = React.useState(false);
 
   const deleteLogo = async ({ fileName }) => {
     // Create a reference to the file to delete
@@ -27,55 +28,54 @@ export default function UpdateModal({ details }) {
       });
   };
 
-  const updateTeamDetails = async (e) => {
+  const updatePlayerDetails = async (e) => {
     e.preventDefault();
+    setLoading(true);
     let removeLogo = false;
     let file = null;
-    let teamName = "";
-    let teamType = "";
-    let teamGender = "";
-    if (details.teamLogo != "") {
-      // Get input for removing background
+    let playerName = "";
+    let playerType = "";
+    let playerBranch = "";
+    if (details.imgUrl != "") {
+      // Get input for removing image
       removeLogo = e.target[0].checked;
       // Get input for file
       file = e.target[1].files[0];
-      //Get Team name from input
-      teamName = e.target[2].value;
-      //Get Team type from input
-      teamType = e.target[3].value;
-      //Get Team gender from input
-      teamGender = e.target[4].value;
+      //Get player name from input
+      playerName = e.target[2].value;
+      //Get player type from input
+      playerType = e.target[3].value;
+      //Get player branch from input
+      playerBranch = e.target[4].value;
     } else {
       // Get input for file
       file = e.target[0].files[0];
-      //Get Team name from input
-      teamName = e.target[1].value;
-      //Get Team type from input
-      teamType = e.target[2].value;
-      //Get Team gender from input
-      teamGender = e.target[3].value;
+      //Get player name from input
+      playerName = e.target[1].value;
+      //Get player type from input
+      playerType = e.target[2].value;
+      //Get player branch from input
+      playerBranch = e.target[3].value;
     }
     const metadata = {
       contentType: "image/jpeg",
     };
 
-    if (teamName == "") {
-      teamName = details.teamName;
+    if (playerName == "") {
+      playerName = details.name;
     }
 
-    if (teamType == "") {
-      teamType = details.teamType;
+    if (playerType == "") {
+      playerType = details.type;
     }
 
-    if (teamGender == "") {
-      teamGender = details.teamGender;
+    if (playerBranch == "") {
+      playerBranch = details.branch;
     }
-
-    let storageRef = ref(storage, `teams_logo/${teamName}.jpg`);
 
     let fileName = "";
-    if (details.teamLogo != "") {
-      let jsonFile = details.teamLogo.split("?alt=media")[0];
+    if (details.imgUrl != "") {
+      let jsonFile = details.imgUrl.split("?alt=media")[0];
 
       // Fetch JSON file
       let response = await fetch(jsonFile);
@@ -87,20 +87,23 @@ export default function UpdateModal({ details }) {
 
     if (removeLogo && file == null) {
       await deleteLogo({ fileName });
-      details.teamLogo = "";
+      details.imgUrl = "";
     }
 
     if (file != null) {
+      const storageRef = ref(storage, "players/" + file.name);
+      const metadata = {
+        contentType: "image/jpeg",
+      };
+      if (details.imgUrl != "") {
+        await deleteLogo({ fileName });
+      }
       await uploadBytes(storageRef, file, metadata).then(
         async (snapshot) => {
           console.log("Uploaded the file!");
           await getDownloadURL(storageRef).then(async (downloadURL) => {
-            details.teamLogo = downloadURL;
+            details.imgUrl = downloadURL;
           });
-
-          if (teamName != details.teamName && details.teamLogo != "") {
-            await deleteLogo({ fileName });
-          }
         },
         (error) => {
           alert(error);
@@ -108,17 +111,16 @@ export default function UpdateModal({ details }) {
       );
     }
 
-    if (teamName != details.teamName) {
-      // Delete the old document and create a new one
-      await deleteDoc(doc(db, "participating-teams", details.id));
-    }
-    await setDoc(doc(db, "participating-teams", details.id), {
-      teamName: teamName,
-      teamType: teamType,
-      teamLogo: details.teamLogo,
-      teamGender: teamGender,
+    await setDoc(doc(db, "participating-team-member", details.id), {
+      teamId: details.teamId,
+      name: playerName,
+      type: playerType,
+      imgUrl: details.imgUrl,
+      branch: playerBranch,
     });
-    alert("Team details updated successfully");
+
+    alert("Player details updated successfully");
+    setLoading(false);
     setShowModal(false);
     location.reload();
   };
@@ -130,6 +132,17 @@ export default function UpdateModal({ details }) {
       </button>
       {showModal ? (
         <>
+          {loading && (
+            <div className="fixed top-0 left-0 w-full h-full z-51 flex justify-center items-center bg-gray-200 bg-opacity-50">
+              <Image
+                src="/loader.gif"
+                alt="loading"
+                width={300}
+                height={300}
+                className="rounded-full"
+              />
+            </div>
+          )}
           <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
             <div className="relative w-auto my-6 mx-auto">
               {/*content*/}
@@ -144,25 +157,25 @@ export default function UpdateModal({ details }) {
 
                 <form
                   className="w-full max-w-sm mx-auto px-4 py-6"
-                  onSubmit={updateTeamDetails}
+                  onSubmit={updatePlayerDetails}
                 >
                   <div className="mb-6 ml-2 md:ml-6">
-                    {details.teamLogo != "" ? (
+                    {details.imgUrl != "" ? (
                       <div>
                         <Image
-                          src={details.teamLogo}
+                          src={details.imgUrl}
                           width={300}
                           height={300}
                           className="border"
-                          alt="Team Logo"
+                          alt="Player image"
                         />
                         <div className="mt-4">
                           <input type="radio" id="removeLogo" />
-                          <label for="removeLogo">Remove Logo</label>
+                          <label for="removeLogo">Remove image</label>
                         </div>
                       </div>
                     ) : (
-                      <p className="py-3">No logo uploaded</p>
+                      <p className="py-3">No image uploaded</p>
                     )}
                   </div>
 
@@ -172,7 +185,7 @@ export default function UpdateModal({ details }) {
                         className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4"
                         for="file"
                       >
-                        Team Logo
+                        Image
                       </label>
                     </div>
                     <div className="md:w-2/3">
@@ -186,7 +199,7 @@ export default function UpdateModal({ details }) {
                         className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4"
                         for="team_name"
                       >
-                        Team Name
+                        Name
                       </label>
                     </div>
                     <div className="md:w-2/3">
@@ -194,7 +207,7 @@ export default function UpdateModal({ details }) {
                         className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
                         id="team_name"
                         type="text"
-                        placeholder={details.teamName}
+                        placeholder={details.name}
                       />
                     </div>
                   </div>
@@ -205,7 +218,7 @@ export default function UpdateModal({ details }) {
                         className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4"
                         for="team_type"
                       >
-                        Team Type
+                        Type / Degree
                       </label>
                     </div>
                     <div className="md:w-2/3">
@@ -213,7 +226,7 @@ export default function UpdateModal({ details }) {
                         className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
                         id="team_type"
                         type="text"
-                        placeholder={details.teamType}
+                        placeholder={details.type}
                       />
                     </div>
                   </div>
@@ -222,33 +235,18 @@ export default function UpdateModal({ details }) {
                     <div className="md:w-1/3">
                       <label
                         className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4"
-                        for="team_gender"
+                        for="team_branch"
                       >
-                        Gender
+                        Branch
                       </label>
                     </div>
                     <div className="md:w-2/3">
-                      <select
+                      <input
                         className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
-                        id="team_gender"
-                        required
-                      >
-                        {details.teamGender === "Male" ? (
-                          <>
-                            <option value="Male" selected>
-                              Male
-                            </option>
-                            <option value="Female"> Female </option>
-                          </>
-                        ) : (
-                          <>
-                            <option value="Male">Male</option>
-                            <option value="Female" selected>
-                              Female
-                            </option>
-                          </>
-                        )}
-                      </select>
+                        id="team_branch"
+                        type="text"
+                        placeholder={details.branch}
+                      />
                     </div>
                   </div>
 

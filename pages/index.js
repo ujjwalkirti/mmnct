@@ -12,7 +12,7 @@ import TournamentDetails from "../components/TournamentDetails";
 import TournamentHistory from "../components/TournamentHistory";
 import UpcomingMatches from "../components/UpcomingMatches";
 
-export default function Home({teamList}) {
+export default function Home({ teamList }) {
   return (
     <div className="text-xl">
       <Head>
@@ -27,7 +27,7 @@ export default function Home({teamList}) {
       <UpcomingMatches />
       <ParticipatingTeams teamList={teamList} />
       <TournamentDetails />
-      <TournamentHistory/>
+      <TournamentHistory />
       {/* new feature where users can upload there selfies on the matchdays with unique moments which will then be voted by others and one who receives most votes will win */}
       <ImageUploadContest />
       <SponsorCarousel />
@@ -36,7 +36,6 @@ export default function Home({teamList}) {
     </div>
   );
 }
-
 
 export async function getServerSideProps() {
   let data = [];
