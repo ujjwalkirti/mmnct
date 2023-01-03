@@ -16,14 +16,18 @@ export async function getServerSideProps() {
   const coordinators = [];
   const developers = [];
   const designers = [];
+  const content_creators = [];
+
   querySnapshot.forEach((doc) => {
     let data = doc.data();
     if (data.position == "coordinator") {
       coordinators.push(data);
     } else if (data.position == "developer") {
       developers.push(data);
-    } else {
+    } else if (data.position == "designer") {
       designers.push(data);
+    } else {
+      content_creators.push(data);
     }
   });
   return {
@@ -31,11 +35,17 @@ export async function getServerSideProps() {
       coordinators,
       developers,
       designers,
+      content_creators,
     },
   };
 }
 
-export default function Organisers({ coordinators, developers, designers }) {
+export default function Organisers({
+  coordinators,
+  developers,
+  designers,
+  content_creators,
+}) {
   return (
     <div>
       <Head>
@@ -57,6 +67,24 @@ export default function Organisers({ coordinators, developers, designers }) {
           {coordinators.length != 0 &&
             coordinators.map((coordinator, index) => {
               return <Teamcard details={coordinator} key={index} />;
+            })}
+        </div>
+      </div>
+      <div className="text-center mt-28 mb-10">
+        <h1 className="text-3xl font-bold mb-10">Content writer</h1>
+        {content_creators.length == 0 && (
+          <Image
+            src="/loader.gif"
+            width={330}
+            height={400}
+            className="w-full md:w-2/5 md:mx-auto md:rounded-xl"
+            alt="loading"
+          />
+        )}
+        <div className="grid gap-2 lg:grid-cols-1 justify-items-center place-items-center ">
+          {content_creators.length != 0 &&
+            content_creators.map((content_creator, index) => {
+              return <Teamcard details={content_creator} key={index} />;
             })}
         </div>
       </div>
