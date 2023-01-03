@@ -15,7 +15,7 @@ export async function getServerSideProps() {
   );
   const coordinators = [];
   const developers = [];
-  const volunteers = [];
+  const designers = [];
   querySnapshot.forEach((doc) => {
     let data = doc.data();
     if (data.position == "coordinator") {
@@ -23,19 +23,19 @@ export async function getServerSideProps() {
     } else if (data.position == "developer") {
       developers.push(data);
     } else {
-      volunteers.push(data);
+      designers.push(data);
     }
   });
   return {
     props: {
       coordinators,
       developers,
-      volunteers,
+      designers,
     },
   };
 }
 
-export default function Organisers({ coordinators, developers, volunteers }) {
+export default function Organisers({ coordinators, developers, designers }) {
   return (
     <div>
       <Head>
@@ -75,6 +75,24 @@ export default function Organisers({ coordinators, developers, volunteers }) {
           {developers.length != 0 &&
             developers.map((developer, index) => {
               return <Teamcard details={developer} key={index} />;
+            })}
+        </div>
+      </div>
+      <div className="text-center mt-28 mb-10">
+        <h1 className="text-3xl font-bold mb-10">Designers</h1>
+        {designers.length == 0 && (
+          <Image
+            src="/loader.gif"
+            width={330}
+            height={400}
+            className="w-full md:w-2/5 md:mx-auto md:rounded-xl"
+            alt="loading"
+          />
+        )}
+        <div className="grid gap-2 lg:grid-cols-2 justify-items-center place-items-center ">
+          {designers.length != 0 &&
+            designers.map((designer, index) => {
+              return <Teamcard details={designer} key={index} />;
             })}
         </div>
       </div>
