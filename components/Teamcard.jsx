@@ -20,7 +20,9 @@ const Teamcard = (props) => {
             src={props.details.img_url}
             fill
             className="w-full"
-            objectFit="cover"
+            object-fit="cover"
+            alt="profile"
+            priority={true}
           />
         </div>
 
