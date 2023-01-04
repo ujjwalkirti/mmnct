@@ -3,8 +3,8 @@ import { ImCircleRight } from "react-icons/im";
 import { totalScore, getOver } from '../components/matchFunctions'; 
 
 const PastMatchCard = (props) => {
-  const teamStyle = "flex items-center justify-center";
-  const teamName = "font-extrabold text-lg";
+  const teamStyle = "flex flex-1 items-center justify-center flex-wrap flex-row";
+  const teamName = "font-extrabold text-xs md:text-lg";
 
   if (!(props.matchData)) {
     return (
@@ -30,15 +30,15 @@ const PastMatchCard = (props) => {
         }
         return (
           <>
-            <div className="flex bg-white md:justify-evenly md:w-full md:mx-auto text-sm items-center justify-center shadow-lg py-4 mx-4 rounded-lg">
+            <div className="flex bg-white md:justify-evenly flex-1 text-sm items-center justify-center shadow-lg py-4 mx-4 rounded-lg">
               {/* team 1 */}
               <div className={`${teamStyle} pl-5`}>
-                <p className={teamName}>{curElem.Team1Id}</p>
                 <img
                   alt="team-logo"
                   className="team-logo"
                   src="https://mir-s3-cdn-cf.behance.net/projects/404/168243107813919.Y3JvcCwzMDAwLDIzNDYsMCw0MjM.jpg"
                 />
+                <p className={teamName}>{curElem.Team1Id}</p>
               </div>
 
               {/* current score and over */}
