@@ -106,6 +106,9 @@ const AddTeams = ({ teams }) => {
         teamType: teamType,
         teamLogo: downloadURL,
         teamGender: teamGender,
+        matchPlayed: 0,
+        matchWon: 0,
+        points: 0,
       });
 
       alert("Team added successfully");

@@ -115,6 +115,9 @@ export default function UpdateTeamModal({ details }) {
       teamType: teamType,
       teamLogo: details.teamLogo,
       teamGender: teamGender,
+      matchPlayed: details.matchPlayed,
+      matchWon: details.matchWon,
+      points: details.points,
     });
     alert("Team details updated successfully");
     setShowModal(false);
