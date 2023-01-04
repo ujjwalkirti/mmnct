@@ -59,7 +59,7 @@ export default function PointsTable({ maleTable, femaleTable }) {
   return (
     <>
       <Head>
-        <title>Fixtures</title>
+        <title>Points-Table</title>
       </Head>
       <Navbar />
       <div className={`bg-gradient-to-b ${decisionsBasedonGender()} to-white`}>
