@@ -257,7 +257,7 @@ const AddTeams = ({ teams }) => {
                       <th className="px-12 py-2">Team Name</th>
                       <th className="px-12 py-2">Team Type</th>
                       <th className="px-8 py-2">Gender</th>
-                      <th className="px-8 py-2">Members</th>
+                      <th className="px-4 py-2">Members</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -279,12 +279,9 @@ const AddTeams = ({ teams }) => {
                         <td className="px-4 py-auto">{team.teamName}</td>
                         <td className="px-4 py-auto">{team.teamType}</td>
                         <td className="px-4 py-auto">{team.teamGender}</td>
-                        <td className="flex justify-center">
-                          <Link
-                            className="pt-2"
-                            href={`/admin/addTeamMembers/${team.id}`}
-                          >
-                            <GoLinkExternal />
+                        <td className="py-auto">
+                          <Link href={`/admin/addTeamMembers/${team.id}`}>
+                            <GoLinkExternal className="cursor-pointer mx-auto" />
                           </Link>
                         </td>
                       </tr>
@@ -436,7 +433,7 @@ const AddTeams = ({ teams }) => {
                         <td className="px-4 py-auto">{team.teamGender}</td>
                         <td className="px-4 py-auto text-red-600">
                           <AiFillDelete
-                            className="cursor-pointer mt-3"
+                            className="cursor-pointer mx-auto"
                             onClick={() => deleteTeam(team)}
                           />
                         </td>

@@ -12,50 +12,49 @@ import {
   getDoc,
   where,
 } from "firebase/firestore";
-import { useRouter } from "next/router";
 import Image from "next/image";
 
-function teamDetails() {
-  const router = useRouter();
-  const [teamDetails, setTeamDetails] = useState({});
-  const [members, setMembers] = useState([]);
-  const [loading, setLoading] = useState(false);
+//getserversideprops for fetching url query params
+export async function getServerSideProps(context) {
+  const { team_id } = context.query;
+  let teamDetails = {};
+  let members = {};
 
-  const getTeamDetails = async (Id) => {
-    setLoading(true);
-    await getDoc(doc(db, "participating-teams", Id)).then((docSnap) => {
+  // Get the document from the collection participating-teams having the id as team_id
+  await getDoc(doc(db, "participating-teams", team_id)).then(
+    async (docSnap) => {
       if (docSnap.exists()) {
         let data = docSnap.data();
         data.id = docSnap.id;
-        setTeamDetails(data);
+        teamDetails = data;
 
         // Get all the documents from the collection participating-team-member having the teamId as data.id
         let member_col = collection(db, "participating-team-member");
         let q = query(member_col, where("teamId", "==", data.id));
-        getDocs(q).then((querySnapshot) => {
-          let member = [];
+        await getDocs(q).then((querySnapshot) => {
           querySnapshot.forEach((doc) => {
             let data = doc.data();
             data.id = doc.id;
-            data.teamId = Id;
-            member.push(data);
+            data.teamId = team_id;
+            members.push(data);
           });
-          setMembers(member);
         });
       } else {
         console.log("No such document!");
       }
-    });
-    setLoading(false);
+    }
+  );
+
+  return {
+    props: {
+      teamDetails,
+      members,
+    },
   };
+}
 
-  useEffect(() => {
-    //Wait for router to be ready before accessing query
-    if (!router.isReady) return;
-    const Id = router.query.team_id;
-    getTeamDetails(Id);
-  }, [router.isReady]);
-
+function teamDetails({ teamDetails, members }) {
+  const [loading, setLoading] = useState(false);
   return (
     <div>
       <Head>

@@ -12,6 +12,7 @@ import { setDoc, doc } from "firebase/firestore";
 
 export default function UpdateTeamModal({ details }) {
   const [showModal, setShowModal] = React.useState(false);
+  const [loading, setLoading] = React.useState(false);
 
   const deleteLogo = async ({ fileName }) => {
     // Create a reference to the file to delete
@@ -29,6 +30,7 @@ export default function UpdateTeamModal({ details }) {
 
   const updateTeamDetails = async (e) => {
     e.preventDefault();
+    setLoading(true);
     let removeLogo = false;
     let file = null;
     let teamName = "";
@@ -116,6 +118,7 @@ export default function UpdateTeamModal({ details }) {
     });
     alert("Team details updated successfully");
     setShowModal(false);
+    setLoading(false);
     location.reload();
   };
 
@@ -126,6 +129,17 @@ export default function UpdateTeamModal({ details }) {
       </button>
       {showModal ? (
         <>
+          {loading && (
+            <div className="fixed top-0 left-0 w-full h-full z-51 flex justify-center items-center bg-gray-200 bg-opacity-50">
+              <Image
+                src="/loader.gif"
+                alt="loading"
+                width={300}
+                height={300}
+                className="rounded-full"
+              />
+            </div>
+          )}
           <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
             <div className="relative w-auto my-6 mx-auto">
               {/*content*/}

@@ -31,48 +31,47 @@ const UpdatePlayerModal = dynamic(
   { ssr: false }
 );
 
-const teamId = () => {
-  const router = useRouter();
-  const [teamDetails, setTeamDetails] = useState({});
-  const [members, setMembers] = useState([]);
+//getserversideprops for fetching url query params
+export async function getServerSideProps(context) {
+  const { teamId } = context.query;
+  let teamDetails = {};
+  let members = [];
+
+  // Get the document from the collection participating-teams having the id as team_id
+  await getDoc(doc(db, "participating-teams", teamId)).then(async (docSnap) => {
+    if (docSnap.exists()) {
+      let data = docSnap.data();
+      data.id = teamId;
+      teamDetails = data;
+
+      // Get all the documents from the collection participating-team-member having the teamId as data.id
+      let member_col = collection(db, "participating-team-member");
+      let q = query(member_col, where("teamId", "==", teamId));
+      await getDocs(q).then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+          let temp = doc.data();
+          temp.id = doc.id;
+          temp.teamId = teamId;
+          members.push(temp);
+        });
+      });
+    } else {
+      console.log("No such document!");
+    }
+  });
+
+  return {
+    props: {
+      teamDetails,
+      members,
+    },
+  };
+}
+
+const teamId = ({ teamDetails, members }) => {
   const [loading, setLoading] = useState(false);
   const [newMember, setNewMember] = useState(false);
   const [updateMember, setUpdateMember] = useState(false);
-
-  const getTeamDetails = async (Id) => {
-    setLoading(true);
-    await getDoc(doc(db, "participating-teams", Id)).then((docSnap) => {
-      if (docSnap.exists()) {
-        let data = docSnap.data();
-        data.id = docSnap.id;
-        setTeamDetails(data);
-
-        // Get all the documents from the collection participating-team-member having the teamId as data.id
-        let member_col = collection(db, "participating-team-member");
-        let q = query(member_col, where("teamId", "==", data.id));
-        getDocs(q).then((querySnapshot) => {
-          let member = [];
-          querySnapshot.forEach((doc) => {
-            let data = doc.data();
-            data.id = doc.id;
-            data.teamId = Id;
-            member.push(data);
-          });
-          setMembers(member);
-        });
-      } else {
-        console.log("No such document!");
-      }
-    });
-    setLoading(false);
-  };
-
-  useEffect(() => {
-    //Wait for router to be ready before accessing query
-    if (!router.isReady) return;
-    const Id = router.query.teamId;
-    getTeamDetails(Id);
-  }, [router.isReady]);
 
   const addNewMember = async (e) => {
     e.preventDefault();
@@ -401,9 +400,9 @@ const teamId = () => {
                         <td className="px-4 py-auto">{member.name}</td>
                         <td className="px-4 py-auto">{member.type}</td>
                         <td className="px-4 py-auto">{member.branch}</td>
-                        <td className="px-4 py-auto text-red-600">
+                        <td className="text-red-600">
                           <AiFillDelete
-                            className="cursor-pointer"
+                            className="cursor-pointer mx-auto"
                             onClick={() => deletePlayer(member)}
                           />
                         </td>
