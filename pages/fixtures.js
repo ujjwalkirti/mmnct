@@ -12,6 +12,7 @@ function Fixtures() {
       </Head>
       <Navbar />
       <Match />
+      <Footer />
     </div>
   );
 }
