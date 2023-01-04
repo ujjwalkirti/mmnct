@@ -1,7 +1,9 @@
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
+import Head from "next/head";
 import Navbar from "../components/Navbar";
 import PointCard from "/components/PointCard";
+import Footer from "../components/Footer";
 import { collection, getDocs, query, orderBy } from "firebase/firestore";
 import { db } from "../components/db/Firebase";
 
@@ -56,6 +58,9 @@ export default function PointsTable({ maleTable, femaleTable }) {
 
   return (
     <>
+      <Head>
+        <title>Fixtures</title>
+      </Head>
       <Navbar />
       <div className={`bg-gradient-to-b ${decisionsBasedonGender()} to-white`}>
         <div className="md:hidden pt-10">
@@ -239,6 +244,7 @@ export default function PointsTable({ maleTable, femaleTable }) {
           </div>
         </div>
       </div>
+      <Footer />
     </>
   );
 }
