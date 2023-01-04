@@ -71,7 +71,7 @@ export default function Organisers({
         </div>
       </div>
       <div className="text-center mt-28 mb-10">
-        <h1 className="text-3xl font-bold mb-10">Content writer</h1>
+        <h1 className="text-3xl font-bold mb-10">Content</h1>
         {content_creators.length == 0 && (
           <Image
             src="/loader.gif"
