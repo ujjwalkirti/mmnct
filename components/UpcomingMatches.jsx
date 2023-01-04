@@ -69,7 +69,7 @@ const UpcomingMatches = () => {
           </div>
         </div>
       ) : (
-        <div className="container--no-matches h-80 font-semibold text-lg md:text-2xl px-2 flex flex-col justify-center">
+        <div className="container--no-matches h-80 font-normal text-xl md:text-2xl px-2 flex flex-col justify-center">
           <div className="bg-white bg-opacity-70 w-full md:w-4/5 mx-auto rounded-lg py-16 px-2">
             <p>The fixtures have not been updated yet.</p>
             <p>Please try again after sometime!</p>
