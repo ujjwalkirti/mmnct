@@ -72,10 +72,11 @@ function teamDetails({ teamDetails, members }) {
           />
         </div>
       )}
-      <div className="min-h-screen">
-        <p className="pt-80 text-3xl text-center font-semibold">
-          Page is under construction
-        </p>
+      <div className="min-h-screen bg-no-repeat bg-cover bg-center bg-[url('/vector-2.jpg')]">
+        <div className="pt-80 text-2xl text-center font-semibold text-white">
+          <p>Team members are not decided yet.</p>
+          <p>Please, stay tuned for more updates.</p>
+        </div>
       </div>
       <Footer />
     </div>
