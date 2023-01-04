@@ -56,7 +56,7 @@ export async function getServerSideProps(context) {
 function teamDetails({ teamDetails, members }) {
   const [loading, setLoading] = useState(false);
   return (
-    <div className="bg-no-repeat bg-cover bg-center bg-[url('/vector-2.jpg')]">
+    <div>
       <Head>
         <title>Team: {teamDetails.teamName}</title>
       </Head>
@@ -72,8 +72,8 @@ function teamDetails({ teamDetails, members }) {
           />
         </div>
       )}
-      <div className="min-h-96 ">
-        <div className="my-48 text-2xl text-center font-semibold text-white">
+      <div className="min-h-screen">
+        <div className="pt-80 text-2xl text-center font-semibold text-black">
           <p>Team members are not decided yet.</p>
           <p>Please, stay tuned for more updates.</p>
         </div>
