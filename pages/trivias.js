@@ -138,7 +138,7 @@ function Trivias() {
                   href="https://www.instagram.com/mmnct_svnit/"
                   className="flex justify-center mt-2"
                 >
-                  <Image src="/ig.png" width={60} height={60} />
+                  <Image src="/ig.png" width={60} height={60} alt="instagram icon" />
                 </Link>
               </form>
             </div>
@@ -158,7 +158,7 @@ function Trivias() {
             width={330}
             height={400}
             className="w-full lg:w-2/5 md:mx-auto md:rounded-xl"
-            alt="MMNCT trivia image"
+            alt="Loading symbol gif"
           />
         </div>
       )}
