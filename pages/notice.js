@@ -17,7 +17,7 @@ export async function getServerSideProps() {
   const docSnap = await getDoc(docRef);
 
   if (docSnap.exists()) {
-    console.log("Document data:", docSnap.data());
+    // console.log("Document data:", docSnap.data());
     noticeDates = docSnap.data().dates;
   } else {
     // doc.data() will be undefined in this case
@@ -101,7 +101,7 @@ const NoticeCard = ({ noticeDate, index }) => {
       }}
       className="shadow-lg w-11/12 mx-auto py-4 my-2 bg-gradient-to-r from-[#F9BD48] to-white rounded-lg"
     >
-      <div className="lg:flex lg:justify-center">
+      <div className="lg:flex lg:justify-center lg:items-center">
         <p className="text-center text-xl mt-3 lg:mr-10">{noticeDate.date}</p>
         <p className="text-center text-xl font-bold underline lg:text-3xl cursor-pointer">
           {index + 1}
