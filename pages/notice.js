@@ -99,7 +99,7 @@ const NoticeCard = ({ noticeDate, index }) => {
             console.log(error);
           });
       }}
-      className="shadow-lg w-11/12 mx-auto py-4 my-2 bg-white rounded-lg"
+      className="shadow-lg w-11/12 mx-auto py-4 my-2 bg-gradient-to-r from-[#F9BD48] to-white rounded-lg"
     >
       <div className="lg:flex lg:justify-center">
         <p className="text-center text-xl mt-3 lg:mr-10">{noticeDate.date}</p>

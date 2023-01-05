@@ -27,6 +27,14 @@ const options = [
     to: "to-green-900",
     special: false,
   },
+  // {
+  //   name: "NOTICE & ANNOUNCEMENTS",
+  //   url: "/notice",
+  //   from: "from-purple-700",
+  //   via: "via-red-400",
+  //   to: "to-orange-500",
+  //   special: false,
+  // },
   {
     name: "POLLS",
     url: "/polls",

@@ -5,19 +5,20 @@ import { MdOutlineFormatListBulleted, MdPoll } from "react-icons/md";
 import { AiFillPicture } from "react-icons/ai";
 import { BsFillArrowRightCircleFill } from "react-icons/bs";
 import { RiTeamFill } from "react-icons/ri";
-import { TbZoomQuestion } from "react-icons/tb";
+import { TbSpeakerphone, TbZoomQuestion } from "react-icons/tb";
+
 
 const OptionsRouter = ({ from, via, to, title, route, special }) => {
   return (
     <Link
       href={route}
-      className={`flex items-center hover:shadow-lg rounded-lg md:text-sm justify-between px-5 py-6 bg-gradient-to-r ${from} ${via} ml-2 ${to} text-white mb-4 ${specialDecorations(
+      className={`flex items-center hover:shadow-lg rounded-lg md:text-sm justify-between px-5 md:px-2 py-6 bg-gradient-to-r ${from} ${via} ml-2 ${to} text-white mb-4 ${specialDecorations(
         special
       )}`}
     >
       <div className={`gap-1 flex items-center w-full`}>
         {iconDecider(title)}
-        <p className=" text-lg md:text-sm font-semibold">{title}</p>
+        <p className=" text-lg md:text-sm font-semibold text-left">{title}</p>
       </div>
       <BsFillArrowRightCircleFill className="text-2xl" />
     </Link>
@@ -48,6 +49,8 @@ function iconDecider(title) {
       return <RiTeamFill className="text-3xl" />;
     case "trivias":
       return <TbZoomQuestion className="text-3xl" />;
+    case "notice & announcements":
+      return <TbSpeakerphone className="text-3xl text-white" />;
     default:
     // code block
   }
