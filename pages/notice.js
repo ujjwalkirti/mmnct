@@ -35,9 +35,9 @@ export default function Notice({ imageList }) {
       </Head>
       <Navbar />
       <div className="min-h-screen">
-        <div className="lg:px-80">
+        <div className="lg:px-80 pt-16">
           <Image
-            src={imageList["1.jpg"]}
+            src={imageList["1.png"]}
             width={1920}
             height={1080}
             alt="Notice"
