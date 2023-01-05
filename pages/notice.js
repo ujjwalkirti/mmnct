@@ -31,11 +31,11 @@ export default function Notice({ imageList }) {
   return (
     <>
       <Head>
-        <title>MMNCT:Notice Page</title>
+        <title>MMNCT : Notice Page</title>
       </Head>
       <Navbar />
-      <div className="min-h-screen">
-        <div className="lg:px-80 pt-16">
+      <div className="py-16">
+        <div className="lg:px-80">
           <Image
             src={imageList["1.png"]}
             width={1920}
