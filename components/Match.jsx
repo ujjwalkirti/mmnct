@@ -34,9 +34,9 @@ const Match = () => {
   const StylesBasedonTime = (gender, time) => {
     if (selectedGender === gender && selectedTime === time) {
       if (gender === "male") {
-        return "bg-[#508CD4] font-[550] text-[20px] md:text-[30px] md:w-auto md:h-[71px] leading-[24.38px] text-white h-[51px] w-[103px] px-2 shadow-lg";
+        return "bg-[#508CD4] font-[700] text-[20px] md:text-[39px] md:w-auto md:h-[71px] leading-[24.38px] text-white h-[51px] w-[124px] px-2 shadow-lg";
       } else if (gender === "female") {
-        return "bg-[#CE3AB3] font-[550] text-[20px] md:text-[30px] md:w-auto md:h-[71px] leading-[24.38px] text-white h-[51px] w-[124px] px-2 shadow-lg";
+        return "bg-[#CE3AB3] font-[700] text-[20px] md:text-[39px] md:w-auto md:h-[71px] leading-[24.38px] text-white h-[51px] w-[124px] px-2 shadow-lg";
       }
     } else {
       return "";
@@ -60,7 +60,7 @@ const Match = () => {
           <div className="flex flex-1 flex-col items-center">
             <div className="flex justify-center items-center mt-10">
               {/* buttons to switch between men and women team */}
-              <div className="flex items-center justify-between bg-white text-gray-500 px-4 py-2 gap-2 text-center rounded-lg font-[600] text-[30px]">
+              <div className="bg-white text-gray-500 flex justify-evenly w-[223px] mx-auto text-center font-[600] text-[16px] rounded-lg mb-10">
                 {/* male button */}
                 <div
                   onClick={() => {
@@ -94,7 +94,7 @@ const Match = () => {
                 </div>
               </div>
             </div>
-            <div className="flex mx-5 items-center justify-between bg-white text-gray-500 px-4 py-2 gap-3 text-center rounded-lg font-[500] text-[20px] mt-10">
+            <div className="bg-white text-gray-500 flex justify-evenly w-[323px] mx-auto text-center font-[600] text-[16px] rounded-lg mb-10">
               <div
                 onClick={() => {
                   setSelectedTime("present");
