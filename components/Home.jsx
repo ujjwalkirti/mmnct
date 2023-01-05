@@ -9,6 +9,8 @@ function HomePage() {
   useEffect(() => {
     setScreenSize(window.innerWidth);
   }, []);
+
+  
   return (
     <div className="flex flex-col md:w-11/12 md:mx-auto tournament-name-container ">
       {/* displaying live score of current match */}
