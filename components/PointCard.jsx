@@ -32,12 +32,7 @@ const PointCard = (props) => {
                   <p className="text-[15px] hidden lg:flex text-gray-600 font-[600]">
                     {curElem.teamType}
                   </p>
-                  <Link
-                    href={`/team-detail`}
-                    className="text-[10px] hidden flex ml-3 flex-row bg-orange-500  xl:flex text-white justify-center items-center gap-2 font-[200] py-1 px-1 rounded-lg hover:shadow-lg"
-                  >
-                    Full squad <ImCircleRight />
-                  </Link>
+                  
                 </div>
               </div>
               <div className="w-1/4 flex  items-center justify-center">
@@ -86,12 +81,7 @@ const PointCard = (props) => {
                   <p className="text-[15px] hidden lg:flex text-gray-600 font-[600]">
                     {curElem.teamType}
                   </p>
-                  <Link
-                    href={`/team-detail`}
-                    className="text-[10px] hidden flex ml-3 flex-row bg-orange-500  xl:flex text-white justify-center items-center gap-2 font-[200] py-1 px-1 rounded-lg hover:shadow-lg"
-                  >
-                    Full squad <ImCircleRight />
-                  </Link>
+                 
                 </div>
               </div>
               <div className="w-1/4 flex  items-center justify-center">
