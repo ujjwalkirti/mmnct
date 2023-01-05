@@ -1,9 +1,9 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useState } from "react";
 import Head from "next/head";
 import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
-import { db, storage } from "../../components/db/Firebase";
+import { db } from "../../components/db/Firebase";
 import {
   collection,
   doc,
