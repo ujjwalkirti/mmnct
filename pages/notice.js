@@ -8,6 +8,7 @@ import Image from "next/image";
 // Next js navigation dynamic import
 import dynamic from "next/dynamic";
 import { getDownloadURL, getMetadata, listAll, ref } from "firebase/storage";
+import Link from "next/link";
 const Footer = dynamic(() => import("../components/Footer"));
 
 export async function getServerSideProps() {
@@ -31,9 +32,6 @@ export async function getServerSideProps() {
 }
 
 export default function Notice({ noticeDates }) {
-  useEffect(() => {
-    // console.log(noticeDates);
-  }, []);
   return (
     <>
       <Head>
@@ -41,11 +39,13 @@ export default function Notice({ noticeDates }) {
       </Head>
       <Navbar />
       <div className="min-h-screen bg-gray-200 py-3">
-        <p className="text-center text-3xl font-bold pt-2 mb-4">
+        <p className="text-center lg:text-4xl text-3xl font-bold pt-2 mb-4">
           Notice and Announcements
         </p>
         {noticeDates.map((noticeDate, index) => {
-          return <NoticeCard noticeDate={noticeDate} index={index} />;
+          return (
+            <NoticeCard key={index} noticeDate={noticeDate} index={index} />
+          );
         })}
       </div>
       <Footer />
@@ -57,6 +57,7 @@ const NoticeCard = ({ noticeDate, index }) => {
   const [images, setImages] = useState([]);
   const [pdfs, setPdfs] = useState([]);
   const [showNotice, setShowNotice] = useState(false);
+
   return (
     <div
       onClick={() => {
@@ -72,19 +73,25 @@ const NoticeCard = ({ noticeDate, index }) => {
               getMetadata(itemRef)
                 .then((metadata) => {
                   if (metadata.contentType === "application/pdf") {
-                    getDownloadURL(itemRef).then((url) => pdfUrls.push(url));
+                    getDownloadURL(itemRef).then((url) => {
+                      pdfUrls.push(url);
+                      setPdfs(pdfUrls);
+                    });
                   } else if (
                     metadata.contentType === "image/png" ||
                     "image/jpg" ||
                     "image/jpeg"
                   ) {
-                    getDownloadURL(itemRef).then((url) => imgUrls.push(url));
+                    getDownloadURL(itemRef).then((url) => {
+                      imgUrls.push(url);
+                      setImages(imgUrls);
+                    });
                   }
                 })
-                .catch((error) => {});
+                .catch((error) => {
+                  console.log(error);
+                });
             });
-            setImages(imgUrls);
-            setPdfs(pdfUrls);
             setShowNotice(true);
           })
           .catch((error) => {
@@ -96,7 +103,7 @@ const NoticeCard = ({ noticeDate, index }) => {
     >
       <div className="lg:flex lg:justify-center">
         <p className="text-center text-xl mt-3 lg:mr-10">{noticeDate.date}</p>
-        <p className="text-center text-xl font-bold underline lg:text-4xl cursor-pointer">
+        <p className="text-center text-xl font-bold underline lg:text-3xl cursor-pointer">
           {index + 1}
           {". "}
           {noticeDate.caption}
@@ -104,7 +111,7 @@ const NoticeCard = ({ noticeDate, index }) => {
       </div>
       {showNotice && (
         <div>
-          <div className="lg:grid lg:grid-cols-2 lg:w-4/5 lg:mx-auto">
+          <div className="lg:grid lg:grid-cols-2 lg:w-4/5 lg:mx-auto lg:gap-4">
             {images.map((url, index) => (
               <Image
                 key={index}
@@ -112,7 +119,7 @@ const NoticeCard = ({ noticeDate, index }) => {
                 src={url}
                 height={300}
                 width={500}
-                className="my-4 lg:rounded-lg lg:shadow-lg"
+                className="my-4 lg:rounded-lg lg:shadow-lg mx-auto"
               />
             ))}
           </div>
@@ -120,13 +127,16 @@ const NoticeCard = ({ noticeDate, index }) => {
             <div key={index} className="flex justify-center">
               <object
                 data={url}
-                className="mx-auto hidden lg:flex"
+                className="mx-auto hidden md:flex"
                 width={1000}
                 height={800}
               ></object>
-              <button className="lg:hidden bg-purple-600 text-white px-2 py-2 rounded-lg font-bold text-xl">
+              <Link
+                href={url}
+                className="md:hidden bg-purple-600 text-white px-2 py-2 rounded-lg font-bold text-xl"
+              >
                 Download Notice
-              </button>
+              </Link>
             </div>
           ))}
           {images.length === 0 && pdfs.length === 0 && (
