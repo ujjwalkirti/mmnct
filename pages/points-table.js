@@ -95,19 +95,19 @@ export default function PointsTable({ maleTable, femaleTable }) {
             </div>
           </div>
 
-          <div className="relative h-[540px] overflow-x-hidden mx-auto px-4">
+	  <div className="relative overflow-x-hidden mx-auto px-4">
             <div className="grid grid-cols-1 gap-2 mx-auto max-w-lg">
               <div className="flex text-sm text-white leading-7">
                 <div className="w-1/4 flex  items-center justify-center ">
                   <p className="">Rank</p>
                 </div>
-                <div className="w-2/3 flex  items-center justify-center ">
+                <div className="w-1/2 flex  items-center justify-center pr-7">
                   <p className="">Team</p>
                 </div>
                 <div className="w-1/4 flex  items-center justify-center ">
                   <p>Points</p>
                 </div>
-                <div className="w-1/4 flex  items-center justify-center ">
+                <div className="w-1/4 flex  items-center justify-center pl-2">
                   <p>Played</p>
                 </div>
                 <div className="w-1/4 flex items-center justify-center ">
@@ -118,6 +118,11 @@ export default function PointsTable({ maleTable, femaleTable }) {
                 </div>
               </div>
               <div className="h-px bg-white"></div>
+            </div>
+          </div>
+          <div className="relative h-[540px] overflow-x-hidden mx-auto px-4">
+            <div className="grid grid-cols-1 gap-2 mx-auto max-w-lg">
+              
               {selectedGender === "male" ? (
                 <PointCard data={[maleTable, selectedGender]} />
               ) : (
@@ -211,7 +216,7 @@ export default function PointsTable({ maleTable, femaleTable }) {
                 </div>
               </div>
             </div>
-            <div className="float-none mt-20">
+            <div className="float-none mt-20 ">
               <div className="grid gap-3 mr-24 grid-cols-1 ">
               <div className="flex text-sm text-white leading-7">
                 <div className="w-1/4 flex  items-center justify-center ">
@@ -234,11 +239,13 @@ export default function PointsTable({ maleTable, femaleTable }) {
                 </div>
               </div>
               <div className="h-px bg-white"></div>
+             
                 {selectedGender === "male" ? (
                   <PointCard data={[maleTable, selectedGender]} />
                 ) : (
                   <PointCard data={[femaleTable, selectedGender]} />
                 )}
+
               </div>
             </div>
           </div>
