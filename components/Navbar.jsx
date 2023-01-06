@@ -10,7 +10,7 @@ const options = [
   { name: "Points Table", url: "/points-table" },
   { name: "Polls", url: "/polls" },
   { name: "Memories", url: "/memories" },
-  { name: "Notices", url: "/notice" },
+  { name: "Notice", url: "/notice" },
   { name: "Organising Team", url: "/organisers" },
 ];
 

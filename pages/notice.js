@@ -109,46 +109,50 @@ const NoticeCard = ({ noticeDate, index }) => {
           {noticeDate.caption}
         </p>
       </div>
-      {showNotice && (
-        <div>
-          <div className="lg:grid lg:grid-cols-2 lg:w-4/5 lg:mx-auto lg:gap-4">
-            {images.map((url, index) => (
-              <Image
-                key={index}
-                alt="MMNCT Notice and Announcement"
-                src={url}
-                height={300}
-                width={500}
-                className="my-4 lg:rounded-lg lg:shadow-lg mx-auto"
-              />
-            ))}
-          </div>
-          {pdfs.map((url, index) => (
-            <div key={index} className="flex justify-center">
-              <object
-                data={url}
-                className="mx-auto hidden md:flex"
-                width={1000}
-                height={800}
-              ></object>
-              <Link
-                href={url}
-                className="md:hidden bg-purple-600 text-white px-2 py-2 rounded-lg font-bold text-xl"
-              >
-                Download Notice
-              </Link>
-            </div>
-          ))}
-          {images.length === 0 && pdfs.length === 0 && (
-            <div className="flex justify-center">
-              <Image
-                src={`/loader.gif`}
-                height={300}
-                width={300}
-                alt="Loading gif"
-              />
-            </div>
-          )}
+      {showNotice && <NoticeDisplaySection images={images} pdfs={pdfs} />}
+    </div>
+  );
+};
+
+const NoticeDisplaySection = ({ images, pdfs }) => {
+  return (
+    <div>
+      <div className="lg:grid lg:grid-cols-2 lg:w-4/5 lg:mx-auto lg:gap-4">
+        {images.map((url, index) => (
+          <Image
+            key={index}
+            alt="MMNCT Notice and Announcement"
+            src={url}
+            height={300}
+            width={500}
+            className="my-4 lg:rounded-lg lg:shadow-lg mx-auto"
+          />
+        ))}
+      </div>
+      {pdfs.map((url, index) => (
+        <div key={index} className="flex justify-center">
+          <object
+            data={url}
+            className="mx-auto hidden md:flex"
+            width={1000}
+            height={800}
+          ></object>
+          <Link
+            href={url}
+            className="md:hidden bg-purple-600 text-white px-2 py-2 rounded-lg font-bold text-xl"
+          >
+            Download Notice
+          </Link>
+        </div>
+      ))}
+      {images.length === 0 && pdfs.length === 0 && (
+        <div className="flex justify-center">
+          <Image
+            src={`/loader.gif`}
+            height={300}
+            width={300}
+            alt="Loading gif"
+          />
         </div>
       )}
     </div>
