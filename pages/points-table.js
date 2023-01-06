@@ -1,9 +1,7 @@
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
-import Head from "next/head";
 import Navbar from "../components/Navbar";
 import PointCard from "/components/PointCard";
-import Footer from "../components/Footer";
 import { collection, getDocs, query, orderBy } from "firebase/firestore";
 import { db } from "../components/db/Firebase";
 
@@ -30,8 +28,6 @@ export async function getServerSideProps() {
 }
 
 export default function PointsTable({ maleTable, femaleTable }) {
-  console.log("male", maleTable);
-  console.log("i", femaleTable);
   const [selectedGender, setSelectedGender] = useState("male");
   const StylesBasedonGender = (gender) => {
     if (selectedGender === gender) {
@@ -58,9 +54,6 @@ export default function PointsTable({ maleTable, femaleTable }) {
 
   return (
     <>
-      <Head>
-        <title>Points-Table</title>
-      </Head>
       <Navbar />
       <div className={`bg-gradient-to-b ${decisionsBasedonGender()} to-white`}>
         <div className="md:hidden pt-10">
@@ -95,19 +88,19 @@ export default function PointsTable({ maleTable, femaleTable }) {
             </div>
           </div>
 
-	  <div className="relative overflow-x-hidden mx-auto px-4">
+          <div className="relative h-[540px] overflow-x-hidden mx-auto px-4">
             <div className="grid grid-cols-1 gap-2 mx-auto max-w-lg">
               <div className="flex text-sm text-white leading-7">
                 <div className="w-1/4 flex  items-center justify-center ">
                   <p className="">Rank</p>
                 </div>
-                <div className="w-1/2 flex  items-center justify-center pr-7">
+                <div className="w-2/3 flex  items-center justify-center ">
                   <p className="">Team</p>
                 </div>
                 <div className="w-1/4 flex  items-center justify-center ">
                   <p>Points</p>
                 </div>
-                <div className="w-1/4 flex  items-center justify-center pl-2">
+                <div className="w-1/4 flex  items-center justify-center ">
                   <p>Played</p>
                 </div>
                 <div className="w-1/4 flex items-center justify-center ">
@@ -118,11 +111,6 @@ export default function PointsTable({ maleTable, femaleTable }) {
                 </div>
               </div>
               <div className="h-px bg-white"></div>
-            </div>
-          </div>
-          <div className="relative h-[540px] overflow-x-hidden mx-auto px-4">
-            <div className="grid grid-cols-1 gap-2 mx-auto max-w-lg">
-              
               {selectedGender === "male" ? (
                 <PointCard data={[maleTable, selectedGender]} />
               ) : (
@@ -130,23 +118,7 @@ export default function PointsTable({ maleTable, femaleTable }) {
               )}
             </div>
 
-            {selectedGender === "male" ? (
-              <Image
-                src={`/vector-4.png`}
-                alt="Picture of a batsman"
-                height={400}
-                width={300}
-                className="mx-auto bottom-0 h-[382px] w-[382px] left-[52px]"
-              />
-            ) : (
-              <Image
-                src={`/vector-7.png`}
-                alt="Picture of a batsman"
-                height={400}
-                width={300}
-                className="mx-auto bottom-0 h-[291px] w-[291px] left-[82px]"
-              />
-            )}
+            
           </div>
         </div>
 
@@ -160,25 +132,6 @@ export default function PointsTable({ maleTable, femaleTable }) {
 
         {/* follwowing component will be shown only when screen size is 725px or higher */}
         <div className="hidden md:flex">
-          <div className="w-2/5 flex justify-start items-start mt-20 ml-0">
-            {selectedGender === "male" ? (
-              <Image
-                src={`/vector-4.png`}
-                alt="Picture of a batsman"
-                height={400}
-                width={300}
-                className=" h-[591px] w-[591px]"
-              />
-            ) : (
-              <Image
-                src={`/vector-7.png`}
-                alt="Picture of a batsman"
-                height={400}
-                width={300}
-                className="h-[491px] w-[491px]"
-              />
-            )}
-          </div>
           <div className="flex-1 ">
             <div className="flex justify-center items-center mt-10">
               {/* buttons to switch between men and women team */}
@@ -216,13 +169,13 @@ export default function PointsTable({ maleTable, femaleTable }) {
                 </div>
               </div>
             </div>
-            <div className="float-none mt-20 ">
-              <div className="grid gap-3 mr-24 grid-cols-1 ">
+            <div className="float-none mt-20">
+              <div className="grid gap-3 mx-10 grid-cols-1 md:mx-10 lg:mx-20 xl:mx-40">
               <div className="flex text-sm text-white leading-7">
                 <div className="w-1/4 flex  items-center justify-center ">
                   <p className="">Rank</p>
                 </div>
-                <div className="w-2/3 flex  items-center justify-center ">
+                <div className="w-2/3 flex  items-center  pl-20">
                   <p className="">Team</p>
                 </div>
                 <div className="w-1/4 flex  items-center justify-center ">
@@ -239,19 +192,16 @@ export default function PointsTable({ maleTable, femaleTable }) {
                 </div>
               </div>
               <div className="h-px bg-white"></div>
-             
                 {selectedGender === "male" ? (
                   <PointCard data={[maleTable, selectedGender]} />
                 ) : (
                   <PointCard data={[femaleTable, selectedGender]} />
                 )}
-
               </div>
             </div>
           </div>
         </div>
       </div>
-      <Footer />
     </>
   );
 }
