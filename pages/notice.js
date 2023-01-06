@@ -60,6 +60,8 @@ const NoticeCard = ({ noticeDate, index }) => {
   const [showNotice, setShowNotice] = useState(false);
   const [askedForNotice, setAskedForNotice] = useState(false);
 
+  let buttonStyle = "ml-5 text-3xl my-4";
+
   useEffect(() => {
     if (askedForNotice) {
       const listRef = ref(storage, `notice/${noticeDate.date}`);
@@ -99,35 +101,37 @@ const NoticeCard = ({ noticeDate, index }) => {
         .catch((error) => {
           // Uh-oh, an error occurred!
           console.log(error);
-        })
+        });
     }
   }, [askedForNotice]);
 
   return (
-    <div className="shadow-lg w-11/12 mx-auto py-4 my-2 bg-gradient-to-r via-[#F9BD48] from-orange-600 to-white rounded-lg">
-      <div className="lg:flex lg:justify-start lg:w-4/5 lg:mx-auto lg:items-center text-white">
+    <div className="shadow-lg w-11/12 mx-auto py-4 my-2 bg-gradient-to-r bg-white rounded-lg">
+      <div className="flex flex-col lg:flex-row lg:justify-start lg:w-4/5 lg:mx-auto lg:items-center text-black">
         <p className="text-center text-xl mt-3 lg:mr-10">{noticeDate.date}</p>
         <p className="text-center text-xl font-bold underline lg:text-3xl cursor-pointer">
           {index + 1}
           {". "}
           {noticeDate.caption}
         </p>
-        {showNotice ? (
-          <BsArrowUpCircle
-            onClick={() => {
-              setShowNotice(!showNotice);
-              setAskedForNotice(!askedForNotice);
-            }}
-            className="ml-5 text-3xl hover:bg-white rounded-full h-[40px] hover:text-[#F9BD48] hover:text-4xl w-[40px] cursor-pointer flex justify-center items-center"
-          />
-        ) : (
-          <BsArrowDownCircle
-            onClick={() => {
-              setAskedForNotice(!askedForNotice);
-            }}
-            className="ml-5 text-3xl hover:bg-white rounded-full h-[40px] hover:text-[#F9BD48] hover:text-4xl w-[40px] cursor-pointer flex justify-center items-center"
-          />
-        )}
+        <div className="flex justify-center">
+          {showNotice ? (
+            <BsArrowUpCircle
+              onClick={() => {
+                setShowNotice(!showNotice);
+                setAskedForNotice(!askedForNotice);
+              }}
+              className={`${buttonStyle}`}
+            />
+          ) : (
+            <BsArrowDownCircle
+              onClick={() => {
+                setAskedForNotice(!askedForNotice);
+              }}
+              className={`${buttonStyle}`}
+            />
+          )}
+        </div>
       </div>
       {showNotice && <NoticeDisplaySection images={images} pdfs={pdfs} />}
     </div>
