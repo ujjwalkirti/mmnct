@@ -100,7 +100,7 @@ export default function PointsTable({ maleTable, femaleTable }) {
                 <div className="w-1/4 flex  items-center justify-center ">
                   <p>Points</p>
                 </div>
-                <div className="w-1/4 flex  items-center justify-center ">
+                <div className="w-1/4 flex  items-center justify-center pl-2">
                   <p>Played</p>
                 </div>
                 <div className="w-1/4 flex items-center justify-center ">
