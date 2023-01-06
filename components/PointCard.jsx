@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { ImCircleRight } from "react-icons/im";
 
-
 const PointCard = (props) => {
   const teamStyle = "flex items-center justify-center";
   const teamName = "font-extrabold text-lg";
@@ -48,7 +47,7 @@ const PointCard = (props) => {
                       {curElem.points}
                     </p>
                   </div>
-                  <div className="w-1/4 flex  items-center justify-center">
+                  <div className="w-1/4 flex  items-center justify-center pl-2">
                     <p className="text-[15px] xl:text-[25px] lg:text-[20px] font-[600]">
                       {curElem.matchPlayed}
                     </p>
