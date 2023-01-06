@@ -9,6 +9,7 @@ import Image from "next/image";
 import dynamic from "next/dynamic";
 import { getDownloadURL, getMetadata, listAll, ref } from "firebase/storage";
 import Link from "next/link";
+import { BsArrowDownCircle, BsArrowUpCircle } from "react-icons/bs";
 const Footer = dynamic(() => import("../components/Footer"));
 
 export async function getServerSideProps() {
@@ -57,57 +58,76 @@ const NoticeCard = ({ noticeDate, index }) => {
   const [images, setImages] = useState([]);
   const [pdfs, setPdfs] = useState([]);
   const [showNotice, setShowNotice] = useState(false);
+  const [askedForNotice, setAskedForNotice] = useState(false);
+
+  useEffect(() => {
+    if (askedForNotice) {
+      const listRef = ref(storage, `notice/${noticeDate.date}`);
+      let imgUrls = [];
+      let pdfUrls = [];
+
+      // Find all the prefixes and items.
+      listAll(listRef)
+        .then((res) => {
+          res.items.forEach((itemRef) => {
+            getMetadata(itemRef)
+              .then((metadata) => {
+                if (metadata.contentType === "application/pdf") {
+                  getDownloadURL(itemRef).then((url) => {
+                    pdfUrls.push(url);
+                    setPdfs(pdfUrls);
+                    // console.log(pdfUrls);
+                  });
+                } else if (
+                  metadata.contentType === "image/png" ||
+                  "image/jpg" ||
+                  "image/jpeg"
+                ) {
+                  getDownloadURL(itemRef).then((url) => {
+                    imgUrls.push(url);
+                    setImages(imgUrls);
+                    // console.log(imgUrls);
+                  });
+                }
+              })
+              .catch((error) => {
+                console.log(error);
+              });
+          });
+          setShowNotice(true);
+        })
+        .catch((error) => {
+          // Uh-oh, an error occurred!
+          console.log(error);
+        })
+    }
+  }, [askedForNotice]);
 
   return (
-    <div
-      onClick={() => {
-        const listRef = ref(storage, `notice/${noticeDate.date}`);
-        let imgUrls = [];
-        let pdfUrls = [];
-
-        // Find all the prefixes and items.
-        listAll(listRef)
-          .then((res) => {
-            res.prefixes.forEach((folderRef) => {});
-            res.items.forEach((itemRef) => {
-              getMetadata(itemRef)
-                .then((metadata) => {
-                  if (metadata.contentType === "application/pdf") {
-                    getDownloadURL(itemRef).then((url) => {
-                      pdfUrls.push(url);
-                      setPdfs(pdfUrls);
-                    });
-                  } else if (
-                    metadata.contentType === "image/png" ||
-                    "image/jpg" ||
-                    "image/jpeg"
-                  ) {
-                    getDownloadURL(itemRef).then((url) => {
-                      imgUrls.push(url);
-                      setImages(imgUrls);
-                    });
-                  }
-                })
-                .catch((error) => {
-                  console.log(error);
-                });
-            });
-            setShowNotice(true);
-          })
-          .catch((error) => {
-            // Uh-oh, an error occurred!
-            console.log(error);
-          });
-      }}
-      className="shadow-lg w-11/12 mx-auto py-4 my-2 bg-gradient-to-r from-[#F9BD48] to-white rounded-lg"
-    >
-      <div className="lg:flex lg:justify-center lg:items-center">
+    <div className="shadow-lg w-11/12 mx-auto py-4 my-2 bg-gradient-to-r via-[#F9BD48] from-orange-600 to-white rounded-lg">
+      <div className="lg:flex lg:justify-start lg:w-4/5 lg:mx-auto lg:items-center text-white">
         <p className="text-center text-xl mt-3 lg:mr-10">{noticeDate.date}</p>
         <p className="text-center text-xl font-bold underline lg:text-3xl cursor-pointer">
           {index + 1}
           {". "}
           {noticeDate.caption}
         </p>
+        {showNotice ? (
+          <BsArrowUpCircle
+            onClick={() => {
+              setShowNotice(!showNotice);
+              setAskedForNotice(!askedForNotice);
+            }}
+            className="ml-5 text-3xl hover:bg-white rounded-full h-[40px] hover:text-[#F9BD48] hover:text-4xl w-[40px] cursor-pointer flex justify-center items-center"
+          />
+        ) : (
+          <BsArrowDownCircle
+            onClick={() => {
+              setAskedForNotice(!askedForNotice);
+            }}
+            className="ml-5 text-3xl hover:bg-white rounded-full h-[40px] hover:text-[#F9BD48] hover:text-4xl w-[40px] cursor-pointer flex justify-center items-center"
+          />
+        )}
       </div>
       {showNotice && <NoticeDisplaySection images={images} pdfs={pdfs} />}
     </div>
