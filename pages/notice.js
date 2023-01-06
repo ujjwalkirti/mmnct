@@ -109,7 +109,7 @@ const NoticeCard = ({ noticeDate, index }) => {
     <div className="shadow-lg w-11/12 mx-auto py-4 my-2 bg-gradient-to-r bg-white rounded-lg">
       <div className="flex flex-col lg:flex-row lg:justify-start lg:w-4/5 lg:mx-auto lg:items-center text-black">
         <p className="text-center text-xl mt-3 lg:mr-10">{noticeDate.date}</p>
-        <p className="text-center text-xl font-bold underline lg:text-3xl cursor-pointer">
+        <p className="text-center text-xl font-bold underline lg:text-3xl">
           {index + 1}
           {". "}
           {noticeDate.caption}
