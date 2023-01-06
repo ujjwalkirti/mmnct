@@ -13,6 +13,7 @@ import { db } from "../../components/db/Firebase";
 
 function AddNotice() {
   const [fields, setFields] = useState(0);
+
   return (
     <div>
       <Head>
@@ -22,7 +23,7 @@ function AddNotice() {
       <p className="text-center text-4xl mt-2">
         Upload Notice and Announcements!
       </p>
-      <p className="px-2 text-justify mt-4 text-xl">
+      <p className="px-2 text-justify mt-4 text-xl md:text-center">
         What are the number of images or documents that are to be uploaded?
       </p>
       <div className="flex text-black items-center justify-evenly text-5xl gap-4 my-4">
@@ -52,6 +53,7 @@ export default AddNotice;
 
 const Form = ({ fields }) => {
   const [progress, setProgress] = useState(0);
+  const [description, setDescription] = useState("");
   const [error, setError] = useState(false);
 
   const handleSubmit = (e) => {
@@ -94,7 +96,11 @@ const Form = ({ fields }) => {
     }
 
     caption = e.target[fields].value;
-    const data = { date: currentDate, caption: caption };
+    const data = {
+      date: currentDate,
+      caption: caption,
+      description: description,
+    };
     const dateRef = doc(db, "notice-upload-dates", "date-array");
 
     // Atomically add a new region to the "regions" array field.
@@ -103,7 +109,7 @@ const Form = ({ fields }) => {
     });
 
     updateDocData.then((result) => {
-      console.log(result);
+      // console.log(result);
     });
   };
 
@@ -134,6 +140,14 @@ const Form = ({ fields }) => {
             required
             className="w-11/12 mx-auto my-4 text-xl px-1 py-2 bg-gray-200 appearance-none border-2 border-gray-200 rounded  text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
           />
+          <textarea
+            type="text"
+            placeholder="Enter the description or the brief summary for the notice"
+            required
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+            className="w-11/12 mx-auto my-4 text-xl px-1 py-2 bg-gray-200 appearance-none border-2 border-gray-200 rounded  text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
+          ></textarea>
           <input
             type="submit"
             value={`Submit`}
@@ -141,7 +155,7 @@ const Form = ({ fields }) => {
           />
         </>
       )}
-      <p className="font-bold text-3xl mt-10">{progress}</p>
+      <p className="font-bold text-3xl mt-10">Progress: {progress}</p>
     </form>
   );
 };

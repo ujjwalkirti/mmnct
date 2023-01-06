@@ -43,7 +43,7 @@ export default function Notice({ noticeDates }) {
         <p className="text-center lg:text-4xl text-3xl font-bold pt-2 mb-4">
           Notice and Announcements
         </p>
-        {noticeDates.map((noticeDate, index) => {
+        {[...noticeDates].reverse().map((noticeDate, index) => {
           return (
             <NoticeCard key={index} noticeDate={noticeDate} index={index} />
           );
@@ -60,7 +60,7 @@ const NoticeCard = ({ noticeDate, index }) => {
   const [showNotice, setShowNotice] = useState(false);
   const [askedForNotice, setAskedForNotice] = useState(false);
 
-  let buttonStyle = "ml-5 text-3xl my-4";
+  let buttonStyle = "ml-5 text-3xl my-4 cursor-pointer hover:shadow-lg";
 
   useEffect(() => {
     if (askedForNotice) {
@@ -133,14 +133,23 @@ const NoticeCard = ({ noticeDate, index }) => {
           )}
         </div>
       </div>
-      {showNotice && <NoticeDisplaySection images={images} pdfs={pdfs} />}
+      {showNotice && (
+        <NoticeDisplaySection
+          images={images}
+          pdfs={pdfs}
+          description={noticeDate.description ? noticeDate.description : ""}
+        />
+      )}
     </div>
   );
 };
 
-const NoticeDisplaySection = ({ images, pdfs }) => {
+const NoticeDisplaySection = ({ images, pdfs, description }) => {
   return (
     <div>
+      <p className="md:w-4/5 md:mx-auto md:text-xl my-4 text-center px-3">
+        {description}
+      </p>
       <div className="lg:grid lg:grid-cols-2 lg:w-4/5 lg:mx-auto lg:gap-4">
         {images.map((url, index) => (
           <Image
