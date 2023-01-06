@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { ImCircleRight } from "react-icons/im";
-import ReactPaginate from "react-paginate";
+
 
 const PointCard = (props) => {
   const teamStyle = "flex items-center justify-center";
