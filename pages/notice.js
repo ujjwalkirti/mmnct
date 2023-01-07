@@ -60,10 +60,11 @@ const NoticeCard = ({ noticeDate, index }) => {
   const [showNotice, setShowNotice] = useState(false);
   const [askedForNotice, setAskedForNotice] = useState(false);
 
-  let buttonStyle = "ml-5 text-3xl my-4 cursor-pointer hover:shadow-lg";
+  let buttonStyle =
+    "ml-5 text-3xl my-4 cursor-pointer hover:shadow-lg rounded-full";
 
   useEffect(() => {
-    if (askedForNotice) {
+    if (askedForNotice && pdfs.length === 0 && images.length === 0) {
       const listRef = ref(
         storage,
         `notice/${noticeDate.date}/${noticeDate.uid ? noticeDate.uid : ""}`
@@ -95,7 +96,6 @@ const NoticeCard = ({ noticeDate, index }) => {
                 console.log(error);
               });
           });
-          setShowNotice(true);
         })
         .catch((error) => {
           // Uh-oh, an error occurred!
@@ -128,6 +128,7 @@ const NoticeCard = ({ noticeDate, index }) => {
             <BsArrowDownCircle
               onClick={() => {
                 setAskedForNotice(!askedForNotice);
+                setShowNotice(true);
               }}
               className={`${buttonStyle}`}
             />
