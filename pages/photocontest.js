@@ -13,10 +13,10 @@ const photocontest = () => {
         <title>Click-a-Sensation</title>
       </Head>
       <Navbar />
-      <div className="min-h-screen">
+      <div className="min-h-screen pb-8">
         <div className="grid grid-cols-1 lg:grid-cols-2">
           <Image
-            src="/contest-1.jpg"
+            src="/contest-hero.jpeg"
             alt="Contest"
             width={1920}
             height={1080}
@@ -28,7 +28,7 @@ const photocontest = () => {
                 Explore the wonderful pictures clicked by people and don't
                 forget to like them.
               </p>
-              <div className="flex flex-row items-center justify-center gap-4 pt-12">
+              <div className="flex flex-row items-center justify-center gap-6 pt-12">
                 <div className="flex items-center justify-center w-14 h-14 rounded-full bg-gray-100">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -53,12 +53,12 @@ const photocontest = () => {
         <p className="mt-14 lg:mt-0 text-center text-2xl font-semibold">
           Photos posted by others
         </p>
-        <div className="mt-2 border-b-4 border-[#F4A68D] w-10/12 md:w-2/5 lg:w-3/12 mx-auto"></div>
-        <div className="mt-16 lg:mt-12 flex flex-col items-center justify-center">
+        <div className="mt-2 mb-12 lg:mb-12 border-b-4 border-[#F4A68D] w-10/12 md:w-2/5 lg:w-3/12 mx-auto"></div>
+        <div className="mt-8 flex flex-col items-center justify-center">
           <div className="shadow-lg border w-11/12 md:w-2/3 lg:w-1/3">
-            <p className="py-4 bg-gray-100 pl-4 font-semibold">Shubham kumar</p>
+            <p className="py-4 bg-gray-100 px-4 font-semibold">Shubham kumar</p>
             <Image
-              src="/contest-1.jpg"
+              src="/vector-2.jpg"
               alt="Contest"
               width={1920}
               height={1080}
@@ -70,8 +70,32 @@ const photocontest = () => {
                 </p>
                 <p>90 likes</p>
               </div>
-              <div className="text-sm">
+              <div className="text-sm font-light">
                 <p>Posted 2hrs ago</p>
+              </div>
+
+              {/* <AiOutlineHeart /> */}
+            </div>
+          </div>
+        </div>
+        <div className="mt-8 flex flex-col items-center justify-center">
+          <div className="shadow-lg border w-11/12 md:w-2/3 lg:w-1/3">
+            <p className="py-4 bg-gray-100 px-4 font-semibold">Shubham kumar</p>
+            <Image
+              src="/contest-hero.jpeg"
+              alt="Contest"
+              width={1920}
+              height={1080}
+            />
+            <div className="flex flex-row justify-between py-4 bg-gray-100 px-4">
+              <div className="flex justify-center items-center gap-x-3">
+                <p className="text-xl">
+                  <FcLike />
+                </p>
+                <p>80 likes</p>
+              </div>
+              <div className="text-sm font-light">
+                <p>Posted 3hrs ago</p>
               </div>
 
               {/* <AiOutlineHeart /> */}
