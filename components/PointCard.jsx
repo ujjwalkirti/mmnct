@@ -26,7 +26,7 @@ const PointCard = (props) => {
                       {index + 1}
                     </p>
                   </div>
-                  <div className="w-2/3 flex  items-center flex-wrap md:flex-nowrap justify-start flex-col sm:flex-row text-center">
+                  <div className="w-2/3 flex  items-center flex-wrap md:flex-nowrap justify-start flex-col sm:flex-row">
                     <img
                       alt="team-logo"
                       className={shortformstyle}
@@ -47,7 +47,7 @@ const PointCard = (props) => {
                       {curElem.points}
                     </p>
                   </div>
-                  <div className="w-1/4 flex  items-center justify-center pl-2">
+                  <div className="w-1/4 flex  items-center justify-center">
                     <p className="text-[15px] xl:text-[25px] lg:text-[20px] font-[600]">
                       {curElem.matchPlayed}
                     </p>
