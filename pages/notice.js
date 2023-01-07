@@ -64,7 +64,10 @@ const NoticeCard = ({ noticeDate, index }) => {
 
   useEffect(() => {
     if (askedForNotice) {
-      const listRef = ref(storage, `notice/${noticeDate.date}`);
+      const listRef = ref(
+        storage,
+        `notice/${noticeDate.date}/${noticeDate.uid ? noticeDate.uid : ""}`
+      );
 
       // Find all the prefixes and items.
       listAll(listRef)

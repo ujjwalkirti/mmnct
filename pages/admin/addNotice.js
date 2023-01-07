@@ -10,6 +10,7 @@ import {
 } from "firebase/storage";
 import { arrayUnion, doc, updateDoc } from "firebase/firestore";
 import { db } from "../../components/db/Firebase";
+import { v4 as uuidv4 } from "uuid";
 
 function AddNotice() {
   const [fields, setFields] = useState(0);
@@ -66,6 +67,7 @@ const Form = ({ fields }) => {
 
     let caption = "";
     let currentDate = `${day}-${month}-${year}`;
+    let uid = uuidv4();
 
     for (let index = 0; index < fields; index++) {
       // console.log(e.target[index].files[0]);
@@ -74,7 +76,7 @@ const Form = ({ fields }) => {
       const file = e.target[index].files[0];
       const storageRef = ref(
         storage,
-        `notice/${currentDate}/${e.target[index].files[0].name}`
+        `notice/${currentDate}/${uid}/${e.target[index].files[0].name}`
       );
 
       const uploadTask = uploadBytesResumable(storageRef, file);
@@ -100,6 +102,7 @@ const Form = ({ fields }) => {
       date: currentDate,
       caption: caption,
       description: description,
+      uid: uid,
     };
     const dateRef = doc(db, "notice-upload-dates", "date-array");
 
@@ -148,10 +151,11 @@ const Form = ({ fields }) => {
             onChange={(e) => setDescription(e.target.value)}
             className="w-11/12 mx-auto my-4 text-xl px-1 py-2 bg-gray-200 appearance-none border-2 border-gray-200 rounded  text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
           ></textarea>
+
           <input
             type="submit"
             value={`Submit`}
-            className="border border-black px-2 py-1 text-2xl rounded-lg hover:text-white hover:bg-black"
+            className="border border-black px-2 py-1 text-2xl rounded-lg hover:text-white hover:bg-black cursor-pointer"
           />
         </>
       )}
