@@ -28,7 +28,7 @@ const photocontest = () => {
                 Explore the wonderful pictures clicked by people and don't
                 forget to like them.
               </p>
-              <div className="flex flex-row items-center justify-center text-xl gap-4 pt-6 md:pt-8">
+              <div className="flex flex-row items-center justify-center gap-4 pt-12">
                 <div className="flex items-center justify-center w-14 h-14 rounded-full bg-gray-100">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -45,12 +45,12 @@ const photocontest = () => {
                     />
                   </svg>
                 </div>
-                <p>Add your MMNCT Memory</p>
+                <p className="text-lg md:text-xl">Add your memory</p>
               </div>
             </div>
           </div>
         </div>
-        <p className="mt-20 lg:mt-0 text-center text-2xl font-semibold">
+        <p className="mt-14 lg:mt-0 text-center text-2xl font-semibold">
           Photos posted by others
         </p>
         <div className="mt-2 border-b-4 border-[#F4A68D] w-10/12 md:w-2/5 lg:w-3/12 mx-auto"></div>
