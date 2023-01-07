@@ -107,7 +107,7 @@ const NoticeCard = ({ noticeDate, index }) => {
   return (
     <div className="shadow-lg w-11/12 mx-auto py-4 my-2 bg-gradient-to-r bg-white rounded-lg">
       <div className="flex flex-col lg:flex-row lg:justify-start lg:w-4/5 lg:mx-auto lg:items-center text-black">
-        <p className="text-center text-xl mt-3 lg:mr-10 bg-black text-white px-3 py-1 rounded-lg">
+        <p className="text-center text-xl mt-3 lg:mr-10 md:bg-black md:text-white px-3 py-1 rounded-lg">
           {noticeDate.date}
         </p>
         <p className="text-center text-xl font-bold underline lg:text-3xl">
