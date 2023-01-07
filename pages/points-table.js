@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Head from "next/head";
 import React, { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
 import PointCard from "/components/PointCard";
@@ -54,6 +55,9 @@ export default function PointsTable({ maleTable, femaleTable }) {
 
   return (
     <>
+      <Head>
+      		<title>Points Table</title>
+      	</Head>
       <Navbar />
       <div className={`bg-gradient-to-b ${decisionsBasedonGender()} to-white`}>
         <div className="md:hidden pt-10">
