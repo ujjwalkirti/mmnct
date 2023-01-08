@@ -11,42 +11,59 @@ import { db, storage } from "../components/db/Firebase";
 import {
   collection,
   addDoc,
-  onSnapshot,
   query,
   updateDoc,
+  getDocs,
   doc,
+  where,
+  setDoc,
+  deleteDoc,
 } from "firebase/firestore";
 import moment from "moment";
+import { useSession, signIn, signOut, getSession } from "next-auth/react";
 
-const photocontest = () => {
+//Sever side props to get the post data from the firestore
+export async function getServerSideProps(context) {
+  const postsRef = collection(db, "photocontest");
+  const postsSnapshot = await getDocs(postsRef);
+  //Store the data and id in an array
+  const posts = postsSnapshot.docs.map((doc) => ({
+    id: doc.id,
+    ...doc.data(),
+  }));
+
+  // If user is logged in
+  const session = await getSession(context);
+  if (session) {
+    const q = query(
+      collection(db, "photocontest-likes"),
+      where("googleId", "==", session.user.email)
+    );
+    const querySnapshot = await getDocs(q);
+    const likes = querySnapshot.docs.map((doc) => doc.data());
+
+    // Store the post likes in posts
+    posts.forEach((post) => {
+      post.liked = likes.some((like) => like.postId === post.id);
+    });
+  }
+
+  // Sort the posts in descending order of likes
+  posts.sort((a, b) => b.likes - a.likes);
+
+  return {
+    props: {
+      posts: posts,
+    },
+  };
+}
+
+const photocontest = ({ posts }) => {
+  const { data: session } = useSession();
   const [selectedImage, setSelectedImage] = useState(null);
   const [imageUrl, setImageUrl] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [posts, setPosts] = useState([]);
-  // likedpost is an array of post ids which are liked by the user
-  const [likedPost, setLikedPost] = useState({});
-
-  // get all the posts from firestore in realtime
-  useEffect(() => {
-    const unsubscribe = onSnapshot(
-      collection(db, "photocontest"),
-      (querySnapshot) => {
-        // const source = querySnapshot.metadata.hasPendingWrites
-        //   ? "Local"
-        //   : "Server";
-        // console.log(source);
-        const post = [];
-        querySnapshot.forEach((doc) => {
-          post.push({ ...doc.data(), id: doc.id });
-          if (!likedPost[doc.id]) {
-            likedPost[doc.id] = false;
-          }
-        });
-        setPosts(post);
-      }
-    );
-    return unsubscribe;
-  }, []);
+  const [postCount, setPostCount] = useState(3);
 
   //Function to upload the image into firebase storage
   const uploadImage = async (e) => {
@@ -60,6 +77,7 @@ const photocontest = () => {
     // Alert if the user has not entered the name and enroll no.
     if (name === "" || enroll === "") {
       alert("Please enter your name and enroll no.");
+      setLoading(false);
       return;
     }
 
@@ -87,26 +105,58 @@ const photocontest = () => {
       likes: 0,
       downloadUrl: downloadUrl,
     });
+
+    //Update new post in posts
+    posts.push({
+      name: name,
+      enroll: enroll,
+      timestamp: timestamp,
+      likes: 0,
+      downloadUrl: downloadUrl,
+      id: docRef.id,
+    });
+
     setLoading(false);
-    // Close the modal
     setImageUrl(null);
     setSelectedImage(null);
   };
 
-  const likePost = async (id) => {
-    // Get the post from the database
-    const post = posts.find((post) => post.id === id);
+  // Function to like or unlike the post
+  const likePost = async (post) => {
+    // If the user is not signed in then alert the user to sign in
+    if (!session) {
+      alert("Please sign in to like the post");
+      return;
+    }
+    const id = post.id;
+
+    setLoading(true);
 
     // Increment the likes if the user has not liked the post else decrement the likes
-    const newLikes = likedPost[id] ? post.likes - 1 : post.likes + 1;
+    if (post.liked) {
+      await updateDoc(doc(db, "photocontest", id), {
+        likes: post.likes - 1,
+      });
+      await deleteDoc(
+        doc(db, "photocontest-likes", id + "-" + session.user.email)
+      );
+    } else {
+      await updateDoc(doc(db, "photocontest", id), {
+        likes: post.likes + 1,
+      });
+      await setDoc(
+        doc(db, "photocontest-likes", id + "-" + session.user.email),
+        {
+          postId: id,
+          googleId: session.user.email,
+        }
+      );
+    }
+    setLoading(false);
 
-    // Update the likedPost object
-    setLikedPost({ ...likedPost, [id]: !likedPost[id] });
-
-    // Update the likes in the database
-    await updateDoc(doc(db, "photocontest", id), {
-      likes: newLikes,
-    });
+    // Update the post in posts
+    post.liked = !post.liked;
+    post.likes = post.liked ? post.likes + 1 : post.likes - 1;
   };
 
   useEffect(() => {
@@ -188,7 +238,9 @@ const photocontest = () => {
           />
           <div className="flex flex-col items-center justify-center px-8 lg:px-16">
             <div className="text-center">
-              <p className="text-3xl lg:text-4xl font-semibold">Hola Amigos!</p>
+              <p className="text-3xl lg:text-4xl font-semibold">
+                Hola {session ? session.user.name.split(" ")[0] : "Amigos"}!
+              </p>
               <p className="text-xl md:text-2xl pt-4 lg:pt-8 font-light">
                 Explore the wonderful pictures clicked by people and don't
                 forget to like them.
@@ -201,30 +253,54 @@ const photocontest = () => {
                 onChange={(e) => setSelectedImage(e.target.files[0])}
               />
               <div className="flex flex-row items-center justify-center gap-4 pt-12">
-                <div
-                  className="flex items-center justify-center w-14 h-14 rounded-full bg-gray-100 cursor-pointer"
-                  onClick={() =>
-                    document.getElementById("select-image").click()
-                  }
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="w-10 h-10 text-gray-500"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
+                {session ? (
+                  <>
+                    <div
+                      className="flex items-center justify-center w-14 h-14 rounded-full bg-gray-100 cursor-pointer"
+                      onClick={() =>
+                        document.getElementById("select-image").click()
+                      }
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="w-10 h-10 text-gray-500"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M12 6v6m0 0v6m0-6h6m-6 0H6"
+                        />
+                      </svg>
+                    </div>
+                    <p className="text-lg md:text-xl">Add your memory</p>
+                  </>
+                ) : (
+                  <button
+                    className="bg-[#F4A68D] text-white px-4 py-2 rounded-lg text-lg md:text-xl"
+                    onClick={async () => {
+                      signIn("google");
+                      location.reload();
+                    }}
                   >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M12 6v6m0 0v6m0-6h6m-6 0H6"
-                    />
-                  </svg>
-                </div>
-
-                <p className="text-lg md:text-xl">Add your memory</p>
+                    Sign in with Google
+                  </button>
+                )}
               </div>
+              {/* {session && (
+                <button
+                  onClick={async () => {
+                    signOut();
+                    location.reload();
+                  }}
+                  className="mt-4 text-lg md:text-xl bg-[#F4A68D] text-white px-4 py-2 rounded-lg"
+                >
+                  Sign out
+                </button>
+              )} */}
             </div>
           </div>
         </div>
@@ -234,32 +310,33 @@ const photocontest = () => {
               Photos posted by others
             </p>
             <div className="mt-2 mb-12 lg:mb-12 border-b-4 border-[#F4A68D] w-10/12 md:w-2/5 lg:w-3/12 mx-auto"></div>
-            {posts.map((post, index) => (
-              <div
-                className="mt-8 flex flex-col items-center justify-center"
-                key={index}
-              >
-                <div className="shadow-lg border w-11/12 md:w-2/3 lg:w-1/3">
-                  <p className="py-4 bg-gray-100 px-4 font-semibold">
-                    {post.enroll} - {post.name}
-                  </p>
-                  <Image
-                    src={post.downloadUrl}
-                    alt="Contest"
-                    width={1920}
-                    height={1080}
-                  />
-                  <div className="flex flex-row justify-between py-4 bg-gray-100 px-4">
-                    <div className="flex justify-center items-center gap-x-3">
-                      <p className="text-xl">
+            {posts
+              .slice(0, Math.min(postCount, posts.length))
+              .map((post, index) => (
+                <div
+                  className="mt-8 flex flex-col items-center justify-center"
+                  key={index}
+                >
+                  <div className="shadow-lg border w-11/12 md:w-2/3 lg:w-1/3">
+                    <p className="py-4 bg-gray-100 px-4 font-semibold">
+                      {post.enroll} - {post.name}
+                    </p>
+                    <Image
+                      src={post.downloadUrl}
+                      alt="Contest"
+                      width={1920}
+                      height={1080}
+                    />
+                    <div className="flex flex-row justify-between py-4 bg-gray-100 px-4">
+                      <div className="flex justify-center items-center gap-x-3">
                         <div
-                          className="cursor-pointer"
+                          className="cursor-pointer text-xl"
                           onClick={(e) => {
                             e.preventDefault();
-                            likePost(post.id);
+                            likePost(post);
                           }}
                         >
-                          {likedPost[post.id] ? (
+                          {post.liked ? (
                             <p>
                               <FcLike />
                             </p>
@@ -269,16 +346,28 @@ const photocontest = () => {
                             </p>
                           )}
                         </div>
-                      </p>
-                      <p>{post.likes} likes</p>
-                    </div>
-                    <div className="text-sm font-light">
-                      {moment(post.timestamp).fromNow()}
+
+                        <p>{post.likes} likes</p>
+                      </div>
+                      <div className="text-sm font-light">
+                        {moment(post.timestamp).fromNow()}
+                      </div>
                     </div>
                   </div>
                 </div>
+              ))}
+            {postCount < posts.length && (
+              <div className="flex justify-center items-center mt-8">
+                <button
+                  className="bg-[#F4A68D] text-white px-4 py-2 rounded-lg w-11/12 md:w-2/3 lg:w-1/3"
+                  onClick={() => {
+                    setPostCount(postCount + 3);
+                  }}
+                >
+                  Load more Posts
+                </button>
               </div>
-            ))}
+            )}
           </>
         ) : (
           <p className="py-28 lg:mt-0 text-center text-2xl font-semibold">
