@@ -10,6 +10,7 @@
   "dependencies": {
     "@next/font": "^13.0.5",
     "autoprefixer": "^10.4.1",
+    "browser-image-compression": "^2.0.0",
     "firebase": "^9.13.0",
     "framer-motion": "^7.10.2",
     "moment": "^2.29.4",
