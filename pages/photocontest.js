@@ -281,8 +281,8 @@ const photocontest = ({ posts }) => {
                 ) : (
                   <button
                     className="bg-[#F4A68D] text-white px-4 py-2 rounded-lg text-lg md:text-xl"
-                    onClick={async () => {
-                      await signIn("google");
+                    onClick={() => {
+                      signIn("google");
                       location.reload();
                     }}
                   >
@@ -292,8 +292,8 @@ const photocontest = ({ posts }) => {
               </div>
               {/* {session && (
                 <button
-                  onClick={async () => {
-                    await signOut();
+                  onClick={() => {
+                    signOut();
                     location.reload();
                   }}
                   className="mt-4 text-lg md:text-xl bg-[#F4A68D] text-white px-4 py-2 rounded-lg"
