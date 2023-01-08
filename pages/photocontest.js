@@ -283,7 +283,6 @@ const photocontest = ({ posts }) => {
                     className="bg-[#F4A68D] text-white px-4 py-2 rounded-lg text-lg md:text-xl"
                     onClick={() => {
                       signIn("google");
-                      location.reload();
                     }}
                   >
                     Sign in with Google
@@ -294,7 +293,7 @@ const photocontest = ({ posts }) => {
                 <button
                   onClick={() => {
                     signOut();
-                    location.reload();
+                    
                   }}
                   className="mt-4 text-lg md:text-xl bg-[#F4A68D] text-white px-4 py-2 rounded-lg"
                 >
