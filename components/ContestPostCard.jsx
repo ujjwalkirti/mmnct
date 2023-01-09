@@ -50,7 +50,10 @@ const ContestPostCard = ({ post, index }) => {
     setLoading(false);
   };
   return (
-    <div className="mt-8 flex flex-col items-center justify-center" key={index}>
+    <div
+      className="mt-8 flex flex-col items-center justify-center animate-slide-in-bck-center"
+      key={index}
+    >
       <div className="shadow-lg border w-11/12 md:w-2/3 lg:w-1/3">
         <p className="py-4 bg-gray-100 px-4 font-semibold">
           {post.enroll} - {post.name}
@@ -93,12 +96,12 @@ const ContestPostCard = ({ post, index }) => {
             >
               {post.liked
                 ? !loading && (
-                    <p>
+                    <p className="animate-scale-in-center">
                       <FcLike />
                     </p>
                   )
                 : !loading && (
-                    <p>
+                    <p className="animate-scale-in-center">
                       <AiOutlineHeart />
                     </p>
                   )}
