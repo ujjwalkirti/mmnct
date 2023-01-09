@@ -265,7 +265,7 @@ const photocontest = ({ posts }) => {
         {posts.length > 0 ? (
           <>
             <p className="mt-14 lg:mt-0 text-center text-2xl font-semibold">
-              Photos posted by others
+              Most liked posts today
             </p>
             <div className="mt-2 mb-12 lg:mb-12 border-b-4 border-[#F4A68D] w-10/12 md:w-2/5 lg:w-3/12 mx-auto"></div>
             {posts
