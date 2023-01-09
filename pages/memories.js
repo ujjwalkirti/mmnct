@@ -33,6 +33,7 @@ export default function Memories({ imageList }) {
     <>
       <Head>
         <title>Memories from the past versions!</title>
+        <link rel="icon" href="/favicon.ico" />
       </Head>
       <Navbar />
       <div className="min-h-screen">

@@ -157,6 +157,7 @@ const teamId = ({ teamDetails, members }) => {
     <div>
       <Head>
         <title>Team members detail update</title>
+        <link rel="icon" href="/favicon.ico" />
       </Head>
       <Navbar />
       {loading && (

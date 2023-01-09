@@ -56,8 +56,9 @@ export default function PointsTable({ maleTable, femaleTable }) {
   return (
     <>
       <Head>
-      		<title>Points Table</title>
-      	</Head>
+        <title>Points Table</title>
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
       <Navbar />
       <div className={`bg-gradient-to-b ${decisionsBasedonGender()} to-white`}>
         <div className="md:hidden pt-10">
@@ -121,8 +122,6 @@ export default function PointsTable({ maleTable, femaleTable }) {
                 <PointCard data={[femaleTable, selectedGender]} />
               )}
             </div>
-
-            
           </div>
         </div>
 
@@ -175,27 +174,27 @@ export default function PointsTable({ maleTable, femaleTable }) {
             </div>
             <div className="float-none mt-20">
               <div className="grid gap-3 mx-10 grid-cols-1 md:mx-10 lg:mx-20 xl:mx-40">
-              <div className="flex text-sm text-white leading-7">
-                <div className="w-1/4 flex  items-center justify-center ">
-                  <p className="">Rank</p>
+                <div className="flex text-sm text-white leading-7">
+                  <div className="w-1/4 flex  items-center justify-center ">
+                    <p className="">Rank</p>
+                  </div>
+                  <div className="w-2/3 flex  items-center  pl-20">
+                    <p className="">Team</p>
+                  </div>
+                  <div className="w-1/4 flex  items-center justify-center ">
+                    <p>Points</p>
+                  </div>
+                  <div className="w-1/4 flex  items-center justify-center ">
+                    <p>Played</p>
+                  </div>
+                  <div className="w-1/4 flex items-center justify-center ">
+                    <p>Won</p>
+                  </div>
+                  <div className="w-1/4 flex  items-center justify-center ">
+                    <p className="">Lost</p>
+                  </div>
                 </div>
-                <div className="w-2/3 flex  items-center  pl-20">
-                  <p className="">Team</p>
-                </div>
-                <div className="w-1/4 flex  items-center justify-center ">
-                  <p>Points</p>
-                </div>
-                <div className="w-1/4 flex  items-center justify-center ">
-                  <p>Played</p>
-                </div>
-                <div className="w-1/4 flex items-center justify-center ">
-                  <p>Won</p>
-                </div>
-                <div className="w-1/4 flex  items-center justify-center ">
-                  <p className="">Lost</p>
-                </div>
-              </div>
-              <div className="h-px bg-white"></div>
+                <div className="h-px bg-white"></div>
                 {selectedGender === "male" ? (
                   <PointCard data={[maleTable, selectedGender]} />
                 ) : (

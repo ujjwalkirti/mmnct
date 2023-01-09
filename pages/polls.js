@@ -16,6 +16,7 @@ function Polls() {
     <div className="flex flex-col justify-between h-screen">
       <Head>
         <title>Polls - Make your favorite Team win!</title>
+        <link rel="icon" href="/favicon.ico" />
       </Head>
       <Navbar />
       <p className="font-bold text-3xl my-7 text-center">

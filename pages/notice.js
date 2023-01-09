@@ -37,6 +37,7 @@ export default function Notice({ noticeDates }) {
     <>
       <Head>
         <title>Notice and Announcements</title>
+        <link rel="icon" href="/favicon.ico" />
       </Head>
       <Navbar />
       <div className="min-h-screen bg-gray-200 py-3">

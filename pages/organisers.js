@@ -50,6 +50,7 @@ export default function Organisers({
     <div>
       <Head>
         <title>Organising Team</title>
+        <link rel="icon" href="/favicon.ico" />
       </Head>
       <Navbar />
       <div className="text-center mt-10 mb-24">

@@ -58,6 +58,7 @@ export default function Sponsors({ brochureLink }) {
     <div className=" bg-gray-100 ">
       <Head>
         <title>Sponsorship-MMNCT</title>
+        <link rel="icon" href="/favicon.ico" />
       </Head>
       <Navbar />
       {/* Sponsors */}

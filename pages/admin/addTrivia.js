@@ -69,6 +69,7 @@ const AddTrivia = () => {
     <div>
       <Head>
         <title>Add trivia questions</title>
+        <link rel="icon" href="/favicon.ico" />
       </Head>
       <Navbar />
       <p className="text-center mt-4 text-3xl">Add Trivia Question</p>

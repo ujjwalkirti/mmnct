@@ -19,6 +19,7 @@ function AddNotice() {
     <div>
       <Head>
         <title>Add Notice</title>
+        <link rel="icon" href="/favicon.ico" />
       </Head>
       <Navbar />
       <p className="text-center text-4xl mt-2">

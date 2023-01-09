@@ -59,6 +59,7 @@ function teamDetails({ teamDetails, members }) {
     <div>
       <Head>
         <title>Team: {teamDetails.teamName}</title>
+        <link rel="icon" href="/favicon.ico" />
       </Head>
       <Navbar />
       {loading && (

@@ -198,6 +198,7 @@ const AddTeams = ({ teams }) => {
     <div>
       <Head>
         <title>Team details update</title>
+        <link rel="icon" href="/favicon.ico" />
       </Head>
       <Navbar />
       <div className="min-h-screen">

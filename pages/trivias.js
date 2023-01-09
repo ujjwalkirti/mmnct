@@ -53,6 +53,7 @@ function Trivias() {
     <div className="bg-gray-100">
       <Head>
         <title>Exciting Trivias</title>
+        <link rel="icon" href="/favicon.ico" />
       </Head>
       <Navbar />
       <p className="text-center text-4xl font-bold md:my-5 mt-5">Trivias</p>
@@ -138,7 +139,12 @@ function Trivias() {
                   href="https://www.instagram.com/mmnct_svnit/"
                   className="flex justify-center mt-2"
                 >
-                  <Image src="/ig.png" width={60} height={60} alt="instagram icon" />
+                  <Image
+                    src="/ig.png"
+                    width={60}
+                    height={60}
+                    alt="instagram icon"
+                  />
                 </Link>
               </form>
             </div>

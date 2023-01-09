@@ -27,6 +27,7 @@ export default function FAQ({ questions }) {
     <div className="bg-gray-100 min-h-screen">
       <Head>
         <title>FAQs-MMNCT</title>
+        <link rel="icon" href="/favicon.ico" />
       </Head>
       <Navbar />
       <p className="text-xl font-bold text-center mt-5">

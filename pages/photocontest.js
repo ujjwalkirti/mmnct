@@ -128,6 +128,7 @@ const photocontest = ({ posts }) => {
     <div>
       <Head>
         <title>Click-a-Sensation</title>
+        <link rel="icon" href="/favicon.ico" />
       </Head>
       <Navbar />
       {loading && (
@@ -197,7 +198,7 @@ const photocontest = ({ posts }) => {
           />
           <div className="flex flex-col items-center justify-center px-8 lg:px-16">
             <div className="text-center">
-              <p className="text-3xl lg:text-4xl font-semibold">
+              <p className="text-3xl lg:text-4xl font-semibold text-[#411F0D]">
                 Hola {session ? session.user.name.split(" ")[0] : "Amigos"}!
               </p>
               <p className="text-xl md:text-2xl pt-4 lg:pt-8 font-light">
@@ -264,8 +265,8 @@ const photocontest = ({ posts }) => {
         </div>
         {posts.length > 0 ? (
           <>
-            <p className="mt-14 lg:mt-0 text-center text-2xl font-semibold">
-              Most liked posts today
+            <p className="mt-14 lg:mt-0 text-center text-2xl font-semibold text-[#411F0D]">
+              Today's most liked Posts
             </p>
             <div className="mt-2 mb-12 lg:mb-12 border-b-4 border-[#F4A68D] w-10/12 md:w-2/5 lg:w-3/12 mx-auto"></div>
             {posts
@@ -287,7 +288,7 @@ const photocontest = ({ posts }) => {
             )}
           </>
         ) : (
-          <p className="py-28 lg:mt-0 text-center text-2xl font-semibold">
+          <p className="py-28 lg:mt-0 text-center text-2xl font-semibold text-[#411F0D]">
             No photos posted by others
           </p>
         )}
