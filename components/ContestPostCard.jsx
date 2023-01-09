@@ -15,7 +15,7 @@ const ContestPostCard = ({ post, index }) => {
   const likePost = async (post) => {
     // If the user is not signed in then alert the user to sign in
     if (!session) {
-      alert("Please sign in to like the post");
+      alert("Please sign in first to like this post");
       return;
     }
     const id = post.id;
@@ -70,7 +70,7 @@ const ContestPostCard = ({ post, index }) => {
               <div role="status">
                 <svg
                   aria-hidden="true"
-                  class="inline w-5 h-5 items-center text-gray-200 animate-spin dark:text-gray-600 fill-red-600 mt-0"
+                  className="inline w-5 h-5 items-center text-gray-200 animate-spin dark:text-gray-600 fill-red-600 mt-0"
                   viewBox="0 0 100 101"
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
@@ -84,7 +84,7 @@ const ContestPostCard = ({ post, index }) => {
                     fill="currentFill"
                   />
                 </svg>
-                <span class="sr-only">Loading...</span>
+                <span className="sr-only">Loading...</span>
               </div>
             )}
             <div
