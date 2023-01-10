@@ -307,7 +307,7 @@ const photocontest = ({ posts }) => {
             {posts
               .slice(0, Math.min(postCount, posts.length))
               .map((post, index) => (
-                <ContestPostCard index={index} post={post} />
+                <ContestPostCard key={index} post={post} />
               ))}
             {postCount < posts.length && (
               <div className="flex justify-center items-center mt-8">
