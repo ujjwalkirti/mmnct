@@ -112,10 +112,46 @@ function teamDetails({ teamDetails, members }) {
             </div>
           </div>
         </div>
-        <div className="pt-44 text-xl text-center font-semibold text-gray-500 ">
-          <p>Team members are not decided yet.</p>
-          <p>Please, stay tuned for more updates.</p>
-        </div>
+        {members.length == 0 ? (
+          <div className="pt-44 text-xl text-center font-semibold text-gray-500 ">
+            <p>Team members are not decided yet.</p>
+            <p>Please, stay tuned for more updates.</p>
+          </div>
+        ) : (
+          <div className="pt-16 flex flex-col gap-8 pb-6">
+            <div className="flex flex-col justify-center items-center">
+              <p className="text-2xl font-semibold mx-auto">Team members</p>
+              <div className="mt-2 mb-12 lg:mb-12 border-b-4 border-[#F4A68D] w-8/12 md:w-2/5 lg:w-3/12 mx-auto"></div>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mx-4 md:mx-16 gap-6">
+              {members.map((member, index) => (
+                <div className="relative" key={index}>
+                  <Image
+                    src={
+                      member.imgUrl != ""
+                        ? member.imgUrl
+                        : teamDetails.teamGender == "Male"
+                        ? "/male.jpg"
+                        : "/female/jpg"
+                    }
+                    alt="team member"
+                    width={1920}
+                    height={1080}
+                    className="rounded-xl"
+                  />
+                  <div class="absolute top-0 mt-20 right-0 bottom-0 left-0 bg-gradient-to-b from-transparent to-gray-700"></div>
+                  <div className="absolute bottom-2 w-full text-white text-center font-light">
+                    <p className="text-sm font-semibold">{member.name}</p>
+                    <p className="text-xs">{member.type}</p>
+                    {member.branch != "" && (
+                      <p className="text-xs">{member.branch}</p>
+                    )}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
       </div>
       <Footer />
     </div>
