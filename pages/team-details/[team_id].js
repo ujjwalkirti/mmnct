@@ -18,7 +18,7 @@ import Image from "next/image";
 export async function getServerSideProps(context) {
   const { team_id } = context.query;
   let teamDetails = {};
-  let members = {};
+  let members = [];
 
   // Get the document from the collection participating-teams having the id as team_id
   await getDoc(doc(db, "participating-teams", team_id)).then(
@@ -74,9 +74,47 @@ function teamDetails({ teamDetails, members }) {
         </div>
       )}
       <div className="min-h-screen">
-        <div className="pt-80 text-2xl text-center font-semibold text-black">
+        {/* <div className="pt-80 text-2xl text-center font-semibold text-black">
           <p>Team members are not decided yet.</p>
           <p>Please, stay tuned for more updates.</p>
+        </div> */}
+        <div className="flex justify-center items-center my-4">
+          <div className="w-11/12 md:w-3/4 lg:w-5/12 shadow-lg border">
+            <div className="flex flex-col md:flex-row justify-center items-center gap-x-8">
+              <div className="w-full md:w-7/12 border">
+                {teamDetails.teamLogo != "" ? (
+                  <Image
+                    src={teamDetails.teamLogo}
+                    alt="team logo"
+                    width={1920}
+                    height={1080}
+                  />
+                ) : (
+                  <div className="flex justify-center items-center h-60">
+                    <p className="text-2xl font-semibold text-gray-500">
+                      No Logo
+                    </p>
+                  </div>
+                )}
+              </div>
+              <div className="md:w-5/12 py-4">
+                <div className="flex flex-col justify-center items-center md:items-start gap-y-4">
+                  <div className="flex flex-col justify-center items-center md:items-start">
+                    <p className="font-semibold">Team Name</p>
+                    <p className="text-gray-500">{teamDetails.teamName}</p>
+                  </div>
+                  <div className="flex flex-col justify-center items-center md:items-start">
+                    <p className="font-semibold">Group</p>
+                    <p className="text-gray-500">{teamDetails.teamType}</p>
+                  </div>
+                  <div className="flex flex-col justify-center items-center md:items-start">
+                    <p className="font-semibold">Gender</p>
+                    <p className="text-gray-500">{teamDetails.teamGender}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
       <Footer />
