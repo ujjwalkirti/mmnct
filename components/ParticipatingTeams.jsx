@@ -123,11 +123,11 @@ const ParticipatingTeams = ({ teamList }) => {
           </div>
         </div>
         <p className="text-center text-[16px] text-white mb-4">
-          Tap on the Team Card to know more.
+          Tap on the Teams to know more.
         </p>
         <div className="relative h-[740px] overflow-x-hidden mx-auto">
           {selectedGender === "male" ? (
-            <div className="grid grid-cols-2 gap-2 mx-auto w-[360px]">
+            <div className="grid grid-cols-2 gap-2 mx-auto w-screen px-2">
               {maleTeams.map((team, index) => {
                 if (index >= range.start && index < range.end) {
                   return (

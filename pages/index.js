@@ -33,7 +33,7 @@ export default function Home({ teamList, sponsorImgList }) {
       <TournamentHistory />
       {/* new feature where users can upload there selfies on the matchdays with unique moments which will then be voted by others and one who receives most votes will win */}
       <ImageUploadContest />
-      <div className="flex justify-center mt-8 hidden">
+      <div className="justify-center mt-8 hidden">
         <Link href="/photocontest">
           <button className="bg-[#ffc4b1] text-white font-semibold py-3 px-20 rounded-full">
             Participate Now!
