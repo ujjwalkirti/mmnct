@@ -23,7 +23,6 @@ import dynamic from "next/dynamic";
 import { AiFillDelete } from "react-icons/ai";
 import Link from "next/link";
 import { GoLinkExternal } from "react-icons/go";
-import { useRouter } from "next/router";
 
 //Next js dynamic import Modal
 const UpdateTeamModal = dynamic(() =>
@@ -65,8 +64,14 @@ const AddTeams = ({ teams }) => {
     const teamName = e.target[1].value;
     //Get Team type from input
     const teamType = e.target[2].value;
+    // Get Theme color from input
+    let themeColor = e.target[3].value;
     //Get Team gender from input
-    const teamGender = e.target[3].value;
+    const teamGender = e.target[4].value;
+
+    if (themeColor == "") {
+      themeColor = "#FFFFFF";
+    }
 
     let storageRef = ref(storage, `teams_logo/${teamName}.jpg`);
 
@@ -109,6 +114,7 @@ const AddTeams = ({ teams }) => {
         matchPlayed: 0,
         matchWon: 0,
         points: 0,
+        themeColor: themeColor,
       });
 
       alert("Team added successfully");
@@ -261,6 +267,7 @@ const AddTeams = ({ teams }) => {
                       <th className="px-12 py-2">Team Name</th>
                       <th className="px-12 py-2">Team Type</th>
                       <th className="px-8 py-2">Gender</th>
+                      <th className="px-8 py-2">HEX Code</th>
                       <th className="px-4 py-2">Members</th>
                     </tr>
                   </thead>
@@ -283,6 +290,7 @@ const AddTeams = ({ teams }) => {
                         <td className="px-4 py-auto">{team.teamName}</td>
                         <td className="px-4 py-auto">{team.teamType}</td>
                         <td className="px-4 py-auto">{team.teamGender}</td>
+                        <td className="px-4 py-auto">{team.themeColor}</td>
                         <td className="py-auto">
                           <Link href={`/admin/addTeamMembers/${team.id}`}>
                             <GoLinkExternal className="cursor-pointer mx-auto" />
@@ -352,6 +360,24 @@ const AddTeams = ({ teams }) => {
                     id="team_type"
                     type="text"
                     required
+                  />
+                </div>
+              </div>
+
+              <div className="md:flex md:items-center mb-6">
+                <div className="md:w-1/3">
+                  <label
+                    className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4"
+                    for="theme_color"
+                  >
+                    HEX code
+                  </label>
+                </div>
+                <div className="md:w-2/3">
+                  <input
+                    className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
+                    id="theme_color"
+                    type="text"
                   />
                 </div>
               </div>
