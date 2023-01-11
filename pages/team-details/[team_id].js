@@ -75,25 +75,27 @@ function teamDetails({ teamDetails, members }) {
       )}
       <div className="min-h-screen">
         <div className="flex justify-center items-center my-4">
-          <div className="w-11/12 md:w-3/4 lg:w-5/12 shadow-lg border">
-            <div className="flex flex-col md:flex-row justify-center items-center gap-x-8">
-              <div className="w-full md:w-7/12 border">
+          <div className="w-11/12 md:w-3/4 lg:w-5/12 shadow-lg border hover:shadow-xl">
+            <div className="flex flex-col md:flex-row justify-center items-center">
+              <div className="w-full md:w-5/12 bg-green-400 md:px-0">
                 {teamDetails.teamLogo != "" ? (
                   <Image
                     src={teamDetails.teamLogo}
                     alt="team logo"
                     width={1920}
                     height={1080}
+                    className="px-4"
                   />
                 ) : (
-                  <div className="flex justify-center items-center h-60">
+                  <div className="flex justify-center items-center h-60 bg-white">
                     <p className="text-2xl font-semibold text-gray-500">
                       No Logo
                     </p>
                   </div>
                 )}
               </div>
-              <div className="md:w-5/12 py-4">
+              <div className="md:hidden border-b-2 border-gray-100 w-full"></div>
+              <div className="md:w-7/12 py-4 md:pl-10 md:border-l">
                 <div className="flex flex-col justify-center items-center md:items-start gap-y-4">
                   <div className="flex flex-col justify-center items-center md:items-start">
                     <p className="font-semibold">Team Name</p>
@@ -139,7 +141,7 @@ function teamDetails({ teamDetails, members }) {
                     height={1080}
                     className="rounded-xl"
                   />
-                  <div class="absolute top-0 mt-20 right-0 bottom-0 left-0 bg-gradient-to-b from-transparent to-gray-700"></div>
+                  <div class="absolute top-0 mt-20 right-0 bottom-0 left-0 bg-gradient-to-b from-transparent to-gray-700 shadow-xl"></div>
                   <div className="absolute bottom-2 w-full text-white text-center font-light">
                     <p className="text-sm font-semibold">{member.name}</p>
                     <p className="text-xs">{member.type}</p>

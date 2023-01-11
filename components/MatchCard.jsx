@@ -16,7 +16,7 @@ const MatchCard = ({ type, team }) => {
         />
         <div className="flex flex-col items-center">
           {" "}
-          <p className="text-[15px] xl:text-[25px] lg:text-[20px] font-[600]">
+          <p className="text-[15px] xl:text-[21px] lg:text-[18px] font-[600]">
             {team?.teamName}
           </p>
           <p className="text-[15px] flex text-gray-600 font-[600]">
@@ -24,7 +24,7 @@ const MatchCard = ({ type, team }) => {
           </p>
           <Link
             href={`/team-details/${team.id}`}
-            className="text-[20px] bg-orange-500 hidden xl:flex text-white justify-center items-center gap-2 font-[600] py-2 px-4 rounded-lg hover:shadow-lg"
+            className="text-lg bg-orange-400 hidden xl:flex text-white justify-center items-center gap-2 font-semibold py-2 px-4 rounded-lg hover:shadow-lg"
           >
             Full squad <ImCircleRight />
           </Link>

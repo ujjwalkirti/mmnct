@@ -2,6 +2,7 @@ import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import MatchCard from "./MatchCard";
 import { BsChevronLeft, BsChevronRight } from "react-icons/bs";
+import { useRouter } from "next/router";
 
 const ParticipatingTeams = ({ teamList }) => {
   const [selectedGender, setSelectedGender] = useState("male");
@@ -10,6 +11,7 @@ const ParticipatingTeams = ({ teamList }) => {
   const [totalPages, setTotalPages] = useState(0);
   const [maleTeams, setMaleTeams] = useState([]);
   const [femaleTeams, setFemaleTeams] = useState([]);
+  const router = useRouter();
 
   const StylesBasedonGender = (gender) => {
     if (selectedGender === gender) {
@@ -90,7 +92,7 @@ const ParticipatingTeams = ({ teamList }) => {
         <p className="font-[800] text-[28px] leading-[34.13px] text-[#FFFDFA] text-center  pt-10 mb-3">
           Participating Teams
         </p>
-        <div className="bg-white text-gray-500 flex justify-evenly w-[223px] mx-auto text-center font-[600] text-[16px] rounded-lg mb-10">
+        <div className="bg-white text-gray-500 flex justify-evenly w-[223px] mx-auto text-center font-[600] text-[16px] rounded-lg mb-6">
           <div
             onClick={() => {
               setSelectedGender("male");
@@ -120,19 +122,41 @@ const ParticipatingTeams = ({ teamList }) => {
             </p>
           </div>
         </div>
+        <p className="text-center text-[16px] text-white mb-4">
+          Tap on the Team Card to know more.
+        </p>
         <div className="relative h-[740px] overflow-x-hidden mx-auto">
           {selectedGender === "male" ? (
             <div className="grid grid-cols-2 gap-2 mx-auto w-[360px]">
               {maleTeams.map((team, index) => {
                 if (index >= range.start && index < range.end) {
-                  return <MatchCard type={`short`} team={team} key={index} />;
+                  return (
+                    <div
+                      onClick={(e) => {
+                        e.preventDefault();
+                        router.push(`/team-details/${team.id}`);
+                      }}
+                    >
+                      {" "}
+                      <MatchCard type={`short`} team={team} key={index} />{" "}
+                    </div>
+                  );
                 }
               })}
             </div>
           ) : (
             <div className="grid grid-cols-2 gap-2 mx-auto w-[360px]">
               {femaleTeams.map((team, index) => {
-                return <MatchCard type={`short`} team={team} key={index} />;
+                return (
+                  <div
+                    onClick={(e) => {
+                      e.preventDefault();
+                      router.push(`/team-details/${team.id}`);
+                    }}
+                  >
+                    <MatchCard type={`short`} team={team} key={index} />
+                  </div>
+                );
               })}
             </div>
           )}
@@ -251,14 +275,44 @@ const ParticipatingTeams = ({ teamList }) => {
             <div className="grid gap-3 mr-4 grid-cols-2 ">
               {maleTeams.map((team, index) => {
                 if (index >= range.start && index < range.end) {
-                  return <MatchCard type={`short`} team={team} key={index} />;
+                  return (
+                    <>
+                      <div
+                        className="lg:hidden"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          router.push(`/team-details/${team.id}`);
+                        }}
+                      >
+                        <MatchCard type={`short`} team={team} key={index} />
+                      </div>
+                      <div className="hidden lg:flex">
+                        <MatchCard type={`short`} team={team} key={index} />
+                      </div>
+                    </>
+                  );
                 }
               })}
             </div>
           ) : (
             <div className="grid gap-3 mr-4 grid-cols-2 ">
               {femaleTeams.map((team, index) => {
-                return <MatchCard type={`short`} team={team} key={index} />;
+                return (
+                  <>
+                    <div
+                      className="lg:hidden"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        router.push(`/team-details/${team.id}`);
+                      }}
+                    >
+                      <MatchCard type={`short`} team={team} key={index} />
+                    </div>
+                    <div className="hidden lg:flex">
+                      <MatchCard type={`short`} team={team} key={index} />
+                    </div>
+                  </>
+                );
               })}
             </div>
           )}
