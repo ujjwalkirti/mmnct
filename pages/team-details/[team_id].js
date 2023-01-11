@@ -115,7 +115,7 @@ function teamDetails({ teamDetails, members }) {
           </div>
         </div>
         {members.length == 0 ? (
-          <div className="flex flex-col justify-center items-center text-xl font-semibold text-gray-500 h-96">
+          <div className="flex flex-col justify-center items-center text-xl font-semibold text-gray-500 text-center p-x-4 h-96">
             <p>Team members are not decided yet.</p>
             <p>Please, stay tuned for more updates.</p>
           </div>
