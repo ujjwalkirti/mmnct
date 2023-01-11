@@ -74,10 +74,6 @@ function teamDetails({ teamDetails, members }) {
         </div>
       )}
       <div className="min-h-screen">
-        {/* <div className="pt-80 text-2xl text-center font-semibold text-black">
-          <p>Team members are not decided yet.</p>
-          <p>Please, stay tuned for more updates.</p>
-        </div> */}
         <div className="flex justify-center items-center my-4">
           <div className="w-11/12 md:w-3/4 lg:w-5/12 shadow-lg border">
             <div className="flex flex-col md:flex-row justify-center items-center gap-x-8">
@@ -115,6 +111,10 @@ function teamDetails({ teamDetails, members }) {
               </div>
             </div>
           </div>
+        </div>
+        <div className="pt-44 text-xl text-center font-semibold text-gray-500 ">
+          <p>Team members are not decided yet.</p>
+          <p>Please, stay tuned for more updates.</p>
         </div>
       </div>
       <Footer />
