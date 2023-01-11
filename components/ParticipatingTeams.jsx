@@ -2,7 +2,6 @@ import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import MatchCard from "./MatchCard";
 import { BsChevronLeft, BsChevronRight } from "react-icons/bs";
-import { useRouter } from "next/router";
 
 const ParticipatingTeams = ({ teamList }) => {
   const [selectedGender, setSelectedGender] = useState("male");
@@ -11,7 +10,6 @@ const ParticipatingTeams = ({ teamList }) => {
   const [totalPages, setTotalPages] = useState(0);
   const [maleTeams, setMaleTeams] = useState([]);
   const [femaleTeams, setFemaleTeams] = useState([]);
-  const router = useRouter();
 
   const StylesBasedonGender = (gender) => {
     if (selectedGender === gender) {
@@ -134,7 +132,7 @@ const ParticipatingTeams = ({ teamList }) => {
                     <div
                       onClick={(e) => {
                         e.preventDefault();
-                        router.push(`/team-details/${team.id}`);
+                        location.replace("/team-details/" + team.id);
                       }}
                     >
                       {" "}
@@ -151,7 +149,7 @@ const ParticipatingTeams = ({ teamList }) => {
                   <div
                     onClick={(e) => {
                       e.preventDefault();
-                      router.push(`/team-details/${team.id}`);
+                      location.replace("/team-details/" + team.id);
                     }}
                   >
                     <MatchCard type={`short`} team={team} key={index} />
@@ -281,7 +279,7 @@ const ParticipatingTeams = ({ teamList }) => {
                         className="lg:hidden"
                         onClick={(e) => {
                           e.preventDefault();
-                          router.push(`/team-details/${team.id}`);
+                          location.replace("/team-details/" + team.id);
                         }}
                       >
                         <MatchCard type={`short`} team={team} key={index} />
@@ -303,7 +301,7 @@ const ParticipatingTeams = ({ teamList }) => {
                       className="lg:hidden"
                       onClick={(e) => {
                         e.preventDefault();
-                        router.push(`/team-details/${team.id}`);
+                        location.replace("/team-details/" + team.id);
                       }}
                     >
                       <MatchCard type={`short`} team={team} key={index} />

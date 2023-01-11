@@ -73,7 +73,7 @@ function teamDetails({ teamDetails, members }) {
           />
         </div>
       )}
-      <div className="min-h-screen">
+      <div className="">
         <div className="flex justify-center items-center my-4">
           <div className="w-11/12 md:w-3/4 lg:w-5/12 shadow-lg border hover:shadow-xl">
             <div className="flex flex-col md:flex-row justify-center items-center">
@@ -115,7 +115,7 @@ function teamDetails({ teamDetails, members }) {
           </div>
         </div>
         {members.length == 0 ? (
-          <div className="pt-44 text-xl text-center font-semibold text-gray-500 ">
+          <div className="flex flex-col justify-center items-center text-xl font-semibold text-gray-500 h-96">
             <p>Team members are not decided yet.</p>
             <p>Please, stay tuned for more updates.</p>
           </div>
