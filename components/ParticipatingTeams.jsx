@@ -132,7 +132,7 @@ const ParticipatingTeams = ({ teamList }) => {
                     <div
                       onClick={(e) => {
                         e.preventDefault();
-                        location.replace("/team-details/" + team.id);
+                        location.assign("/team-details/" + team.id);
                       }}
                     >
                       {" "}
@@ -149,7 +149,7 @@ const ParticipatingTeams = ({ teamList }) => {
                   <div
                     onClick={(e) => {
                       e.preventDefault();
-                      location.replace("/team-details/" + team.id);
+                      location.assign("/team-details/" + team.id);
                     }}
                   >
                     <MatchCard type={`short`} team={team} key={index} />
@@ -279,7 +279,7 @@ const ParticipatingTeams = ({ teamList }) => {
                         className="lg:hidden"
                         onClick={(e) => {
                           e.preventDefault();
-                          location.replace("/team-details/" + team.id);
+                          location.assign("/team-details/" + team.id);
                         }}
                       >
                         <MatchCard type={`short`} team={team} key={index} />
@@ -301,7 +301,7 @@ const ParticipatingTeams = ({ teamList }) => {
                       className="lg:hidden"
                       onClick={(e) => {
                         e.preventDefault();
-                        location.replace("/team-details/" + team.id);
+                        location.assign("/team-details/" + team.id);
                       }}
                     >
                       <MatchCard type={`short`} team={team} key={index} />
