@@ -77,14 +77,17 @@ function teamDetails({ teamDetails, members }) {
         <div className="flex justify-center items-center my-4">
           <div className="w-11/12 md:w-3/4 lg:w-5/12 shadow-lg border hover:shadow-xl">
             <div className="flex flex-col md:flex-row justify-center items-center">
-              <div className="w-full md:w-5/12 bg-green-400 md:px-0">
+              <div
+                className="w-full md:w-5/12"
+                style={{ backgroundColor: teamDetails.themeColor }}
+              >
                 {teamDetails.teamLogo != "" ? (
                   <Image
                     src={teamDetails.teamLogo}
                     alt="team logo"
                     width={1920}
                     height={1080}
-                    className="px-4"
+                    className="px-12 py-4 md:px-4 md:py-4"
                   />
                 ) : (
                   <div className="flex justify-center items-center h-60 bg-white">
@@ -123,7 +126,10 @@ function teamDetails({ teamDetails, members }) {
           <div className="pt-16 flex flex-col gap-8 pb-6">
             <div className="flex flex-col justify-center items-center">
               <p className="text-2xl font-semibold mx-auto">Team members</p>
-              <div className="mt-2 mb-12 lg:mb-12 border-b-4 border-[#F4A68D] w-8/12 md:w-2/5 lg:w-3/12 mx-auto"></div>
+              <div
+                className="mt-2 mb-8 border-b-4 w-7/12 md:w-4/12 lg:w-3/12 mx-auto"
+                style={{ borderColor: teamDetails.themeColor }}
+              ></div>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mx-4 md:mx-16 gap-6">
               {members.map((member, index) => (
