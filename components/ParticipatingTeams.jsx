@@ -143,7 +143,7 @@ const ParticipatingTeams = ({ teamList }) => {
               })}
             </div>
           ) : (
-            <div className="grid grid-cols-2 gap-2 mx-auto w-[360px]">
+            <div className="grid grid-cols-2 gap-2 mx-auto w-screen px-2">
               {femaleTeams.map((team, index) => {
                 return (
                   <div

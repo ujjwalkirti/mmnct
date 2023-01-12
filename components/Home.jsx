@@ -10,7 +10,6 @@ function HomePage() {
     setScreenSize(window.innerWidth);
   }, []);
 
-  
   return (
     <div className="flex flex-col md:w-11/12 md:mx-auto tournament-name-container ">
       {/* displaying live score of current match */}
@@ -66,7 +65,7 @@ function HomePage() {
               src={`/vector-1.png`}
               alt="ground picture"
               priority
-              className={`z-40 absolute md:relative top-0 -left-[60px]`}
+              className={`z-40 absolute md:relative top-0`}
             />
           </div>
         </div>
