@@ -274,17 +274,18 @@ const AddTeams = ({ teams }) => {
                   <tbody>
                     {teams.map((team, index) => (
                       <tr className="border-b" key={index}>
-                        <td className="px-4 py-2">
+                        <td className="py-2 flex justify-center items-center">
                           {team.teamLogo != "" ? (
                             <Image
                               src={team.teamLogo}
                               width={100}
                               height={100}
                               className="border"
+                              style={{ backgroundColor: team.themeColor }}
                               alt="No logo"
                             />
                           ) : (
-                            <p className="text-center">No logo</p>
+                            <p>No logo</p>
                           )}
                         </td>
                         <td className="px-4 py-auto">{team.teamName}</td>
@@ -445,17 +446,18 @@ const AddTeams = ({ teams }) => {
                         <td className="px-4 py-auto">
                           <UpdateTeamModal details={team} />
                         </td>
-                        <td className="px-4 py-2">
+                        <td className="py-2 flex justify-center items-center">
                           {team.teamLogo != "" ? (
                             <Image
                               src={team.teamLogo}
                               width={100}
                               height={100}
                               className="border"
+                              style={{ backgroundColor: team.themeColor }}
                               alt="Team Logo"
                             />
                           ) : (
-                            <p className="text-center">No logo</p>
+                            <p>No logo</p>
                           )}
                         </td>
                         <td className="px-4 py-auto">{team.teamName}</td>

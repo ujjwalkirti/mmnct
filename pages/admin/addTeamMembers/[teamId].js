@@ -20,7 +20,6 @@ import {
   getDownloadURL,
   deleteObject,
 } from "firebase/storage";
-import { useRouter } from "next/router";
 import Image from "next/image";
 import { AiFillDelete } from "react-icons/ai";
 
@@ -175,7 +174,9 @@ const teamId = ({ teamDetails, members }) => {
         <div className="flex justify-center">
           <button
             className="bg-gray-800 text-white px-8 py-2 rounded-lg mt-4"
-            onClick={() => router.back()}
+            onClick={() => {
+              location.href = "/admin/addTeams";
+            }}
           >
             Go back to Teams page
           </button>

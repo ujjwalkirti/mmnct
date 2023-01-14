@@ -13,33 +13,28 @@ function imageUrlProducer(url) {
 const MatchCard = ({ type, team }) => {
   const teamStyle = "flex items-center justify-center";
   const teamName = "font-extrabold text-lg";
-  const shortformstyle = "h-[68px] xl:h-[80px] mx-auto";
+  const shortformstyle = "h-[55px] md:h-[75px] rounded-full";
 
   if (type === "short") {
     return (
-      <div className="flex flex-col md:flex-row  justify-center md:justify-start items-center my-2 bg-white w-full lg:w-full  h-[149px] lg:h-[90px] xl:h-[150px] rounded-[8px] mx-auto px-2 py-2 shadow-lg ">
-        <div
+      <div className="flex flex-col md:flex-row gap-y-2 justify-center md:justify-evenly items-center my-2 bg-white w-full lg:w-full  h-[129px] lg:h-[90px] xl:h-[150px] rounded-[8px] mx-auto px-2 py-2 shadow-lg ">
+        <img
+          alt="team-logo"
+          className={shortformstyle}
+          src={`${imageUrlProducer(team?.teamLogo)} `}
           style={{ backgroundColor: team.themeColor }}
-          className={` bg-black py-2 px-2 w-full md:w-2/5 md:h-full rounded-t-[8px] flex md:rounded-[8px] items-center`}
-        >
-          <img
-            alt="team-logo"
-            className={shortformstyle}
-            src={`${imageUrlProducer(team?.teamLogo)} `}
-          />
-        </div>
-
-        <div className="flex flex-col items-center justify-center md:w-3/5">
+        />
+        <div className="flex flex-col justify-center items-center gap-1">
           {" "}
-          <p className="text-[15px] xl:text-[21px] lg:text-[18px] font-[600]">
+          <p className="text-[15px] xl:text-[21px] lg:text-[18px] font-[600] leading-3 lg:leading-5">
             {team?.teamName}
           </p>
-          <p className="text-[15px] flex text-gray-600 font-[600]">
+          <p className="text-[12px] lg:text-[15px] flex text-gray-600 font-[600] leading-3 lg:leading-5">
             {team?.teamType}
           </p>
           <Link
             href={`/team-details/${team.id}`}
-            className="text-lg bg-orange-400 hidden xl:flex text-white justify-center items-center gap-2 font-semibold py-2 px-4 rounded-lg hover:shadow-lg"
+            className="mt-2 text-lg bg-orange-400 hidden xl:flex text-white justify-center items-center gap-2 font-semibold py-2 px-4 rounded-lg hover:shadow-lg"
           >
             Full squad <ImCircleRight />
           </Link>
