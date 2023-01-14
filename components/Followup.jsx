@@ -68,13 +68,14 @@ const options = [
 
 const Followup = () => {
   const [showForm, setShowForm] = useState(false);
+  const [story, setStory] = useState("");
   const handleSubmit = (e) => {
     e.preventDefault();
   };
   return (
     <div className="text-center">
       <div className=" md:mx-auto md:w-11/12">
-        <div className="text-justify mt-2 lg:mt-6 mb-7 lg:flex lg:items-center lg:shadow-lg">
+        {/* <div className="text-justify mt-2 lg:mt-6 mb-7 lg:flex lg:items-center lg:shadow-lg">
           <div className="relative lg:h-[600px] text-white text-xl lg:w-3/5 memory-tree z-10 ">
             <p className="text-5xl xl:text-[80px] font-bold text-center mb-4 pt-6">
               Memory-Tree
@@ -111,7 +112,11 @@ const Followup = () => {
             </p>
             <textarea
               placeholder="Start typing here..."
-              className="px-2 py-2 focus:bg-white focus:border-purple-500 lg:h-[400px] rounded-md border-black w-full lg:w-4/5 mx-auto h-44 border-none"
+              className="px-2 py-2 focus:bg-white focus:border-purple-500 xl:h-[360px] rounded-md border-black w-full lg:w-4/5 mx-auto h-44 border-none"
+              value={story}
+              onChange={(e) => {
+                setStory(e.target.value);
+              }}
             ></textarea>
             <p className="">Or do you have any special snap of the occasion?</p>
             <input type={`file`} className="mx-auto w-[250px]" />
@@ -119,15 +124,9 @@ const Followup = () => {
               type={`submit`}
               className="w-2/5 border bg-pink-500 text-white py-2 rounded-md hover:shadow-lg font-semibold cursor-pointer"
             />
-          </form>
+          </form> */}
 
-          {/* <Image
-            src="https://firebasestorage.googleapis.com/v0/b/mmnct-fac3f.appspot.com/o/pics%2Fkelly-sikkema-jIrsEPB4_iU-unsplash.jpg?alt=media&token=73b1fc2b-9487-4e59-9852-353f5d2d2b05"
-            width={420}
-            height={400}
-            alt="memories in a polaroid picture"
-          /> */}
-        </div>
+        {/* </div> */}
         <div className="md:grid md:grid-cols-3 xl:grid-cols-6">
           {/* <div className="lg:w-1/2 lg:grid lg:grid-cols-2"> */}
           {options.map((option, index) => {
