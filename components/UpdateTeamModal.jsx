@@ -177,6 +177,7 @@ export default function UpdateTeamModal({ details }) {
                           width={300}
                           height={300}
                           className="border"
+                          style={{ backgroundColor: details.themeColor }}
                           alt="Team Logo"
                         />
                         <div className="mt-4">
