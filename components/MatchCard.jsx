@@ -1,20 +1,35 @@
 import Link from "next/link";
+import { useEffect, useState } from "react";
 import { ImCircleRight } from "react-icons/im";
+
+function imageUrlProducer(url) {
+  if (url?.length !== 0) {
+    return url;
+  } else {
+    return "https://mir-s3-cdn-cf.behance.net/projects/404/168243107813919.Y3JvcCwzMDAwLDIzNDYsMCw0MjM.jpg";
+  }
+}
 
 const MatchCard = ({ type, team }) => {
   const teamStyle = "flex items-center justify-center";
   const teamName = "font-extrabold text-lg";
-  const shortformstyle = "h-[48px] md:h-[60px]";
+  const shortformstyle = "h-[68px] xl:h-[80px] mx-auto";
 
   if (type === "short") {
     return (
-      <div className="flex flex-col md:flex-row  justify-center md:justify-evenly items-center my-2 bg-white w-full lg:w-full  h-[129px] lg:h-[90px] xl:h-[150px] rounded-[8px] mx-auto px-2 py-2 shadow-lg ">
-        <img
-          alt="team-logo"
-          className={shortformstyle}
-          src={`${imageUrlProducer(team?.teamLogo)} `}
-        />
-        <div className="flex flex-col items-center">
+      <div className="flex flex-col md:flex-row  justify-center md:justify-start items-center my-2 bg-white w-full lg:w-full  h-[149px] lg:h-[90px] xl:h-[150px] rounded-[8px] mx-auto px-2 py-2 shadow-lg ">
+        <div
+          style={{ backgroundColor: team.themeColor }}
+          className={` bg-black py-2 px-2 w-full md:w-2/5 md:h-full rounded-t-[8px] flex md:rounded-[8px] items-center`}
+        >
+          <img
+            alt="team-logo"
+            className={shortformstyle}
+            src={`${imageUrlProducer(team?.teamLogo)} `}
+          />
+        </div>
+
+        <div className="flex flex-col items-center justify-center md:w-3/5">
           {" "}
           <p className="text-[15px] xl:text-[21px] lg:text-[18px] font-[600]">
             {team?.teamName}
@@ -67,11 +82,3 @@ const MatchCard = ({ type, team }) => {
 };
 
 export default MatchCard;
-
-function imageUrlProducer(url) {
-  if (url?.length !== 0) {
-    return url;
-  } else {
-    return "https://mir-s3-cdn-cf.behance.net/projects/404/168243107813919.Y3JvcCwzMDAwLDIzNDYsMCw0MjM.jpg";
-  }
-}

@@ -73,7 +73,6 @@
   }
 }
 
-
 @media only screen and (max-width: 500px) {
   .tournament-name-fullform {
     /* font-family: "Montserrat"; */
@@ -85,7 +84,6 @@
     color: #fffdfa;
   }
 }
-
 
 @media only screen and (min-width: 500px) {
   .tournament-name-fullform {
@@ -148,4 +146,12 @@
     rgba(39, 44, 170, 0) 98.25%
   );
   /* transform: rotate(-90deg); */
+}
+
+.memory-tree {
+  background-image: url("https://firebasestorage.googleapis.com/v0/b/mmnct-fac3f.appspot.com/o/pics%2Fvicky-adams-gywHscPZwMM-unsplash.jpg?alt=media&token=48df483f-82a0-42cf-8ec4-406060ec1758");
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  /* background-color: rgba(0, 0, 0, 0.2); */
 }
