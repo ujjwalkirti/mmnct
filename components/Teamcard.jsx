@@ -28,7 +28,8 @@ const Teamcard = (props) => {
       </div>
       {(props.details.linkedin != "" ||
         props.details.github != "" ||
-        props.details.portfolio != "") && (
+        props.details.portfolio != "" ||
+        props.details.ig != "") && (
         <div className="flex items-center justify-center flex-col mb-4">
           <p className="text-gray-700 text-center">Get connected</p>
           <div className="flex mt-3 mb-1">
@@ -45,6 +46,17 @@ const Teamcard = (props) => {
             {props.details.portfolio != "" && (
               <Link href={props.details.portfolio}>
                 <BsLink45Deg className="text-2xl mx-3 font-semibold" />
+              </Link>
+            )}
+            {props.details.ig != "" && (
+              <Link href={props.details.ig}>
+                <Image
+                  src="/ig.png"
+                  width={26}
+                  height={26}
+                  className="mx-3"
+                  alt="ig"
+                />
               </Link>
             )}
           </div>
