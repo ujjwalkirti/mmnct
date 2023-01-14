@@ -34,16 +34,18 @@ export async function getServerSideProps() {
 
 export default function Notice({ noticeDates }) {
   return (
-    <>
+    <div>
       <Head>
         <title>Notice and Announcements</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Navbar />
-      <div className="min-h-screen bg-gray-200 py-3">
-        <p className="text-center lg:text-4xl text-3xl font-bold pt-2 mb-4">
-          Notice and Announcements
-        </p>
+      <div className="min-h-screen">
+        <div className="bg-gradient-to-r from-indigo-200 via-red-200 to-yellow-100 mb-4">
+          <p className="text-center lg:text-4xl text-3xl font-bold text-white py-10">
+            Notice and Announcements
+          </p>
+        </div>
         {[...noticeDates].reverse().map((noticeDate, index) => {
           return (
             <NoticeCard key={index} noticeDate={noticeDate} index={index} />
@@ -51,7 +53,7 @@ export default function Notice({ noticeDates }) {
         })}
       </div>
       <Footer />
-    </>
+    </div>
   );
 }
 
@@ -61,8 +63,7 @@ const NoticeCard = ({ noticeDate, index }) => {
   const [showNotice, setShowNotice] = useState(false);
   const [askedForNotice, setAskedForNotice] = useState(false);
 
-  let buttonStyle =
-    "ml-5 text-3xl my-4 cursor-pointer hover:shadow-lg rounded-full";
+  let buttonStyle = "ml-5 text-3xl cursor-pointer hover:shadow-lg rounded-full";
 
   useEffect(() => {
     if (askedForNotice && pdfs.length === 0 && images.length === 0) {
@@ -106,17 +107,19 @@ const NoticeCard = ({ noticeDate, index }) => {
   }, [askedForNotice]);
 
   return (
-    <div className="shadow-lg w-11/12 mx-auto py-4 my-2 bg-gradient-to-r bg-white rounded-lg">
-      <div className="flex flex-col lg:flex-row lg:justify-start lg:w-4/5 lg:mx-auto lg:items-center text-black">
-        <p className="text-center text-xl mt-3 lg:mr-10 md:bg-black md:text-white px-3 py-1 rounded-lg">
-          {noticeDate.date}
-        </p>
-        <p className="text-center text-xl font-bold underline lg:text-3xl">
-          {index + 1}
-          {". "}
-          {noticeDate.caption}
-        </p>
-        <div className="flex justify-center">
+    <div className="shadow-lg w-11/12 lg:w-8/12 mx-auto my-2 bg-white">
+      <div className="flex flex-col lg:flex-row text-black gap-x-6 my-4 bg-gradient-to-r from-gray-100 to-white">
+        <div className="lg:w-2/12 bg-gradient-to-r from-indigo-300 to-purple-400 py-2 lg:py-3">
+          <p className="text-center text-lg lg:text-xl text-white">
+            {noticeDate.date}
+          </p>
+        </div>
+        <div className="flex flex-col items-center lg:flex-row py-3 gap-y-3">
+          <p className="text-center text-lg lg:text-xl font-semibold">
+            {index + 1}
+            {"."}
+            {noticeDate.caption}
+          </p>
           {showNotice ? (
             <BsArrowUpCircle
               onClick={() => {
