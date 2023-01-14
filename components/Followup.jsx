@@ -74,7 +74,7 @@ const Followup = () => {
   };
   return (
     <div className="text-center">
-      <div className=" md:mx-auto md:w-11/12">
+      <div className=" md:mx-auto md:w-11/12 mt-5">
         {/* <div className="text-justify mt-2 lg:mt-6 mb-7 lg:flex lg:items-center lg:shadow-lg">
           <div className="relative lg:h-[600px] text-white text-xl lg:w-3/5 memory-tree z-10 ">
             <p className="text-5xl xl:text-[80px] font-bold text-center mb-4 pt-6">
