@@ -24,17 +24,19 @@ const memoryTree = () => {
       <Navbar />
       <div className="min-h-screen pb-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 bg-[#FEE1C4]">
-          <div className="flex flex-col justify-end px-4 md:px-8">
+          <div className="flex flex-col justify-end">
             <p className="text-4xl lg:text-5xl font-bold text-gray-800 text-center pt-10 md:pt-16">
               Memory Tree
             </p>
-            <p className="md:text-lg text-gray-700 italic text-center pt-8">
+            <p className="md:text-lg text-gray-700 italic text-center pt-8 px-4 md:px-8">
               "Written in these walls are the stories that I can't explain...
-              <br /> I leave my heart open but it stays right here empty for
-              days"
+              <br className="hidden md:flex" /> I leave my heart open but it
+              stays right here empty for days"
             </p>
-            <p className="text-right text-gray-700 pt-1">~ One Direction</p>
-            <div className="flex justify-center items-center gap-x-4 text-lg lg:text-xl text-white pt-6 md:pt-10 lg:mb-16 font-semibold">
+            <p className="text-right text-gray-700 pt-1 px-4 md:px-8">
+              ~ One Direction
+            </p>
+            <div className="hidden md:flex justify-center items-center gap-x-4 text-lg lg:text-xl text-white pt-6 md:pt-10 lg:mb-16 font-semibold">
               <p className="bg-gray-800 rounded-full p-2 hover:text-gray-800 hover:bg-white">
                 <RiStackshareLine />
               </p>
@@ -48,7 +50,7 @@ const memoryTree = () => {
             height={1080}
           />
         </div>
-        <div className="flex flex-col justify-center md:items-center pt-6 pb-2 bg-gradient-to-b from-[#FEE1C4] via-[#FEE1D4] to-[#FEE1E4] text-lg md:text-xl text-gray-500 px-6">
+        <div className="flex flex-col justify-center md:items-center pt-6 pb-2 bg-gradient-to-b from-[#FEE1C4] via-[#FEE1D4] to-[#FEE1E4] md:text-xl text-gray-500 px-6">
           <p>
             Do you have any interesting encounters or memories related to MMNCT?
           </p>
