@@ -140,7 +140,7 @@ function teamDetails({ teamDetails, members }) {
                         ? member.imgUrl
                         : teamDetails.teamGender == "Male"
                         ? "/male.jpg"
-                        : "/female/jpg"
+                        : "/female.jpg"
                     }
                     alt="team member"
                     width={1920}
