@@ -104,7 +104,7 @@ const memoryTree = () => {
         </div>
         <div className="flex flex-col justify-center md:items-center pt-6 pb-2 bg-gradient-to-b from-[#FEE1C4] via-[#FEE1D4] to-[#FEE1E4] md:text-xl text-gray-500 px-8">
           <p>
-            Do you have any interesting encounters or memories related to MMNCT?
+            You have any interesting encounters or memories related to MMNCT?
           </p>
           <p>Why not share it with others?</p>
           <p className="mt-4 text-center">🤩🤩🤩</p>
@@ -119,11 +119,8 @@ const memoryTree = () => {
           <div className="flex flex-col justify-center items-center pt-4 px-5">
             <div className="md:w-2/3 text-center">
               <p className="mt-4 font-semibold text-lg md:text-xl">
-                We have something special planned for you,
-              </p>
-              <p className="font-semibold text-lg md:text-xl">
-                which will give your experience a platform so that it can reach
-                more people!
+                We have something special planned for you to spread your
+                memories among thousands of our spectators.
               </p>
             </div>
             <p className="my-2 p-2 border hover:bg-gray-800 hover:text-white rounded-full text-xl">
@@ -137,7 +134,7 @@ const memoryTree = () => {
               >
                 <div className="form-group mb-6">
                   <p className="text-center text-lg md:text-xl font-semibold mt-4 mb-12">
-                    Here, write it down and send it to us right away.
+                    Here, please write it down and send it to us right away.
                   </p>
                   <input
                     type="text"
