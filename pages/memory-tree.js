@@ -14,15 +14,25 @@ import imageCompression from "browser-image-compression";
 const memoryTree = () => {
   const [loading, setLoading] = useState(false);
   const [uploaded, setUploaded] = useState(false);
+  const [anonymity, setAnonymity] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
     // console.log(e);
-    const name = e.target[0].value;
-    const number = e.target[1].value;
-    const message = e.target[2].value;
-    const photo = e.target[3].files[0];
+    let name = "anonymous";
+    let number = "";
+    let message = "";
+    let photo = null;
+    if (!anonymity) {
+      name = e.target[1].value;
+      number = e.target[2].value;
+      message = e.target[3].value;
+      if (e.target[4].files.length != 0) photo = e.target[4].files[0];
+    } else {
+      message = e.target[1].value;
+      if (e.target[2].files.length != 0) photo = e.target[2].files[0];
+    }
 
     if (message == "" && photo == null) {
       alert("Please enter a message or upload a photo.");
@@ -132,13 +142,31 @@ const memoryTree = () => {
                   handleSubmit(e);
                 }}
               >
-                <div className="form-group mb-6">
-                  <p className="text-center text-lg md:text-xl font-semibold mt-4 mb-12">
-                    Here, please write it down and send it to us right away.
-                  </p>
+                <p className="text-center text-lg md:text-xl font-semibold mt-4 mb-8">
+                  Here, please write it down and send it to us right away.
+                </p>
+                <div class="flex items-center mb-4">
                   <input
-                    type="text"
-                    className="form-control block
+                    id="default-checkbox"
+                    type="checkbox"
+                    class="w-4 h-4 text-blue-600 bg-gray-200 border-gray-300 rounded focus:ring-blue-500 focus:ring-2"
+                    onInputCapture={(e) => {
+                      e.preventDefault();
+                      setAnonymity(!anonymity);
+                    }}
+                  />
+                  <label
+                    for="default-checkbox"
+                    class="ml-2 text-sm font-light text-gray-400"
+                  >
+                    Write anonymously
+                  </label>
+                </div>
+                {!anonymity && (
+                  <div className="form-group mb-6">
+                    <input
+                      type="text"
+                      className="form-control block
         w-full
         px-3
         py-1.5
@@ -152,14 +180,16 @@ const memoryTree = () => {
         ease-in-out
         m-0
         focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                    placeholder="Name"
-                    required
-                  />
-                </div>
-                <div className="form-group mb-6">
-                  <input
-                    type="text"
-                    className="form-control block
+                      placeholder="Name"
+                      required
+                    />
+                  </div>
+                )}
+                {!anonymity && (
+                  <div className="form-group mb-6">
+                    <input
+                      type="text"
+                      className="form-control block
         w-full
         px-3
         py-1.5
@@ -173,10 +203,11 @@ const memoryTree = () => {
         ease-in-out
         m-0
         focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                    placeholder="Mobile Number"
-                    required
-                  />
-                </div>
+                      placeholder="Mobile Number"
+                      required
+                    />
+                  </div>
+                )}
                 <div className="form-group mb-6">
                   <textarea
                     className="
