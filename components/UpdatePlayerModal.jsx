@@ -36,6 +36,8 @@ export default function UpdatePlayerModal({ details }) {
     let playerName = "";
     let playerType = "";
     let playerBranch = "";
+    let roll_no = "";
+
     if (details.imgUrl != "") {
       // Get input for removing image
       removeLogo = e.target[0].checked;
@@ -47,6 +49,8 @@ export default function UpdatePlayerModal({ details }) {
       playerType = e.target[3].value;
       //Get player branch from input
       playerBranch = e.target[4].value;
+      //Get player roll no from input
+      roll_no = e.target[5].value;
     } else {
       // Get input for file
       file = e.target[0].files[0];
@@ -56,6 +60,8 @@ export default function UpdatePlayerModal({ details }) {
       playerType = e.target[2].value;
       //Get player branch from input
       playerBranch = e.target[3].value;
+      //Get player roll no from input
+      roll_no = e.target[4].value;
     }
     const metadata = {
       contentType: "image/jpeg",
@@ -71,6 +77,10 @@ export default function UpdatePlayerModal({ details }) {
 
     if (playerBranch == "") {
       playerBranch = details.branch;
+    }
+
+    if (roll_no == "") {
+      roll_no = details.roll_no;
     }
 
     let fileName = "";
@@ -117,6 +127,7 @@ export default function UpdatePlayerModal({ details }) {
       type: playerType,
       imgUrl: details.imgUrl,
       branch: playerBranch,
+      roll_no: roll_no,
     });
 
     alert("Player details updated successfully");
@@ -189,7 +200,7 @@ export default function UpdatePlayerModal({ details }) {
                       </label>
                     </div>
                     <div className="md:w-2/3">
-                      <input id="file" type="file" />
+                      <input id="file" type="file" accept="image/*" />
                     </div>
                   </div>
 
@@ -197,7 +208,7 @@ export default function UpdatePlayerModal({ details }) {
                     <div className="md:w-1/3">
                       <label
                         className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4"
-                        for="team_name"
+                        for="name"
                       >
                         Name
                       </label>
@@ -205,7 +216,7 @@ export default function UpdatePlayerModal({ details }) {
                     <div className="md:w-2/3">
                       <input
                         className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
-                        id="team_name"
+                        id="name"
                         type="text"
                         placeholder={details.name}
                       />
@@ -216,7 +227,7 @@ export default function UpdatePlayerModal({ details }) {
                     <div className="md:w-1/3">
                       <label
                         className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4"
-                        for="team_type"
+                        for="type"
                       >
                         Type / Degree
                       </label>
@@ -224,7 +235,7 @@ export default function UpdatePlayerModal({ details }) {
                     <div className="md:w-2/3">
                       <input
                         className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
-                        id="team_type"
+                        id="type"
                         type="text"
                         placeholder={details.type}
                       />
@@ -235,7 +246,7 @@ export default function UpdatePlayerModal({ details }) {
                     <div className="md:w-1/3">
                       <label
                         className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4"
-                        for="team_branch"
+                        for="branch"
                       >
                         Branch
                       </label>
@@ -243,9 +254,28 @@ export default function UpdatePlayerModal({ details }) {
                     <div className="md:w-2/3">
                       <input
                         className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
-                        id="team_branch"
+                        id="branch"
                         type="text"
                         placeholder={details.branch}
+                      />
+                    </div>
+                  </div>
+
+                  <div className="md:flex md:items-center mb-6">
+                    <div className="md:w-1/3">
+                      <label
+                        className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4"
+                        for="roll_no"
+                      >
+                        Roll No.
+                      </label>
+                    </div>
+                    <div className="md:w-2/3">
+                      <input
+                        className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
+                        id="roll_no"
+                        type="text"
+                        placeholder={details.roll_no}
                       />
                     </div>
                   </div>

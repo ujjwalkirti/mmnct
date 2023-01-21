@@ -80,6 +80,7 @@ const teamId = ({ teamDetails, members }) => {
     const playerName = e.target[1].value;
     const playerType = e.target[2].value;
     const playerBranch = e.target[3].value;
+    const roll_no = e.target[4].value;
 
     let downloadURL = "";
     if (file != null) {
@@ -103,6 +104,7 @@ const teamId = ({ teamDetails, members }) => {
       type: playerType,
       imgUrl: downloadURL,
       branch: playerBranch,
+      roll_no: roll_no,
     });
 
     alert("Player added successfully");
@@ -220,7 +222,7 @@ const teamId = ({ teamDetails, members }) => {
             </button>
           ) : (
             <button className="border border-black py-2 px-4 mr-2 bg-gray-800 text-white">
-              Update existing players
+              Update existing Players
             </button>
           )}
         </div>
@@ -239,6 +241,7 @@ const teamId = ({ teamDetails, members }) => {
                       <th className="px-12 py-2">Name</th>
                       <th className="px-12 py-2">Player Type</th>
                       <th className="px-8 py-2">Branch</th>
+                      <th className="px-10 py-2">Roll No.</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -260,6 +263,9 @@ const teamId = ({ teamDetails, members }) => {
                         <td className="px-4 py-auto">{member.name}</td>
                         <td className="px-4 py-auto">{member.type}</td>
                         <td className="px-4 py-auto">{member.branch}</td>
+                        <td className="px-4 py-auto">
+                          {member.roll_no == "" ? "-" : member.roll_no}
+                        </td>
                       </tr>
                     ))}
                   </tbody>
@@ -286,7 +292,7 @@ const teamId = ({ teamDetails, members }) => {
                   </label>
                 </div>
                 <div className="md:w-2/3">
-                  <input id="file" type="file" />
+                  <input id="file" type="file" accept="image/*" />
                 </div>
               </div>
 
@@ -294,7 +300,7 @@ const teamId = ({ teamDetails, members }) => {
                 <div className="md:w-1/3">
                   <label
                     className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4"
-                    for="team_name"
+                    for="player_name"
                   >
                     Name
                   </label>
@@ -302,7 +308,7 @@ const teamId = ({ teamDetails, members }) => {
                 <div className="md:w-2/3">
                   <input
                     className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
-                    id="team_name"
+                    id="player_name"
                     type="text"
                     required
                   />
@@ -313,7 +319,7 @@ const teamId = ({ teamDetails, members }) => {
                 <div className="md:w-1/3">
                   <label
                     className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4"
-                    for="team_type"
+                    for="type"
                   >
                     Type / Degree
                   </label>
@@ -321,7 +327,7 @@ const teamId = ({ teamDetails, members }) => {
                 <div className="md:w-2/3">
                   <input
                     className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
-                    id="team_type"
+                    id="type"
                     type="text"
                     required
                   />
@@ -332,7 +338,7 @@ const teamId = ({ teamDetails, members }) => {
                 <div className="md:w-1/3">
                   <label
                     className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4"
-                    for="team_type"
+                    for="branch"
                   >
                     Branch
                   </label>
@@ -340,7 +346,25 @@ const teamId = ({ teamDetails, members }) => {
                 <div className="md:w-2/3">
                   <input
                     className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
-                    id="team_type"
+                    id="branch"
+                    type="text"
+                  />
+                </div>
+              </div>
+
+              <div className="md:flex md:items-center mb-6">
+                <div className="md:w-1/3">
+                  <label
+                    className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4"
+                    for="roll_no"
+                  >
+                    Roll No.
+                  </label>
+                </div>
+                <div className="md:w-2/3">
+                  <input
+                    className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
+                    id="roll_no"
                     type="text"
                   />
                 </div>
@@ -377,6 +401,7 @@ const teamId = ({ teamDetails, members }) => {
                       <th className="px-12 py-2">Player Name</th>
                       <th className="px-12 py-2">Player Type</th>
                       <th className="px-8 py-2">Branch </th>
+                      <th className="px-10 py-2">Roll No.</th>
                       <th className="px-4 py-2">Delete</th>
                     </tr>
                   </thead>
@@ -402,6 +427,9 @@ const teamId = ({ teamDetails, members }) => {
                         <td className="px-4 py-auto">{member.name}</td>
                         <td className="px-4 py-auto">{member.type}</td>
                         <td className="px-4 py-auto">{member.branch}</td>
+                        <td className="px-4 py-auto">
+                          {member.roll_no == "" ? "-" : member.roll_no}
+                        </td>
                         <td className="text-red-600">
                           <AiFillDelete
                             className="cursor-pointer mx-auto"
