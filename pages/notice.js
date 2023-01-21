@@ -117,7 +117,7 @@ const NoticeCard = ({ noticeDate, index }) => {
         <div className="flex flex-col items-center lg:flex-row py-3 gap-y-3">
           <p className="text-center text-lg lg:text-xl font-semibold">
             {index + 1}
-            {"."}
+            {". "}
             {noticeDate.caption}
           </p>
           {showNotice ? (
