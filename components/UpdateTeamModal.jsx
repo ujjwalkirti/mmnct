@@ -37,6 +37,7 @@ export default function UpdateTeamModal({ details }) {
     let teamType = "";
     let teamGender = "";
     let themeColor = "";
+    let teamCode = "";
     if (details.teamLogo != "") {
       // Get input for removing background
       removeLogo = e.target[0].checked;
@@ -48,8 +49,10 @@ export default function UpdateTeamModal({ details }) {
       teamType = e.target[3].value;
       // Get Theme color from input
       themeColor = e.target[4].value;
+      // Get Team code from input
+      teamCode = e.target[5].value;
       //Get Team gender from input
-      teamGender = e.target[5].value;
+      teamGender = e.target[6].value;
     } else {
       // Get input for file
       file = e.target[0].files[0];
@@ -59,8 +62,10 @@ export default function UpdateTeamModal({ details }) {
       teamType = e.target[2].value;
       // Get Theme color from input
       themeColor = e.target[3].value;
+      // Get Team code from input
+      teamCode = e.target[4].value;
       //Get Team gender from input
-      teamGender = e.target[4].value;
+      teamGender = e.target[5].value;
     }
     const metadata = {
       contentType: "image/jpeg",
@@ -80,6 +85,10 @@ export default function UpdateTeamModal({ details }) {
 
     if (themeColor == "") {
       themeColor = details.themeColor;
+    }
+
+    if (teamCode == "") {
+      teamCode = details.teamCode;
     }
 
     let storageRef = ref(storage, `teams_logo/${teamName}.jpg`);
@@ -130,6 +139,7 @@ export default function UpdateTeamModal({ details }) {
       themeColor: themeColor,
       captainId: details.captainId ? details.captainId : "",
       viceCaptainId: details.viceCaptainId ? details.viceCaptainId : "",
+      teamCode: teamCode,
     });
     alert("Team details updated successfully");
     setShowModal(false);
@@ -259,6 +269,25 @@ export default function UpdateTeamModal({ details }) {
                         id="theme_color"
                         type="text"
                         placeholder={details.themeColor}
+                      />
+                    </div>
+                  </div>
+
+                  <div className="md:flex md:items-center mb-6">
+                    <div className="md:w-1/3">
+                      <label
+                        className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4"
+                        for="team_code"
+                      >
+                        Team Code
+                      </label>
+                    </div>
+                    <div className="md:w-2/3">
+                      <input
+                        className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
+                        id="team_code"
+                        type="text"
+                        placeholder={details.teamCode}
                       />
                     </div>
                   </div>

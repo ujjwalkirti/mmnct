@@ -130,6 +130,7 @@ const ParticipatingTeams = ({ teamList }) => {
                 if (index >= range.start && index < range.end) {
                   return (
                     <div
+                      className="cursor-pointer"
                       onClick={(e) => {
                         e.preventDefault();
                         location.assign("/team-details/" + team.id);
@@ -147,6 +148,7 @@ const ParticipatingTeams = ({ teamList }) => {
               {femaleTeams.map((team, index) => {
                 return (
                   <div
+                    className="cursor-pointer"
                     onClick={(e) => {
                       e.preventDefault();
                       location.assign("/team-details/" + team.id);

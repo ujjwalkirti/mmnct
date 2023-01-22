@@ -174,7 +174,9 @@ function teamDetails({ teamDetails, members }) {
                     {member.id == teamDetails.viceCaptainId && (
                       <p className="text-xs font-semibold">Vice-Captain</p>
                     )}
-                    <p className="text-xs">{member.type}</p>
+                    {member.roll_no != "" && (
+                      <p className="text-xs">{member.roll_no}</p>
+                    )}
                     {member.branch != "" && (
                       <p className="text-xs">{member.branch}</p>
                     )}
