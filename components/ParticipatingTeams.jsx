@@ -11,6 +11,9 @@ const ParticipatingTeams = ({ teamList }) => {
   const [maleTeams, setMaleTeams] = useState([]);
   const [femaleTeams, setFemaleTeams] = useState([]);
 
+  const maleColor = "#508CD4";
+  const femaleColor = "#CE3AB3";
+
   const StylesBasedonGender = (gender) => {
     if (selectedGender === gender) {
       if (gender === "male") {
@@ -136,7 +139,12 @@ const ParticipatingTeams = ({ teamList }) => {
                       }}
                     >
                       {" "}
-                      <MatchCard type={`short`} team={team} key={index} />{" "}
+                      <MatchCard
+                        type={`short`}
+                        team={team}
+                        key={index}
+                        genderColor={maleColor}
+                      />{" "}
                     </div>
                   );
                 }
@@ -152,7 +160,12 @@ const ParticipatingTeams = ({ teamList }) => {
                       location.assign("/team-details/" + team.id);
                     }}
                   >
-                    <MatchCard type={`short`} team={team} key={index} />
+                    <MatchCard
+                      type={`short`}
+                      team={team}
+                      key={index}
+                      genderColor={femaleColor}
+                    />
                   </div>
                 );
               })}
@@ -282,10 +295,20 @@ const ParticipatingTeams = ({ teamList }) => {
                           location.assign("/team-details/" + team.id);
                         }}
                       >
-                        <MatchCard type={`short`} team={team} key={index} />
+                        <MatchCard
+                          type={`short`}
+                          team={team}
+                          key={index}
+                          genderColor={maleColor}
+                        />
                       </div>
                       <div className="hidden lg:flex">
-                        <MatchCard type={`short`} team={team} key={index} />
+                        <MatchCard
+                          type={`short`}
+                          team={team}
+                          key={index}
+                          genderColor={maleColor}
+                        />
                       </div>
                     </>
                   );
@@ -304,10 +327,20 @@ const ParticipatingTeams = ({ teamList }) => {
                         location.assign("/team-details/" + team.id);
                       }}
                     >
-                      <MatchCard type={`short`} team={team} key={index} />
+                      <MatchCard
+                        type={`short`}
+                        team={team}
+                        key={index}
+                        genderColor={femaleColor}
+                      />
                     </div>
                     <div className="hidden lg:flex">
-                      <MatchCard type={`short`} team={team} key={index} />
+                      <MatchCard
+                        type={`short`}
+                        team={team}
+                        key={index}
+                        genderColor={femaleColor}
+                      />
                     </div>
                   </>
                 );

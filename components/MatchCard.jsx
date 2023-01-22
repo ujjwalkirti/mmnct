@@ -10,7 +10,7 @@ function imageUrlProducer(url) {
   }
 }
 
-const MatchCard = ({ type, team }) => {
+const MatchCard = ({ type, team, genderColor }) => {
   const teamStyle = "flex items-center justify-center";
   const teamName = "font-extrabold text-lg";
   const shortformstyle = "h-[55px] md:h-[75px] rounded-full";
@@ -34,7 +34,7 @@ const MatchCard = ({ type, team }) => {
           </p>
           <Link
             href={`/team-details/${team.id}`}
-            className="mt-2 text-lg bg-orange-400 hidden xl:flex text-white justify-center items-center gap-2 font-semibold py-2 px-4 rounded-lg hover:shadow-lg"
+            className={`mt-2 text-lg bg-[${genderColor}] hidden xl:flex text-white justify-center items-center gap-2 font-semibold py-2 px-4 rounded-lg hover:shadow-lg`}
           >
             Full squad <ImCircleRight />
           </Link>
