@@ -1,23 +1,14 @@
 import Link from "next/link";
 import { ImCircleRight } from "react-icons/im";
-import  { db }  from "./db/Firebase";
+import { db } from "./db/Firebase";
 import { collection, getDocs, query, where } from "firebase/firestore";
+import teams from "./teams"
 
 const UpcomingMatchCard = (props) => {
-  const getimageURL = async (teamName) => {
-    const q = query(collection(db, "participating-teams"), where("teamName", "==", teamName));
-    const querySnapshot = await getDocs(q);
-    querySnapshot.forEach((doc,index) => {
-      console.log(index,"=",doc.data())
-      if (doc.data().teamLogo.length < 1) 
-      return ["https://mir-s3-cdn-cf.behance.net/projects/404/168243107813919.Y3JvcCwzMDAwLDIzNDYsMCw0MjM.jpg",""];
-      return [doc.data().teamLogo, doc.data().themeColor];
-    });
-  }
   const teamStyle = "flex flex-1 items-center justify-center flex-wrap flex-row";
   const teamName = "font-extrabold text-xs md:text-lg";
+  const shortformstyle = "h-[48px] md:h-[60px] rounded-full";
   console.log(props.matchdata);
-
   if (!(props.matchData)) {
     return (
       <>
@@ -31,7 +22,6 @@ const UpcomingMatchCard = (props) => {
     );
   }
   let matchData = props["matchData"][0];
-  console.log(matchData);
   return (
     <>
       {matchData.map((curElem) => {
@@ -47,10 +37,11 @@ const UpcomingMatchCard = (props) => {
               <div className={teamStyle}>
                 <img
                   alt="team-logo"
-                  className="team-logo"
-                  src={getimageURL(curElem?.Team1Id)[0]}
+                  className={shortformstyle}
+                  style={{ backgroundColor: teams[curElem.Team1Id].themeColor }}
+                  src={teams[curElem.Team1Id].teamLogo}
                 />
-                <p className={teamName}>{curElem.Team1Id}</p>
+                <p className={`${teamName} ml-1`}>{curElem.Team1Id}</p>
               </div>
 
 
@@ -68,10 +59,11 @@ const UpcomingMatchCard = (props) => {
               <div className={teamStyle}>
                 <img
                   alt="team-logo"
-                  className="team-logo"
-                  src={getimageURL(curElem.Team2Id)[0]}
+                  className={shortformstyle}
+                  style={{ backgroundColor: teams[curElem.Team2Id].themeColor }}
+                  src={teams[curElem.Team2Id].teamLogo}
                 />
-                <p className={teamName}>{curElem.Team2Id}</p>
+                <p className={`${teamName} ml-1`}>{curElem.Team2Id}</p>
               </div>
             </div>
           </>

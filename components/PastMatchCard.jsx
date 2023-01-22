@@ -6,7 +6,7 @@ import teams from "./teams"
 const PastMatchCard = (props) => {
   const teamStyle = "flex flex-1 items-center justify-center flex-wrap flex-row";
   const teamName = "font-extrabold text-xs md:text-lg";
-
+	const shortformstyle = "h-[48px] md:h-[60px] rounded-full";
   if (!(props.matchData)) {
     return (
       <>
@@ -35,11 +35,11 @@ const PastMatchCard = (props) => {
               <div className={`${teamStyle} pl-5`}>
                 <img
                   alt="team-logo"
-                  className="team-logo"
+                  className={shortformstyle}
                   style={{ backgroundColor: teams[curElem.Team1Id].themeColor }}
                   src={teams[curElem.Team1Id].teamLogo}
                 />
-                <p className={teamName}>{curElem.Team1Id}</p>
+                <p className={`${teamName} pl-1`}>{curElem.Team1Id}</p>
               </div>
 
               {/* current score and over */}
@@ -67,11 +67,11 @@ const PastMatchCard = (props) => {
               <div className={teamStyle}>
                 <img
                   alt="team-logo"
-                  className="team-logo"
+                  className={shortformstyle}
                   style={{ backgroundColor: teams[curElem.Team2Id].themeColor }}
                   src={teams[curElem.Team2Id].teamLogo}
                 />
-                <p className={`${teamName} pr-5`}>{curElem.Team2Id}</p>
+                <p className={`${teamName} pr-5 pl-1`}>{curElem.Team2Id}</p>
               </div>
             </div>
           </>
