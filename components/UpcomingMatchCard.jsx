@@ -1,7 +1,19 @@
 import Link from "next/link";
 import { ImCircleRight } from "react-icons/im";
+import  { db }  from "./db/Firebase";
+import { collection, getDocs, query, where } from "firebase/firestore";
 
 const UpcomingMatchCard = (props) => {
+  const getimageURL = async (teamName) => {
+    const q = query(collection(db, "participating-teams"), where("teamName", "==", teamName));
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach((doc,index) => {
+      console.log(index,"=",doc.data())
+      if (doc.data().teamLogo.length < 1) 
+      return ["https://mir-s3-cdn-cf.behance.net/projects/404/168243107813919.Y3JvcCwzMDAwLDIzNDYsMCw0MjM.jpg",""];
+      return [doc.data().teamLogo, doc.data().themeColor];
+    });
+  }
   const teamStyle = "flex flex-1 items-center justify-center flex-wrap flex-row";
   const teamName = "font-extrabold text-xs md:text-lg";
   console.log(props.matchdata);
@@ -36,7 +48,7 @@ const UpcomingMatchCard = (props) => {
                 <img
                   alt="team-logo"
                   className="team-logo"
-                  src="https://mir-s3-cdn-cf.behance.net/projects/404/168243107813919.Y3JvcCwzMDAwLDIzNDYsMCw0MjM.jpg"
+                  src={getimageURL(curElem?.Team1Id)[0]}
                 />
                 <p className={teamName}>{curElem.Team1Id}</p>
               </div>
@@ -57,7 +69,7 @@ const UpcomingMatchCard = (props) => {
                 <img
                   alt="team-logo"
                   className="team-logo"
-                  src="https://mir-s3-cdn-cf.behance.net/projects/404/168243107813919.Y3JvcCwzMDAwLDIzNDYsMCw0MjM.jpg"
+                  src={getimageURL(curElem.Team2Id)[0]}
                 />
                 <p className={teamName}>{curElem.Team2Id}</p>
               </div>

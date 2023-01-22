@@ -1,5 +1,5 @@
-const database = require("../components/db/Firebase");
-const { child, ref, get, set, update } = require("firebase/database");
+import  { database }  from "./db/Firebase";
+import { child, ref, get, set, update } from "firebase/database";
 
 const createMatch = async (ID, dateTime, Team1ID, Team2ID, category) => {
   await set(ref(database, "matchDetail/" + ID), {
@@ -15,11 +15,10 @@ const createMatch = async (ID, dateTime, Team1ID, Team2ID, category) => {
     Team2Wicket: 0,
     Team1prev: 1,
     Team2prev: 1,
-    finalComment: "-",
+    finalComment: "Match "+ID,
     status: "upcoming",
     category: category
   }).then(() => {
-    console.log("Data inserted");
   }).catch(err => console.log(err));
 }
 
@@ -36,7 +35,6 @@ const Team1Update = async (matchID, wicket, extras, run, prev, score, status, co
   await update(ref(database, "matchDetail/" + matchID), {
     "Team1Wicket": wicket, "Team1Extra": extras, "Team1prev": prev, "Team1Score": nowScore, "status": status, "finalComment": comment
   }).then(() => {
-    console.log("Data Updated for Team 1");
   }).catch(err => console.log(err));
 };
 
@@ -47,15 +45,15 @@ const Team2Update = async (matchID, wicket, extras, run, prev, score, status, co
   await update(ref(database, "matchDetail/" + matchID), {
     "Team2Wicket": wicket, "Team2Extra": extras, "Team2prev": prev, "Team2Score": nowScore, "status": status, "finalComment": comment
   }).then(() => {
-    console.log("Data Updated for Team 2");
   }).catch(err => console.log(err));
 };
 
 const totalScore = (score, extra, wicket) => {
   let currscore = 0;
   for (var i = 1; i < score.length; i++) {
-    if (score[i].length === 1 && score[i] !== "w")
-      currscore += parseInt((score[i]));
+    if (score[i].length > 1)
+      currscore += parseInt((score[i][0]));
+    else currscore += parseInt((score[i]));
   }
   currscore += extra;
   return currscore.toString() + "/" + wicket.toString();
@@ -78,6 +76,6 @@ const getOver = (score, prev, extra) => {
   return [overFormat, Over]
 }
 
-module.exports = {
+export {
   getOver, totalScore, createMatch, fetchData, Team1Update, Team2Update
-}
+};

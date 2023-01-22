@@ -1,9 +1,9 @@
 import Link from "next/link";
 import { ImCircleRight } from "react-icons/im";
 import { totalScore, getOver } from '../components/matchFunctions'; 
+import teams from "./teams"
 
 const OngoingMatchCard = (props) => {
-  console.log(props);
   const teamStyle = "flex flex-1 items-center justify-center flex-wrap flex-row";
   const teamName = "font-extrabold text-xs md:text-lg";
 
@@ -36,7 +36,8 @@ const OngoingMatchCard = (props) => {
                 <img
                   alt="team-logo"
                   className="team-logo"
-                  src="https://mir-s3-cdn-cf.behance.net/projects/404/168243107813919.Y3JvcCwzMDAwLDIzNDYsMCw0MjM.jpg"
+                  style={{ backgroundColor: teams[curElem.Team1Id].themeColor }}
+                  src={teams[curElem.Team1Id].teamLogo}
                 />
                 <p className={teamName}>{curElem.Team1Id}</p>
               </div>
@@ -67,7 +68,8 @@ const OngoingMatchCard = (props) => {
                 <img
                   alt="team-logo"
                   className="team-logo"
-                  src="https://mir-s3-cdn-cf.behance.net/projects/404/168243107813919.Y3JvcCwzMDAwLDIzNDYsMCw0MjM.jpg"
+                  style={{ backgroundColor: teams[curElem.Team2Id].themeColor }}
+                  src={teams[curElem.Team2Id].teamLogo}
                 />
                 <p className={`${teamName} pr-5`}>{curElem.Team2Id}</p>
               </div>
