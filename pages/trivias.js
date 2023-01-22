@@ -3,12 +3,32 @@ import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
 import Link from "next/link";
-import { addDoc, collection, doc, onSnapshot } from "firebase/firestore";
+import {
+  addDoc,
+  collection,
+  doc,
+  getDocs,
+  onSnapshot,
+} from "firebase/firestore";
 import { db } from "../components/db/Firebase";
 import Footer from "../components/Footer";
 import { FaRegWindowClose } from "react-icons/fa";
 
-function Trivias() {
+export async function getServerSideProps(context) {
+  let images = [];
+  const querySnapshot = await getDocs(collection(db, "answer-for-trivias"));
+  querySnapshot.forEach((doc) => {
+    // doc.data() is never undefined for query doc snapshots
+    images.push(doc.data());
+  });
+  return {
+    props: {
+      answers: images,
+    },
+  };
+}
+
+function Trivias({ answers }) {
   const [question, setQuestion] = useState("");
   const [answer, setAnswer] = useState("");
   const [name, setName] = useState("");
@@ -50,7 +70,7 @@ function Trivias() {
     });
   }, []);
   return (
-    <div className="bg-gray-100">
+    <div className="">
       <Head>
         <title>Exciting Trivias</title>
         <link rel="icon" href="/favicon.ico" />
@@ -149,10 +169,39 @@ function Trivias() {
               </form>
             </div>
           </div>
-
+          {answers.length !== 0 && (
+            <div>
+              <Image
+                width={400}
+                height={400}
+                alt="Two people pondering over a question"
+                src={`https://firebasestorage.googleapis.com/v0/b/mmnct-fac3f.appspot.com/o/pics%2F7720441.jpg?alt=media&token=d36a52c4-289b-4b36-be5c-83e4c3ecd973`}
+              />
+              <p className="text-center text-3xl text-orange-400">
+                here's what others think about the question
+              </p>
+              <div className="grid grid-cols-1">
+                {answers.map((answer, index) => (
+                  <div
+                    key={index}
+                    className="bg-[] shadow-lg px-4 mx-4 rounded py-4 mb-4"
+                  >
+                    <p className="">
+                      <span className="font-semibold text-2xl">
+                        {answer.name}
+                      </span>{" "}
+                      says..
+                    </p>
+                    <p className="px-3 py-2">"{answer.answer}"</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
           <div className="text-center mt-3 md:text-4xl">
             <p>
-              We will soon be releasing the answer on our instagram account!
+              We will soon be releasing the answer on our{" "}
+              <strong>Instagram</strong> account!
             </p>
             <p>Stay tuned and follow us!</p>
           </div>
