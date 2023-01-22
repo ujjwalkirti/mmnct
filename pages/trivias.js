@@ -34,9 +34,11 @@ function Trivias({ answers }) {
   const [name, setName] = useState("");
   const [contact, setContact] = useState("");
   const [success, setSuccess] = useState(false);
+  const [error, setError] = useState("");
+  const [answerSubmitting, setAnswerSubmitting] = useState(false);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleSubmit = () => {
+    // e.preventDefault();
     const date = new Date();
 
     let day = date.getDate();
@@ -45,6 +47,7 @@ function Trivias({ answers }) {
 
     // This arrangement can be altered based on how we want the date's format to appear.
     let currentDate = `${day}-${month}-${year}`;
+
     const docRef = addDoc(collection(db, "answer-for-trivias"), {
       name: name,
       answer: answer,
@@ -57,6 +60,7 @@ function Trivias({ answers }) {
         setContact("");
         setAnswer("");
         setSuccess(true);
+        setAnswerSubmitting(false);
       })
       .catch((e) => {
         alert("Sorry there was some error,please try again!");
@@ -91,11 +95,22 @@ function Trivias({ answers }) {
               alt="MMNCT trivia image"
               priority
             />
-            <div className="border px-5 my-4 py-4 bg-white rounded-lg md:h-[600px]  shadow-xl">
+            <div className="border px-5 my-4 py-4 bg-white rounded-lg md:h-[]  shadow-xl">
               <p className="text-center font-semibold text-2xl">
                 Wanna answer? <br className="md:hidden" />
                 here you go!
               </p>
+              {error.length !== 0 && (
+                <p className="text-xl text-center flex items-center gap-2 px-2 text-red-800 bg-red-300 py-2">
+                  {error}
+                  <FaRegWindowClose
+                    className="cursor-pointer"
+                    onClick={() => {
+                      setError("");
+                    }}
+                  />
+                </p>
+              )}
               {success && (
                 <p className="text-xl text-center flex items-center gap-2 px-2 text-green-800 bg-green-300 py-2">
                   Your response submitted succesfully!
@@ -107,10 +122,7 @@ function Trivias({ answers }) {
                   />
                 </p>
               )}
-              <form
-                onSubmit={handleSubmit}
-                className="flex flex-col my-5 mx-2 gap-4 "
-              >
+              <div className="flex flex-col my-5 mx-2 gap-4 ">
                 <input
                   className="px-3 py-2"
                   type="text"
@@ -146,12 +158,36 @@ function Trivias({ answers }) {
                   }}
                   placeholder="Enter your answer"
                 />
-                <button
-                  type="submit"
-                  className="border bg-green-800 text-white font-bold  border-green-600 py-2 rounded-full lg:text-3xl cursor-pointer hover:text-green-600 hover:bg-white"
-                >
-                  Submit Answer
-                </button>
+                {answerSubmitting ? (
+                  <div>
+                    <Image
+                      src="/loader.gif"
+                      width={330}
+                      height={400}
+                      className="w-full lg:w-2/5 md:mx-auto md:rounded-xl"
+                      alt="Loading symbol gif"
+                    />
+                  </div>
+                ) : (
+                  <button
+                    onClick={() => {
+                      if (
+                        answer.length !== 0 &&
+                        name.length !== 0 &&
+                        contact.length !== 0
+                      ) {
+                        handleSubmit();
+                        setAnswerSubmitting(true);
+                      } else {
+                        setError("Please enter all the value correctly.");
+                      }
+                    }}
+                    type="submit"
+                    className="border bg-green-800 text-white font-bold  border-green-600 py-2 rounded-full lg:text-3xl cursor-pointer hover:text-green-600 hover:bg-white"
+                  >
+                    Submit Answer
+                  </button>
+                )}
                 <p className="text-center mx-2">
                   Alternatively you can also DM us the answers here:
                 </p>
@@ -166,11 +202,11 @@ function Trivias({ answers }) {
                     alt="instagram icon"
                   />
                 </Link>
-              </form>
+              </div>
             </div>
           </div>
           {answers.length !== 0 && (
-            <div>
+            <div className="flex flex-col items-center">
               <Image
                 width={400}
                 height={400}
@@ -178,27 +214,31 @@ function Trivias({ answers }) {
                 src={`https://firebasestorage.googleapis.com/v0/b/mmnct-fac3f.appspot.com/o/pics%2F7720441.jpg?alt=media&token=d36a52c4-289b-4b36-be5c-83e4c3ecd973`}
               />
               <p className="text-center text-3xl text-orange-400">
-                here's what others think about the question
+                Here's what our viewers have answered.
               </p>
-              <div className="grid grid-cols-1">
-                {answers.map((answer, index) => (
-                  <div
-                    key={index}
-                    className="bg-[] shadow-lg px-4 mx-4 rounded py-4 mb-4"
-                  >
-                    <p className="">
-                      <span className="font-semibold text-2xl">
-                        {answer.name}
-                      </span>{" "}
-                      says..
-                    </p>
-                    <p className="px-3 py-2">"{answer.answer}"</p>
-                  </div>
-                ))}
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 md:w-11/12 md:mx-auto mt-3">
+                {answers.map((answer, index) => {
+                  if (answer.answer.length !== 0) {
+                    return (
+                      <div
+                        key={index}
+                        className="bg-[] shadow-lg px-4 mx-4 rounded py-4 mb-4"
+                      >
+                        <p className="">
+                          <span className="font-semibold text-2xl">
+                            {answer.name}
+                          </span>{" "}
+                          says..
+                        </p>
+                        <p className="px-3 py-2">"{answer.answer}"</p>
+                      </div>
+                    );
+                  }
+                })}
               </div>
             </div>
           )}
-          <div className="text-center mt-3 md:text-4xl">
+          <div className="text-center mt-3 md:text-3xl">
             <p>
               We will soon be releasing the answer on our{" "}
               <strong>Instagram</strong> account!
