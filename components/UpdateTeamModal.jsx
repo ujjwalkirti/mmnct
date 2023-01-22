@@ -128,6 +128,8 @@ export default function UpdateTeamModal({ details }) {
       matchWon: details.matchWon,
       points: details.points,
       themeColor: themeColor,
+      captainId: details.captainId,
+      viceCaptainId: details.viceCaptainId,
     });
     alert("Team details updated successfully");
     setShowModal(false);

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useState } from "react";
 import Head from "next/head";
 import Navbar from "../../../components/Navbar";
@@ -12,6 +12,7 @@ import {
   getDocs,
   getDoc,
   deleteDoc,
+  updateDoc,
   where,
 } from "firebase/firestore";
 import {
@@ -35,6 +36,8 @@ export async function getServerSideProps(context) {
   const { teamId } = context.query;
   let teamDetails = {};
   let members = [];
+  let captain = {};
+  let viceCaptain = {};
 
   // Get the document from the collection participating-teams having the id as team_id
   await getDoc(doc(db, "participating-teams", teamId)).then(async (docSnap) => {
@@ -52,7 +55,25 @@ export async function getServerSideProps(context) {
           temp.id = doc.id;
           temp.teamId = teamId;
           members.push(temp);
+          if (temp.id == teamDetails.captainId) {
+            captain = temp;
+          }
+          if (temp.id == teamDetails.viceCaptainId) {
+            viceCaptain = temp;
+          }
         });
+      });
+      // Arrange the members in the order to get the captain then vice-captain and then the rest of the members
+      members.sort((a, b) => {
+        if (a.id == teamDetails.captainId && b.id == teamDetails.viceCaptainId)
+          return -1;
+        if (a.id == teamDetails.viceCaptainId && b.id == teamDetails.captainId)
+          return 1;
+        if (a.id == teamDetails.captainId) return -1;
+        if (b.id == teamDetails.captainId) return 1;
+        if (a.id == teamDetails.viceCaptainId) return -1;
+        if (b.id == teamDetails.viceCaptainId) return 1;
+        return 0;
       });
     } else {
       console.log("No such document!");
@@ -63,14 +84,18 @@ export async function getServerSideProps(context) {
     props: {
       teamDetails,
       members,
+      captain,
+      viceCaptain,
     },
   };
 }
 
-const teamId = ({ teamDetails, members }) => {
+const teamId = ({ teamDetails, members, captain, viceCaptain }) => {
   const [loading, setLoading] = useState(false);
   const [newMember, setNewMember] = useState(false);
   const [updateMember, setUpdateMember] = useState(false);
+  const [updateCaptain, setUpdateCaptain] = useState(false);
+  const [updateViceCaptain, setUpdateViceCaptain] = useState(false);
 
   const addNewMember = async (e) => {
     e.preventDefault();
@@ -149,8 +174,79 @@ const teamId = ({ teamDetails, members }) => {
         .catch((error) => {
           console.log(error);
         });
+
+      // If the player is the captain or vice-captain, then update the captain and vice-captain details
+      if (details.id == teamDetails.captainId) {
+        await updateDoc(doc(db, "participating-teams", teamDetails.id), {
+          captainId: "",
+        });
+      }
+
+      if (details.id == teamDetails.viceCaptainId) {
+        await updateDoc(doc(db, "participating-teams", teamDetails.id), {
+          viceCaptainId: "",
+        });
+      }
     }
     alert("Player deleted successfully");
+    location.reload();
+  };
+
+  const handleUpdateCaptain = async (e) => {
+    e.preventDefault();
+
+    const captainId = e.target[0].value;
+    if (captainId == "Choose a Team member") {
+      alert("Please select a team member");
+      return;
+    }
+
+    if (captainId == teamDetails.viceCaptainId) {
+      // Prompt the user to confirm
+      const confirm = await window.confirm(
+        "Are you sure you want to make this player the captain, since the person in Vice-captain? "
+      );
+      if (!confirm) return;
+    }
+
+    // console.log(captainId);
+
+    setLoading(true);
+
+    await updateDoc(doc(db, "participating-teams", teamDetails.id), {
+      captainId: captainId,
+    });
+
+    alert("Captain updated successfully");
+    location.reload();
+  };
+
+  const handleUpdateViceCaptain = async (e) => {
+    e.preventDefault();
+
+    const viceCaptainId = e.target[0].value;
+    if (viceCaptainId == "Choose a Team member") {
+      alert("Please select a team member");
+      return;
+    }
+
+    if (viceCaptainId == teamDetails.captainId) {
+      // Prompt the user to confirm
+      const confirm = await window.confirm(
+        "Are you sure you want to make this player the vice-captain, since the person in Captain? "
+      );
+      if (!confirm) return;
+    }
+
+    // console.log(viceCaptainId);
+
+    setLoading(true);
+
+    await updateDoc(doc(db, "participating-teams", teamDetails.id), {
+      viceCaptainId: viceCaptainId,
+    });
+
+    alert("Vice-Captain updated successfully");
     location.reload();
   };
 
@@ -201,12 +297,14 @@ const teamId = ({ teamDetails, members }) => {
               onClick={() => {
                 setNewMember(true);
                 setUpdateMember(false);
+                setUpdateCaptain(false);
+                setUpdateViceCaptain(false);
               }}
             >
               Add new Player
             </button>
           ) : (
-            <button className="border border-black py-2 px-4 mr-2 bg-gray-800 text-white">
+            <button className="border border-black py-2 px-4 mx-2 bg-gray-800 text-white">
               Add new Player
             </button>
           )}
@@ -216,6 +314,8 @@ const teamId = ({ teamDetails, members }) => {
               onClick={() => {
                 setNewMember(false);
                 setUpdateMember(true);
+                setUpdateCaptain(false);
+                setUpdateViceCaptain(false);
               }}
             >
               Update existing Players
@@ -226,54 +326,97 @@ const teamId = ({ teamDetails, members }) => {
             </button>
           )}
         </div>
+        {members.length != 0 && (
+          <div className="flex justify-center items-center mt-2">
+            {updateCaptain == false ? (
+              <button
+                className="border border-black py-2 px-4 mx-2"
+                onClick={() => {
+                  setNewMember(false);
+                  setUpdateMember(false);
+                  setUpdateCaptain(true);
+                  setUpdateViceCaptain(false);
+                }}
+              >
+                Select Captain
+              </button>
+            ) : (
+              <button className="border border-black py-2 px-4 mx-2 bg-gray-800 text-white">
+                Select Captain
+              </button>
+            )}
+            {updateViceCaptain == false ? (
+              <button
+                className="border border-black py-2 px-4 mr-2"
+                onClick={() => {
+                  setNewMember(false);
+                  setUpdateMember(false);
+                  setUpdateCaptain(false);
+                  setUpdateViceCaptain(true);
+                }}
+              >
+                Select Vice-Captain
+              </button>
+            ) : (
+              <button className="border border-black py-2 px-4 mr-2 bg-gray-800 text-white">
+                Select Vice-Captain
+              </button>
+            )}
+          </div>
+        )}
+
         {members.length == 0 && !newMember && (
           <p className="text-center my-10 text-3xl">No players added yet</p>
         )}
-        {members.length != 0 && !newMember && !updateMember && (
-          <div>
-            <p className="text-center my-10 text-3xl">Team member details</p>
-            <div className="flex justify-center text-center px-1">
-              <div className="text-sm md:text-base overflow-x-auto">
-                <table className="table-auto">
-                  <thead className="border-b bg-gray-800 text-white">
-                    <tr>
-                      <th className="px-10 py-2">Image</th>
-                      <th className="px-12 py-2">Name</th>
-                      <th className="px-12 py-2">Player Type</th>
-                      <th className="px-8 py-2">Branch</th>
-                      <th className="px-10 py-2">Roll No.</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {members.map((member, index) => (
-                      <tr className="border-b" key={index}>
-                        <td className="px-4 py-2">
-                          {member.imgUrl != "" ? (
-                            <Image
-                              src={member.imgUrl}
-                              width={100}
-                              height={100}
-                              className="border"
-                              alt="No logo"
-                            />
-                          ) : (
-                            <p className="text-center">No logo</p>
-                          )}
-                        </td>
-                        <td className="px-4 py-auto">{member.name}</td>
-                        <td className="px-4 py-auto">{member.type}</td>
-                        <td className="px-4 py-auto">{member.branch}</td>
-                        <td className="px-4 py-auto">
-                          {member.roll_no == "" ? "-" : member.roll_no}
-                        </td>
+        {members.length != 0 &&
+          !newMember &&
+          !updateMember &&
+          !updateCaptain &&
+          !updateViceCaptain && (
+            <div>
+              <p className="text-center my-10 text-3xl">Team member details</p>
+              <div className="flex justify-center text-center px-1">
+                <div className="text-sm md:text-base overflow-x-auto">
+                  <table className="table-auto">
+                    <thead className="border-b bg-gray-800 text-white">
+                      <tr>
+                        <th className="px-10 py-2">Image</th>
+                        <th className="px-12 py-2">Name</th>
+                        <th className="px-12 py-2">Player Type</th>
+                        <th className="px-8 py-2">Branch</th>
+                        <th className="px-10 py-2">Roll No.</th>
                       </tr>
-                    ))}
-                  </tbody>
-                </table>
+                    </thead>
+                    <tbody>
+                      {members.map((member, index) => (
+                        <tr className="border-b" key={index}>
+                          <td className="px-4 py-2">
+                            {member.imgUrl != "" ? (
+                              <Image
+                                src={member.imgUrl}
+                                width={100}
+                                height={100}
+                                className="border"
+                                alt="No logo"
+                              />
+                            ) : (
+                              <p className="text-center">No logo</p>
+                            )}
+                          </td>
+                          <td className="px-4 py-auto">{member.name}</td>
+                          <td className="px-4 py-auto">{member.type}</td>
+                          <td className="px-4 py-auto">{member.branch}</td>
+                          <td className="px-4 py-auto">
+                            {member.roll_no == "" ? "-" : member.roll_no}
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
               </div>
             </div>
-          </div>
-        )}
+          )}
         {newMember && (
           <div className="overflow-x-auto">
             <p className="text-center my-10 text-3xl">Add Player details</p>
@@ -442,6 +585,96 @@ const teamId = ({ teamDetails, members }) => {
                 </table>
               </div>
             </div>
+          </div>
+        )}
+        {updateCaptain && (
+          <div>
+            <p className="text-center my-10 text-3xl">Update Captain</p>
+            <div className="flex flex-col md:flex-row justify-center text-center px-1">
+              <p>Current Captain:</p>
+              <p>
+                {teamDetails.captainId == ""
+                  ? " Not Selected"
+                  : captain.roll_no + "-" + captain.name}
+              </p>
+            </div>
+            <form
+              className="mt-8 flex items-center justify-center"
+              onSubmit={handleUpdateCaptain}
+            >
+              <div className="w-11/12 md:w-2/3 lg:w-1/3 p-4 shadow-lg border flex flex-col justify-center items-center ">
+                <label
+                  for="captain"
+                  className="block mb-2 text-sm font-medium text-gray-900"
+                >
+                  Select Captain
+                </label>
+                <select
+                  id="captain"
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                >
+                  <option selected>Choose a Team member</option>
+                  {members.map(
+                    (member, index) =>
+                      member.id != captain.id && (
+                        <option value={member.id} key={index}>
+                          {member.roll_no + " - " + member.name}
+                        </option>
+                      )
+                  )}
+                </select>
+                <input
+                  type="submit"
+                  value="Update Captain"
+                  className="p-2 bg-purple-700 shadow-lg border my-4 rounded-lg text-white cursor-pointer"
+                />
+              </div>
+            </form>
+          </div>
+        )}
+        {updateViceCaptain && (
+          <div>
+            <p className="text-center my-10 text-3xl">Update Vice-Captain</p>
+            <div className="flex flex-col md:flex-row justify-center text-center px-1">
+              <p>Current Vice-Captain:</p>
+              <p>
+                {teamDetails.viceCaptainId == ""
+                  ? " Not Selected"
+                  : viceCaptain.roll_no + "-" + viceCaptain.name}
+              </p>
+            </div>
+            <form
+              className="mt-8 flex items-center justify-center"
+              onSubmit={handleUpdateViceCaptain}
+            >
+              <div className="w-11/12 md:w-2/3 lg:w-1/3 p-4 shadow-lg border flex flex-col justify-center items-center ">
+                <label
+                  for="viceCaptain"
+                  className="block mb-2 text-sm font-medium text-gray-900"
+                >
+                  Select Vice-Captain
+                </label>
+                <select
+                  id="viceCaptain"
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                >
+                  <option selected>Choose a Team member</option>
+                  {members.map(
+                    (member, index) =>
+                      member.id != viceCaptain.id && (
+                        <option value={member.id} key={index}>
+                          {member.roll_no + " - " + member.name}
+                        </option>
+                      )
+                  )}
+                </select>
+                <input
+                  type="submit"
+                  value="Update Vice-Captain"
+                  className="p-2 bg-purple-700 shadow-lg border my-4 rounded-lg text-white cursor-pointer"
+                />
+              </div>
+            </form>
           </div>
         )}
       </div>

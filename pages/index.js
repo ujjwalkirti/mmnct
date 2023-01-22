@@ -28,12 +28,18 @@ export default function Home({ teamList, sponsorImgList }) {
       <Navbar />
 
       <HomePage />
-      <div className="flex flex-col justify-center items-center pl-2 pr-1 mt-12 md:mt-8">
+
+      <div className="flex flex-col justify-center items-center mt-10">
+        <p className="font-semibold">Links</p>
+        <div className="border-b-4 border-[#F4A68D] w-5/12 md:w-1/5 lg:w-2/12 mx-auto mt-1"></div>
+      </div>
+      <Followup />
+      <div className="flex flex-col justify-center items-center pl-2 pr-1 mt-12 mb-8 md:mt-8">
         <p className="font-semibold">Share your MMNCT Experience</p>
         <div className="border-b-4 border-[#F4A68D] w-full md:w-3/5 lg:w-3/12 mx-auto mb-4 mt-1"></div>
         <Link
           href="/memory-tree"
-          className="flex justify-between items-center bg-gradient-to-r from-[#FEE1C4] via-[#FEE1D4] to-[#FEE1E4] text-white font-semibold py-5 w-full md:w-2/5 lg:w-2/12 rounded-lg hover:shadow-lg px-4"
+          className="flex justify-between items-center bg-gradient-to-r from-[#FEC1A1] via-[#FEC1B1] to-[#FEC1C1] text-white font-semibold py-5 w-full md:w-2/5 lg:w-2/12 rounded-lg hover:shadow-lg px-4"
         >
           <div className="flex justify-center items-center gap-x-3">
             <TfiWrite /> <p className="text-xl md:text-lg">Memory Tree</p>
@@ -41,11 +47,6 @@ export default function Home({ teamList, sponsorImgList }) {
           <BsFillArrowRightCircleFill className="text-2xl" />
         </Link>
       </div>
-      <div className="flex flex-col justify-center items-center mt-10">
-        <p className="font-semibold">Links</p>
-        <div className="border-b-4 border-[#F4A68D] w-5/12 md:w-1/5 lg:w-2/12 mx-auto mt-1"></div>
-      </div>
-      <Followup />
       <UpcomingMatches />
       <ParticipatingTeams teamList={teamList} />
       <TournamentDetails />

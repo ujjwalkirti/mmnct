@@ -39,6 +39,24 @@ export async function getServerSideProps(context) {
             members.push(data);
           });
         });
+        // Arrange the members in the order of captain, vice-captain and other members
+        members.sort((a, b) => {
+          if (
+            a.id == teamDetails.captainId &&
+            b.id == teamDetails.viceCaptainId
+          )
+            return -1;
+          if (
+            a.id == teamDetails.viceCaptainId &&
+            b.id == teamDetails.captainId
+          )
+            return 1;
+          if (a.id == teamDetails.captainId) return -1;
+          if (b.id == teamDetails.captainId) return 1;
+          if (a.id == teamDetails.viceCaptainId) return -1;
+          if (b.id == teamDetails.viceCaptainId) return 1;
+          return 0;
+        });
       } else {
         console.log("No such document!");
       }
@@ -150,6 +168,12 @@ function teamDetails({ teamDetails, members }) {
                   <div class="absolute top-0 mt-20 right-0 bottom-0 left-0 bg-gradient-to-b from-transparent to-gray-700 shadow-xl"></div>
                   <div className="absolute bottom-2 w-full text-white text-center font-light">
                     <p className="text-sm font-semibold">{member.name}</p>
+                    {member.id == teamDetails.captainId && (
+                      <p className="text-xs font-semibold">Captain</p>
+                    )}
+                    {member.id == teamDetails.viceCaptainId && (
+                      <p className="text-xs font-semibold">Vice-Captain</p>
+                    )}
                     <p className="text-xs">{member.type}</p>
                     {member.branch != "" && (
                       <p className="text-xs">{member.branch}</p>
