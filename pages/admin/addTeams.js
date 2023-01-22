@@ -115,6 +115,8 @@ const AddTeams = ({ teams }) => {
         matchWon: 0,
         points: 0,
         themeColor: themeColor,
+        captainId: "",
+        viceCaptainId: "",
       });
 
       alert("Team added successfully");
