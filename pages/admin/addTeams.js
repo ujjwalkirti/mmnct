@@ -68,8 +68,10 @@ const AddTeams = ({ teams }) => {
     let themeColor = e.target[3].value;
     // Get the Team code from input
     const teamCode = e.target[4].value;
+    // Get the Team Pool from input
+    const pool = e.target[5].value;
     //Get Team gender from input
-    const teamGender = e.target[5].value;
+    const teamGender = e.target[6].value;
 
     if (themeColor == "") {
       themeColor = "#FFFFFF";
@@ -120,6 +122,7 @@ const AddTeams = ({ teams }) => {
         captainId: "",
         viceCaptainId: "",
         teamCode: teamCode,
+        pool: pool,
       });
 
       alert("Team added successfully");
@@ -274,6 +277,7 @@ const AddTeams = ({ teams }) => {
                       <th className="px-8 py-2">Gender</th>
                       <th className="px-8 py-2">HEX Code</th>
                       <th className="px-8 py-2">Team Code</th>
+                      <th className="px-8 py-2">Pool</th>
                       <th className="px-4 py-2">Members</th>
                     </tr>
                   </thead>
@@ -300,6 +304,9 @@ const AddTeams = ({ teams }) => {
                         <td className="px-4 py-auto">{team.themeColor}</td>
                         <td className="px-4 py-auto">
                           {team.teamCode == "" ? "-" : team.teamCode}
+                        </td>
+                        <td className="px-4 py-auto">
+                          {team.pool == "" ? "-" : team.pool}
                         </td>
                         <td className="py-auto">
                           <Link href={`/admin/addTeamMembers/${team.id}`}>
@@ -414,6 +421,24 @@ const AddTeams = ({ teams }) => {
                 <div className="md:w-1/3">
                   <label
                     className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4"
+                    for="pool"
+                  >
+                    Pool
+                  </label>
+                </div>
+                <div className="md:w-2/3">
+                  <input
+                    className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
+                    id="pool"
+                    type="text"
+                  />
+                </div>
+              </div>
+
+              <div className="md:flex md:items-center mb-6">
+                <div className="md:w-1/3">
+                  <label
+                    className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4"
                     for="team_gender"
                   >
                     Gender
@@ -466,6 +491,7 @@ const AddTeams = ({ teams }) => {
                       <th className="px-8 py-2">Gender</th>
                       <th className="px-8 py-2">HEX Code</th>
                       <th className="px-8 py-2">Team Code</th>
+                      <th className="px-8 py-2">Pool</th>
                       <th className="px-4 py-2">Delete</th>
                     </tr>
                   </thead>
@@ -495,6 +521,9 @@ const AddTeams = ({ teams }) => {
                         <td className="px-4 py-auto">{team.themeColor}</td>
                         <td className="px-4 py-auto">
                           {team.teamCode == "" ? "-" : team.teamCode}
+                        </td>
+                        <td className="px-4 py-auto">
+                          {team.pool == "" ? "-" : team.pool}
                         </td>
                         <td className="px-4 py-auto text-red-600">
                           <AiFillDelete
