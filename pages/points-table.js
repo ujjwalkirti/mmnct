@@ -42,8 +42,8 @@ export default function PointsTable({ maleTable, femaleTable }) {
       return "";
     }
   };
-
-
+  
+  
   const StylesBasedonPool = (gender, pool) => {
     if (selectedGender === gender && selectedPool === pool) {
       if (gender === "male") {
@@ -55,7 +55,7 @@ export default function PointsTable({ maleTable, femaleTable }) {
       return "";
     }
   };
-
+  
 
   function decisionsBasedonGender() {
     let finalDecision = "";
@@ -71,8 +71,8 @@ export default function PointsTable({ maleTable, femaleTable }) {
   return (
     <>
       <Head>
-        <title>Points Table</title>
-      </Head>
+      		<title>Points Table</title>
+      	</Head>
       <Navbar />
       <div className={`bg-gradient-to-b ${decisionsBasedonGender()} to-white`}>
         <div className="md:hidden pt-10">
@@ -80,7 +80,6 @@ export default function PointsTable({ maleTable, femaleTable }) {
             <div
               onClick={() => {
                 setSelectedGender("male");
-                setSelectedPool("pool1");
               }}
               className={`cursor-pointer h-[44px] flex justify-center items-center`}
             >
@@ -95,7 +94,6 @@ export default function PointsTable({ maleTable, femaleTable }) {
             <div
               onClick={() => {
                 setSelectedGender("female");
-                setSelectedPool("pool1");
               }}
               className={`cursor-pointer h-[44px] flex justify-center items-center`}
             >
@@ -108,78 +106,78 @@ export default function PointsTable({ maleTable, femaleTable }) {
               </p>
             </div>
           </div>
-
-
+	  
+	  
           {selectedGender === "male" ? (
+          	
+		<div className="bg-white text-gray-500 flex justify-evenly w-[323px] mx-auto text-center font-[600] text-[16px] rounded-lg mb-10">
+			<div onClick={() => {
+                  setSelectedPool("pool1");
+                }} className={` h-[44px] flex justify-center items-center cursor-pointer `} id="pool1"><p className={`${StylesBasedonPool(
+                      selectedGender,
+                      "pool1"
+                    )} flex items-center justify-center w-fit rounded-lg`}>Pool1</p></div>
+                    
+                    
+			<div onClick={() => {
+                  setSelectedPool("pool2");
+                }} className={` h-[44px] flex justify-center items-center cursor-pointer`} id="pool1"><p className={`${StylesBasedonPool(
+                      selectedGender,
+                      "pool2"
+                    )} flex items-center justify-center w-fit rounded-lg`}>Pool2</p></div>
+                    
+           
+			<div onClick={() => {
+                  setSelectedPool("pool3");
+                }} className={` h-[44px] flex justify-center items-center cursor-pointer `} id="pool1"><p className={`${StylesBasedonPool(
+                      selectedGender,
+                      "pool3"
+                    )} flex items-center justify-center w-fit rounded-lg`}>Pool3</p></div>
+                    
+            
+			<div onClick={() => {
+                  setSelectedPool("pool4");
+                }} className={` h-[44px] flex justify-center items-center cursor-pointer `} id="pool1"><p className={`${StylesBasedonPool(
+                      selectedGender,
+                      "pool4"
+                    )} flex items-center justify-center w-fit rounded-lg`}>Pool4</p></div>
+                    
+                    
+           
+			<div onClick={() => {
+                  setSelectedPool("pool5");
+                }} className={` h-[44px] flex justify-center items-center cursor-pointer `} id="pool1"><p className={`${StylesBasedonPool(
+                      selectedGender,
+                      "pool5"
+                    )} flex items-center justify-center w-fit rounded-lg`}>Pool5</p></div>
+                    
+               </div>     
+                         
 
-            <div className="bg-white text-gray-500 flex justify-evenly w-[323px] mx-auto text-center font-[600] text-[16px] rounded-lg mb-10 px-2">
-              <div onClick={() => {
-                setSelectedPool("pool1");
-              }} className={` h-[44px] flex justify-center items-center cursor-pointer `} id="pool1"><p className={`${StylesBasedonPool(
-                selectedGender,
-                "pool1"
-              )} flex items-center justify-center w-fit rounded-lg`}>Pool A</p></div>
-
-
-              <div onClick={() => {
-                setSelectedPool("pool2");
-              }} className={` h-[44px] flex justify-center items-center cursor-pointer`} id="pool1"><p className={`${StylesBasedonPool(
-                selectedGender,
-                "pool2"
-              )} flex items-center justify-center w-fit rounded-lg`}>Pool B</p></div>
-
-
-              <div onClick={() => {
-                setSelectedPool("pool3");
-              }} className={` h-[44px] flex justify-center items-center cursor-pointer `} id="pool1"><p className={`${StylesBasedonPool(
-                selectedGender,
-                "pool3"
-              )} flex items-center justify-center w-fit rounded-lg`}>Pool C</p></div>
-
-
-              <div onClick={() => {
-                setSelectedPool("pool4");
-              }} className={` h-[44px] flex justify-center items-center cursor-pointer `} id="pool1"><p className={`${StylesBasedonPool(
-                selectedGender,
-                "pool4"
-              )} flex items-center justify-center w-fit rounded-lg`}>Pool D</p></div>
-
-
-
-              <div onClick={() => {
-                setSelectedPool("pool5");
-              }} className={` h-[44px] flex justify-center items-center cursor-pointer `} id="pool1"><p className={`${StylesBasedonPool(
-                selectedGender,
-                "pool5"
-              )} flex items-center justify-center w-fit rounded-lg`}>Pool E</p></div>
-
-            </div>
-
-
-
-          ) : (
-            <div className="bg-white text-gray-500 flex justify-evenly w-[183px] mx-auto text-center font-[600] text-[16px] rounded-lg mb-10">
-              <div onClick={() => {
-                setSelectedPool("pool1");
-              }} className={` h-[44px] flex justify-center items-center cursor-pointer `} id="pool1"><p className={`${StylesBasedonPool(
-                selectedGender,
-                "pool1"
-              )} flex items-center justify-center w-fit rounded-lg`}>Pool A</p></div>
-
-
-              <div onClick={() => {
-                setSelectedPool("pool2");
-              }} className={` h-[44px] flex justify-center items-center cursor-pointer`} id="pool1"><p className={`${StylesBasedonPool(
-                selectedGender,
-                "pool2"
-              )} flex items-center justify-center w-fit rounded-lg`}>Pool B</p></div>
-
-
-
-            </div>
-
-          )}
-
+					
+	  ): (
+	  <div className="bg-white text-gray-500 flex justify-evenly w-[323px] mx-auto text-center font-[600] text-[16px] rounded-lg mb-10">
+			<div onClick={() => {
+                  setSelectedPool("pool1");
+                }} className={` h-[44px] flex justify-center items-center cursor-pointer `} id="pool1"><p className={`${StylesBasedonPool(
+                      selectedGender,
+                      "pool1"
+                    )} flex items-center justify-center w-fit rounded-lg`}>Pool1</p></div>
+                    
+                    
+			<div onClick={() => {
+                  setSelectedPool("pool2");
+                }} className={` h-[44px] flex justify-center items-center cursor-pointer`} id="pool1"><p className={`${StylesBasedonPool(
+                      selectedGender,
+                      "pool2"
+                    )} flex items-center justify-center w-fit rounded-lg`}>Pool2</p></div>
+                    
+           
+                    
+               </div>  
+	  
+	  )}
+	  
           <div className="relative h-[540px] overflow-x-hidden mx-auto px-4">
             <div className="grid grid-cols-1 gap-2 mx-auto max-w-lg">
               <div className="flex text-sm text-white leading-7">
@@ -204,13 +202,13 @@ export default function PointsTable({ maleTable, femaleTable }) {
               </div>
               <div className="h-px bg-white"></div>
               {selectedGender === "male" ? (
-                <PointCard data={[maleTable, selectedGender, selectedPool]} />
+                <PointCard data={[maleTable, selectedGender]} />
               ) : (
-                <PointCard data={[femaleTable, selectedGender, selectedPool]} />
+                <PointCard data={[femaleTable, selectedGender]} />
               )}
             </div>
 
-
+            
           </div>
         </div>
 
@@ -232,7 +230,6 @@ export default function PointsTable({ maleTable, femaleTable }) {
                 <div
                   onClick={() => {
                     setSelectedGender("male");
-                    setSelectedPool("pool1");
                   }}
                   className={` h-[44px] flex justify-center items-center cursor-pointer`}
                 >
@@ -249,7 +246,6 @@ export default function PointsTable({ maleTable, femaleTable }) {
                 <div
                   onClick={() => {
                     setSelectedGender("female");
-                    setSelectedPool("pool1");
                   }}
                   className={` h-[44px] flex justify-center items-center cursor-pointer`}
                 >
@@ -263,102 +259,102 @@ export default function PointsTable({ maleTable, femaleTable }) {
                 </div>
               </div>
             </div>
-
+            
             {selectedGender === "male" ? (
-
-
-              <div className="flex w-fit mx-auto items-center justify-between bg-white text-gray-500 px-4 gap-3 text-center rounded-lg font-[500] text-[20px] mt-10">
-                <div onClick={() => {
+          	
+          	
+		<div className="flex w-fit mx-auto items-center justify-between bg-white text-gray-500 px-4 gap-3 text-center rounded-lg font-[500] text-[20px] mt-10">
+			<div onClick={() => {
                   setSelectedPool("pool1");
                 }} className={` h-[44px] flex justify-center items-center cursor-pointer px-3`} id="pool1"><p className={`${StylesBasedonPool(
-                  selectedGender,
-                  "pool1"
-                )} flex items-center rounded-lg`}>Pool A</p></div>
-
-
-                <div onClick={() => {
+                      selectedGender,
+                      "pool1"
+                    )} flex items-center rounded-lg`}>Pool1</p></div>
+                    
+                    
+			<div onClick={() => {
                   setSelectedPool("pool2");
                 }} className={` h-[44px] flex justify-center items-center cursor-pointer px-3`} id="pool1"><p className={`${StylesBasedonPool(
-                  selectedGender,
-                  "pool2"
-                )} flex items-center rounded-lg`}>Pool B</p></div>
-
-
-                <div onClick={() => {
+                      selectedGender,
+                      "pool2"
+                    )} flex items-center rounded-lg`}>Pool2</p></div>
+                    
+           
+			<div onClick={() => {
                   setSelectedPool("pool3");
                 }} className={` h-[44px] flex justify-center items-center cursor-pointer px-3`} id="pool1"><p className={`${StylesBasedonPool(
-                  selectedGender,
-                  "pool3"
-                )} flex items-center rounded-lg`}>Pool C</p></div>
-
-
-                <div onClick={() => {
+                      selectedGender,
+                      "pool3"
+                    )} flex items-center rounded-lg`}>Pool3</p></div>
+                    
+            
+			<div onClick={() => {
                   setSelectedPool("pool4");
                 }} className={` h-[44px] flex justify-center items-center cursor-pointer px-3`} id="pool1"><p className={`${StylesBasedonPool(
-                  selectedGender,
-                  "pool4"
-                )} flex items-center rounded-lg`}>Pool D</p></div>
-
-
-
-                <div onClick={() => {
+                      selectedGender,
+                      "pool4"
+                    )} flex items-center rounded-lg`}>Pool4</p></div>
+                    
+                    
+           
+			<div onClick={() => {
                   setSelectedPool("pool5");
                 }} className={` h-[44px] flex justify-center items-center cursor-pointer px-3`} id="pool1"><p className={`${StylesBasedonPool(
-                  selectedGender,
-                  "pool5"
-                )} flex items-center rounded-lg`}>Pool E</p></div>
+                      selectedGender,
+                      "pool5"
+                    )} flex items-center rounded-lg`}>Pool5</p></div>
+                    
+               </div>     
+                         
 
-              </div>
-
-
-
-
-            ) : (
-              <div className="flex w-fit mx-auto items-center justify-between bg-white text-gray-500 px-4 gap-3 text-center rounded-lg font-[500] text-[20px] mt-10">
-                <div onClick={() => {
+		
+					
+	  ): (
+	  	<div className="flex w-fit mx-auto items-center justify-between bg-white text-gray-500 px-4 gap-3 text-center rounded-lg font-[500] text-[20px] mt-10">
+			<div onClick={() => {
                   setSelectedPool("pool1");
                 }} className={` h-[44px] flex justify-center items-center cursor-pointer px-3`} id="pool1"><p className={`${StylesBasedonPool(
-                  selectedGender,
-                  "pool1"
-                )} flex items-center rounded-lg`}>Pool A</p></div>
-
-
-                <div onClick={() => {
+                      selectedGender,
+                      "pool1"
+                    )} flex items-center rounded-lg`}>Pool1</p></div>
+                    
+                    
+			<div onClick={() => {
                   setSelectedPool("pool2");
                 }} className={` h-[44px] flex justify-center items-center cursor-pointer px-3`} id="pool1"><p className={`${StylesBasedonPool(
-                  selectedGender,
-                  "pool2"
-                )} flex items-center rounded-lg`}>Pool B</p></div>
-              </div>
-            )}
-
+                      selectedGender,
+                      "pool2"
+                    )} flex items-center rounded-lg`}>Pool2</p></div>
+                   </div>
+	  )}
+	  
             <div className="float-none mt-20">
               <div className="grid gap-3 mx-10 grid-cols-1 md:mx-10 lg:mx-20 xl:mx-40">
-                <div className="flex text-sm text-white leading-7">
-                  <div className="w-1/4 flex  items-center justify-center ">
-                    <p className="">Rank</p>
-                  </div>
-                  <div className="w-2/3 flex  items-center  pl-20">
-                    <p className="">Team</p>
-                  </div>
-                  <div className="w-1/4 flex  items-center justify-center ">
-                    <p>Points</p>
-                  </div>
-                  <div className="w-1/4 flex  items-center justify-center ">
-                    <p>Played</p>
-                  </div>
-                  <div className="w-1/4 flex items-center justify-center ">
-                    <p>Won</p>
-                  </div>
-                  <div className="w-1/4 flex  items-center justify-center ">
-                    <p className="">Lost</p>
-                  </div>
+              <div className="flex text-sm text-white leading-7">
+                <div className="w-1/4 flex  items-center justify-center ">
+                  <p className="">Rank</p>
                 </div>
-                <div className="h-px bg-white"></div>
+                <div className="w-2/3 flex  items-center  pl-20">
+                  <p className="">Team</p>
+                </div>
+                <div className="w-1/4 flex  items-center justify-center ">
+                  <p>Points</p>
+                </div>
+                <div className="w-1/4 flex  items-center justify-center ">
+                  <p>Played</p>
+                </div>
+                <div className="w-1/4 flex items-center justify-center ">
+                  <p>Won</p>
+                </div>
+                <div className="w-1/4 flex  items-center justify-center ">
+                  <p className="">Lost</p>
+                </div>
+              </div>
+              <div className="h-px bg-white"></div>
                 {selectedGender === "male" ? (
-                  <PointCard data={[maleTable, selectedGender, selectedPool]} />
+                  <PointCard data={[maleTable, selectedGender]} />
                 ) : (
-                  <PointCard data={[femaleTable, selectedGender, selectedPool]} />
+                  <PointCard data={[femaleTable, selectedGender]} />
                 )}
               </div>
             </div>
