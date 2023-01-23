@@ -41,7 +41,7 @@ export default function Memories({ imageList }) {
           <div className="p-5 bg-white bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-20 border-transparent shadow-xl rounded-lg">
             <p className="text-4xl font-bold">Memories</p>
             <p className="mt-4 font-light md:text-2xl">
-              Have a look how spectacle the past versions were!
+              Have a look at how spectacular the previous editions were!            
             </p>
           </div>
         </div>
