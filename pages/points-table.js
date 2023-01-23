@@ -80,6 +80,7 @@ export default function PointsTable({ maleTable, femaleTable }) {
             <div
               onClick={() => {
                 setSelectedGender("male");
+		setSelectedPool("pool1");
               }}
               className={`cursor-pointer h-[44px] flex justify-center items-center`}
             >
@@ -94,6 +95,7 @@ export default function PointsTable({ maleTable, femaleTable }) {
             <div
               onClick={() => {
                 setSelectedGender("female");
+		setSelectedPool("pool1");
               }}
               className={`cursor-pointer h-[44px] flex justify-center items-center`}
             >
@@ -230,6 +232,7 @@ export default function PointsTable({ maleTable, femaleTable }) {
                 <div
                   onClick={() => {
                     setSelectedGender("male");
+		    setSelectedPool("pool1");
                   }}
                   className={` h-[44px] flex justify-center items-center cursor-pointer`}
                 >
@@ -246,6 +249,7 @@ export default function PointsTable({ maleTable, femaleTable }) {
                 <div
                   onClick={() => {
                     setSelectedGender("female");
+		    setSelectedPool("pool1");
                   }}
                   className={` h-[44px] flex justify-center items-center cursor-pointer`}
                 >
