@@ -1,25 +1,38 @@
 import Head from "next/head";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
 import Image from "next/image";
 import dynamic from "next/dynamic";
 import { createMatch } from '../../components/matchFunctions.js';
-
+import { database } from "../../components/db/Firebase";
+import { child, ref, get } from "firebase/database";
 
 const AddMatch = () => {
+
+  const [temp, settemp] = useState(true);
   const [formData, setFormData] = React.useState({
-    id: "",
+    id: "Loading",
     timeDate: "",
     Team1Id: "",
     Team2Id: "",
     category: ""
   });
+
+  useEffect(() => {
+    fetchData();
+  }, [temp])
+  const fetchData = async () => {
+    const dbref = ref(database);
+    let snapshot = await get(child(dbref, "matchDetail/"));
+    console.log(snapshot.val());
+    setFormData({ ...formData, id: snapshot.val() === null ? 1 : Object.keys(snapshot.val()).length + 1 });
+  }
+
   let name, value;
   const handleChange = (e) => {
     name = e.target.name;
     value = e.target.value;
-
     setFormData({ ...formData, [name]: value });
   };
 
@@ -27,8 +40,18 @@ const AddMatch = () => {
     e.preventDefault();
     const { id, timeDate, Team1Id, Team2Id, category } = formData;
     if (id && timeDate && Team1Id && Team2Id && category) {
-      await createMatch(id, timeDate, Team1Id, Team2Id, category); 
+      await createMatch(id, timeDate, Team1Id, Team2Id, category);
       alert("Data added Successfully");
+
+      setFormData({
+        id: "Loading",
+        timeDate: "",
+        Team1Id: "",
+        Team2Id: "",
+        category: ""
+      });
+      settemp(!temp);
+
     }
     else {
       alert("Please fill all the fields");
@@ -62,8 +85,7 @@ const AddMatch = () => {
                 name="id"
                 type="text"
                 value={formData.id}
-                onChange={handleChange}
-                required
+                disabled
               />
             </div>
           </div>
@@ -125,6 +147,7 @@ const AddMatch = () => {
                 <option value="VIKINGS">VIKINGS</option>
                 <option value="SAMARTIANS" >SAMARTIANS</option>
                 <option value="AMORITES">AMORITES</option>
+                <option value="PARTHIANS">PARTHIANS</option>
                 <option value="SUMERIANS">SUMERIANS</option>
                 <option value="AMAZONS">AMAZONS</option>
                 <option value="AKKADIANS">AKKADIANS</option>
@@ -169,6 +192,7 @@ const AddMatch = () => {
                 <option value="VIKINGS">VIKINGS</option>
                 <option value="SAMARTIANS" >SAMARTIANS</option>
                 <option value="AMORITES">AMORITES</option>
+                <option value="PARTHIANS">PARTHIANS</option>
                 <option value="SUMERIANS">SUMERIANS</option>
                 <option value="AMAZONS">AMAZONS</option>
                 <option value="AKKADIANS">AKKADIANS</option>
