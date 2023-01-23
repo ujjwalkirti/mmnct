@@ -112,13 +112,13 @@ export default function PointsTable({ maleTable, femaleTable }) {
 
           {selectedGender === "male" ? (
 
-            <div className="bg-white text-gray-500 flex justify-evenly w-[323px] mx-auto text-center font-[600] text-[16px] rounded-lg mb-10">
+            <div className="bg-white text-gray-500 flex justify-evenly w-[323px] mx-auto text-center font-[600] text-[16px] rounded-lg mb-10 px-2">
               <div onClick={() => {
                 setSelectedPool("pool1");
               }} className={` h-[44px] flex justify-center items-center cursor-pointer `} id="pool1"><p className={`${StylesBasedonPool(
                 selectedGender,
                 "pool1"
-              )} flex items-center justify-center w-fit rounded-lg`}>Pool1</p></div>
+              )} flex items-center justify-center w-fit rounded-lg`}>Pool A</p></div>
 
 
               <div onClick={() => {
@@ -126,7 +126,7 @@ export default function PointsTable({ maleTable, femaleTable }) {
               }} className={` h-[44px] flex justify-center items-center cursor-pointer`} id="pool1"><p className={`${StylesBasedonPool(
                 selectedGender,
                 "pool2"
-              )} flex items-center justify-center w-fit rounded-lg`}>Pool2</p></div>
+              )} flex items-center justify-center w-fit rounded-lg`}>Pool B</p></div>
 
 
               <div onClick={() => {
@@ -134,7 +134,7 @@ export default function PointsTable({ maleTable, femaleTable }) {
               }} className={` h-[44px] flex justify-center items-center cursor-pointer `} id="pool1"><p className={`${StylesBasedonPool(
                 selectedGender,
                 "pool3"
-              )} flex items-center justify-center w-fit rounded-lg`}>Pool3</p></div>
+              )} flex items-center justify-center w-fit rounded-lg`}>Pool C</p></div>
 
 
               <div onClick={() => {
@@ -142,7 +142,7 @@ export default function PointsTable({ maleTable, femaleTable }) {
               }} className={` h-[44px] flex justify-center items-center cursor-pointer `} id="pool1"><p className={`${StylesBasedonPool(
                 selectedGender,
                 "pool4"
-              )} flex items-center justify-center w-fit rounded-lg`}>Pool4</p></div>
+              )} flex items-center justify-center w-fit rounded-lg`}>Pool D</p></div>
 
 
 
@@ -151,20 +151,20 @@ export default function PointsTable({ maleTable, femaleTable }) {
               }} className={` h-[44px] flex justify-center items-center cursor-pointer `} id="pool1"><p className={`${StylesBasedonPool(
                 selectedGender,
                 "pool5"
-              )} flex items-center justify-center w-fit rounded-lg`}>Pool5</p></div>
+              )} flex items-center justify-center w-fit rounded-lg`}>Pool E</p></div>
 
             </div>
 
 
 
           ) : (
-            <div className="bg-white text-gray-500 flex justify-evenly w-[323px] mx-auto text-center font-[600] text-[16px] rounded-lg mb-10">
+            <div className="bg-white text-gray-500 flex justify-evenly w-[183px] mx-auto text-center font-[600] text-[16px] rounded-lg mb-10">
               <div onClick={() => {
                 setSelectedPool("pool1");
               }} className={` h-[44px] flex justify-center items-center cursor-pointer `} id="pool1"><p className={`${StylesBasedonPool(
                 selectedGender,
                 "pool1"
-              )} flex items-center justify-center w-fit rounded-lg`}>Pool1</p></div>
+              )} flex items-center justify-center w-fit rounded-lg`}>Pool A</p></div>
 
 
               <div onClick={() => {
@@ -172,7 +172,7 @@ export default function PointsTable({ maleTable, femaleTable }) {
               }} className={` h-[44px] flex justify-center items-center cursor-pointer`} id="pool1"><p className={`${StylesBasedonPool(
                 selectedGender,
                 "pool2"
-              )} flex items-center justify-center w-fit rounded-lg`}>Pool2</p></div>
+              )} flex items-center justify-center w-fit rounded-lg`}>Pool B</p></div>
 
 
 
@@ -273,7 +273,7 @@ export default function PointsTable({ maleTable, femaleTable }) {
                 }} className={` h-[44px] flex justify-center items-center cursor-pointer px-3`} id="pool1"><p className={`${StylesBasedonPool(
                   selectedGender,
                   "pool1"
-                )} flex items-center rounded-lg`}>Pool1</p></div>
+                )} flex items-center rounded-lg`}>Pool A</p></div>
 
 
                 <div onClick={() => {
@@ -281,7 +281,7 @@ export default function PointsTable({ maleTable, femaleTable }) {
                 }} className={` h-[44px] flex justify-center items-center cursor-pointer px-3`} id="pool1"><p className={`${StylesBasedonPool(
                   selectedGender,
                   "pool2"
-                )} flex items-center rounded-lg`}>Pool2</p></div>
+                )} flex items-center rounded-lg`}>Pool B</p></div>
 
 
                 <div onClick={() => {
@@ -289,7 +289,7 @@ export default function PointsTable({ maleTable, femaleTable }) {
                 }} className={` h-[44px] flex justify-center items-center cursor-pointer px-3`} id="pool1"><p className={`${StylesBasedonPool(
                   selectedGender,
                   "pool3"
-                )} flex items-center rounded-lg`}>Pool3</p></div>
+                )} flex items-center rounded-lg`}>Pool C</p></div>
 
 
                 <div onClick={() => {
@@ -297,7 +297,7 @@ export default function PointsTable({ maleTable, femaleTable }) {
                 }} className={` h-[44px] flex justify-center items-center cursor-pointer px-3`} id="pool1"><p className={`${StylesBasedonPool(
                   selectedGender,
                   "pool4"
-                )} flex items-center rounded-lg`}>Pool4</p></div>
+                )} flex items-center rounded-lg`}>Pool D</p></div>
 
 
 
@@ -306,7 +306,7 @@ export default function PointsTable({ maleTable, femaleTable }) {
                 }} className={` h-[44px] flex justify-center items-center cursor-pointer px-3`} id="pool1"><p className={`${StylesBasedonPool(
                   selectedGender,
                   "pool5"
-                )} flex items-center rounded-lg`}>Pool5</p></div>
+                )} flex items-center rounded-lg`}>Pool E</p></div>
 
               </div>
 
@@ -320,7 +320,7 @@ export default function PointsTable({ maleTable, femaleTable }) {
                 }} className={` h-[44px] flex justify-center items-center cursor-pointer px-3`} id="pool1"><p className={`${StylesBasedonPool(
                   selectedGender,
                   "pool1"
-                )} flex items-center rounded-lg`}>Pool1</p></div>
+                )} flex items-center rounded-lg`}>Pool A</p></div>
 
 
                 <div onClick={() => {
@@ -328,7 +328,7 @@ export default function PointsTable({ maleTable, femaleTable }) {
                 }} className={` h-[44px] flex justify-center items-center cursor-pointer px-3`} id="pool1"><p className={`${StylesBasedonPool(
                   selectedGender,
                   "pool2"
-                )} flex items-center rounded-lg`}>Pool2</p></div>
+                )} flex items-center rounded-lg`}>Pool B</p></div>
               </div>
             )}
 
