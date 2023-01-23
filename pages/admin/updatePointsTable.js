@@ -94,7 +94,7 @@ const UpdatePointsTable = () => {
                 <option value="VALKAYRIES">VALKAYRIES</option>
                 <option value="SCORPIANS">SCORPIANS</option>
                 <option value="SPARTANS">SPARTANS</option>
-                <option value="KNIGHT TEMPLERS">KNIGHT TEMPLERS</option>
+                <option value="KNIGHT TEMPLARS">KNIGHT TEMPLARS</option>
                 <option value="ATHENIANS">ATHENIANS</option>
                 <option value="ASSYRIANS">ASSYRIANS</option>
                 <option value="NINJAS">NINJAS</option>
