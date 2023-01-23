@@ -202,9 +202,9 @@ export default function PointsTable({ maleTable, femaleTable }) {
               </div>
               <div className="h-px bg-white"></div>
               {selectedGender === "male" ? (
-                <PointCard data={[maleTable, selectedGender]} />
+                <PointCard data={[maleTable, selectedGender ,selectedPool]} />
               ) : (
-                <PointCard data={[femaleTable, selectedGender]} />
+                <PointCard data={[femaleTable, selectedGender, selectedPool]} />
               )}
             </div>
 
@@ -352,9 +352,9 @@ export default function PointsTable({ maleTable, femaleTable }) {
               </div>
               <div className="h-px bg-white"></div>
                 {selectedGender === "male" ? (
-                  <PointCard data={[maleTable, selectedGender]} />
+                  <PointCard data={[maleTable, selectedGender,selectedPool]} />
                 ) : (
-                  <PointCard data={[femaleTable, selectedGender]} />
+                  <PointCard data={[femaleTable, selectedGender,selectedPool]} />
                 )}
               </div>
             </div>
