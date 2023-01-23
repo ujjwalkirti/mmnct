@@ -22,9 +22,9 @@ const Match = () => {
   const StylesBasedonGender = (gender) => {
     if (selectedGender === gender) {
       if (gender === "male") {
-        return "bg-[#508CD4] font-[700] text-[20px] md:text-[39px] md:w-auto md:h-[71px] leading-[24.38px] text-white h-[51px] w-[103px] px-2 shadow-lg";
+        return "bg-[#508CD4] font-[700] text-[20px] md:text-[39px] md:w-auto md:h-[71px] leading-[24.38px] text-white h-[51px] px-2 shadow-lg";
       } else if (gender === "female") {
-        return "bg-[#CE3AB3] font-[700] text-[20px] md:text-[39px] md:w-auto md:h-[71px] leading-[24.38px] text-white h-[51px] w-[124px] px-2 shadow-lg";
+        return "bg-[#CE3AB3] font-[700] text-[20px] md:text-[39px] md:w-auto md:h-[71px] leading-[24.38px] text-white h-[51px] px-2 shadow-lg";
       }
     } else {
       return "";
@@ -34,9 +34,9 @@ const Match = () => {
   const StylesBasedonTime = (gender, time) => {
     if (selectedGender === gender && selectedTime === time) {
       if (gender === "male") {
-        return "bg-[#508CD4] font-[700] text-[20px] md:text-[39px] md:w-auto md:h-[71px] leading-[24.38px] text-white h-[51px] w-[124px] px-2 shadow-lg";
+        return "bg-[#508CD4] font-[500] text-[20px] md:text-[32px] md:w-auto md:h-[71px] leading-[24.38px] text-white h-[51px] w-[124px] px-2 shadow-lg";
       } else if (gender === "female") {
-        return "bg-[#CE3AB3] font-[700] text-[20px] md:text-[39px] md:w-auto md:h-[71px] leading-[24.38px] text-white h-[51px] w-[124px] px-2 shadow-lg";
+        return "bg-[#CE3AB3] font-[500] text-[20px] md:text-[32px] md:w-auto md:h-[71px] leading-[24.38px] text-white h-[51px] w-[124px] px-2 shadow-lg";
       }
     } else {
       return "";
@@ -94,7 +94,7 @@ const Match = () => {
                 </div>
               </div>
             </div>
-            <div className="bg-white text-gray-500 flex justify-evenly w-[323px] mx-auto text-center font-[600] text-[16px] rounded-lg mb-10">
+            <div className="bg-white text-gray-500 flex justify-evenly w-[323px] mx-auto text-center font-[600] text-[16px] rounded-lg mb-10 px-4">
               <div
                 onClick={() => {
                   setSelectedTime("present");
