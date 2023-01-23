@@ -8,7 +8,7 @@ import {
   deleteObject,
 } from "firebase/storage";
 import { db, storage } from "./db/Firebase";
-import { setDoc, doc } from "firebase/firestore";
+import { updateDoc, doc } from "firebase/firestore";
 
 export default function UpdateTeamModal({ details }) {
   const [showModal, setShowModal] = React.useState(false);
@@ -137,20 +137,17 @@ export default function UpdateTeamModal({ details }) {
       );
     }
 
-    await setDoc(doc(db, "participating-teams", details.id), {
+    // Update team details
+    await updateDoc(doc(db, "participating-teams", details.id), {
       teamName: teamName,
       teamType: teamType,
       teamLogo: details.teamLogo,
       teamGender: teamGender,
-      matchPlayed: details.matchPlayed,
-      matchWon: details.matchWon,
-      points: details.points,
       themeColor: themeColor,
-      captainId: details.captainId ? details.captainId : "",
-      viceCaptainId: details.viceCaptainId ? details.viceCaptainId : "",
       teamCode: teamCode,
       pool: pool,
     });
+
     alert("Team details updated successfully");
     setShowModal(false);
     setLoading(false);
