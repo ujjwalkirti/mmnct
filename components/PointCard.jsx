@@ -20,7 +20,7 @@ const PointCard = (props) => {
                   {index + 1}
                 </p>
               </div>
-              <div className="w-2/3 flex  items-center flex-wrap md:flex-nowrap justify-start flex-row">
+              <div className="w-2/3 flex  items-center flex-col md:flex-row">
                 <img
                   alt="team-logo"
                   className={shortformstyle}
@@ -69,7 +69,7 @@ const PointCard = (props) => {
                   {index + 1}
                 </p>
               </div>
-              <div className="w-2/3 flex  items-center flex-wrap md:flex-nowrap justify-start flex-row">
+              <div className="w-2/3 flex  items-center flex-col md:flex-row">
                 <img
                   alt="team-logo"
                   className={shortformstyle}
