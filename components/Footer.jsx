@@ -56,8 +56,8 @@ const Footer = () => {
           <Link href="/trivias">
             <p>Trivia</p>
           </Link>
-          <Link href="/organisers">
-            <p>Organisers</p>
+          <Link href="/developer">
+            <p>Developers</p>
           </Link>
           <Link href="/sponsors">
             <p>Sponsors</p>
