@@ -1,6 +1,7 @@
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import teams from "./teams";
 import { ImCircleRight } from "react-icons/im";
+import Image from "next/image";
 
 function imageUrlProducer(url) {
   if (url?.length !== 0) {
@@ -43,33 +44,48 @@ const MatchCard = ({ type, team, genderColor }) => {
     );
   } else {
     return (
-      <div className="flex bg-white md:justify-evenly md:w-4/5 md:mx-auto my-4 text-sm items-center justify-center shadow-lg py-4 mx-4 rounded-lg">
+      <div className="flex bg-white  md:w-4/5 md:mx-auto my-4 text-sm items-center justify-evenly shadow-lg py-4 mx-4 rounded-lg">
         {/* team 1 */}
-        <div className={teamStyle}>
-          <p className={teamName}>Team 1</p>
+        <div className="flex flex-col">
           <img
             alt="team-logo"
             className="team-logo"
-            src="https://mir-s3-cdn-cf.behance.net/projects/404/168243107813919.Y3JvcCwzMDAwLDIzNDYsMCw0MjM.jpg"
+            src={teams[team.Team1Id].teamLogo}
+            style={{
+              backgroundColor: teams[team.Team1Id].themeColor,
+            }}
           />
+          <p className={`${teamName} ml-1 lg:hidden`}>
+            {teams[team.Team1Id].teamCode}
+          </p>
+          <p className={`${teamName} ml-1 hidden lg:flex`}>{team.Team1Id}</p>
         </div>
 
         {/* timing and date */}
         <div>
-          <p className="text-orange-500 font-bold">6:30 pm</p>
-          <p className="text-gray-400">
-            27<sup>th</sup> JAN
-          </p>
+          <Image
+            src={`/vector-8.png`}
+            height={60}
+            width={60}
+            alt="versus symbol"
+          />
+          <p className="text-gray-400">{team.timeDate}</p>
         </div>
 
         {/* Team 2 */}
-        <div className={teamStyle}>
+        <div className="flex flex-col">
           <img
             alt="team-logo"
             className="team-logo"
-            src="https://mir-s3-cdn-cf.behance.net/projects/404/168243107813919.Y3JvcCwzMDAwLDIzNDYsMCw0MjM.jpg"
+            src={teams[team.Team2Id].teamLogo}
+            style={{
+              backgroundColor: teams[team.Team2Id].themeColor,
+            }}
           />
-          <p className={teamName}>Team 2</p>
+          <p className={`${teamName} ml-1 lg:hidden`}>
+            {teams[team.Team2Id].teamCode}
+          </p>
+          <p className={`${teamName} ml-1 hidden lg:flex`}>{team.Team2Id}</p>
         </div>
       </div>
     );

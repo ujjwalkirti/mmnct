@@ -1,7 +1,7 @@
 import React from "react";
 import { collection, getDocs } from "firebase/firestore";
 import Head from "next/head";
-import { db, storage } from "../components/db/Firebase";
+import { db, dbRef, storage } from "../components/db/Firebase";
 import Followup from "../components/Followup";
 import Footer from "../components/Footer";
 import HomePage from "../components/Home";
@@ -16,8 +16,9 @@ import { listAll, ref, getDownloadURL } from "firebase/storage";
 import Link from "next/link";
 import { TfiWrite } from "react-icons/tfi";
 import { BsFillArrowRightCircleFill } from "react-icons/bs";
+import { child, get } from "firebase/database";
 
-export default function Home({ teamList, sponsorImgList }) {
+export default function Home({ teamList, sponsorImgList, matches }) {
   return (
     <div className="text-xl">
       <Head>
@@ -47,7 +48,7 @@ export default function Home({ teamList, sponsorImgList }) {
           <BsFillArrowRightCircleFill className="text-2xl" />
         </Link>
       </div>
-      <UpcomingMatches />
+      <UpcomingMatches matches={matches} />
       <ParticipatingTeams teamList={teamList} />
       <TournamentDetails />
       <TournamentHistory />
@@ -87,10 +88,15 @@ export async function getServerSideProps() {
     })
   );
 
+  let matches = [];
+  let snapshot = await get(child(dbRef, "matchDetail/"));
+  matches = snapshot.val();
+
   return {
     props: {
       teamList: data,
       sponsorImgList: sponsor_img,
+      matches: matches,
     },
   };
 }

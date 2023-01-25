@@ -1,17 +1,19 @@
-.team-logo{
-    height: 60px;
+.team-logo {
+  height: 70px;
+  width: 70px;
+  margin: 0px auto;
+  border-radius: 50%;
+  
 }
 
-.match-card{
-   background-color: #002380; 
-   display: flex;
-   justify-content: space-between;
-   width: 94%;
-   
+.match-card {
+  background-color: #002380;
+  display: flex;
+  justify-content: space-between;
+  width: 94%;
 }
-
 
 /* this css file also contains style for SponsorCarousel component */
-.sponsor-title{
-    background-color: #002380;
+.sponsor-title {
+  background-color: #002380;
 }

@@ -1,13 +1,53 @@
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { AiOutlineMan, AiOutlineWoman } from "react-icons/ai";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
+
 import MatchCard from "./MatchCard";
 
-const UpcomingMatches = () => {
+function fetchDate() {
+  const date = new Date();
+  let day = date.getDate();
+  let month = date.getMonth() + 1;
+  let year = date.getFullYear();
+
+  if (month.toString().length === 1) {
+    month = "0" + month;
+  }
+
+  // This arrangement can be altered based on how we want the date's format to appear.
+  let currentDate = `${year}-${month}-${day}`;
+  return currentDate;
+}
+
+const UpcomingMatches = ({ matches }) => {
   const [showMenMatches, setShowMenMatches] = useState(true);
-  const [matchesAvailable, setmatchesAvailable] = useState(false);
+  const [menMatches, setMenMatches] = useState([]);
+  const [womenMatches, setWomenMatches] = useState([]);
+
+  useEffect(() => {
+    const todayDate = fetchDate();
+    console.log(matches);
+
+    matches?.map((match, index) => {
+      if (
+        match?.category === "male" &&
+        index > 0 &&
+        match?.timeDate === todayDate &&
+        match?.status.toLowerCase() !== "past"
+      ) {
+        setMenMatches((menMatches) => [...menMatches, match]);
+      } else if (
+        match?.category === "female" &&
+        index > 0 &&
+        match?.timeDate === todayDate &&
+        match?.status !== "past"
+      ) {
+        setWomenMatches((womenMatches) => [...womenMatches, match]);
+      }
+    });
+  }, []);
 
   const buttonColorCalculator = (sex) => {
     let colorString = "";
@@ -25,7 +65,7 @@ const UpcomingMatches = () => {
 
   return (
     <div className="bg-gray-100 py-6 text-center md:w-3/5 md:mx-auto">
-      {matchesAvailable ? (
+      {matches.length !== 0 ? (
         <div>
           {" "}
           <p className=" font-semibold text-3xl text-gray-700">
@@ -55,18 +95,23 @@ const UpcomingMatches = () => {
               Womens
             </p>
           </div>
-          <MatchCard />
-          <MatchCard />
-          <MatchCard />
-          {showMenMatches && (
-            <>
-              <MatchCard />
-              <MatchCard />
-            </>
+          {showMenMatches ? (
+            <div>
+              {menMatches.map((match, index) => (
+                <MatchCard key={index} team={match} />
+              ))}
+            </div>
+          ) : (
+            <div>
+              {" "}
+              {womenMatches.map((match, index) => (
+                <MatchCard key={index} team={match} />
+              ))}
+            </div>
           )}
-          <div>
+          {/* <div>
             <CapHolders male={showMenMatches} />
-          </div>
+          </div> */}
         </div>
       ) : (
         <div className="container--no-matches h-80 font-bold text-[22px] md:text-2xl px-2 flex flex-col justify-center text-gray-800">
@@ -87,6 +132,8 @@ export default UpcomingMatches;
 function CapHolders({ male }) {
   const [purpleCapHolder, setPurpleCapHolder] = useState({});
   const [orangeCapHolder, setOrangeCapHolder] = useState({});
+
+  useEffect(() => {}, []);
 
   const playerStyle =
     "flex flex-col items-center justify-center mt-10 w-9/12 lg:w-1/2 mx-auto";
