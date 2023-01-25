@@ -26,7 +26,7 @@ const OngoingMatchCard = (props) => {
         }
         return (
           <>
-            <div className="flex flex-col bg-white md:justify-evenly text-sm items-center justify-center shadow-lg py-4 mx-4 rounded-lg">
+            <div className="flex flex-col bg-white md:justify-evenly lg:w-10/12 w-11/12 text-sm items-center justify-center shadow-lg py-4 mx-4 rounded-lg">
               <div className="flex justify-evenly w-full">
                 {/* team 1 */}
                 <div className={`${teamStyle}`}>

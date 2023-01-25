@@ -24,7 +24,7 @@ const UpcomingMatchCard = (props) => {
         }
         return (
           <>
-            <div className="flex flex-col bg-white md:justify-evenly text-sm items-center justify-center shadow-lg py-4 mx-4 rounded-lg">
+            <div className="flex flex-col bg-white md:justify-evenly lg:w-10/12 w-11/12 text-sm items-center justify-center shadow-lg py-4 mx-4 rounded-lg">
               <div className="flex justify-evenly w-full">
                 {" "}
                 {/* team 1 */}
@@ -68,7 +68,9 @@ const UpcomingMatchCard = (props) => {
               </div>
               {/* timing and date */}
               <div className="flex flex-col items-center justify-center w-fit px-3 lg:px-6">
-                <p className="text-gray-400 w-fit px-1 flex-nowrap">{curElem.finalComment}</p>
+                <p className="text-gray-400 w-fit px-1 flex-nowrap">
+                  {curElem.finalComment}
+                </p>
                 <p className="text-gray-400 w-fit px-1 flex-nowrap">
                   <sup>{curElem.timeDate}</sup>
                 </p>
