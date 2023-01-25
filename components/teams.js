@@ -9,7 +9,7 @@ const teams = {
     themeColor: "#1e648f",
     teamCode: "SHM"
   },
-  BEALONIANS: {
+  BELONIANS: {
     teamLogo: "https://firebasestorage.googleapis.com/v0/b/mmnct-fac3f.appspot.com/o/teams_logo%2FBEALONIANS.jpg?alt=media&token=f8dbdc65-406c-4e8a-9525-cde25ab184d3",
     themeColor: "#575757",
     teamCode: "BEA"
@@ -29,12 +29,12 @@ const teams = {
     themeColor: "#663f7a",
     teamCode: "HRC"
   },
-  VALKYRIES: {
+  VALKAYRIES: {
     teamLogo: "https://firebasestorage.googleapis.com/v0/b/mmnct-fac3f.appspot.com/o/teams_logo%2FVALKYRIES.jpg?alt=media&token=6dacfce2-5592-4d39-8acd-77901b738114",
     themeColor: "#e02636",
     teamCode: "VAL"
   },
-  SCORPIONS: {
+  SCORPIANS: {
     teamLogo: "https://firebasestorage.googleapis.com/v0/b/mmnct-fac3f.appspot.com/o/teams_logo%2FSCORPIONS.jpg?alt=media&token=88de3656-2ad7-4c34-872e-a1af51a1e8e2",
     themeColor: "#60e6f0",
     teamCode: "SRP"
@@ -69,7 +69,7 @@ const teams = {
     themeColor: "#a33a0f",
     teamCode: "VIK"
   },
-  SAMARITANS: {
+  SAMARTIANS: {
     teamLogo: "https://firebasestorage.googleapis.com/v0/b/mmnct-fac3f.appspot.com/o/teams_logo%2FSAMARITANS.jpg?alt=media&token=243a87a8-8630-42aa-aa33-c10ba7036eb7",
     themeColor: "#fae039",
     teamCode: "SAM"
