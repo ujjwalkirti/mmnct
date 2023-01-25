@@ -8,7 +8,7 @@ import Image from "next/image";
 const SponsorCarousel = ({ urls }) => {
   const carouselItem = "md:w-full md:mx-auto md:h-[400px]";
   return (
-    <div className="mt-16 mb-8 lg:w-[95%] md:w-3/50 md:mx-auto lg:flex">
+    <div className="mt-8 mb-8 lg:w-[95%] md:w-3/50 md:mx-auto lg:flex">
       <div className="lg:w-3/5">
         <div className="flex justify-center">
           <p className="sponsor-title w-full md:w-9/12 text-center lg:text-3xl font-semibold text-3xl px-2 py-4 text-white">

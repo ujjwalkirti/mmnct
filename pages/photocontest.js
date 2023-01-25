@@ -323,8 +323,10 @@ const photocontest = ({ posts }) => {
             )}
           </>
         ) : (
-          <p className="py-28 lg:mt-0 text-center text-2xl font-semibold text-[#411F0D]">
-            No photos posted by others
+          <p className="py-28 lg:mt-0 text-center text-xl md:text-2xl font-semibold text-[#411F0D]">
+            Sorry, no post is shared yet!
+            <br />
+            Be the first one to upload your memory.
           </p>
         )}
       </div>
