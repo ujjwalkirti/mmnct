@@ -51,9 +51,8 @@ const PastMatchCard = (props) => {
               {/* timing and date */}
               <div className="flex flex-col items-center justify-center px-2.5">
                 <p className="text-gray-400">{curElem.finalComment}</p>
-                <p className="text-orange-500 font-bold">{curElem.timeDate.split("T")[1]}</p>
                 <p className="text-gray-400">
-                  <sup>{curElem.timeDate.split("T")[0]}</sup>
+                  <sup>{curElem.timeDate}</sup>
                 </p>
               </div>
 
