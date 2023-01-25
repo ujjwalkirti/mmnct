@@ -7,8 +7,18 @@ import { FaWindowClose } from "react-icons/fa";
 import { useSession, signIn } from "next-auth/react";
 import Footer from "../components/Footer";
 
-function Polls() {
-  const [matches, setMatches] = useState([]);
+export async function getServerSideProps() {
+  let matches = [];
+
+  return {
+    props: {
+      matches,
+    },
+  };
+}
+
+function Polls({ matches }) {
+  // const [matches, setMatches] = useState([]);
   useEffect(() => {
     // you have to fetch all the matches here and store it in matches array
   }, []);

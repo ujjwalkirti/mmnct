@@ -94,7 +94,7 @@ const Match = () => {
                 </div>
               </div>
             </div>
-            <div className="bg-white text-gray-500 flex justify-evenly w-[323px] mx-auto text-center font-[600] text-[16px] rounded-lg mb-10 px-4">
+            <div className="bg-white text-gray-500 flex justify-between gap-4 w-[353px] md:mx-auto text-center font-[600] text-[16px] rounded-lg mb-10 px-4">
               <div
                 onClick={() => {
                   setSelectedTime("present");
