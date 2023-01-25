@@ -68,10 +68,10 @@ const UpcomingMatchCard = (props) => {
               </div>
               {/* timing and date */}
               <div className="flex flex-col items-center justify-center w-fit px-3 lg:px-6">
-                <p className="text-gray-400 w-fit px-1 flex-nowrap">
+                <p className="text-black-400 w-fit px-1 flex-nowrap">
                   {curElem.finalComment}
                 </p>
-                <p className="text-gray-400 w-fit px-1 flex-nowrap">
+                <p className="text-black-400 w-fit px-1 flex-nowrap">
                   <sup>{curElem.timeDate}</sup>
                 </p>
               </div>
