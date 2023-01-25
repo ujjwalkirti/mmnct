@@ -141,8 +141,8 @@ const Match = () => {
                 </p>
               </div>
             </div>
-            <div className="float-none flex flex-1 flex-col items-center w-full mt-20">
-              <div className=" gap-3 flex flex-col w-full">
+            <div className="float-none flex flex-1 flex-col items-center w-full mt-8">
+              <div className=" gap-3 flex flex-col w-full items-center">
                 {selectedTime === "past" ? (
                   <PastMatchCard matchData={[matchData, selectedGender]} />
                 ) : selectedTime === "present" ? (
@@ -288,7 +288,7 @@ const Match = () => {
               </div>
             </div>
             <div className="float-none flex flex-1 flex-col items-center w-full mt-20">
-              <div className=" gap-3 mr-4 flex flex-col w-full">
+              <div className=" gap-3 mr-4 flex flex-col w-full items-center">
                 {selectedTime === "past" ? (
                   <PastMatchCard matchData={[matchData, selectedGender]} />
                 ) : selectedTime === "present" ? (
