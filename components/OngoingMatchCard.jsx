@@ -114,8 +114,8 @@ const OngoingMatchCard = (props) => {
               </div>
               {/* timing and date */}
               <div className="flex flex-col items-center justify-center px-2.5">
-                <p className="text-gray-400">{curElem.finalComment}</p>
-                <p className="text-gray-400">
+                <p className="text-black-400">{curElem.finalComment}</p>
+                <p className="text-black-400">
                   <sup>{curElem.timeDate}</sup>
                 </p>
               </div>
