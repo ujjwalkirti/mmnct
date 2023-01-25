@@ -5,7 +5,7 @@ import { collection, getDocs, query, where } from "firebase/firestore";
 import teams from "./teams"
 
 const UpcomingMatchCard = (props) => {
-  const teamStyle = "flex flex-1 items-center justify-center flex-wrap flex-row";
+  const teamStyle = "flex  items-center flex-col lg:flex-row";
   const teamName = "font-extrabold text-xs md:text-lg";
   const shortformstyle = "h-[48px] md:h-[60px] rounded-full";
   console.log(props.matchdata);
@@ -32,9 +32,9 @@ const UpcomingMatchCard = (props) => {
         }
         return (
           <>
-            <div className="flex bg-white md:justify-evenly flex-1 text-sm items-center justify-center shadow-lg py-4 mx-4 rounded-lg">
+            <div className="flex bg-white w-fit px-3 md:justify-evenly flex-1 text-sm items-center justify-center shadow-lg py-4 mx-4 rounded-lg px-7">
               {/* team 1 */}
-              <div className={teamStyle}>
+              <div className={`${teamStyle}`}>
                 <img
                   alt="team-logo"
                   className={shortformstyle}
@@ -46,9 +46,9 @@ const UpcomingMatchCard = (props) => {
 
 
               {/* timing and date */}
-              <div className="flex flex-col items-center justify-center px-5">
-                <p className="text-gray-400">{curElem.finalComment}</p>
-                <p className="text-gray-400">
+              <div className="flex flex-col items-center justify-center px-5 w-fit px-3 lg:px-6">
+                <p className="text-gray-400 w-fit px-1 flex-nowrap">{curElem.finalComment}</p>
+                <p className="text-gray-400 w-fit px-1 flex-nowrap">
                   <sup>{curElem.timeDate}</sup>
                 </p>
               </div>
