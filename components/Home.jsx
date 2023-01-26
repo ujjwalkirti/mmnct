@@ -1,5 +1,6 @@
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
+import HomeCard from "./HomeCard";
 // import { SiGooglemaps } from "react-icons/si";
 // import Banner from "./Banner";
 
