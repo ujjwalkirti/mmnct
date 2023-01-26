@@ -79,7 +79,7 @@ function Polls({ matches }) {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
           {matches.map((match, index) => {
             let todayDate = fetchDate();
-            if (match.timeDate === todayDate) {
+            if (match.timeDate === todayDate && match.status !== "past") {
               return (
                 <div className=" lg:w-11/12 lg:mx-auto">
                   <ShowMatch match={match} key={index} />
