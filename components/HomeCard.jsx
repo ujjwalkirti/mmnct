@@ -15,7 +15,7 @@ const HomeCard = () => {
       setteam(data.filter((ele) => ele.status == "ongoing"));
     });
   };
-  const shortformstyle = "h-[48px] md:h-[60px] rounded-full";
+  const shortformstyle = "h-[38px] w-[52px] md:h-[50px] md:w-[62px]";
   useEffect(() => {
     getdata();
   }, []);
@@ -23,7 +23,14 @@ const HomeCard = () => {
   return (
     <>
       {team?.length === 0 ? (
-        <></>
+        <>
+          <div>
+           
+          
+            </div>
+          
+     
+        </>
       ) : (
         <div className=" flex flex-col justify-center ml-12 pr-16 pl-3 w-fit md:w-fit md:pr-28 days-counter md:mx-auto md:mx-0 md:mb-4 h-fit">
         
@@ -46,9 +53,9 @@ const HomeCard = () => {
               <div className="pl-2.5 font-bold pt-2.5 text-xl text-black" id="name">
                 <p>{teams[team[0].Team1Id].teamCode}</p>
               </div>
-              <div className="flex flex-row pl-2.5 pt-3 text-orange-600 text-base font-semibold" id="comment">
+              <div className="flex flex-row ml-3.5 pt-3 text-orange-600 text-xl font-semibold" id="comment">
                 <p>{totalScore(team[0].Team1Score, team[0].Team1Extra, team[0].Team1Wicket)}</p>
-                <p className="pl-1">({getOver(team[0].Team1Score, team[0].Team1prev, team[0].Team1Extra)[0]})</p>
+                <p className="pl-2">({getOver(team[0].Team1Score, team[0].Team1prev, team[0].Team1Extra)[0]})</p>
               </div>
             </div>
             <div className="flex flex-row pb-2.5 pl-1.5" id="bottom">
@@ -63,9 +70,9 @@ const HomeCard = () => {
               <div className="pl-2.5 font-bold pt-2.5 text-xl text-black" id="name">
                 <p>{teams[team[0].Team2Id].teamCode}</p>
               </div>
-              <div className="flex flex-row pl-2.5 pt-3 text-orange-600 text-base font-semibold" id="comment">
+              <div className="flex flex-row ml-3.5 pt-3 text-orange-600 text-xl font-semibold" id="comment">
                 <p>{totalScore(team[0].Team2Score, team[0].Team2Extra, team[0].Team2Wicket)}</p>
-                <p className="pl-1">({getOver(team[0].Team2Score, team[0].Team2prev, team[0].Team2Extra)[0]})</p>
+                <p className="pl-2">({getOver(team[0].Team2Score, team[0].Team2prev, team[0].Team2Extra)[0]})</p>
               </div>
             </div>
           </div>
@@ -76,3 +83,11 @@ const HomeCard = () => {
 };
 
 export default HomeCard;
+
+function daysCaluclator() {
+  var today = new Date();
+  var date_to_reply = new Date("2023-01-26");
+  var timeinmilisec = today.getTime() - date_to_reply.getTime();
+  // console.log(Math.floor(timeinmilisec / (1000 * 60 * 60 * 24)));
+  return Math.floor(timeinmilisec / (1000 * 60 * 60 * 24));
+}
