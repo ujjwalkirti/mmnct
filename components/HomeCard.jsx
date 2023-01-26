@@ -43,10 +43,10 @@ const HomeCard = () => {
                   src={teams[team[0].Team1Id].teamLogo}
                 />
               </div>
-              <div className="pl-2.5 font-bold pt-2.5 text-black" id="name">
+              <div className="pl-2.5 font-bold pt-2.5 text-xl text-black" id="name">
                 <p>{teams[team[0].Team1Id].teamCode}</p>
               </div>
-              <div className="flex flex-row pl-2.5 pt-2.5 text-orange-600 text-xl font-semibold" id="comment">
+              <div className="flex flex-row pl-2.5 pt-3 text-orange-600 text-base font-semibold" id="comment">
                 <p>{totalScore(team[0].Team1Score, team[0].Team1Extra, team[0].Team1Wicket)}</p>
                 <p className="pl-1">({getOver(team[0].Team1Score, team[0].Team1prev, team[0].Team1Extra)[0]})</p>
               </div>
@@ -60,10 +60,10 @@ const HomeCard = () => {
                   src={teams[team[0].Team2Id].teamLogo}
                 />
               </div>
-              <div className="pl-2.5 font-bold pt-2.5 text-black" id="name">
+              <div className="pl-2.5 font-bold pt-2.5 text-xl text-black" id="name">
                 <p>{teams[team[0].Team2Id].teamCode}</p>
               </div>
-              <div className="flex flex-row pl-2.5 pt-2.5 text-orange-600 text-xl font-semibold" id="comment">
+              <div className="flex flex-row pl-2.5 pt-3 text-orange-600 text-base font-semibold" id="comment">
                 <p>{totalScore(team[0].Team2Score, team[0].Team2Extra, team[0].Team2Wicket)}</p>
                 <p className="pl-1">({getOver(team[0].Team2Score, team[0].Team2prev, team[0].Team2Extra)[0]})</p>
               </div>
