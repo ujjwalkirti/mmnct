@@ -55,13 +55,13 @@ const HomeCard = () => {
               </div>
                {totalScore(team[0].Team1Score, team[0].Team1Extra, team[0].Team1Wicket) === "0/0" &&  getOver(team[0].Team1Score, team[0].Team1prev, team[0].Team1Extra)[0] === "0.0" ? 
               (
-              <div className="flex flex-row ml-3.5 pt-3 text-orange-600 text-xl font-semibold" id="comment">
+              <div className="flex flex-row ml-3.5 pt-3 text-red-600 text-xl font-semibold" id="comment">
                 <p>Yet to bat</p>
               
               </div>
               ):
               (
-              <div className="flex flex-row ml-3.5 pt-3 text-orange-600 text-xl font-semibold" id="comment">
+              <div className="flex flex-row ml-3.5 pt-3 text-red-600 text-xl font-semibold" id="comment">
                 <p>{totalScore(team[0].Team1Score, team[0].Team1Extra, team[0].Team1Wicket)}  ({getOver(team[0].Team1Score, team[0].Team1prev, team[0].Team1Extra)[0]})</p>
               
               </div>
@@ -82,13 +82,13 @@ const HomeCard = () => {
               </div>
               {totalScore(team[0].Team2Score, team[0].Team2Extra, team[0].Team2Wicket) === "0/0" &&  getOver(team[0].Team2Score, team[0].Team2prev, team[0].Team2Extra)[0] === "0.0" ? 
               (
-              <div className="flex flex-row ml-3.5 pt-3 text-orange-600 text-xl font-semibold" id="comment">
+              <div className="flex flex-row ml-3.5 pt-3 text-red-600 text-xl font-semibold" id="comment">
                 <p>Yet to bat</p>
               
               </div>
               ):
               (
-              <div className="flex flex-row ml-3.5 pt-3 text-orange-600 text-xl font-semibold" id="comment">
+              <div className="flex flex-row ml-3.5 pt-3 text-red-600 text-xl font-semibold" id="comment">
                 <p>{totalScore(team[0].Team2Score, team[0].Team2Extra, team[0].Team2Wicket)}  ({getOver(team[0].Team2Score, team[0].Team2prev, team[0].Team2Extra)[0]})</p>
               
               </div>
