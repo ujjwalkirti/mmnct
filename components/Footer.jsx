@@ -47,6 +47,9 @@ const Footer = () => {
           <Link href="/points-table">
             <p>Point Table</p>
           </Link>
+          <Link href="/polls">
+            <p>Polls</p>
+          </Link>
           <Link href="/memories">
             <p>Memories</p>
           </Link>
