@@ -50,9 +50,10 @@ const Footer = () => {
           <Link href="/memories">
             <p>Memories</p>
           </Link>
-          <Link href="/polls">
+          /* <Link href="/polls">
             <p>Polls</p>
           </Link>
+          */
           <Link href="/trivias">
             <p>Trivia</p>
           </Link>
