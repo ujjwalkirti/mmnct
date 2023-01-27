@@ -11,15 +11,46 @@ import { useSession, signIn, signOut, getSession } from "next-auth/react";
 import imageCompression from "browser-image-compression";
 import ContestPostCard from "../components/ContestPostCard";
 
+function timestamptoDate(timestamp) {
+  const date = new Date(timestamp);
+  let day = date.getDate();
+  let month = date.getMonth() + 1;
+  let year = date.getFullYear();
+
+  // This arrangement can be altered based on how we want the date's format to appear.
+  let currentDate = `${year}-${month}-${day}`;
+  return currentDate;
+}
+
+function fetchDate() {
+  const date = new Date();
+  let day = date.getDate();
+  let month = date.getMonth() + 1;
+  let year = date.getFullYear();
+
+  // This arrangement can be altered based on how we want the date's format to appear.
+  let currentDate = `${year}-${month}-${day}`;
+  return currentDate;
+}
+
 //Sever side props to get the post data from the firestore
 export async function getServerSideProps(context) {
   const postsRef = collection(db, "photocontest");
   const postsSnapshot = await getDocs(postsRef);
+  const currentDate = fetchDate();
   // Stores in JSON format where key is id and value is the post data
-  const posts = postsSnapshot.docs.map((doc) => ({
-    id: doc.id,
-    ...doc.data(),
-  }));
+  const posts = [];
+  postsSnapshot.forEach((doc) => {
+    // doc.data() is never undefined for query doc snapshots
+    console.log(doc.data());
+    const postDate = timestamptoDate(doc.data().timestamp);
+    if (postDate === currentDate) {
+      posts.push({
+        id: doc.id,
+        ...doc.data(),
+      });
+    }
+  });
 
   // If user is logged in
   const session = await getSession(context);
