@@ -52,8 +52,7 @@ const Footer = () => {
           </Link>
           /* <Link href="/polls">
             <p>Polls</p>
-          </Link>
-          */
+          </Link> */
           <Link href="/trivias">
             <p>Trivia</p>
           </Link>
