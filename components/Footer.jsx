@@ -53,8 +53,8 @@ const Footer = () => {
           <Link href="/trivias">
             <p>Trivia</p>
           </Link>
-          <Link href="/developer">
-            <p>Developers</p>
+          <Link href="/developer" className="flex gap-2">
+            <p>Developers❤️</p>
           </Link>
           <Link href="/sponsors">
             <p>Sponsors</p>
