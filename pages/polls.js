@@ -377,7 +377,7 @@ function ShowMatch({ match }) {
       {showModal && !session && (
         <div className="bg-white mx-2 my-3 rounded-lg px-2">
           <div
-            className="font-semibold hover:bg-black hover:text-white hover:shadow-lg hover:shadow-amber-400 cursor-pointer text-center text-3xl md:w-3/5 w-2/5 mx-auto border px-3 rounded-full border-black py-1 my-1"
+            className="font-semibold hover:bg-black hover:text-white hover:shadow-lg hover:shadow-amber-400 cursor-pointer text-center text-3xl md:w-3/5 mx-auto border px-3 rounded-full border-black py-1 mb-1 mt-4"
             onClick={signIn}
           >
             Sign-in
