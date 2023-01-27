@@ -40,7 +40,7 @@ const options = [
   //   to: "to-orange-500",
   //   special: false,
   // },
-  {
+  /* {
     name: "POLLS",
     url: "/polls",
     from: "from-red-700",
@@ -48,6 +48,7 @@ const options = [
     to: "to-orange-500",
     special: false,
   },
+  */
   {
     name: "MEMORIES",
     url: "/memories",
