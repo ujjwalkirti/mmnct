@@ -185,7 +185,7 @@ export default function PointsTable({ maleTable, femaleTable }) {
             <div className="grid grid-cols-1 gap-2 mx-auto max-w-lg">
               <div className="flex text-sm text-white leading-7">
                 <div className="w-1/4 flex  items-center justify-center ">
-                  <p className="">Rank</p>
+                  <p className="">NRR</p>
                 </div>
                 <div className="w-2/3 flex  items-center justify-center ">
                   <p className="">Team</p>
@@ -337,7 +337,7 @@ export default function PointsTable({ maleTable, femaleTable }) {
               <div className="grid gap-3 mx-10 grid-cols-1 md:mx-10 lg:mx-20 xl:mx-40">
                 <div className="flex text-sm text-white leading-7">
                   <div className="w-1/4 flex  items-center justify-center ">
-                    <p className="">Rank</p>
+                    <p className="">NRR</p>
                   </div>
                   <div className="w-2/3 flex  items-center  pl-20">
                     <p className="">Team</p>
