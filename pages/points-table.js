@@ -10,7 +10,7 @@ import { db } from "../components/db/Firebase";
 
 export async function getServerSideProps() {
   const querySnapshot = await getDocs(
-    query(collection(db, "participating-teams"), orderBy("points", "desc"))
+    query(collection(db, "participating-teams"), orderBy("pointselimination", "desc"))
   );
   const maleTable = [];
   const femaleTable = [];
@@ -33,7 +33,7 @@ export async function getServerSideProps() {
 export default function PointsTable({ maleTable, femaleTable }) {
   const [selectedGender, setSelectedGender] = useState("male");
   const [selectedPool, setSelectedPool] = useState("pool1");
-  const [selectedType, setSelectedType] = useState("gs");
+  const [selectedType, setSelectedType] = useState("flb");
   const StylesBasedonGender = (gender) => {
     if (selectedGender === gender) {
       if (gender === "male") {
