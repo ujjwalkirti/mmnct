@@ -34,9 +34,16 @@ function fetchDate() {
 }
 export async function getServerSideProps() {
   let matches = [];
+  let localMatches = [];
   let snapshot = await get(child(dbRef, "matchDetail/"));
-  matches = snapshot.val();
-  matches.shift();
+  localMatches = snapshot.val();
+  let todayDate = fetchDate();
+  localMatches.shift();
+  localMatches.map((match) => {
+    if (localMatches.timeDate === todayDate && localMatches.status !== "past") {
+      matches.push(match);
+    }
+  });
   return {
     props: {
       matches,
@@ -45,8 +52,6 @@ export async function getServerSideProps() {
 }
 
 function Polls({ matches }) {
-  // const [matches, setMatches] = useState([]);
-
   return (
     <div className="flex flex-col justify-between h-screen">
       <Head>
@@ -78,14 +83,11 @@ function Polls({ matches }) {
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
           {matches.map((match, index) => {
-            let todayDate = fetchDate();
-            if (match.timeDate === todayDate && match.status !== "past") {
-              return (
-                <div className=" lg:w-11/12 lg:mx-auto">
-                  <ShowMatch match={match} key={index} />
-                </div>
-              );
-            }
+            return (
+              <div className=" lg:w-11/12 lg:mx-auto">
+                <ShowMatch match={match} key={index} />
+              </div>
+            );
           })}
         </div>
       )}

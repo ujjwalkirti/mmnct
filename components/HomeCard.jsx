@@ -27,7 +27,7 @@ const HomeCard = () => {
           <div></div>
         </>
       ) : (
-        <div className=" flex flex-col justify-center ml-12 pr-16 pl-3 w-fit md:w-fit md:pr-28 days-counter md:mx-auto md:mx-0 md:mb-4 h-fit">
+        <div className=" flex flex-col justify-center ml-12 pr-16 pl-3 w-fit md:w-fit md:pr-28 days-counter md:mx-auto md:mb-4 h-fit">
           <div
             className="bg-lime-500 w-fit px-3 py-0.5 mt-2.5 flex flex-row items-center justify-center ml-2 rounded-md font-semibold text-white mr-2"
             id="top"
@@ -36,7 +36,7 @@ const HomeCard = () => {
             <p>Live</p>
           </div>
           <div className="flex flex-row pb-2.5 pt-2.5 pl-1.5" id="middle">
-            <div id="logo">
+            <div id="logo" className="">
               <img
                 alt="team-logo"
                 className={shortformstyle}
