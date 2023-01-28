@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import PointCard from "/components/PointCard";
+import PointCardElimination from "/components/PointCardElimination";
 import { collection, getDocs, query, orderBy } from "firebase/firestore";
 import { db } from "../components/db/Firebase";
 
@@ -32,6 +33,7 @@ export async function getServerSideProps() {
 export default function PointsTable({ maleTable, femaleTable }) {
   const [selectedGender, setSelectedGender] = useState("male");
   const [selectedPool, setSelectedPool] = useState("pool1");
+  const [selectedType, setSelectedType] = useState("gs");
   const StylesBasedonGender = (gender) => {
     if (selectedGender === gender) {
       if (gender === "male") {
@@ -45,19 +47,31 @@ export default function PointsTable({ maleTable, femaleTable }) {
   };
 
 
-  const StylesBasedonPool = (gender, pool) => {
+const StylesBasedonPool = (gender, pool) => {
     if (selectedGender === gender && selectedPool === pool) {
+     
       if (gender === "male") {
-        return "bg-[#508CD4] font-[500] text-[20px] h-[50px] md:text-[30px] md:w-auto md:h-[50px] leading-[24.38px] text-white w-[124px] px-2 shadow-lg";
+        return "bg-[#508CD4] font-[500] text-[20px] h-[50px] md:text-[30px] md:h-[50px] leading-[24.38px] text-white px-2 shadow-lg whitespace-nowrap w-fit";
       } else if (gender === "female") {
-        return "bg-[#CE3AB3] font-[500] text-[20px] h-[50px] md:text-[30px] md:w-auto md:h-[50px] leading-[24.38px] text-white  w-[124px] px-2 shadow-lg";
+        return "bg-[#CE3AB3] font-[500] text-[20px] h-[50px] md:text-[30px] md:h-[50px] leading-[24.38px] text-white px-3 shadow-lg whitespace-nowrap w-fit";
       }
     } else {
       return "";
     }
   };
 
-
+const StylesBasedonType = (gender, type) => {
+      if (selectedGender === gender && selectedType === type) {
+     
+      if (gender === "male") {
+        return "bg-[#508CD4] font-[500] text-[20px] h-[50px] md:text-[30px] md:h-[50px] leading-[24.38px] text-white px-2 shadow-lg whitespace-nowrap w-fit";
+      } else if (gender === "female") {
+        return "bg-[#CE3AB3] font-[500] text-[20px] h-[50px] md:text-[30px] md:h-[50px] leading-[24.38px] text-white px-3 shadow-lg whitespace-nowrap w-fit";
+      }
+    } else {
+      return "";
+    }
+};
   function decisionsBasedonGender() {
     let finalDecision = "";
     if (selectedGender === "male") {
@@ -110,7 +124,23 @@ export default function PointsTable({ maleTable, femaleTable }) {
             </div>
           </div>
 
-
+	   <div className="bg-white text-gray-500 flex justify-evenly w-[323px] mx-auto text-center font-[600] text-[16px] rounded-lg mb-10">
+			<div onClick={() => {
+                  setSelectedType("gs");
+                }} className={` h-[44px] flex justify-center items-center cursor-pointer px-3`} id="pool1"><p className={`${StylesBasedonType(
+                      selectedGender,
+                      "gs"
+                    )} flex items-center rounded-lg`}>Group Stage</p></div>
+                    <div onClick={() => {
+                  setSelectedType("flb");
+                }} className={` h-[44px] flex justify-center items-center cursor-pointer px-3`} id="pool1"><p className={`${StylesBasedonType(
+                      selectedGender,
+                      "flb"
+                    )} flex items-center rounded-lg`}>Playoff</p></div>
+            </div>
+          
+          {selectedType === "gs"? (
+          <div>
           {selectedGender === "male" ? (
 
             <div className="bg-white text-gray-500 flex justify-evenly w-[323px] mx-auto text-center font-[600] text-[16px] rounded-lg mb-10 px-2">
@@ -180,10 +210,44 @@ export default function PointsTable({ maleTable, femaleTable }) {
             </div>
 
           )}
-
+	  </div>) : (<div></div>)}
+	  
+	  
           <div className="relative h-[540px] overflow-x-hidden mx-auto px-4">
             <div className="grid grid-cols-1 gap-2 mx-auto max-w-lg">
-              <div className="flex text-sm text-white leading-7">
+              
+              
+             {selectedType === "gs"? (
+                <div>
+                <div className="flex text-sm text-white leading-7">
+                <div className="w-1/4 flex  items-center justify-center ">
+                  <p className="">NRR</p>
+                </div>
+                <div className="w-2/3 flex  items-center justify-center ">
+                  <p className="">Team</p>
+                </div>
+                <div className="w-1/4 flex  items-center justify-center ">
+                  <p>Points</p>
+                </div>
+                <div className="w-1/4 flex  items-center justify-center pl-2">
+                  <p>Played</p>
+                </div>
+                <div className="w-1/4 flex items-center justify-center ">
+                  <p>Won</p>
+                </div>
+                <div className="w-1/4 flex  items-center justify-center ">
+                  <p className="">Lost</p>
+                </div>
+              </div>
+              <div className="h-px bg-white"></div>
+                {selectedGender === "male" ? (
+                  <PointCard data={[maleTable, selectedGender, selectedPool]} />
+                ) : (
+                  <PointCard data={[femaleTable, selectedGender, selectedPool]} />
+                )}
+                </div>) : (
+                <div>
+                <div className="flex text-sm text-white leading-7">
                 <div className="w-1/4 flex  items-center justify-center ">
                   <p className="">Rank</p>
                 </div>
@@ -204,11 +268,13 @@ export default function PointsTable({ maleTable, femaleTable }) {
                 </div>
               </div>
               <div className="h-px bg-white"></div>
-              {selectedGender === "male" ? (
-                <PointCard data={[maleTable, selectedGender, selectedPool]} />
-              ) : (
-                <PointCard data={[femaleTable, selectedGender, selectedPool]} />
-              )}
+                {selectedGender === "male" ? (
+                  <PointCardElimination data={[maleTable, selectedGender, "yes"]} />
+                ) : (
+                  <PointCard data={[femaleTable, selectedGender, "yes"]} />
+                )}
+                </div>
+                )}
             </div>
 
 
@@ -264,7 +330,24 @@ export default function PointsTable({ maleTable, femaleTable }) {
                 </div>
               </div>
             </div>
-
+	     <div className="flex w-fit mx-auto items-center justify-between bg-white text-gray-500 px-4 gap-3 text-center rounded-lg font-[500] text-[20px] mt-10">
+			<div onClick={() => {
+                  setSelectedType("gs");
+                }} className={` h-[44px] flex justify-center items-center cursor-pointer px-3`} id="pool1"><p className={`${StylesBasedonType(
+                      selectedGender,
+                      "gs"
+                    )} flex items-center rounded-lg`}>Group Stage</p></div>
+                    <div onClick={() => {
+                  setSelectedType("flb");
+                }} className={` h-[44px] flex justify-center items-center cursor-pointer px-3`} id="pool1"><p className={`${StylesBasedonType(
+                      selectedGender,
+                      "flb"
+                    )} flex items-center rounded-lg`}>Playoff</p></div>
+            </div>
+            
+            
+            {selectedType === "gs"? (
+            <div>
             {selectedGender === "male" ? (
 
 
@@ -332,12 +415,18 @@ export default function PointsTable({ maleTable, femaleTable }) {
                 )} flex items-center rounded-lg`}>Pool B</p></div>
               </div>
             )}
-
+           </div>
+           ) : ( <div></div> )}
             <div className="float-none mt-20">
               <div className="grid gap-3 mx-10 grid-cols-1 md:mx-10 lg:mx-20 xl:mx-40">
+                
+                
+                {selectedType === "gs"? (
+                <div>
+                
                 <div className="flex text-sm text-white leading-7">
                   <div className="w-1/4 flex  items-center justify-center ">
-                    <p className="">Rank</p>
+                    <p className="">NRR</p>
                   </div>
                   <div className="w-2/3 flex  items-center  pl-20">
                     <p className="">Team</p>
@@ -361,6 +450,37 @@ export default function PointsTable({ maleTable, femaleTable }) {
                 ) : (
                   <PointCard data={[femaleTable, selectedGender, selectedPool]} />
                 )}
+                </div>) : (
+                <div>
+                <div className="flex text-sm text-white leading-7">
+                  <div className="w-1/4 flex  items-center justify-center ">
+                    <p className="">Rank</p>
+                  </div>
+                  <div className="w-2/3 flex  items-center  pl-20">
+                    <p className="">Team</p>
+                  </div>
+                  <div className="w-1/4 flex  items-center justify-center ">
+                    <p>Points</p>
+                  </div>
+                  <div className="w-1/4 flex  items-center justify-center ">
+                    <p>Played</p>
+                  </div>
+                  <div className="w-1/4 flex items-center justify-center ">
+                    <p>Won</p>
+                  </div>
+                  <div className="w-1/4 flex  items-center justify-center ">
+                    <p className="">Lost</p>
+                  </div>
+                </div>
+                <div className="h-px bg-white"></div>
+                {selectedGender === "male" ? (
+                  <PointCardElimination data={[maleTable, selectedGender, "yes"]} />
+                ) : (
+                  <PointCard data={[femaleTable, selectedGender, "yes"]} />
+                )}
+                </div>
+                )}
+                
               </div>
             </div>
           </div>
