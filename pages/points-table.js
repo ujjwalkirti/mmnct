@@ -476,7 +476,7 @@ const StylesBasedonType = (gender, type) => {
                 {selectedGender === "male" ? (
                   <PointCardElimination data={[maleTable, selectedGender, "yes"]} />
                 ) : (
-                  <PointCard data={[femaleTable, selectedGender, "yes"]} />
+                  <PointCardElimination data={[femaleTable, selectedGender, "yes"]} />
                 )}
                 </div>
                 )}
