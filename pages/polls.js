@@ -40,7 +40,7 @@ export async function getServerSideProps() {
   let todayDate = fetchDate();
   localMatches.shift();
   localMatches.map((match) => {
-    if (localMatches.timeDate === todayDate && localMatches.status !== "past") {
+    if (match.timeDate === todayDate && match.status !== "past") {
       matches.push(match);
     }
   });
