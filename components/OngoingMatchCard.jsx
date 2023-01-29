@@ -30,7 +30,7 @@ const OngoingMatchCard = (props) => {
               {curElem.tag === "" ? (
               	<div></div>
               ) : (<div className="border-[#7f1d1d] bg-[#fde047] flex flex-col items-center justify-center w-full px-3 lg:px-6 py-1.5 mb-3">
-                <p className="text-white font-semibold w-fit px-1 flex-nowrap">
+                <p className="text-[#7f1d1d] font-semibold w-fit px-1 flex-nowrap">
                   {curElem.tag}
                 </p>
               </div>)}
