@@ -29,8 +29,8 @@ const OngoingMatchCard = (props) => {
             <div className="flex flex-col bg-white md:justify-evenly lg:w-10/12 w-11/12 text-sm items-center justify-center shadow-lg pb-4 mx-4 rounded-lg">
               {curElem.tag === "" ? (
               	<div></div>
-              ) : (<div className="border-[#7f1d1d] bg-orange-400 flex flex-col items-center justify-center w-full px-3 lg:px-6 py-1.5 mb-3">
-                <p className="text-white font-semibold w-fit px-1 flex-nowrap">
+              ) : (<div className="border-[#7f1d1d] bg-[#fde047] flex flex-col items-center justify-center w-full px-3 lg:px-6 py-1.5 mb-3">
+                <p className="text-[#7f1d1d] font-semibold w-fit px-1 flex-nowrap">
                   {curElem.tag}
                 </p>
               </div>)}
