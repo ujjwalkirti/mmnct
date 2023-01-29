@@ -1,4 +1,3 @@
-
 import Image from "next/image";
 import { totalScore, getOver } from "../components/matchFunctions";
 import teams from "./teams";
