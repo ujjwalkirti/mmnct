@@ -69,7 +69,7 @@ const teams = {
     themeColor: "#a33a0f",
     teamCode: "VIK"
   },
-  SAMARTIANS: {
+  SAMARITANS: {
     teamLogo: "https://firebasestorage.googleapis.com/v0/b/mmnct-fac3f.appspot.com/o/teams_logo%2FSAMARITANS.jpg?alt=media&token=243a87a8-8630-42aa-aa33-c10ba7036eb7",
     themeColor: "#fae039",
     teamCode: "SAM"
