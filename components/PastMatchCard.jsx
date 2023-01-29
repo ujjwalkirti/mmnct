@@ -21,7 +21,7 @@ const PastMatchCard = (props) => {
           }
           return (
             <>
-              <div className="flex flex-col bg-white md:justify-evenly lg:w-10/12 w-11/12 text-sm items-center justify-center shadow-lg py-4 mx-4 rounded-lg">
+              <div className="flex flex-col bg-white md:justify-evenly lg:w-10/12 w-11/12 text-sm items-center justify-center shadow-lg pb-4 mx-4 rounded-lg">
                 {curElem.tag === "" ? (
               	<div></div>
               ) : (<div className="border-[#7f1d1d] bg-[#fde047] flex flex-col items-center justify-center w-full px-3 lg:px-6 py-1.5 mb-3">
@@ -29,7 +29,7 @@ const PastMatchCard = (props) => {
                   {curElem.tag}
                 </p>
               </div>)}
-                <div className="flex justify-evenly w-full">
+                <div className="flex justify-evenly w-full pt-4">
                   {/* team 1 */}
                   <div className={`${teamStyle}`}>
                     <div className={teamNameStyle}>
