@@ -40,7 +40,7 @@ const options = [
   //   to: "to-orange-500",
   //   special: false,
   // },
-   {
+  {
     name: "POLLS",
     url: "/polls",
     from: "from-red-700",
@@ -57,8 +57,8 @@ const options = [
     special: false,
   },
   {
-    name: "ORGANISING TEAM",
-    url: "/organisers",
+    name: "DEVELOPERS ❤️",
+    url: "/developer",
     from: "from-blue-700",
     via: "via-blue-500",
     to: "to-purple-500",

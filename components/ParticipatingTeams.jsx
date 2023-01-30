@@ -133,6 +133,7 @@ const ParticipatingTeams = ({ teamList }) => {
                 if (index >= range.start && index < range.end) {
                   return (
                     <div
+                      key={index}
                       className="cursor-pointer"
                       onClick={(e) => {
                         e.preventDefault();

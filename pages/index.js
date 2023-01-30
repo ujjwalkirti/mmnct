@@ -68,6 +68,21 @@ export default function Home({ teamList, sponsorImgList, matches }) {
   );
 }
 
+function fetchDate() {
+  const date = new Date();
+  let day = date.getDate();
+  let month = date.getMonth() + 1;
+  let year = date.getFullYear();
+
+  if (month.toString().length === 1) {
+    month = "0" + month;
+  }
+
+  // This arrangement can be altered based on how we want the date's format to appear.
+  let currentDate = `${year}-${month}-${day}`;
+  return currentDate;
+}
+
 export async function getServerSideProps() {
   let data = [];
 
@@ -89,8 +104,16 @@ export async function getServerSideProps() {
   );
 
   let matches = [];
+  let localMatches = [];
   let snapshot = await get(child(dbRef, "matchDetail/"));
-  matches = snapshot.val();
+  localMatches = snapshot.val();
+  let todayDate = fetchDate();
+  localMatches.shift();
+  localMatches.map((match) => {
+    if (match.timeDate === todayDate && match.status !== "past") {
+      matches.push(match);
+    }
+  });
 
   return {
     props: {

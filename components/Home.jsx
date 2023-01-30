@@ -39,12 +39,13 @@ function HomePage() {
       <div className="w-full md:w-4/5 md:mx-auto flex flex-col md:flex-row md:items-center md:justify-between">
         {/* graphic and venue along with days to go */}
 
-         <div>
+        <div>
           <HomeCard />
           <p className="font-[600] text-[20px] hidden md:flex my-10  md:mx-auto leading-[24.38px]">
             Bring back the Cheers! Bring back the Slogans!
           </p>
         </div>
+        <WinnersAnnouncement />
         <div className="h-[200px] lg:hidden relative">
           <div className={` w-[${screenSize}] h-[230px]`}>
             <Image
@@ -57,7 +58,6 @@ function HomePage() {
             />
           </div>
         </div>
-
 
         {/* the following component will be shown when screen size is larger than 1024 pixels */}
 
@@ -87,3 +87,15 @@ function daysCaluclator() {
   // console.log(Math.floor(timeinmilisec / (1000 * 60 * 60 * 24)));
   return Math.floor(timeinmilisec / (1000 * 60 * 60 * 24));
 }
+
+// this component is hard coded and is used only for announcing who won
+const WinnersAnnouncement = () => {
+  return (
+    <div>
+      {/* mens pool winner */}
+      <div></div>
+      {/* womens pool winner */}
+      <div></div>
+    </div>
+  );
+};

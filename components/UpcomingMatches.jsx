@@ -28,7 +28,7 @@ const UpcomingMatches = ({ matches }) => {
 
   useEffect(() => {
     const todayDate = fetchDate();
-    console.log(matches);
+    // console.log(matches);
 
     matches?.map((match, index) => {
       if (
