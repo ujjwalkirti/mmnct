@@ -35,7 +35,7 @@ export default function Home({ teamList, sponsorImgList, matches }) {
         <div className="border-b-4 border-[#F4A68D] w-5/12 md:w-1/5 lg:w-2/12 mx-auto mt-1"></div>
       </div>
       <Followup />
-      <div className="flex flex-col justify-center items-center pl-2 pr-1 mt-12 mb-8 md:mt-8">
+      {/* <div className="flex flex-col justify-center items-center pl-2 pr-1 mt-12 mb-8 md:mt-8">
         <p className="font-semibold">Share your MMNCT Experience</p>
         <div className="border-b-4 border-[#F4A68D] w-full md:w-3/5 lg:w-3/12 mx-auto mb-4 mt-1"></div>
         <Link
@@ -47,7 +47,7 @@ export default function Home({ teamList, sponsorImgList, matches }) {
           </div>
           <BsFillArrowRightCircleFill className="text-2xl" />
         </Link>
-      </div>
+      </div> */}
       <UpcomingMatches matches={matches} />
       <ParticipatingTeams teamList={teamList} />
       <TournamentDetails />
@@ -57,7 +57,7 @@ export default function Home({ teamList, sponsorImgList, matches }) {
       <div className="flex justify-center item-center mt-8">
         <Link href="/photocontest">
           <button className="bg-[#ffc4b1] text-white font-semibold py-3 px-20 rounded-full">
-            Participate Now!
+            {/* Participate Now! */} See Winners!
           </button>
         </Link>
       </div>

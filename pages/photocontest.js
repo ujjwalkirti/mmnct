@@ -39,16 +39,52 @@ export async function getServerSideProps(context) {
   const postsSnapshot = await getDocs(postsRef);
   const currentDate = fetchDate();
   // Stores in JSON format where key is id and value is the post data
-  const posts = [];
+  let posts = [];
+  let winners = [];
+  let max_likes_26 = 0;
+  let max_likes_27 = 0;
+  let max_likes_28 = 0;
+  let max_likes_29 = 0;
+
   postsSnapshot.forEach((doc) => {
     // doc.data() is never undefined for query doc snapshots
-    console.log(doc.data());
+    // console.log(doc.data());
     const postDate = timestamptoDate(doc.data().timestamp);
     if (postDate === currentDate) {
       posts.push({
         id: doc.id,
         ...doc.data(),
       });
+    }
+
+    // console.log(postDate);
+    if (postDate === "2023-1-26" && doc.data().likes > max_likes_26) {
+      winners[0] = {
+        id: doc.id,
+        ...doc.data(),
+      };
+      max_likes_26 = doc.data().likes;
+    }
+    if (postDate === "2023-1-27" && doc.data().likes > max_likes_27) {
+      winners[1] = {
+        id: doc.id,
+        ...doc.data(),
+      };
+      max_likes_27 = doc.data().likes;
+    }
+    if (postDate === "2023-1-28" && doc.data().likes > max_likes_28) {
+      winners[2] = {
+        id: doc.id,
+        ...doc.data(),
+      };
+      max_likes_28 = doc.data().likes;
+    }
+    if (postDate === "2023-1-29" && doc.data().likes > max_likes_29) {
+      winners[3] = {
+        id: doc.id,
+        ...doc.data(),
+      };
+      max_likes_29 = doc.data().likes;
     }
   });
 
@@ -74,11 +110,12 @@ export async function getServerSideProps(context) {
   return {
     props: {
       posts: posts,
+      winners: winners,
     },
   };
 }
 
-const photocontest = ({ posts }) => {
+const photocontest = ({ posts, winners }) => {
   const { data: session } = useSession();
   const [selectedImage, setSelectedImage] = useState(null);
   const [imageUrl, setImageUrl] = useState(null);
@@ -261,11 +298,15 @@ const photocontest = ({ posts }) => {
               <p className="text-3xl lg:text-4xl font-semibold text-[#411F0D]">
                 Hola {session ? session.user.name.split(" ")[0] : "Amigos"}!
               </p>
-              <p className="text-xl md:text-2xl pt-4 lg:pt-8 font-light">
-                Explore the wonderful pictures clicked by people and don't
-                forget to like them.
-              </p>
-              <input
+              <div className="text-xl md:text-2xl pt-4 lg:pt-8 font-light">
+                {/* <p>Explore the wonderful pictures clicked by people and don't
+                forget to like them.</p> */}
+                <p className="font-normal pb-2">Thank you for participating!</p>
+                <p className="text-lg md:text-xl ">
+                  We are excited to announce the winners of the contest.
+                </p>
+              </div>
+              {/* <input
                 accept="image/*"
                 type="file"
                 id="select-image"
@@ -314,7 +355,7 @@ const photocontest = ({ posts }) => {
                     Sign in with Google
                   </button>
                 )}
-              </div>
+              </div> */}
               {/* {session && (
                 <button
                   onClick={() => {
@@ -354,11 +395,41 @@ const photocontest = ({ posts }) => {
             )}
           </>
         ) : (
-          <p className="py-28 lg:mt-0 text-center text-xl md:text-2xl font-semibold text-[#411F0D]">
-            Sorry, no post is shared yet!
-            <br />
-            Be the first one to upload your memory.
-          </p>
+          // <p className="py-28 lg:mt-0 text-center text-xl md:text-2xl font-semibold text-[#411F0D]">
+          //   Sorry, no post is shared yet!
+          //   <br />
+          //   Be the first one to upload your memory.
+          // </p>
+          <>
+            <p className="mt-14 lg:mt-0 text-center text-2xl font-semibold text-[#411F0D]">
+              Winners of the contest
+            </p>
+            <div className="mt-2 mb-12 lg:mb-12 border-b-4 border-[#F4A68D] w-10/12 md:w-2/5 lg:w-3/12 mx-auto"></div>
+            <div className="flex flex-col items-center justify-center">
+              {winners.map((winner, index) => (
+                <div className="shadow-lg w-11/12 md:w-2/3 lg:w-1/3 mb-8">
+                  <div className="bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 py-2 text-center">
+                    <p className="text-white font-semibold">
+                      ✨ 🥇Winner - Day {index + 1} ✨
+                    </p>
+                  </div>
+                  <div className="relative">
+                    <Image
+                      src={winner.downloadUrl}
+                      alt="winner"
+                      width={1920}
+                      height={1080}
+                    />
+                    <div class="absolute top-0 mt-20 right-0 bottom-0 left-0 bg-gradient-to-b from-transparent to-gray-700 shadow-xl"></div>
+                    <div className="absolute bottom-4 w-full text-white text-center font-light">
+                      <p className="text-sm font-semibold">{winner.name}</p>
+                      <p className="text-sm font-semibold">{winner.enroll}</p>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </>
         )}
       </div>
       <Footer />
