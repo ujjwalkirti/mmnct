@@ -28,7 +28,7 @@ export default function Home({ teamList, sponsorImgList, matches }) {
       </Head>
       <Navbar />
 
-      <HomePage />
+      <HomePage teamlist={teamList}/>
 
       <div className="flex flex-col justify-center items-center mt-10">
         <p className="font-semibold">Links</p>

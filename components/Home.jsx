@@ -4,11 +4,25 @@ import HomeCard from "./HomeCard";
 // import { SiGooglemaps } from "react-icons/si";
 // import Banner from "./Banner";
 
-function HomePage() {
+function decideWinner(maleWinnerTeamCode, FemaleWinnerTeamCode, teamList) {
+  let dataToBeReturned = [];
+  teamList.map((team) => {
+    if (team.teamCode === maleWinnerTeamCode) {
+      dataToBeReturned[0] = team;
+    } else if (team.teamCode === FemaleWinnerTeamCode) {
+      dataToBeReturned[1] = team;
+    }
+  });
+  return dataToBeReturned;
+}
+
+function HomePage({ teamlist }) {
   const [screenSize, setScreenSize] = useState(0);
+  const [winnerTeamList, setWinnerTeamList] = useState([]);
 
   useEffect(() => {
     setScreenSize(window.innerWidth);
+    setWinnerTeamList(() => decideWinner("SHM", "SAM", teamlist));
   }, []);
 
   return (
@@ -30,6 +44,7 @@ function HomePage() {
             26<sup>th</sup> - 29<sup>th</sup> <br className="hidden md:flex" />
             January, 2023
           </p>
+          <WinnersAnnouncement teamlist={winnerTeamList} />
           <p className="font-[600] text-[12px] mb-7 md:hidden">
             Bring back the Cheers! Bring back the Slogans!
           </p>
@@ -41,11 +56,12 @@ function HomePage() {
 
         <div>
           <HomeCard />
+
           <p className="font-[600] text-[20px] hidden md:flex my-10  md:mx-auto leading-[24.38px]">
             Bring back the Cheers! Bring back the Slogans!
           </p>
         </div>
-        <WinnersAnnouncement />
+
         <div className="h-[200px] lg:hidden relative">
           <div className={` w-[${screenSize}] h-[230px]`}>
             <Image
@@ -74,6 +90,7 @@ function HomePage() {
       </div>
 
       {/* more information about the tournament */}
+      
     </div>
   );
 }
@@ -89,13 +106,24 @@ function daysCaluclator() {
 }
 
 // this component is hard coded and is used only for announcing who won
-const WinnersAnnouncement = () => {
-  return (
-    <div>
+const WinnersAnnouncement = ({ teamlist }) => {
+  console.log(teamlist.length);
+  teamlist.length === 0 ? (
+    <div>000</div>
+  ) : (
+    <div className="h-[500px]">
       {/* mens pool winner */}
-      <div></div>
+      <div>
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nostrum,
+        magnam similique quod sed distinctio quia. Accusamus accusantium
+        incidunt odio deserunt qui facere, a laudantium officia totam, dolorum
+        natus itaque nesciunt?
+        <p>{teamlist[0].teamName}</p>
+      </div>
       {/* womens pool winner */}
-      <div></div>
+      <div>
+        <p>{teamlist[1].teamName}</p>
+      </div>
     </div>
   );
 };
