@@ -2,32 +2,46 @@ import Head from "next/head";
 import React, { useState, useEffect } from "react";
 import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
-import Image from "next/image";
-import dynamic from "next/dynamic";
-import { createMatch } from '../../components/matchFunctions.js';
-import { database } from "../../components/db/Firebase";
+
+import { createMatch } from "../../components/matchFunctions.js";
+import { database, db } from "../../components/db/Firebase";
 import { child, ref, get } from "firebase/database";
+import { collection, getDocs } from "firebase/firestore";
+import { signIn, useSession } from "next-auth/react";
 
-const AddMatch = () => {
-
+const AddMatch = ({ auth_users }) => {
+  const { data: session } = useSession();
   const [temp, settemp] = useState(true);
+  const [validated, setValidated] = useState(false);
   const [formData, setFormData] = React.useState({
     id: "Loading",
     timeDate: "",
     Team1Id: "",
     Team2Id: "",
-    category: ""
+    category: "",
   });
 
   useEffect(() => {
     fetchData();
-  }, [temp])
+  }, [temp]);
+
+  useEffect(() => {
+    auth_users.map((user) => {
+      if (user.email === session?.user?.email) {
+        setValidated(true);
+      }
+    });
+  }, [session]);
+
   const fetchData = async () => {
     const dbref = ref(database);
     let snapshot = await get(child(dbref, "matchDetail/"));
     console.log(snapshot.val());
-    setFormData({ ...formData, id: snapshot.val() === null ? 1 : Object.keys(snapshot.val()).length + 1 });
-  }
+    setFormData({
+      ...formData,
+      id: snapshot.val() === null ? 1 : Object.keys(snapshot.val()).length + 1,
+    });
+  };
 
   let name, value;
   const handleChange = (e) => {
@@ -48,16 +62,36 @@ const AddMatch = () => {
         timeDate: "",
         Team1Id: "",
         Team2Id: "",
-        category: ""
+        category: "",
       });
       settemp(!temp);
-
-    }
-    else {
+    } else {
       alert("Please fill all the fields");
     }
   };
+  if (!session) {
+    return (
+      <div className="h-screen w-screen flex flex-col space-y-4 items-center justify-center">
+        <p>You need to sign in to access this page!</p>
+        <button
+          className="shadow bg-purple-500 hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
+          onClick={() => {
+            signIn();
+          }}
+        >
+          Sign in
+        </button>
+      </div>
+    );
+  }
 
+  if (!validated) {
+    return (
+      <div className="h-screen w-screen flex flex-col space-y-4 items-center justify-center">
+        Sorry, you are not authorised to access this page!
+      </div>
+    );
+  }
   return (
     <div>
       <Head>
@@ -68,10 +102,9 @@ const AddMatch = () => {
       <div className="overflow-x-auto">
         <p className="text-center my-10 text-3xl">Add Match details</p>
 
-        <form class="w-full max-w-sm mx-auto px-4" method="POST">
-
-          <div class="md:flex md:items-center mb-6">
-            <div class="md:w-1/3">
+        <form className="w-full max-w-sm mx-auto px-4" method="POST">
+          <div className="md:flex md:items-center mb-6">
+            <div className="md:w-1/3">
               <label
                 className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4"
                 for="team_name"
@@ -79,9 +112,9 @@ const AddMatch = () => {
                 Match ID
               </label>
             </div>
-            <div class="md:w-2/3">
+            <div className="md:w-2/3">
               <input
-                class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
+                className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
                 name="id"
                 type="text"
                 value={formData.id}
@@ -90,9 +123,8 @@ const AddMatch = () => {
             </div>
           </div>
 
-
-          <div class="md:flex md:items-center mb-6">
-            <div class="md:w-1/3">
+          <div className="md:flex md:items-center mb-6">
+            <div className="md:w-1/3">
               <label
                 className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4"
                 for="team_name"
@@ -100,9 +132,9 @@ const AddMatch = () => {
                 Enter Date and Time of match
               </label>
             </div>
-            <div class="md:w-2/3">
+            <div className="md:w-2/3">
               <input
-                class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
+                className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
                 name="timeDate"
                 type="date"
                 value={formData.timeDate}
@@ -112,8 +144,8 @@ const AddMatch = () => {
             </div>
           </div>
 
-          <div class="md:flex md:items-center mb-6">
-            <div class="md:w-1/3">
+          <div className="md:flex md:items-center mb-6">
+            <div className="md:w-1/3">
               <label
                 className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4"
                 for="team1"
@@ -121,9 +153,9 @@ const AddMatch = () => {
                 Team1 Name
               </label>
             </div>
-            <div class="md:w-2/3">
+            <div className="md:w-2/3">
               <select
-                class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
+                className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
                 id="team1_name"
                 name="Team1Id"
                 value={formData.Team1Id}
@@ -133,9 +165,9 @@ const AddMatch = () => {
                 <option value="">---</option>
                 <option value="IMMORTALS">IMMORTALS</option>
                 <option value="SHAOLIN MONKS">SHAOLIN MONKS</option>
-                <option value="BELONIANS" >BELONIANS</option>
+                <option value="BELONIANS">BELONIANS</option>
                 <option value="AVENGERS">AVENGERS</option>
-                <option value="VENGEANCE" >VENGEANCE</option>
+                <option value="VENGEANCE">VENGEANCE</option>
                 <option value="HERCULEANS">HERCULEANS</option>
                 <option value="VALKAYRIES">VALKAYRIES</option>
                 <option value="SCORPIANS">SCORPIANS</option>
@@ -145,20 +177,19 @@ const AddMatch = () => {
                 <option value="ASSYRIANS">ASSYRIANS</option>
                 <option value="NINJAS">NINJAS</option>
                 <option value="VIKINGS">VIKINGS</option>
-                <option value="SAMARTIANS" >SAMARTIANS</option>
+                <option value="SAMARTIANS">SAMARTIANS</option>
                 <option value="AMORITES">AMORITES</option>
                 <option value="PARTHIANS">PARTHIANS</option>
                 <option value="SUMERIANS">SUMERIANS</option>
                 <option value="AMAZONS">AMAZONS</option>
                 <option value="AKKADIANS">AKKADIANS</option>
                 <option value="SAMURAI">SAMURAI</option>
-
               </select>
             </div>
           </div>
 
-          <div class="md:flex md:items-center mb-6">
-            <div class="md:w-1/3">
+          <div className="md:flex md:items-center mb-6">
+            <div className="md:w-1/3">
               <label
                 className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4"
                 for="team2"
@@ -166,9 +197,9 @@ const AddMatch = () => {
                 Team2 Name
               </label>
             </div>
-            <div class="md:w-2/3">
+            <div className="md:w-2/3">
               <select
-                class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
+                className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
                 id="team2_name"
                 name="Team2Id"
                 value={formData.Team2Id}
@@ -178,9 +209,9 @@ const AddMatch = () => {
                 <option value="">---</option>
                 <option value="IMMORTALS">IMMORTALS</option>
                 <option value="SHAOLIN MONKS">SHAOLIN MONKS</option>
-                <option value="BELONIANS" >BELONIANS</option>
+                <option value="BELONIANS">BELONIANS</option>
                 <option value="AVENGERS">AVENGERS</option>
-                <option value="VENGEANCE" >VENGEANCE</option>
+                <option value="VENGEANCE">VENGEANCE</option>
                 <option value="HERCULEANS">HERCULEANS</option>
                 <option value="VALKAYRIES">VALKAYRIES</option>
                 <option value="SCORPIANS">SCORPIANS</option>
@@ -190,21 +221,19 @@ const AddMatch = () => {
                 <option value="ASSYRIANS">ASSYRIANS</option>
                 <option value="NINJAS">NINJAS</option>
                 <option value="VIKINGS">VIKINGS</option>
-                <option value="SAMARTIANS" >SAMARTIANS</option>
+                <option value="SAMARTIANS">SAMARTIANS</option>
                 <option value="AMORITES">AMORITES</option>
                 <option value="PARTHIANS">PARTHIANS</option>
                 <option value="SUMERIANS">SUMERIANS</option>
                 <option value="AMAZONS">AMAZONS</option>
                 <option value="AKKADIANS">AKKADIANS</option>
                 <option value="SAMURAI">SAMURAI</option>
-
               </select>
             </div>
           </div>
 
-
-          <div class="md:flex md:items-center mb-6">
-            <div class="md:w-1/3">
+          <div className="md:flex md:items-center mb-6">
+            <div className="md:w-1/3">
               <label
                 className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4"
                 for="team_gender"
@@ -212,9 +241,9 @@ const AddMatch = () => {
                 Gender
               </label>
             </div>
-            <div class="md:w-2/3">
+            <div className="md:w-2/3">
               <select
-                class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
+                className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
                 id="team_gender"
                 name="category"
                 value={formData.category}
@@ -228,11 +257,11 @@ const AddMatch = () => {
             </div>
           </div>
 
-          <div class="md:flex md:items-center">
-            <div class="md:w-1/3"></div>
-            <div class="md:w-2/3">
+          <div className="md:flex md:items-center">
+            <div className="md:w-1/3"></div>
+            <div className="md:w-2/3">
               <button
-                class="shadow bg-purple-500 hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
+                className="shadow bg-purple-500 hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
                 type="submit"
                 onClick={submitData}
               >
@@ -243,10 +272,25 @@ const AddMatch = () => {
         </form>
       </div>
 
-
       <Footer />
     </div>
   );
 };
 
 export default AddMatch;
+
+export async function getServerSideProps(context) {
+  const querySnapshot = await getDocs(collection(db, "auth_users"));
+
+  let auth_users = [];
+
+  querySnapshot.forEach((doc) => {
+    auth_users.push(doc.data());
+  });
+
+  return {
+    props: {
+      auth_users,
+    },
+  };
+}

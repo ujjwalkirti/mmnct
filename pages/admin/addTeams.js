@@ -1,5 +1,5 @@
 import Head from "next/head";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Navbar from "../../components/Navbar";
 import {
   ref,
@@ -23,6 +23,7 @@ import dynamic from "next/dynamic";
 import { AiFillDelete } from "react-icons/ai";
 import Link from "next/link";
 import { GoLinkExternal } from "react-icons/go";
+import { signIn, useSession } from "next-auth/react";
 
 //Next js dynamic import Modal
 const UpdateTeamModal = dynamic(() =>
@@ -37,7 +38,13 @@ export async function getServerSideProps() {
   const teamsRef = collection(db, "participating-teams");
   const teamsSnap = await getDocs(teamsRef);
   const teams = teamsSnap.docs.map((doc) => doc.data());
+  const querySnapshot = await getDocs(collection(db, "auth_users"));
 
+  let auth_users = [];
+
+  querySnapshot.forEach((doc) => {
+    auth_users.push(doc.data());
+  });
   // Store the id of the document in the data
   teams.forEach((team, index) => {
     team.id = teamsSnap.docs[index].id;
@@ -46,14 +53,26 @@ export async function getServerSideProps() {
   return {
     props: {
       teams: teams,
+      auth_users: auth_users,
     },
   };
 }
 
-const AddTeams = ({ teams }) => {
+const AddTeams = ({ teams, auth_users }) => {
+  const { data: session } = useSession();
+
+  const [validated, setValidated] = useState(false);
   const [loading, setLoading] = useState(false);
   const [newTeam, setNewTeam] = useState(false);
   const [updateTeam, setUpdateTeam] = useState(false);
+
+  useEffect(() => {
+    auth_users.map((user) => {
+      if (user.email === session?.user?.email) {
+        setValidated(true);
+      }
+    });
+  }, [session]);
 
   const addTeamDetails = async (e) => {
     e.preventDefault();
@@ -208,6 +227,31 @@ const AddTeams = ({ teams }) => {
     alert("Team deleted successfully");
     location.reload();
   };
+
+  if (!session) {
+    return (
+      <div className="h-screen w-screen flex flex-col space-y-4 items-center justify-center">
+        <p>You need to sign in to access this page!</p>
+        <button
+          className="shadow bg-purple-500 hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
+          onClick={() => {
+            signIn();
+          }}
+        >
+          Sign in
+        </button>
+      </div>
+    );
+  }
+
+  if (!validated) {
+    return (
+      <div className="h-screen w-screen flex flex-col space-y-4 items-center justify-center">
+        Sorry, you are not authorised to access this page!
+      </div>
+    );
+  }
+
   return (
     <div>
       <Head>

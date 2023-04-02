@@ -1,31 +1,48 @@
 import Head from "next/head";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
-import Image from "next/image";
-import dynamic from "next/dynamic";
-import { fetchData, Team1Update, Team2Update, } from '../../components/matchFunctions.js';
+import {
+  fetchData,
+  Team1Update,
+  Team2Update,
+} from "../../components/matchFunctions.js";
 import { child, ref, get } from "firebase/database";
-import { database } from "../../components/db/Firebase";
+import { database, db } from "../../components/db/Firebase";
+import { signIn, useSession } from "next-auth/react";
+import { collection, getDocs } from "firebase/firestore";
 
-const updateMatch = () => {
+const updateMatch = ({ auth_users }) => {
+  const { data: session } = useSession();
+
+  const [validated, setValidated] = useState(false);
   const [formData, setFormData] = React.useState({
     team1Run: "",
     team2Run: "",
-    comment: ""
+    comment: "",
   });
   const [currId, setcurrId] = useState(0);
   const [isChecked, setIsChecked] = useState(false);
   const [team1name, setteam1name] = useState("Team 1");
   const [team2name, setteam2name] = useState("Team 2");
 
+  useEffect(() => {
+    auth_users.map((user) => {
+      if (user.email === session?.user?.email) {
+        setValidated(true);
+      }
+    });
+  }, [session]);
+
   const getMatchDetails = async (matchId) => {
     setcurrId(matchId.target.value);
     const dbref = ref(database);
-    let snapshot = await get(child(dbref, "matchDetail/" + matchId.target.value));
+    let snapshot = await get(
+      child(dbref, "matchDetail/" + matchId.target.value)
+    );
     setteam1name(snapshot?.val().Team1Id);
     setteam2name(snapshot?.val().Team2Id);
-  }
+  };
   const handleOnChange = () => {
     setIsChecked(!isChecked);
   };
@@ -50,25 +67,37 @@ const updateMatch = () => {
       let wicket = data.Team1Wicket;
       let extras = data.Team1Extra;
       let prev = data.Team1prev;
-      if ((totalBall - extras) % 6 == 0)
-        prev = totalBall + 1;
-      if (team1Run.length == 2 && team1Run[1] === 'w')
-        wicket++;
-      else if (team1Run.length == 3)
-        extras++;
-      await Team1Update(currId, wicket, extras, team1Run, prev, data.Team1Score, matchStatus, comment);
+      if ((totalBall - extras) % 6 == 0) prev = totalBall + 1;
+      if (team1Run.length == 2 && team1Run[1] === "w") wicket++;
+      else if (team1Run.length == 3) extras++;
+      await Team1Update(
+        currId,
+        wicket,
+        extras,
+        team1Run,
+        prev,
+        data.Team1Score,
+        matchStatus,
+        comment
+      );
     } else {
       let totalBall = data.Team2Score.length;
       let wicket = data.Team2Wicket;
       let extras = data.Team2Extra;
       let prev = data.Team2prev;
-      if ((totalBall - extras) % 6 == 0)
-        prev = totalBall;
-      if (team2Run.length == 2 && team2Run[1] === 'w')
-        wicket++;
-      else if (team2Run.length == 3)
-        extras++;
-      await Team2Update(currId, wicket, extras, team2Run, prev, data.Team2Score, matchStatus, comment);
+      if ((totalBall - extras) % 6 == 0) prev = totalBall;
+      if (team2Run.length == 2 && team2Run[1] === "w") wicket++;
+      else if (team2Run.length == 3) extras++;
+      await Team2Update(
+        currId,
+        wicket,
+        extras,
+        team2Run,
+        prev,
+        data.Team2Score,
+        matchStatus,
+        comment
+      );
     }
     setFormData({
       team1Run: "",
@@ -78,6 +107,30 @@ const updateMatch = () => {
     setIsChecked(false);
     alert("Match Updated successfully");
   };
+
+  if (!session) {
+    return (
+      <div className="h-screen w-screen flex flex-col space-y-4 items-center justify-center">
+        <p>You need to sign in to access this page!</p>
+        <button
+          className="shadow bg-purple-500 hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
+          onClick={() => {
+            signIn();
+          }}
+        >
+          Sign in
+        </button>
+      </div>
+    );
+  }
+
+  if (!validated) {
+    return (
+      <div className="h-screen w-screen flex flex-col space-y-4 items-center justify-center">
+        Sorry, you are not authorised to access this page!
+      </div>
+    );
+  }
 
   return (
     <div>
@@ -90,10 +143,18 @@ const updateMatch = () => {
         <p className="text-center my-10 text-3xl">Update Match</p>
         <div className="justify-center items-center ml-4">
           <h2>Instructions</h2>
-          <p>If team1 is batting then add the score achieved on that ball only for team1, leave team2 run field empty and vice versa</p>
+          <p>
+            If team1 is batting then add the score achieved on that ball only
+            for team1, leave team2 run field empty and vice versa
+          </p>
           <p>If run is scored than enter the number of runs scored</p>
-          <p>If there's wicket down then input will be : RUNWICKET (i.e. 0w, 1w ,2w) </p>
-          <p>In case of no-ball input will be : RUN NoBall (i.e. 0nb, 1nb ,2nb) </p>
+          <p>
+            If there's wicket down then input will be : RUNWICKET (i.e. 0w, 1w
+            ,2w){" "}
+          </p>
+          <p>
+            In case of no-ball input will be : RUN NoBall (i.e. 0nb, 1nb ,2nb){" "}
+          </p>
           <p>In case of wide input will be : RUN Wide (i.e. 0wd, 1wd ,2wd)</p>
         </div>
         <div class="md:flex md:items-center mb-6 w-full max-w-sm mx-auto px-4">
@@ -117,8 +178,6 @@ const updateMatch = () => {
           </div>
         </div>
         <form class="w-full max-w-sm mx-auto px-4" method="POST">
-
-
           <div class="md:flex md:items-center mb-6">
             <div class="md:w-1/3">
               <label
@@ -136,7 +195,6 @@ const updateMatch = () => {
                 type="text"
                 value={formData.team1Run}
                 onChange={handleChange}
-
               />
             </div>
           </div>
@@ -158,18 +216,26 @@ const updateMatch = () => {
                 type="text"
                 value={formData.team2Run}
                 onChange={handleChange}
-
               />
             </div>
           </div>
 
-
           <div class="md:flex md:items-center mb-6">
             <div class="md:w-1/3">
-              <label className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4"
-                for="team_name">Is match Finished ?</label>
+              <label
+                className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4"
+                for="team_name"
+              >
+                Is match Finished ?
+              </label>
             </div>
-            <input type="checkbox" id="isFinished" name="isFinished" checked={isChecked} onChange={handleOnChange} />
+            <input
+              type="checkbox"
+              id="isFinished"
+              name="isFinished"
+              checked={isChecked}
+              onChange={handleOnChange}
+            />
           </div>
 
           <div class="md:flex md:items-center mb-6">
@@ -193,7 +259,6 @@ const updateMatch = () => {
             </div>
           </div>
 
-
           <div class="md:flex md:items-center">
             <div class="md:w-1/3"></div>
             <div class="md:w-2/3">
@@ -214,3 +279,19 @@ const updateMatch = () => {
 };
 
 export default updateMatch;
+
+export async function getServerSideProps(context) {
+  const querySnapshot = await getDocs(collection(db, "auth_users"));
+
+  let auth_users = [];
+
+  querySnapshot.forEach((doc) => {
+    auth_users.push(doc.data());
+  });
+
+  return {
+    props: {
+      auth_users,
+    },
+  };
+}

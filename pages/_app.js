@@ -9,7 +9,11 @@ import { SessionProvider } from "next-auth/react";
 import { Montserrat } from "@next/font/google";
 
 // const inter = Raleway({ subsets: ["latin"] });
-const montserrat = Montserrat({ subsets: ["latin"] });
+const montserrat = Montserrat({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700", "800"],
+  display: "swap",
+});
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }) {
   return (

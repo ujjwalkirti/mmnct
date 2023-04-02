@@ -1,56 +1,101 @@
 import Head from "next/head";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
-import { db, storage } from "../../components/db/Firebase";
-import { collection, doc, updateDoc, getDocs, query, where } from "firebase/firestore";
-import Image from "next/image";
-import dynamic from "next/dynamic";
+import { db } from "../../components/db/Firebase";
+import {
+  collection,
+  doc,
+  updateDoc,
+  getDocs,
+  query,
+  where,
+} from "firebase/firestore";
+import { signIn, useSession } from "next-auth/react";
 
-const UpdatePointsTable = () => {
+const UpdatePointsTable = ({ auth_users }) => {
+  const { data: session } = useSession();
+
+  const [validated, setValidated] = useState(false);
   const [formData, setFormData] = React.useState({
     teamName: "",
     points: 0,
-    matchWon: 0
+    matchWon: 0,
   });
   let name, value;
+
+  useEffect(() => {
+    auth_users.map((user) => {
+      if (user.email === session?.user?.email) {
+        setValidated(true);
+      }
+    });
+  }, [session]);
+
   const handleChange = (e) => {
     name = e.target.name;
     value = e.target.value;
     setFormData({ ...formData, [name]: value });
-  }
+  };
 
   const [pointsData, setpointsData] = React.useState({
     teamID: "",
     currpoints: 0,
     currmatchWon: 0,
-    currmatchPlayed: 0
+    currmatchPlayed: 0,
   });
 
   const getPointsTable = async (teamName) => {
-    const q = query(collection(db, "participating-teams"), where("teamName", "==", teamName.target.value));
+    const q = query(
+      collection(db, "participating-teams"),
+      where("teamName", "==", teamName.target.value)
+    );
     const querySnapshot = await getDocs(q);
     querySnapshot.forEach((doc) => {
       setpointsData({
         teamID: doc.id,
         currpoints: doc.data().points,
         currmatchWon: doc.data().matchWon,
-        currmatchPlayed: doc.data().matchPlayed
-      })
+        currmatchPlayed: doc.data().matchPlayed,
+      });
     });
-  }
+  };
 
   const submitData = async (e) => {
     e.preventDefault();
     const data = {
       matchPlayed: pointsData.currmatchPlayed + 1,
       matchWon: Number(pointsData.currmatchWon) + Number(formData.matchWon),
-      points: Number(pointsData.currpoints) + Number(formData.points)
+      points: Number(pointsData.currpoints) + Number(formData.points),
     };
     const docRef = doc(db, "participating-teams", pointsData.teamID);
     await updateDoc(docRef, data);
     alert("Point Table Updated Successfully");
   };
+
+  if (!session) {
+    return (
+      <div className="h-screen w-screen flex flex-col space-y-4 items-center justify-center">
+        <p>You need to sign in to access this page!</p>
+        <button
+          className="shadow bg-purple-500 hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
+          onClick={() => {
+            signIn();
+          }}
+        >
+          Sign in
+        </button>
+      </div>
+    );
+  }
+
+  if (!validated) {
+    return (
+      <div className="h-screen w-screen flex flex-col space-y-4 items-center justify-center">
+        Sorry, you are not authorised to access this page!
+      </div>
+    );
+  }
 
   return (
     <div>
@@ -59,13 +104,10 @@ const UpdatePointsTable = () => {
       </Head>
       <Navbar />
 
-
-
       <div className="overflow-x-auto">
         <p className="text-center my-10 text-3xl">Update Points Table</p>
 
         <form class="w-full max-w-sm mx-auto px-4" method="POST">
-
           <div class="md:flex md:items-center mb-6">
             <div class="md:w-1/3">
               <label
@@ -81,15 +123,17 @@ const UpdatePointsTable = () => {
                 id="team_name"
                 name="teamName"
                 value={formData.teamName}
-                onChange={e => { handleChange(e), getPointsTable(e) }}
+                onChange={(e) => {
+                  handleChange(e), getPointsTable(e);
+                }}
                 required
               >
                 <option value="---">---</option>
                 <option value="IMMORTALS">IMMORTALS</option>
                 <option value="SHAOLIN MONKS">SHAOLIN MONKS</option>
-                <option value="BELONIANS" >BELONIANS</option>
+                <option value="BELONIANS">BELONIANS</option>
                 <option value="AVENGERS">AVENGERS</option>
-                <option value="VENGEANCE" >VENGEANCE</option>
+                <option value="VENGEANCE">VENGEANCE</option>
                 <option value="HERCULEANS">HERCULEANS</option>
                 <option value="VALKAYRIES">VALKAYRIES</option>
                 <option value="SCORPIANS">SCORPIANS</option>
@@ -99,7 +143,7 @@ const UpdatePointsTable = () => {
                 <option value="ASSYRIANS">ASSYRIANS</option>
                 <option value="NINJAS">NINJAS</option>
                 <option value="VIKINGS">VIKINGS</option>
-                <option value="SAMARTIANS" >SAMARTIANS</option>
+                <option value="SAMARTIANS">SAMARTIANS</option>
                 <option value="AMORITES">AMORITES</option>
                 <option value="SUMERIANS">SUMERIANS</option>
                 <option value="AMAZONS">AMAZONS</option>
@@ -108,7 +152,6 @@ const UpdatePointsTable = () => {
               </select>
             </div>
           </div>
-
 
           <div class="md:flex md:items-center mb-6">
             <div class="md:w-1/3">
@@ -122,7 +165,6 @@ const UpdatePointsTable = () => {
             <div class="md:w-2/3">
               <input
                 class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
-
                 name="points"
                 type="number"
                 value={formData.points}
@@ -144,7 +186,6 @@ const UpdatePointsTable = () => {
             <div class="md:w-2/3">
               <input
                 class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
-
                 name="matchWon"
                 type="number"
                 value={formData.matchWon}
@@ -175,3 +216,19 @@ const UpdatePointsTable = () => {
 };
 
 export default UpdatePointsTable;
+
+export async function getServerSideProps(context) {
+  const querySnapshot = await getDocs(collection(db, "auth_users"));
+
+  let auth_users = [];
+
+  querySnapshot.forEach((doc) => {
+    auth_users.push(doc.data());
+  });
+
+  return {
+    props: {
+      auth_users,
+    },
+  };
+}

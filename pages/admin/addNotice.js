@@ -1,5 +1,5 @@
 import Head from "next/head";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { AiFillMinusCircle, AiFillPlusCircle } from "react-icons/ai";
 import Navbar from "../../components/Navbar";
 import {
@@ -8,13 +8,53 @@ import {
   uploadBytesResumable,
   getDownloadURL,
 } from "firebase/storage";
-import { arrayUnion, doc, updateDoc } from "firebase/firestore";
+import {
+  arrayUnion,
+  doc,
+  updateDoc,
+  collection,
+  getDocs,
+} from "firebase/firestore";
 import { db } from "../../components/db/Firebase";
 import { v4 as uuidv4 } from "uuid";
+import { signIn, useSession } from "next-auth/react";
 
-function AddNotice() {
+function AddNotice({ auth_users }) {
+  const { data: session } = useSession();
+
+  const [validated, setValidated] = useState(false);
   const [fields, setFields] = useState(0);
+  useEffect(() => {
+    auth_users.map((user) => {
+      if (user.email === session?.user?.email) {
+        setValidated(true);
+      }
+    });
+  }, [session]);
 
+  if (!session) {
+    return (
+      <div className="h-screen w-screen flex flex-col space-y-4 items-center justify-center">
+        <p>You need to sign in to access this page!</p>
+        <button
+          className="shadow bg-purple-500 hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
+          onClick={() => {
+            signIn();
+          }}
+        >
+          Sign in
+        </button>
+      </div>
+    );
+  }
+
+  if (!validated) {
+    return (
+      <div className="h-screen w-screen flex flex-col space-y-4 items-center justify-center">
+        Sorry, you are not authorised to access this page!
+      </div>
+    );
+  }
   return (
     <div>
       <Head>
@@ -164,3 +204,19 @@ const Form = ({ fields }) => {
     </form>
   );
 };
+
+export async function getServerSideProps(context) {
+  const querySnapshot = await getDocs(collection(db, "auth_users"));
+
+  let auth_users = [];
+
+  querySnapshot.forEach((doc) => {
+    auth_users.push(doc.data());
+  });
+
+  return {
+    props: {
+      auth_users,
+    },
+  };
+}

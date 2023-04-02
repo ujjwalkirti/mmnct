@@ -1,15 +1,29 @@
-import { doc, setDoc } from "firebase/firestore";
+import { doc, setDoc, collection, getDocs } from "firebase/firestore";
+
 import {
   getDownloadURL,
   getMetadata,
   ref,
   uploadBytesResumable,
 } from "firebase/storage";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { db, storage } from "../../components/db/Firebase";
+import { signIn, useSession } from "next-auth/react";
 
-const Upload = () => {
+const Upload = ({ auth_users }) => {
   const [progress, setProgress] = useState(0);
+  const { data: session } = useSession();
+
+  const [validated, setValidated] = useState(false);
+
+  useEffect(() => {
+    auth_users.map((user) => {
+      if (user.email === session?.user?.email) {
+        setValidated(true);
+      }
+    });
+  }, [session]);
+
   const SponsorhipBrochureSubmit = async (e) => {
     e.preventDefault();
     const file = e.target[0].files[0];
@@ -55,6 +69,31 @@ const Upload = () => {
   };
   const title = "font-bold text-center";
   const formStyle = " border border-black px-2 py-2 my-2";
+
+  if (!session) {
+    return (
+      <div className="h-screen w-screen flex flex-col space-y-4 items-center justify-center">
+        <p>You need to sign in to access this page!</p>
+        <button
+          className="shadow bg-purple-500 hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
+          onClick={() => {
+            signIn();
+          }}
+        >
+          Sign in
+        </button>
+      </div>
+    );
+  }
+
+  if (!validated) {
+    return (
+      <div className="h-screen w-screen flex flex-col space-y-4 items-center justify-center">
+        Sorry, you are not authorised to access this page!
+      </div>
+    );
+  }
+
   return (
     <div className="flex fle-col justify-center">
       <div className={formStyle}>
@@ -75,3 +114,19 @@ const Upload = () => {
 };
 
 export default Upload;
+
+export async function getServerSideProps(context) {
+  const querySnapshot = await getDocs(collection(db, "auth_users"));
+
+  let auth_users = [];
+
+  querySnapshot.forEach((doc) => {
+    auth_users.push(doc.data());
+  });
+
+  return {
+    props: {
+      auth_users,
+    },
+  };
+}

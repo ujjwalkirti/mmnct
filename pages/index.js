@@ -14,8 +14,6 @@ import TournamentHistory from "../components/TournamentHistory";
 import UpcomingMatches from "../components/UpcomingMatches";
 import { listAll, ref, getDownloadURL } from "firebase/storage";
 import Link from "next/link";
-import { TfiWrite } from "react-icons/tfi";
-import { BsFillArrowRightCircleFill } from "react-icons/bs";
 import { child, get } from "firebase/database";
 
 export default function Home({ teamList, sponsorImgList, matches }) {
@@ -28,7 +26,7 @@ export default function Home({ teamList, sponsorImgList, matches }) {
       </Head>
       <Navbar />
 
-      <HomePage teamlist={teamList}/>
+      <HomePage teamlist={teamList} />
 
       <div className="flex flex-col justify-center items-center mt-10">
         <p className="font-semibold">Links</p>

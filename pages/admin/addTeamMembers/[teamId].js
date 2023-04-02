@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import Head from "next/head";
 import Navbar from "../../../components/Navbar";
@@ -25,6 +25,7 @@ import Image from "next/image";
 import { AiFillDelete } from "react-icons/ai";
 
 import dynamic from "next/dynamic";
+import { signIn, useSession } from "next-auth/react";
 // Dynamic import the UpdatePlayerModal component
 const UpdatePlayerModal = dynamic(
   () => import("../../../components/UpdatePlayerModal"),
@@ -79,6 +80,13 @@ export async function getServerSideProps(context) {
       console.log("No such document!");
     }
   });
+  const querySnapshot = await getDocs(collection(db, "auth_users"));
+
+  let auth_users = [];
+
+  querySnapshot.forEach((doc) => {
+    auth_users.push(doc.data());
+  });
 
   return {
     props: {
@@ -86,16 +94,27 @@ export async function getServerSideProps(context) {
       members,
       captain,
       viceCaptain,
+      auth_users,
     },
   };
 }
 
-const teamId = ({ teamDetails, members, captain, viceCaptain }) => {
+const teamId = ({ teamDetails, members, captain, viceCaptain, auth_users }) => {
+  const { data: session } = useSession();
+  const [temp, settemp] = useState(true);
   const [loading, setLoading] = useState(false);
   const [newMember, setNewMember] = useState(false);
   const [updateMember, setUpdateMember] = useState(false);
   const [updateCaptain, setUpdateCaptain] = useState(false);
   const [updateViceCaptain, setUpdateViceCaptain] = useState(false);
+
+  useEffect(() => {
+    auth_users.map((user) => {
+      if (user.email === session?.user?.email) {
+        setValidated(true);
+      }
+    });
+  }, [session]);
 
   const addNewMember = async (e) => {
     e.preventDefault();
@@ -249,6 +268,30 @@ const teamId = ({ teamDetails, members, captain, viceCaptain }) => {
     alert("Vice-Captain updated successfully");
     location.reload();
   };
+
+  if (!session) {
+    return (
+      <div className="h-screen w-screen flex flex-col space-y-4 items-center justify-center">
+        <p>You need to sign in to access this page!</p>
+        <button
+          className="shadow bg-purple-500 hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
+          onClick={() => {
+            signIn();
+          }}
+        >
+          Sign in
+        </button>
+      </div>
+    );
+  }
+
+  if (!validated) {
+    return (
+      <div className="h-screen w-screen flex flex-col space-y-4 items-center justify-center">
+        Sorry, you are not authorised to access this page!
+      </div>
+    );
+  }
 
   return (
     <div>

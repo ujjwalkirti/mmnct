@@ -1,35 +1,22 @@
 .button {
-  background-color: #1c87c9;
-  -webkit-border-radius: 60px;
-  border-radius: 60px;
-  border: none;
-  color: #eeeeee;
-  cursor: pointer;
-  display: inline-block;
-  font-family: sans-serif;
-  font-size: 20px;
-  padding: 5px 15px;
-  text-align: center;
-  text-decoration: none;
 }
 @keyframes glowing {
   0% {
-    background-color: #2ba805;
-    box-shadow: 0 0 5px #2ba805;
+    /* background-color: #2ba805; */
+    box-shadow: 0 0 5px #f4a68d;
   }
   50% {
-    background-color: #49e819;
-    box-shadow: 0 0 20px #49e819;
+    /* background-color: #49e819; */
+    box-shadow: 0 0 20px #f4a68d;
   }
   100% {
-    background-color: #2ba805;
-    box-shadow: 0 0 5px #2ba805;
+    /* background-color: #2ba805; */
+    box-shadow: 0 0 5px #f4a68d;
   }
 }
 .button {
   animation: glowing 1300ms infinite;
 }
-
 
 /* special decorations for trivia */
 .trivia {
@@ -51,9 +38,7 @@
   animation: animate 8s linear infinite;
   z-index: 1;
 }
- 
 
- 
 @keyframes animate {
   0% {
     background-position: 0%;
@@ -62,7 +47,7 @@
     background-position: 400%;
   }
 }
- 
+
 .trivia:before {
   content: "";
   position: absolute;
@@ -75,9 +60,9 @@
   background-size: 400%;
   border-radius: 40px;
   opacity: 0;
-  transition: .5s;
+  transition: 0.5s;
 }
- 
+
 .trivia:hover:before {
   filter: blur(20px);
   opacity: 1;

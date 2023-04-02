@@ -44,11 +44,11 @@ function HomePage({ teamlist }) {
             26<sup>th</sup> - 29<sup>th</sup> <br className="hidden md:flex" />
             January, 2023
           </p>
-          <WinnersAnnouncement teamlist={winnerTeamList} />
           <p className="font-[600] text-[12px] mb-7 md:hidden">
             Bring back the Cheers! Bring back the Slogans!
           </p>
         </div>
+        <WinnersAnnouncement teamlist={winnerTeamList} />
       </div>
 
       <div className="w-full md:w-4/5 md:mx-auto flex flex-col md:flex-row md:items-center md:justify-between">
@@ -90,7 +90,6 @@ function HomePage({ teamlist }) {
       </div>
 
       {/* more information about the tournament */}
-      
     </div>
   );
 }
@@ -106,24 +105,49 @@ function daysCaluclator() {
 }
 
 // this component is hard coded and is used only for announcing who won
+
+const winnerTabStyle =
+  "flex items-center justify-evenly w-full md:w-2/3 lg:w-1/3 text-center my-2 py-2 rounded-md shadow-md text-2xl button";
+
+const winnerStyle = "font-bold font-3xl";
+
 const WinnersAnnouncement = ({ teamlist }) => {
-  console.log(teamlist.length);
-  teamlist.length === 0 ? (
-    <div>000</div>
-  ) : (
-    <div className="h-[500px]">
-      {/* mens pool winner */}
-      <div>
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nostrum,
-        magnam similique quod sed distinctio quia. Accusamus accusantium
-        incidunt odio deserunt qui facere, a laudantium officia totam, dolorum
-        natus itaque nesciunt?
-        <p>{teamlist[0].teamName}</p>
+  if (teamlist.length === 0) {
+    return <div>loading...</div>;
+  } else {
+    return (
+      <div className="flex flex-col lg:flex-row justify-evenly mt-5">
+        <div className={`${winnerTabStyle} bg-[${teamlist[0].themeColor}]`}>
+          <div className="flex-shrink-0 h-14 w-14">
+            <Image
+              src={teamlist[0].teamLogo}
+              height={130}
+              width={130}
+              alt="MMNCT 2023 men's winner team logo"
+            />
+          </div>
+          <div>
+            <p>Mens' Winner</p>
+            <p className={winnerStyle}>{teamlist[0].teamName}</p>
+            <p className="text-sm">{teamlist[0].teamType}</p>
+          </div>
+        </div>
+        <div className={`${winnerTabStyle} bg-[${teamlist[1].themeColor}]`}>
+          <div className="flex-shrink-0 h-14 w-14">
+            <Image
+              src={teamlist[1].teamLogo}
+              height={130}
+              width={130}
+              alt="MMNCT 2023 women's winner team logo"
+            />
+          </div>
+          <div>
+            <p>Womens' Winner</p>
+            <p className={winnerStyle}>{teamlist[1].teamName}</p>
+            <p className="text-sm">{teamlist[1].teamType}</p>
+          </div>
+        </div>
       </div>
-      {/* womens pool winner */}
-      <div>
-        <p>{teamlist[1].teamName}</p>
-      </div>
-    </div>
-  );
+    );
+  }
 };
