@@ -106,18 +106,20 @@ function daysCaluclator() {
 
 // this component is hard coded and is used only for announcing who won
 
-const winnerTabStyle =
-  "flex items-center justify-evenly w-full md:w-2/3 lg:w-1/3 text-center my-2 py-2 rounded-md shadow-md text-2xl button";
-
-const winnerStyle = "font-bold font-3xl";
-
 const WinnersAnnouncement = ({ teamlist }) => {
+  const winnerTabStyle =
+    "flex items-center justify-evenly w-full md:w-2/3 lg:w-1/3 text-center my-2 py-2 rounded-md shadow-md text-2xl button";
+
+  const winnerStyle = "font-bold font-3xl";
+
+  console.log(teamlist);
+
   if (teamlist.length === 0) {
     return <div>loading...</div>;
   } else {
     return (
       <div className="flex flex-col lg:flex-row justify-evenly mt-5">
-        <div className={`${winnerTabStyle} bg-[${teamlist[0].themeColor}]`}>
+        <div className={"bg-[#1e648f] " + winnerTabStyle}>
           <div className="flex-shrink-0 h-14 w-14">
             <Image
               src={teamlist[0].teamLogo}
@@ -132,7 +134,7 @@ const WinnersAnnouncement = ({ teamlist }) => {
             <p className="text-sm">{teamlist[0].teamType}</p>
           </div>
         </div>
-        <div className={`${winnerTabStyle} bg-[${teamlist[1].themeColor}]`}>
+        <div className={"bg-[#fae039] " + winnerTabStyle}>
           <div className="flex-shrink-0 h-14 w-14">
             <Image
               src={teamlist[1].teamLogo}
