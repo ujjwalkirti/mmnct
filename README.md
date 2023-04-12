@@ -39,4 +39,25 @@ Points table
 <br><br>
 ![image](https://user-images.githubusercontent.com/75832766/231325486-cde9b244-4666-425f-b396-3922e76e65c1.png)
 
+<br>
+
+
+**Localhost Setup**
+<br>
+Clone this repo(or download code zip file)
+
+```
+$ git clone https://github.com/ujjwalkirti/mmnct.git
+$ cd mmnct
+```
+
+Install dependencies
+```
+$ npm install
+```
+
+Start the development server
+```
+$ npm run dev
+```
 
