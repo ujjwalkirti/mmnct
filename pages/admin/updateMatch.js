@@ -12,7 +12,7 @@ import { database, db } from "../../components/db/Firebase";
 import { signIn, useSession } from "next-auth/react";
 import { collection, getDocs } from "firebase/firestore";
 
-const updateMatch = ({ auth_users }) => {
+const UpdateMatch = ({ auth_users }) => {
   const { data: session } = useSession();
 
   const [validated, setValidated] = useState(false);
@@ -278,7 +278,7 @@ const updateMatch = ({ auth_users }) => {
   );
 };
 
-export default updateMatch;
+export default UpdateMatch;
 
 export async function getServerSideProps(context) {
   const querySnapshot = await getDocs(collection(db, "auth_users"));

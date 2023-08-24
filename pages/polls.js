@@ -36,14 +36,18 @@ export async function getServerSideProps() {
   let matches = [];
   let localMatches = [];
   let snapshot = await get(child(dbRef, "matchDetail/"));
-  localMatches = snapshot.val();
-  let todayDate = fetchDate();
-  localMatches.shift();
-  localMatches.map((match) => {
-    if (match.timeDate === todayDate && match.status !== "past") {
-      matches.push(match);
-    }
-  });
+
+   localMatches = snapshot.val();
+   const firstKey = Object.keys(localMatches)[0];
+   delete localMatches[firstKey];
+   let todayDate = fetchDate();
+   // localMatches.shift();
+   Object.keys(localMatches).map((key) => {
+     const match = localMatches[key];
+     if (match.timeDate === todayDate && match.status !== "past") {
+       matches.push(match);
+     }
+   });
   return {
     props: {
       matches,
@@ -84,7 +88,7 @@ function Polls({ matches }) {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
           {matches.map((match, index) => {
             return (
-              <div className=" lg:w-11/12 lg:mx-auto">
+              <div key={index} className=" lg:w-11/12 lg:mx-auto">
                 <ShowMatch match={match} key={index} />
               </div>
             );

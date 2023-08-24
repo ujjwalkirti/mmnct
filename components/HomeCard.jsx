@@ -7,12 +7,16 @@ import { totalScore, getOver } from "../components/matchFunctions";
 import teams from "./teams";
 
 const HomeCard = () => {
-  const [team, setteam] = useState([]);
+  const [team, setTeam] = useState([]);
   const getdata = async () => {
     const temp = ref(database, "matchDetail/");
     onValue(temp, async (snapshot) => {
-      const data = await snapshot.val();
-      setteam(data.filter((ele) => ele.status == "ongoing"));
+      const matchObject = await snapshot.val();
+      let data=[]
+      Object.keys(matchObject).map(key=>{
+        data.push(matchObject[key])
+      })
+      setTeam(data.filter((ele) => ele.status == "ongoing"));
     });
   };
   const shortformstyle = "h-[38px] w-[52px] md:h-[50px] md:w-[62px]";

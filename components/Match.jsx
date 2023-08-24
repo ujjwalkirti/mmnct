@@ -14,7 +14,11 @@ const Match = () => {
   useEffect(() => {
     const temp = ref(database, "matchDetail/");
     onValue(temp, async (snapshot) => {
-      const data = await snapshot.val();
+      const matchObject = await snapshot.val();
+      let data = [];
+      Object.keys(matchObject).map((key) => {
+        data.push(matchObject[key]);
+      });
       setMatchData(data);
     });
   }, [selectedTime, selectedGender]);
