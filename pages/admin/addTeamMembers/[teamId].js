@@ -107,7 +107,8 @@ const teamId = ({ teamDetails, members, captain, viceCaptain, auth_users }) => {
   const [updateMember, setUpdateMember] = useState(false);
   const [updateCaptain, setUpdateCaptain] = useState(false);
   const [updateViceCaptain, setUpdateViceCaptain] = useState(false);
-
+  const [validated, setValidated] = useState(false);
+  
   useEffect(() => {
     auth_users.map((user) => {
       if (user.email === session?.user?.email) {
