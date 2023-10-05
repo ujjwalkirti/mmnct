@@ -5,7 +5,6 @@ const UpcomingMatchCard = (props) => {
   const teamStyle = "flex flex-col items-center gap-2 justify-center";
   const teamName = "font-extrabold text-lg md:text-lg";
   const shortformstyle = "h-[68px] md:h-[80px] rounded-full";
-  console.log(props.matchdata);
   if (!props.matchData) {
     return <></>;
   }

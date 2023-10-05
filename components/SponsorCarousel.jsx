@@ -12,7 +12,7 @@ const SponsorCarousel = ({ urls }) => {
       <div className="lg:w-3/5">
         <div className="flex justify-center">
           <p className="sponsor-title w-full md:w-9/12 text-center lg:text-3xl font-semibold text-3xl px-2 py-4 text-white">
-            Our proud Sponsors
+            Our Last Edition Sponsors
           </p>
         </div>
         <Carousel

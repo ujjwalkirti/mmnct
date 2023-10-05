@@ -16,9 +16,10 @@ const Match = () => {
     onValue(temp, async (snapshot) => {
       const matchObject = await snapshot.val();
       let data = [];
-      Object.keys(matchObject).map((key) => {
-        data.push(matchObject[key]);
-      });
+      if (matchObject)
+        Object.keys(matchObject).map((key) => {
+          data.push(matchObject[key]);
+        });
       setMatchData(data);
     });
   }, [selectedTime, selectedGender]);

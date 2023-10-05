@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import { totalScore, getOver } from "../components/matchFunctions";
+import { totalScore, getOver, getPlayerScore ,extraOfInnings} from "../components/matchFunctions";
 import teams from "./teams";
 
 const OngoingMatchCard = (props) => {
@@ -24,16 +24,22 @@ const OngoingMatchCard = (props) => {
         ) {
           return <></>;
         }
+        //console.log(curElem);
         return (
           <>
+          
+          
+         
             <div className="flex flex-col bg-white md:justify-evenly lg:w-10/12 w-11/12 text-sm items-center justify-center shadow-lg pb-4 mx-4 rounded-lg">
+          
               {curElem.tag === "" ? (
-              	<div></div>
+                <div></div>
               ) : (<div className="border-[#7f1d1d] bg-[#fde047] flex flex-col items-center justify-center w-full px-3 lg:px-6 py-1.5 mb-3">
                 <p className="text-[#7f1d1d] font-semibold w-fit px-1 flex-nowrap">
                   {curElem.tag}
                 </p>
               </div>)}
+              <Link href={`/scorecard?matchId=${curElem.id}`} >
               <div className="flex justify-evenly w-full">
                 {/* team 1 */}
                 <div className={`${teamStyle}`}>
@@ -52,6 +58,34 @@ const OngoingMatchCard = (props) => {
                     <p className={`${teamName} ml-1 hidden lg:flex`}>
                       {curElem.Team1Id}
                     </p>
+                    {curElem.currBattingTeam === curElem.Team1Id ?
+                      <div>
+                        {
+                          curElem.striker && curElem.striker !== undefined ? <div> <p className="text-black-400">
+                            <sup> Striker : {curElem.Team1Players[curElem.striker]?.playerName} {getPlayerScore(curElem.Team1Players, curElem.striker)}</sup> </p>
+                            <p className="text-black-400">
+                              <sup>Non-Striker :{curElem.Team1Players[curElem.nonStriker]?.playerName} {getPlayerScore(curElem.Team1Players, curElem.nonStriker)}</sup>
+                            </p>
+                          </div> :
+                            <></>
+                        }
+                      </div>
+                      :
+                      <p className="text-black-400">
+                        {
+                          curElem.baller && curElem.baller !== undefined ? <div><sup> Baller : {curElem.Team1Players[curElem.baller]?.playerName} </sup><br></br>
+                            <sup>{curElem.Team1Players[curElem.baller]?.score[14]}-{curElem.Team1Players[curElem.baller]?.score[13]}({Math.floor(curElem.Team1Players[curElem.baller]?.score[12] / 6)}.{curElem.Team1Players[curElem.baller]?.score[12] % 6})</sup> 
+                            <br></br> 
+                            <sup>{getOver(
+                            curElem.Team2Score,
+                            curElem.Team2prev,
+                            curElem.Team2Extra
+                            )[1]}</sup></div>
+                            :
+                            <></>
+                        }
+                      </p>
+                    }
                   </div>
                   <div>
                     <p className="text-orange-500 font-bold">
@@ -71,6 +105,12 @@ const OngoingMatchCard = (props) => {
                         )[0]
                       }
                       )
+                    </p>
+                    <p className="text-orange-500 font-bold">
+                     extras:  {extraOfInnings(
+                        curElem.Team1Score,
+                        curElem.Team1Extra,
+                      )}
                     </p>
                   </div>
                 </div>
@@ -100,6 +140,12 @@ const OngoingMatchCard = (props) => {
                       }
                       )
                     </p>
+                    <p className="text-orange-500 font-bold">
+                     extras:  {extraOfInnings(
+                        curElem.Team2Score,
+                        curElem.Team2Extra,
+                      )}
+                    </p>
                   </div>
                   <div className={teamNameStyle}>
                     <img
@@ -116,6 +162,34 @@ const OngoingMatchCard = (props) => {
                     <p className={`${teamName} ml-1 hidden lg:flex`}>
                       {curElem.Team2Id}
                     </p>
+                    {curElem.currBattingTeam === curElem.Team2Id ?
+                      <div>
+                        {
+                          curElem.striker && curElem.striker !== undefined ? <div> <p className="text-black-400">
+                            <sup> Striker : {curElem.Team2Players[curElem.striker]?.playerName} {getPlayerScore(curElem.Team2Players, curElem.striker)}</sup> </p>
+                            <p className="text-black-400">
+                              <sup>Non-Striker :{curElem.Team2Players[curElem.nonStriker]?.playerName} {getPlayerScore(curElem.Team2Players, curElem.nonStriker)}</sup>
+                            </p>
+                          </div> :
+                            <></>
+                        }
+                      </div>
+                      :
+                      <p className="text-black-400">
+                        {
+                          curElem.baller  && curElem.baller !== undefined? <div><sup> Baller : {curElem.Team2Players[curElem.baller]?.playerName} </sup><br></br>
+                            <sup>{curElem.Team2Players[curElem.baller]?.score[14]}-{curElem.Team2Players[curElem.baller]?.score[13]}({Math.floor(curElem.Team2Players[curElem.baller]?.score[12] / 6)}.{curElem.Team2Players[curElem.baller]?.score[12] % 6})</sup>
+                            <br></br> 
+                            <sup>{getOver(
+                            curElem.Team1Score,
+                            curElem.Team1prev,
+                            curElem.Team1Extra
+                            )[1]}</sup></div>
+                            :
+                            <></>
+                        }
+                      </p>
+                    }
                   </div>
                 </div>
               </div>
@@ -125,8 +199,11 @@ const OngoingMatchCard = (props) => {
                 <p className="text-black-400">
                   <sup>{curElem.timeDate}</sup>
                 </p>
+               
               </div>
+              </Link>
             </div>
+          
           </>
         );
       })}

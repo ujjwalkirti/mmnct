@@ -14,26 +14,25 @@ import TournamentDetails from "../components/TournamentDetails";
 
 const contact_persons = [
   {
-    name: "Avtar Kumar",
-    position: "Coordinator, MMNCT",
-    contact: "918789276024",
-  },
-  {
-    name: "Manish Kumar",
-    position: "Coordinator, MMNCT",
-    contact: "916203215516",
-  },
-
-  {
     name: "Anupam Kumar",
-    position: "Volunteer, MMNCT",
+    position: "Advisor, MMNCT",
     contact: "917463926104",
   },
   {
     name: "Ayushman",
-    position: "Volunteer, MMNCT",
+    position: "Advisor, MMNCT",
     contact: "916202561409",
   },
+  {
+    name: "Rishi Sharma",
+    position: "Coordinator, MMNCT",
+    contact: "919162353578",
+  },
+  {
+    name: "Ravi Raj",
+    position: "Coordinator, MMNCT",
+    contact: "918210337043",
+  }
 ];
 
 // Next js server side props for fetching sponsorship data from firebase

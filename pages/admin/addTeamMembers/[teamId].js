@@ -126,6 +126,7 @@ const teamId = ({ teamDetails, members, captain, viceCaptain, auth_users }) => {
     const playerType = e.target[2].value;
     const playerBranch = e.target[3].value;
     const roll_no = e.target[4].value;
+    const edition=e.target[5].value;
 
     let downloadURL = "";
     if (file != null) {
@@ -150,6 +151,7 @@ const teamId = ({ teamDetails, members, captain, viceCaptain, auth_users }) => {
       imgUrl: downloadURL,
       branch: playerBranch,
       roll_no: roll_no,
+      edition: edition,
     });
 
     alert("Player added successfully");
@@ -429,6 +431,7 @@ const teamId = ({ teamDetails, members, captain, viceCaptain, auth_users }) => {
                         <th className="px-12 py-2">Player Type</th>
                         <th className="px-8 py-2">Branch</th>
                         <th className="px-10 py-2">Roll No.</th>
+                        <th className="px-10 py-2">Edition</th>
                       </tr>
                     </thead>
                     <tbody>

@@ -30,7 +30,7 @@ export async function getServerSideProps(context) {
 
         // Get all the documents from the collection participating-team-member having the teamId as data.id
         let member_col = collection(db, "participating-team-member");
-        let q = query(member_col, where("teamId", "==", data.id));
+        let q = query(member_col, where("teamId", "==", data.id),where("edition", "==", "17"));
         await getDocs(q).then((querySnapshot) => {
           querySnapshot.forEach((doc) => {
             let data = doc.data();

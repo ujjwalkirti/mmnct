@@ -1,6 +1,16 @@
-import  { database }  from "./db/Firebase";
+import { database } from "./db/Firebase";
 import { child, ref, get, set, update } from "firebase/database";
-
+import { db } from "./db/Firebase";
+//import { getFirestore, doc, updateDoc } from "firebase/firestore";
+import {
+  collection,
+  doc,
+  query,
+  getDocs,
+  getDoc,
+  updateDoc,
+  where,
+} from "firebase/firestore";
 const createMatch = async (ID, dateTime, Team1ID, Team2ID, category) => {
   await set(ref(database, "matchDetail/" + ID), {
     id: ID,
@@ -15,10 +25,12 @@ const createMatch = async (ID, dateTime, Team1ID, Team2ID, category) => {
     Team2Wicket: 0,
     Team1prev: 1,
     Team2prev: 1,
-    finalComment: "Match "+ID,
+    finalComment: "Match " + ID,
     status: "upcoming",
-    category: category
+    category: category,
+    currOrder: 1
   }).then(() => {
+    // console.log("mattch added");
   }).catch(err => console.log(err));
 }
 
@@ -59,6 +71,20 @@ const totalScore = (score, extra, wicket) => {
   return currscore.toString() + "/" + wicket.toString();
 };
 
+const extraOfInnings = (score, extra) => {
+
+  let extra2 = extra;
+  for (var i = 1; i < score.length; i++) {
+    if (score[i].endsWith("nb")) {
+      extra2 = extra2 + 0;
+    }
+    else if (score[i].endsWith("wd") || score[i].endsWith("b")) {
+      extra2 = extra2 + parseInt(score[i]);
+    }
+
+  }
+  return extra2;
+}
 const getOver = (score, prev, extra) => {
   const thisOver = new Array();
   let curr = score.length - 1;
@@ -75,7 +101,424 @@ const getOver = (score, prev, extra) => {
   let overFormat = (currOver.toString()) + "." + currBall.toString();
   return [overFormat, Over]
 }
+const addPlayerToMatch = async (matchID, teamID, playerID, playerName) => {
+  // Retrieve the current match data
+  //let teamID="Team1Players";
+  const matchRef = ref(database, "matchDetail/" + matchID);
+  const matchSnapshot = await get(matchRef);
+  const matchData = matchSnapshot.val();
+  //console.log(teamID);
+  if (!matchData) {
+    console.log("Match not found."); // Handle the case where the match doesn't exist
+    return;
+  }
+
+  //Create the player object
+  const playerObject = {
+    playerName: playerName,
+    score: Array(15).fill(0),
+    status: "Did Not Bat",
+    battingOrder: 0,
+  };
+
+  //Check if the team exists in the match data
+  if (matchData[teamID]) {
+    // Check if the players object exists for the tea
+
+    if (matchData[teamID][playerID]) {
+      console.log("Player is already added to the team.");
+      return;
+    }
+
+    //Add the player object to the team's players
+    matchData[teamID][playerID] = playerObject;
+
+    //Update the database with the modified match data
+    try {
+      await set(matchRef, matchData);
+      console.log("Player added successfully.");
+    } catch (err) {
+      console.error("Error adding player:", err);
+    }
+  } else {
+    matchData[teamID] = {
+      [playerID]: playerObject
+    };
+    await set(matchRef, matchData);
+    //console.log("Team not found in the match data."); // Handle the case where the team doesn't exist in the match
+  }
+};
+
+const forcefullyChangeStriker = async (matchId) => {
+  try {
+    const dbRef = ref(database);
+
+    //Get the current data from the match node
+    let snapshot = await get(child(dbRef, "matchDetail/" + matchId));
+
+    //Ensure that the match node exists
+    if (snapshot) {
+      const matchData = snapshot.val();
+
+      //Swap the data in the striker and non-striker fields
+      const updatedData = {};
+      updatedData["striker"] = matchData["nonStriker"];
+      updatedData["nonStriker"] = matchData["striker"];
+
+      //Update the data in the database
+      await update(child(dbRef, "matchDetail/" + matchId), updatedData);
+
+      //console.log("Striker and non-striker data swapped successfully.");
+    } else {
+      //console.log("Match node does not exist.");
+    }
+  } catch (error) {
+    //console.error("Error swapping striker and non-striker data:", error);
+  }
+};
+
+const strikerChange = async (matchId, run) => {
+  try {
+    const dbRef = ref(database);
+
+    //Get the current data from the match node
+    let snapshot = await get(child(dbRef, "matchDetail/" + matchId));
+
+    //Ensure that the match node exists
+    run = parseInt(run);
+    if (run % 2 != 0) {
+      const matchData = snapshot.val();
+
+      //Swap the data in the striker and non-striker fields
+      const updatedData = {};
+      updatedData["striker"] = matchData["nonStriker"];
+      updatedData["nonStriker"] = matchData["striker"];
+
+      //Update the data in the database
+      await update(child(dbRef, "matchDetail/" + matchId), updatedData);
+
+      console.log("Striker and non-striker data swapped successfully.");
+    } else {
+      console.log("Match node does not exist.");
+    }
+  } catch (error) {
+    console.error("Error swapping striker and non-striker data:", error);
+  }
+
+};
+async function getTeamIdFromName(teamName) {
+  try {
+    //Query the "participating-teams" collection for the team with the given name
+    const teamsCollection = collection(db, "participating-teams");
+    const teamQuery = query(teamsCollection, where("teamName", "==", teamName));
+    const querySnapshot = await getDocs(teamQuery);
+
+    //If there is a matching team document, return its ID
+    if (!querySnapshot.empty) {
+      const teamDoc = querySnapshot.docs[0];
+      return teamDoc.id;
+    } else {
+      console.log("Team not found.");
+      return null;
+      //Return null if the team is not found
+    }
+  } catch (error) {
+    console.error("Error fetching team ID:", error);
+    return null;
+    //Handle the error and return null
+  }
+}
+
+async function getPlayersByTeamName(teamName) {
+  try {
+    //Get the team ID using the provided function
+    const teamId = await getTeamIdFromName(teamName);
+    if (teamId) {
+
+      //Query the "participating-team-member" collection for players with the matching "teamId"
+      const playersCollection = collection(db, "participating-team-member");
+      const playersQuery = query(playersCollection, where("teamId", "==", teamId));
+      const querySnapshot = await getDocs(playersQuery);
+
+      const players = [];
+
+      //Iterate through the query result and extract only "player name" and "player id" fields
+      querySnapshot.forEach((doc) => {
+        const playerData = doc.data();
+        players.push({
+          id: doc.id,
+          playerName: playerData.name,
+          //Add more fields as needed, or omit fields you don't need
+        });
+      });
+
+      return players;
+    } else {
+      console.log("Team not found.");
+      return null;
+    }
+  } catch (error) {
+    console.error("Error fetching players by team name:", error);
+    return null;
+  }
+
+}
+const updateTeam1PlayerScore = async (matchID, playerID, run) => {
+  const matchRef = ref(database, "matchDetail/" + matchID + "/Team1Players");
+  const matchSnapshot = await get(matchRef);
+  const matchData = matchSnapshot.val();
+
+  if (!matchData) {
+    console.log("Match not found.");
+    return;
+  }
+
+
+  if (matchData && matchData[playerID]) {
+    const player = matchData[playerID];
+    const scoreArray = player.score;
+
+    //console.log("player is"+ player);
+    //console.log(scoreArray);
+    if (run.endsWith("w") || run.endsWith("r")) {
+      run = parseInt(run);
+      // console.log(run+"  w");
+    }
+    else if (run.endsWith("nb")) {
+      run = parseInt(run);
+      //console.log(run+"  nb");
+    }
+    else if (run.endsWith("b")) {
+      //run=parseInt(run);
+      run = 0;
+    }
+    if (!isNaN(run)) { // Check if 'run' is a valid number
+      scoreArray[run] = (scoreArray[run] || 0) + 1;
+      // Update the player's score in the database
+      try {
+        await update(matchRef, {
+          [`${playerID}/score`]: scoreArray,
+        });
+      } catch (err) {
+        console.error("Error updating player score:", err);
+      }
+    } else {
+      console.log("Invalid run value. Score not updated.");
+    }
+  } else {
+    console.log("Player or team not found in the match data.");
+  }
+};
+const updateTeam2PlayerScore = async (matchID, playerID, run) => {
+  const matchRef = ref(database, "matchDetail/" + matchID + "/Team2Players");
+  const matchSnapshot = await get(matchRef);
+  const matchData = matchSnapshot.val();
+
+  if (!matchData) {
+    console.log("Match not found.");
+    return;
+  }
+  if (matchData && matchData[playerID]) {
+    const player = matchData[playerID];
+    const scoreArray = player.score;
+
+    if (run.endsWith("w") || run.endsWith("r")) {
+      run = parseInt(run);
+      // console.log(run+"  w");
+    }
+    else if (run.endsWith("nb")) {
+      run = parseInt(run);
+      //console.log(run+"  nb");
+    }
+    else if (run.endsWith("b")) {
+      //run=parseInt(run);
+      run = 0;
+    }
+
+    if (!isNaN(run)) {
+      // Check if 'run' is a valid number
+      scoreArray[run] = (scoreArray[run] || 0) + 1;
+      // Update the player's score in the database
+      try {
+        await update(matchRef, {
+          [`${playerID}/score`]: scoreArray,
+        });
+      } catch (err) {
+        console.error("Error updating player score:", err);
+      }
+    } else {
+      console.log("Invalid run value. Score not updated.");
+    }
+  }
+};
+//for bowling stats the index of 12 used for no of ball bowled index 13 used for total runs index 14 used for  wicket 
+const updateTeam1BowlersStats = async (matchID, playerID, run) => {
+  const matchRef = ref(database, "matchDetail/" + matchID + "/Team1Players");
+  const matchSnapshot = await get(matchRef);
+  const matchData = matchSnapshot.val();
+
+  if (!matchData) {
+    console.log("Match not found.");
+    return;
+  }
+
+  if (matchData && matchData[playerID]) {
+    const player = matchData[playerID];
+    const scoreArray = player.score;
+
+    scoreArray[12]++;
+    if (run.endsWith("w")) {
+      scoreArray[14] = scoreArray[14] + 1;
+    }
+    else if (run.endsWith("nb") || run.endsWith("wd")) {
+      scoreArray[13] = scoreArray[13] + 1;
+      scoreArray[12]--;
+    }
+    else if (run.endsWith("b")) {
+      //run=parseInt(run);
+      run = 0;
+    }
+    var runs = parseInt(run);
+
+    scoreArray[13] = scoreArray[13] + runs;
+    // Update the player's run and wicket in the database
+    try {
+      await update(matchRef, {
+        [`${playerID}/score`]: scoreArray,
+      });
+    } catch (err) {
+      console.error("Error updating player bowling stats:", err);
+    }
+  } else {
+    console.log("Player or team not found in the match data.");
+  }
+};
+const updateTeam2BowlersStats = async (matchID, playerID, run) => {
+  const matchRef = ref(database, "matchDetail/" + matchID + "/Team2Players");
+  const matchSnapshot = await get(matchRef);
+  const matchData = matchSnapshot.val();
+  if (!matchData) {
+    console.log("Match not found.");
+    return;
+  }
+
+  if (matchData && matchData[playerID]) {
+    const player = matchData[playerID];
+    const scoreArray = player.score;
+
+    scoreArray[12]++;
+    if (run.endsWith("w")) {
+      scoreArray[14] = scoreArray[14] + 1;
+    }
+    if (run.endsWith("nb") || run.endsWith("wd")) {
+      scoreArray[13] = scoreArray[13] + 1;
+      scoreArray[12]--;
+    }
+    else if (run.endsWith("b")) {
+      //run=parseInt(run);
+      run = 0;
+    }
+    var runs = parseInt(run);
+    scoreArray[13] = scoreArray[13] + runs;
+    // Update the player's run and wicket in the database
+    try {
+      await update(matchRef, {
+        [`${playerID}/score`]: scoreArray,
+      });
+    } catch (err) {
+      console.error("Error updating player bowling stats:", err);
+    }
+  } else {
+    console.log("Player or team not found in the match data.");
+  }
+};
+
+async function changeInnings(matchId) {
+  await update(ref(database, "matchDetail/" + matchId), {
+    "striker": null,
+    "nonStriker": null,
+    "currBattingTeam": null,
+    "baller": null,
+    "currOrder": 1
+  });
+}
+
+async function afterMatchClosed(matchId) {
+  const data = await fetchData(matchId);
+  let playerDetail = Object.entries(data.Team1Players);
+  for (const [key, value] of playerDetail) {
+    await updatePlayerHistory(key, value, matchId);
+  }
+  playerDetail = Object.entries(data.Team2Players);
+  for (const [key, value] of playerDetail) {
+    await updatePlayerHistory(key, value, matchId);
+  }
+  return 0;
+}
+
+const getPlayerScore = (players, player) => {
+  var totalRuns = 0;
+  var ballPlayed = 0;
+  if (players) {
+    for (var i = 0; i <= 10; i++) {
+      if (players[player]) {
+        totalRuns += i * players[player]?.score[i];
+        ballPlayed += players[player]?.score[i];
+      }
+    }
+  }
+  return totalRuns + "(" + ballPlayed + ")";
+}
+
+async function updatePlayerHistory(playerId, playerData, matchId) {
+
+  const playerDocRef = doc(db, `participating-team-member/${playerId}`);
+  getDoc(playerDocRef)
+    .then((docSnapshot) => {
+      if (docSnapshot.exists()) {
+        const data = docSnapshot.data();
+        if (!data.hasOwnProperty('stats')) {
+          // Field does not exist, so add it
+          const updateObject = {
+            stats: playerData.score,
+            [`pastrecords.${matchId}`]: playerData.score
+          };
+          return updateDoc(playerDocRef, updateObject);
+        } else {
+          const existingStats = data['stats'];
+          const updatedStats = existingStats.map((value, index) => value + playerData.score[index]);
+          const updateObject = {
+            stats: updatedStats,
+            [`pastrecords.${matchId}`]: playerData.score
+          };
+          return updateDoc(playerDocRef, updateObject);
+        }
+      } else {
+        console.log('No such document!');
+      }
+    })
+    .then(() => {
+      console.log('Field added or updated successfully.');
+    })
+    .catch((error) => {
+      console.error('Error adding or updating field:', error);
+    });
+
+}
 
 export {
-  getOver, totalScore, createMatch, fetchData, Team1Update, Team2Update
+  getOver, totalScore, createMatch, fetchData, Team1Update, Team2Update,
+  getPlayersByTeamName,
+  updateTeam1PlayerScore,
+  updateTeam2PlayerScore,
+  updateTeam1BowlersStats,
+  updateTeam2BowlersStats,
+  addPlayerToMatch,
+  afterMatchClosed,
+  forcefullyChangeStriker,
+  strikerChange,
+  getPlayerScore,
+  changeInnings,
+  extraOfInnings
 };
+

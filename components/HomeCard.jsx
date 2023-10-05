@@ -13,6 +13,7 @@ const HomeCard = () => {
     onValue(temp, async (snapshot) => {
       const matchObject = await snapshot.val();
       let data=[]
+      if (matchObject)
       Object.keys(matchObject).map(key=>{
         data.push(matchObject[key])
       })
@@ -28,7 +29,6 @@ const HomeCard = () => {
     <>
       {team?.length === 0 ? (
         <>
-          <div></div>
         </>
       ) : (
         <div className=" flex flex-col justify-center ml-12 pr-16 pl-3 w-fit md:w-fit md:pr-28 days-counter md:mx-auto md:mb-4 h-fit">
@@ -159,7 +159,7 @@ export default HomeCard;
 
 function daysCaluclator() {
   var today = new Date();
-  var date_to_reply = new Date("2023-01-26");
+  var date_to_reply = new Date("2023-10-26");
   var timeinmilisec = today.getTime() - date_to_reply.getTime();
   // console.log(Math.floor(timeinmilisec / (1000 * 60 * 60 * 24)));
   return Math.floor(timeinmilisec / (1000 * 60 * 60 * 24));

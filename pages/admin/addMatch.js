@@ -35,7 +35,7 @@ const AddMatch = ({ auth_users }) => {
 
   const fetchData = async () => {
     const dbref = ref(database);
-    let snapshot = await get(child(dbref, "matchDetail/"));
+    let snapshot = await get(child(dbref, "match/"));
     console.log(snapshot.val());
     setFormData({
       ...formData,
@@ -221,7 +221,7 @@ const AddMatch = ({ auth_users }) => {
                 <option value="ASSYRIANS">ASSYRIANS</option>
                 <option value="NINJAS">NINJAS</option>
                 <option value="VIKINGS">VIKINGS</option>
-                <option value="SAMARTIANS">SAMARTIANS</option>
+                <option value="SAMARITANS">SAMARTIANS</option>
                 <option value="AMORITES">AMORITES</option>
                 <option value="PARTHIANS">PARTHIANS</option>
                 <option value="SUMERIANS">SUMERIANS</option>

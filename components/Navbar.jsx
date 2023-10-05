@@ -12,6 +12,7 @@ const options = [
   { name: "Memories", url: "/memories" },
   { name: "Notice", url: "/notice" },
   { name: "Organising Team", url: "/organisers" },
+  {name:"Past Records", url: "/pastRec" },
 ];
 
 function Navbar() {

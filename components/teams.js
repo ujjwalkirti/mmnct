@@ -29,7 +29,7 @@ const teams = {
     themeColor: "#663f7a",
     teamCode: "HRC"
   },
-  VALKAYRIES: {
+  VALKYRIES: {
     teamLogo: "https://firebasestorage.googleapis.com/v0/b/mmnct-fac3f.appspot.com/o/teams_logo%2FVALKYRIES.jpg?alt=media&token=6dacfce2-5592-4d39-8acd-77901b738114",
     themeColor: "#e02636",
     teamCode: "VAL"
