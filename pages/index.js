@@ -104,17 +104,20 @@ export async function getServerSideProps() {
   let matches = [];
   let localMatches = [];
   let snapshot = await get(child(dbRef, "matchDetail/"));
-  localMatches = snapshot.val();
-  const firstKey = Object.keys(localMatches)[0];
-  delete localMatches[firstKey];
-  let todayDate = fetchDate();
-  // localMatches.shift();
-  Object.keys(localMatches).map(key=>{
-    const match = localMatches[key];
-    if (match.timeDate === todayDate && match.status !== "past") {
-      matches.push(match);
-    }
-  })
+  if (snapshot) {
+    localMatches = snapshot.val();
+    if (localMatches) {
+    const firstKey = Object.keys(localMatches)[0];
+    delete localMatches[firstKey];
+    let todayDate = fetchDate();
+    // localMatches.shift();
+    Object.keys(localMatches).map(key => {
+      const match = localMatches[key];
+      if (match.timeDate === todayDate && match.status !== "past") {
+        matches.push(match);
+      }
+    })
+  }}
 
 
   return {
