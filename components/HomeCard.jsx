@@ -9,7 +9,7 @@ import teams from "./teams";
 const HomeCard = () => {
   const [team, setTeam] = useState([]);
   const getdata = async () => {
-    const temp = ref(database, "matchDetail/");
+    const temp = ref(database, "match/");
     onValue(temp, async (snapshot) => {
       const matchObject = await snapshot.val();
       let data=[]

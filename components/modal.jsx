@@ -26,7 +26,7 @@ export default function CustomModal({ isOpen, onRequestClose, matchId, onUpdateV
     const getMatchDetails = async (matchId) => {
         const dbref = ref(database);
         let snapshot = await get(
-            child(dbref, "matchDetail/" + matchId)
+            child(dbref, "match/" + matchId)
         );
         if (snapshot.val() === undefined) {
             alert("Match Id Not valid");
@@ -77,30 +77,30 @@ export default function CustomModal({ isOpen, onRequestClose, matchId, onUpdateV
         const team = (formData.currBattingTeam === "" ? currBattingTeam : formData.currBattingTeam) === team1name ? "Team1Players" : "Team2Players";
         if (formData.striker !== striker) {
             if (striker) {
-                await update(ref(database, `matchDetail/${matchId}/${team}/${striker}`), {
+                await update(ref(database, `match/${matchId}/${team}/${striker}`), {
                     "status": "out",
                 });
             }
-            await update(ref(database, `matchDetail/${matchId}/${team}/${formData.striker}`), {
+            await update(ref(database, `match/${matchId}/${team}/${formData.striker}`), {
                 "status": "not out",
                 "battingOrder": currOrder
             });
             setCurrOrder(currOrder + 1);
-            await update(ref(database, `matchDetail/${matchId}`), {
+            await update(ref(database, `match/${matchId}`), {
                 "currOrder": currOrder + 1
             });
         }
         if (formData.nonstriker !== nonstriker) {
             if (nonstriker)
-                await update(ref(database, `matchDetail/${matchId}/${team}/${nonstriker}`), {
+                await update(ref(database, `match/${matchId}/${team}/${nonstriker}`), {
                     "status": "out",
                 });
-            await update(ref(database, `matchDetail/${matchId}/${team}/${formData.nonstriker}`), {
+            await update(ref(database, `match/${matchId}/${team}/${formData.nonstriker}`), {
                 "status": "not out",
                 "battingOrder": currOrder
             });
             setCurrOrder(currOrder + 1);
-            await update(ref(database, `matchDetail/${matchId}`), {
+            await update(ref(database, `match/${matchId}`), {
                 "currOrder": currOrder + 1
             });
         }
@@ -112,7 +112,7 @@ export default function CustomModal({ isOpen, onRequestClose, matchId, onUpdateV
         if (formData.nonstriker === '') formData.nonstriker = nonstriker;
         if (formData.striker === '') formData.striker = striker;
         if (formData.currBattingTeam === '') formData.currBattingTeam = currBattingTeam;
-        await update(ref(database, "matchDetail/" + matchId), {
+        await update(ref(database, "match/" + matchId), {
             "striker": formData.striker,
             "nonStriker": formData.nonstriker,
             "baller": formData.baller,

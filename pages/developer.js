@@ -7,28 +7,42 @@ import { collection, getDocs, query, orderBy } from "firebase/firestore";
 import { db } from "../components/db/Firebase";
 import Image from "next/image";
 import SuggestionsFromUsers from "../components/SuggestionsFromUsers";
-
+import DeveloperComponent from "../components/Developers";
 //Net js server side props for fetching data from firebase
 export async function getServerSideProps() {
   const querySnapshot = await getDocs(
     query(collection(db, "team"), orderBy("name", "desc"))
   );
   let developers = [];
-
+  let _16thEditionDevelopers = [];
+  
   querySnapshot.forEach((doc) => {
     let data = doc.data();
-    if (data.position == "developer") {
+    if (data.position == "leaddeveloper" && data.edition == "17" ) {
       developers.push(data);
+    }
+  });
+  querySnapshot.forEach((doc) => {
+    let data = doc.data();
+    if (data.position == "developer" && data.edition == "17" ) {
+      developers.push(data);
+    }
+  });
+  querySnapshot.forEach((doc) => {
+    let data = doc.data();
+    if (data.position == "developer" && data.edition == "16" ) {
+      _16thEditionDevelopers.push(data);
     }
   });
   return {
     props: {
       developers,
+      _16thEditionDevelopers
     },
   };
 }
 
-export default function developer({ developers }) {
+export default function developer({ developers , _16thEditionDevelopers}) {
   return (
     <div>
       <Head>
@@ -55,6 +69,7 @@ export default function developer({ developers }) {
             })}
         </div>
       </div>
+      <DeveloperComponent developers={_16thEditionDevelopers} text="16th Edition Developers"/>
       <SuggestionsFromUsers />
       <Footer />
     </div>

@@ -37,7 +37,7 @@ export default function UpdatePlayerModal({ details }) {
     let playerType = "";
     let playerBranch = "";
     let roll_no = "";
-
+    let edition="";
     if (details.imgUrl != "") {
       // Get input for removing image
       removeLogo = e.target[0].checked;
@@ -51,6 +51,7 @@ export default function UpdatePlayerModal({ details }) {
       playerBranch = e.target[4].value;
       //Get player roll no from input
       roll_no = e.target[5].value;
+      edition = e.target[6].value;
     } else {
       // Get input for file
       file = e.target[0].files[0];
@@ -62,6 +63,7 @@ export default function UpdatePlayerModal({ details }) {
       playerBranch = e.target[3].value;
       //Get player roll no from input
       roll_no = e.target[4].value;
+      edition = e.target[5].value;
     }
     const metadata = {
       contentType: "image/jpeg",
@@ -81,6 +83,9 @@ export default function UpdatePlayerModal({ details }) {
 
     if (roll_no == "") {
       roll_no = details.roll_no;
+    }
+    if (edition == "") {
+      edition = details.edition;
     }
 
     let fileName = "";
@@ -128,6 +133,7 @@ export default function UpdatePlayerModal({ details }) {
       imgUrl: details.imgUrl,
       branch: playerBranch,
       roll_no: roll_no,
+      edition:edition,
     });
 
     alert("Player details updated successfully");
@@ -260,7 +266,7 @@ export default function UpdatePlayerModal({ details }) {
                       />
                     </div>
                   </div>
-
+                  
                   <div className="md:flex md:items-center mb-6">
                     <div className="md:w-1/3">
                       <label
@@ -279,7 +285,24 @@ export default function UpdatePlayerModal({ details }) {
                       />
                     </div>
                   </div>
-
+                  <div className="md:flex md:items-center mb-6">
+                    <div className="md:w-1/3">
+                      <label
+                        className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4"
+                        for="roll_no"
+                      >
+                        Edition
+                      </label>
+                    </div>
+                    <div className="md:w-2/3">
+                      <input
+                        className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
+                        id="roll_no"
+                        type="text"
+                        placeholder={details.edition}
+                      />
+                    </div>
+                  </div>
                   {/*footer*/}
                   <div className="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b">
                     <button
