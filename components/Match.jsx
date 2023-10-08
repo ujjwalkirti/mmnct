@@ -12,7 +12,7 @@ const Match = () => {
   const [selectedGender, setSelectedGender] = useState("male");
   const [selectedTime, setSelectedTime] = useState("present");
   useEffect(() => {
-    const temp = ref(database, "match/");
+    const temp = ref(database, "matchDetail/");
     onValue(temp, async (snapshot) => {
       const matchObject = await snapshot.val();
       let data = [];

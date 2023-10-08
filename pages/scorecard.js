@@ -61,7 +61,7 @@ const[team2Extras,setTeam2Extras]=useState([]);
 
   useEffect(() => {
     if (matchId) {
-      const matchRef = ref(database, "match/" + matchId);
+      const matchRef = ref(database, "matchDetail/" + matchId);
   
       const unsubscribe = onValue(matchRef, (snapshot) => {
         if (snapshot.exists()) {

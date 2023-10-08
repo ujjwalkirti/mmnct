@@ -12,7 +12,7 @@ import {
   where,
 } from "firebase/firestore";
 const createMatch = async (ID, dateTime, Team1ID, Team2ID, category) => {
-  await set(ref(database, "match/" + ID), {
+  await set(ref(database, "matchDetail/" + ID), {
     id: ID,
     timeDate: dateTime,
     Team1Id: Team1ID,
@@ -36,7 +36,7 @@ const createMatch = async (ID, dateTime, Team1ID, Team2ID, category) => {
 
 const fetchData = async (matchId) => {
   const dbref = ref(database);
-  let snapshot = await get(child(dbref, "match/" + matchId));
+  let snapshot = await get(child(dbref, "matchDetail/" + matchId));
   return snapshot.val();
 }
 
@@ -44,7 +44,7 @@ const Team1Update = async (matchID, wicket, extras, run, prev, score, status, co
   let nowScore;
   if (run.length === 0) nowScore = [...score];
   else nowScore = [...score, run];
-  await update(ref(database, "match/" + matchID), {
+  await update(ref(database, "matchDetail/" + matchID), {
     "Team1Wicket": wicket, "Team1Extra": extras, "Team1prev": prev, "Team1Score": nowScore, "status": status, "finalComment": comment
   }).then(() => {
   }).catch(err => console.log(err));
@@ -54,7 +54,7 @@ const Team2Update = async (matchID, wicket, extras, run, prev, score, status, co
   let nowScore;
   if (run.length === 0) nowScore = [...score];
   else nowScore = [...score, run];
-  await update(ref(database, "match/" + matchID), {
+  await update(ref(database, "matchDetail/" + matchID), {
     "Team2Wicket": wicket, "Team2Extra": extras, "Team2prev": prev, "Team2Score": nowScore, "status": status, "finalComment": comment
   }).then(() => {
   }).catch(err => console.log(err));
@@ -104,7 +104,7 @@ const getOver = (score, prev, extra) => {
 const addPlayerToMatch = async (matchID, teamID, playerID, playerName) => {
   // Retrieve the current match data
   //let teamID="Team1Players";
-  const matchRef = ref(database, "match/" + matchID);
+  const matchRef = ref(database, "matchDetail/" + matchID);
   const matchSnapshot = await get(matchRef);
   const matchData = matchSnapshot.val();
   //console.log(teamID);
@@ -154,7 +154,7 @@ const forcefullyChangeStriker = async (matchId) => {
     const dbRef = ref(database);
 
     //Get the current data from the match node
-    let snapshot = await get(child(dbRef, "match/" + matchId));
+    let snapshot = await get(child(dbRef, "matchDetail/" + matchId));
 
     //Ensure that the match node exists
     if (snapshot) {
@@ -166,7 +166,7 @@ const forcefullyChangeStriker = async (matchId) => {
       updatedData["nonStriker"] = matchData["striker"];
 
       //Update the data in the database
-      await update(child(dbRef, "match/" + matchId), updatedData);
+      await update(child(dbRef, "matchDetail/" + matchId), updatedData);
 
       //console.log("Striker and non-striker data swapped successfully.");
     } else {
@@ -182,7 +182,7 @@ const strikerChange = async (matchId, run) => {
     const dbRef = ref(database);
 
     //Get the current data from the match node
-    let snapshot = await get(child(dbRef, "match/" + matchId));
+    let snapshot = await get(child(dbRef, "matchDetail/" + matchId));
 
     //Ensure that the match node exists
     run = parseInt(run);
@@ -195,7 +195,7 @@ const strikerChange = async (matchId, run) => {
       updatedData["nonStriker"] = matchData["striker"];
 
       //Update the data in the database
-      await update(child(dbRef, "match/" + matchId), updatedData);
+      await update(child(dbRef, "matchDetail/" + matchId), updatedData);
 
       console.log("Striker and non-striker data swapped successfully.");
     } else {
@@ -264,7 +264,7 @@ async function getPlayersByTeamName(teamName) {
 
 }
 const updateTeam1PlayerScore = async (matchID, playerID, run) => {
-  const matchRef = ref(database, "match/" + matchID + "/Team1Players");
+  const matchRef = ref(database, "matchDetail/" + matchID + "/Team1Players");
   const matchSnapshot = await get(matchRef);
   const matchData = matchSnapshot.val();
 
@@ -310,7 +310,7 @@ const updateTeam1PlayerScore = async (matchID, playerID, run) => {
   }
 };
 const updateTeam2PlayerScore = async (matchID, playerID, run) => {
-  const matchRef = ref(database, "match/" + matchID + "/Team2Players");
+  const matchRef = ref(database, "matchDetail/" + matchID + "/Team2Players");
   const matchSnapshot = await get(matchRef);
   const matchData = matchSnapshot.val();
 
@@ -353,7 +353,7 @@ const updateTeam2PlayerScore = async (matchID, playerID, run) => {
 };
 //for bowling stats the index of 12 used for no of ball bowled index 13 used for total runs index 14 used for  wicket 
 const updateTeam1BowlersStats = async (matchID, playerID, run) => {
-  const matchRef = ref(database, "match/" + matchID + "/Team1Players");
+  const matchRef = ref(database, "matchDetail/" + matchID + "/Team1Players");
   const matchSnapshot = await get(matchRef);
   const matchData = matchSnapshot.val();
 
@@ -394,7 +394,7 @@ const updateTeam1BowlersStats = async (matchID, playerID, run) => {
   }
 };
 const updateTeam2BowlersStats = async (matchID, playerID, run) => {
-  const matchRef = ref(database, "match/" + matchID + "/Team2Players");
+  const matchRef = ref(database, "matchDetail/" + matchID + "/Team2Players");
   const matchSnapshot = await get(matchRef);
   const matchData = matchSnapshot.val();
   if (!matchData) {
@@ -434,7 +434,7 @@ const updateTeam2BowlersStats = async (matchID, playerID, run) => {
 };
 
 async function changeInnings(matchId) {
-  await update(ref(database, "match/" + matchId), {
+  await update(ref(database, "matchDetail/" + matchId), {
     "striker": null,
     "nonStriker": null,
     "currBattingTeam": null,

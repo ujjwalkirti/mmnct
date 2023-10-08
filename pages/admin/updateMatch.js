@@ -64,7 +64,7 @@ const UpdateMatch = ({ auth_users }) => {
     setcurrId(matchId.target.value);
     const dbref = ref(database);
     let snapshot = await get(
-      child(dbref, "match/" + matchId.target.value)
+      child(dbref, "matchDetail/" + matchId.target.value)
     );
     setteam1name(snapshot?.val().Team1Id);
     setteam2name(snapshot?.val().Team2Id);
