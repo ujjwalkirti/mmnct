@@ -4,6 +4,7 @@ import { db, dbRef, storage } from "../components/db/Firebase";
 import { collection, getDocs, query, orderBy } from "firebase/firestore";
 import { listAll, ref, getDownloadURL } from "firebase/storage";
 import Link from "next/link";
+import Head from "next/head";
 import { child, get } from "firebase/database";
 import PrevYearMatchCard from "../components/PrevYearMatchCard";
 import Navbar from "../components/Navbar";
@@ -212,6 +213,10 @@ const PastRec=({teamList, matchData,coordinators,
   
     return (
       <>
+      <Head>
+        <title>Past Records</title>
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
       <div className={``} >
       {/* bg-gradient-to-b ${decisionsBasedonGender()} to-white */}
       <p className="font-[800] text-[28px] leading-[34.13px] text-[#FFFDFA] text-center  pt-10 mb-3">

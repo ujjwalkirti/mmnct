@@ -19,7 +19,7 @@ const PointCard = (props) => {
             <div className="flex flex-row md:flex-row pt-5 pb-5  justify-center md:justify-evenly items-center my-2 bg-white w-full lg:w-full  min-h-79 lg:h-[90px] xl:h-[150px] rounded-[8px] mx-auto shadow-lg ">
               <div className="w-1/4 flex  items-center justify-center">
                 <p className="text-[15px] xl:text-[25px] lg:text-[20px] font-[600]">
-                  {curElem.NRR}
+                  {ind}
                 </p>
               </div>
               <div className="w-2/3 flex  items-center flex-col md:flex-row">
@@ -58,6 +58,11 @@ const PointCard = (props) => {
                   {curElem.matchPlayed - curElem.matchWon}
                 </p>
               </div>
+              <div className="w-1/4 flex  items-center justify-center">
+                <p className="text-[15px] xl:text-[25px] lg:text-[20px] font-[600]">
+                  {curElem.NRR}
+                </p>
+              </div>
             </div>
           );
         } else if (
@@ -69,7 +74,7 @@ const PointCard = (props) => {
             <div className="flex flex-row md:flex-row pt-5 pb-5  justify-center md:justify-evenly items-center my-2 bg-white w-full lg:w-full  min-h-79 lg:h-[90px] xl:h-[150px] rounded-[8px] mx-auto shadow-lg">
               <div className="w-1/4 flex  items-center justify-center">
                 <p className="text-[15px] xl:text-[25px] lg:text-[20px] font-[600]">
-                  {curElem.NRR}
+                  {ind}
                 </p>
               </div>
               <div className="w-2/3 flex  items-center flex-col md:flex-row">
@@ -107,6 +112,11 @@ const PointCard = (props) => {
               <div className="w-1/4 flex  items-center justify-center">
                 <p className="text-[15px] xl:text-[25px] lg:text-[20px] font-[600]">
                   {curElem.matchPlayed - curElem.matchWon}
+                </p>
+              </div>
+              <div className="w-1/4 flex  items-center justify-center">
+                <p className="text-[15px] xl:text-[25px] lg:text-[20px] font-[600]">
+                  {curElem.NRR}
                 </p>
               </div>
             </div>
