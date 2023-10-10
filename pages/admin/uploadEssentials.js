@@ -13,7 +13,6 @@ import { signIn, useSession } from "next-auth/react";
 const Upload = ({ auth_users }) => {
   const [progress, setProgress] = useState(0);
   const { data: session } = useSession();
-
   const [validated, setValidated] = useState(false);
 
   useEffect(() => {

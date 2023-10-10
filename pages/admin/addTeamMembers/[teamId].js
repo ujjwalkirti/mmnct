@@ -26,6 +26,7 @@ import { AiFillDelete } from "react-icons/ai";
 
 import dynamic from "next/dynamic";
 import { signIn, useSession } from "next-auth/react";
+import teams from "../../../components/teams";
 // Dynamic import the UpdatePlayerModal component
 const UpdatePlayerModal = dynamic(
   () => import("../../../components/UpdatePlayerModal"),
@@ -49,7 +50,7 @@ export async function getServerSideProps(context) {
 
       // Get all the documents from the collection participating-team-member having the teamId as data.id
       let member_col = collection(db, "participating-team-member");
-      let q = query(member_col, where("teamId", "==", teamId));
+      let q = query(member_col,where("teamId", "==", teamId),where("edition", "==", "17"));
       await getDocs(q).then((querySnapshot) => {
         querySnapshot.forEach((doc) => {
           let temp = doc.data();
@@ -287,7 +288,7 @@ const teamId = ({ teamDetails, members, captain, viceCaptain, auth_users }) => {
     );
   }
 
-  if (!validated) {
+  if (!validated && teams[teamDetails.teamName]?.capt_email !== session.user.email) {
     return (
       <div className="h-screen w-screen flex flex-col space-y-4 items-center justify-center">
         Sorry, you are not authorised to access this page!

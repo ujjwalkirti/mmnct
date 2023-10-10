@@ -3,11 +3,14 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { addPlayerToMatch, getPlayersByTeamName } from "../../components/matchFunctions";
 import { child, ref, get } from "firebase/database";
-import { db,database } from "../../components/db/Firebase";
+import { db, database } from "../../components/db/Firebase";
+import { signIn, useSession } from "next-auth/react";
+
 function AddPlaying11() {
   const router = useRouter();
   const { matchId } = router.query;
-
+  const { data: session } = useSession();
+  const [validated, setValidated] = useState(false);
   const [team1Players, setTeam1Players] = useState([]);
   const [team2Players, setTeam2Players] = useState([]);
   const [selectedTeam1Player, setSelectedTeam1Player] = useState("");
@@ -17,6 +20,7 @@ function AddPlaying11() {
   const [team1Name, setteam1name] = useState("Team 1");
   const [team2Name, setteam2name] = useState("Team 2");
   const [currId, setcurrId] = useState(0);
+
   useEffect(() => {
     if (team1Name) {
       getPlayersByTeamName(team1Name)
@@ -40,7 +44,15 @@ function AddPlaying11() {
         });
     }
   }, [team2Name]);
-  
+
+  useEffect(() => {
+    auth_users.map((user) => {
+      if (user.email === session?.user?.email) {
+        setValidated(true);
+      }
+    });
+  }, [session]);
+
   const getMatchDetails = async (matchId) => {
     setcurrId(matchId.target.value);
     const dbref = ref(database);
@@ -124,41 +136,64 @@ function AddPlaying11() {
       selectedPlayersTeam2.filter((player) => player.playerName !== playerName)
     );
   };
-    // const handleFinalSubmit = () => {
-    //   // Submit selected players for Team 1
-    //   selectedPlayersTeam1.forEach((player) => {
-    //     console.log(player.playerId + "  "+ player.playerName+"   " );
-    //      addPlayerToMatch(matchId, "Team1Players", player.playerId, player.playerName);
-    //   });
-  
-    //   // Submit selected players for Team 2
-    //   selectedPlayersTeam2.forEach((player) => {
-    //     console.log(player.playerId + "  "+ player.playerName+"   " );
-    //     addPlayerToMatch(matchId, "Team2Players", player.playerId, player.playerName);
-    //   });
-  
-    //   // Clear the selected players arrays
-    //   //setSelectedPlayersTeam1([]);
-    //   //setSelectedPlayersTeam2([]);
-    // };
-    const handleFinalSubmit = async () => {
-      // Define a function to submit players for a specific team
-      const submitPlayers = async (teamID, players) => {
-        for (const player of players) {
-          await addPlayerToMatch(currId, teamID, player.playerId, player.playerName);
-        }
-      };
-    
-      // Use the defined function to submit players for Team 1
-      await submitPlayers("Team1Players", selectedPlayersTeam1);
-    
-      // Use the defined function to submit players for Team 2
-      await submitPlayers("Team2Players", selectedPlayersTeam2);
-    
-      // Clear the selected players arrays
-      setSelectedPlayersTeam1([]);
-      setSelectedPlayersTeam2([]);
+  // const handleFinalSubmit = () => {
+  //   // Submit selected players for Team 1
+  //   selectedPlayersTeam1.forEach((player) => {
+  //     console.log(player.playerId + "  "+ player.playerName+"   " );
+  //      addPlayerToMatch(matchId, "Team1Players", player.playerId, player.playerName);
+  //   });
+
+  //   // Submit selected players for Team 2
+  //   selectedPlayersTeam2.forEach((player) => {
+  //     console.log(player.playerId + "  "+ player.playerName+"   " );
+  //     addPlayerToMatch(matchId, "Team2Players", player.playerId, player.playerName);
+  //   });
+
+  //   // Clear the selected players arrays
+  //   //setSelectedPlayersTeam1([]);
+  //   //setSelectedPlayersTeam2([]);
+  // };
+  const handleFinalSubmit = async () => {
+    // Define a function to submit players for a specific team
+    const submitPlayers = async (teamID, players) => {
+      for (const player of players) {
+        await addPlayerToMatch(currId, teamID, player.playerId, player.playerName);
+      }
     };
+
+    // Use the defined function to submit players for Team 1
+    await submitPlayers("Team1Players", selectedPlayersTeam1);
+
+    // Use the defined function to submit players for Team 2
+    await submitPlayers("Team2Players", selectedPlayersTeam2);
+
+    // Clear the selected players arrays
+    setSelectedPlayersTeam1([]);
+    setSelectedPlayersTeam2([]);
+  };
+  if (!session) {
+    return (
+      <div className="h-screen w-screen flex flex-col space-y-4 items-center justify-center">
+        <p>You need to sign in to access this page!</p>
+        <button
+          className="shadow bg-purple-500 hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
+          onClick={() => {
+            signIn();
+          }}
+        >
+          Sign in
+        </button>
+      </div>
+    );
+  }
+  console.log(session);
+  if (!validated) {
+    return (
+      <div className="h-screen w-screen flex flex-col space-y-4 items-center justify-center">
+        Sorry, you are not authorised to access this page!
+      </div>
+    );
+  }
 
   return (
     <><div class="md:flex md:items-center mb-6 w-full max-w-sm mx-auto px-4">
@@ -180,7 +215,7 @@ function AddPlaying11() {
           required />
       </div>
     </div>
-    <div className="bg-gray-100 p-6">
+      <div className="bg-gray-100 p-6">
         <h1 className="text-2xl font-bold mb-4">Match ID: {currId}</h1>
         <div className="bg-white p-4 rounded-lg shadow-md">
           <h2 className="text-lg font-semibold mb-2">Team 1: {team1Name}</h2>
@@ -282,10 +317,24 @@ function AddPlaying11() {
           </button>
         </div>
       </div>
-      </>
+    </>
   );
 }
 
 export default AddPlaying11;
 
+export async function getServerSideProps(context) {
+  const querySnapshot = await getDocs(collection(db, "auth_users"));
 
+  let auth_users = [];
+
+  querySnapshot.forEach((doc) => {
+    auth_users.push(doc.data());
+  });
+
+  return {
+    props: {
+      auth_users,
+    },
+  };
+}

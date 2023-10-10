@@ -2,7 +2,6 @@ import Head from "next/head";
 import React, { useState, useEffect } from "react";
 import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
-
 import { createMatch } from "../../components/matchFunctions.js";
 import { database, db } from "../../components/db/Firebase";
 import { child, ref, get } from "firebase/database";
