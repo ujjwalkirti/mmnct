@@ -447,8 +447,8 @@ async function afterMatchClosed(matchId) {
   const data = await fetchData(matchId);
   const Team1totalScore = totalScore(data.Team1Score,data.Team1Extra,data.Team1Wicket);
  const Team2totalScore = totalScore(data.Team2Score,data.Team2Extra,data.Team2Wicket);
- console.log(Team1totalScore);
- console.log(Team2totalScore);
+// console.log(Team1totalScore);
+ //console.log(Team2totalScore);
 
 const team1over=getOver(data.Team1Score,data.Team1prev,data.Team1Extra)[0];
 const team2over=getOver(data.Team2Score,data.Team2prev,data.Team2Extra)[0];
@@ -525,7 +525,7 @@ async function updatePlayerHistory(playerId, playerData, matchId) {
     });
 
 }
-function calculateRunRate(team1TotalScore,team2TotalScore,team1TotalBalls,team2TotalBalls){
+function calculateMenRunRate(team1TotalScore,team2TotalScore,team1TotalBalls,team2TotalBalls){
   const [team1runs, team1wickets] = team1TotalScore.split('/').map(Number);
   const assumedteam1TotalBalls = team1wickets === 10 ? 48 : team1TotalBalls;
   const [team2runs, team2wickets] = team2TotalScore.split('/').map(Number);
@@ -535,6 +535,17 @@ function calculateRunRate(team1TotalScore,team2TotalScore,team1TotalBalls,team2T
   const rate= (team1runs*6)/assumedteam1TotalBalls -(team2runs*6)/assumedteam2TotalBalls ;
  // console.log(rate);
   return rate.toFixed(2);
+}
+function calculateWomenRunRate(team1TotalScore,team2TotalScore,team1TotalBalls,team2TotalBalls){
+  const [team1runs, team1wickets] = team1TotalScore.split('/').map(Number);
+  const assumedteam1TotalBalls = team1wickets === 10 ? 36 : team1TotalBalls;
+  const [team2runs, team2wickets] = team2TotalScore.split('/').map(Number);
+  const assumedteam2TotalBalls = team2wickets === 10 ? 36 : team2TotalBalls;
+//console.log(assumedteam1TotalBalls);
+//console.log(assumedteam2TotalBalls);
+  const rate= (team1runs*6)/assumedteam1TotalBalls -(team2runs*6)/assumedteam2TotalBalls ;
+ // console.log(rate);
+  return rate;
 }
 async function updateNetRunRate(teamOneId, teamTwoId, team1TotalScore, team2TotalScore, team1TotalBalls, team2TotalBalls) {
   
@@ -550,7 +561,7 @@ async function updateNetRunRate(teamOneId, teamTwoId, team1TotalScore, team2Tota
   const team1RunRate = team1Data.exists ? (team1Data.data().runRate || []) : [];
   const team2RunRate = team2Data.exists ? (team2Data.data().runRate || []) : [];
 
-  const runRateTeam1 = calculateRunRate(team1TotalScore,team2TotalScore,team1TotalBalls,team2TotalBalls);
+  const runRateTeam1 = (gender=="Male")?calculateMenRunRate(team1TotalScore,team2TotalScore,team1TotalBalls,team2TotalBalls):calculateWomenRunRate(team1TotalScore,team2TotalScore,team1TotalBalls,team2TotalBalls);
   const runRateTeam2 = (-1)*runRateTeam1;
   console.log(runRateTeam1);
   console.log(runRateTeam2);

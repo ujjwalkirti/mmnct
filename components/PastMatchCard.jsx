@@ -49,7 +49,7 @@ const PastMatchCard = (props) => {
                       <p className={`${teamName} ml-1 hidden lg:flex`}>
                         {curElem.Team1Id}
                       </p>
-                      <p className="text-sm">
+                      <p className="text-[12px] text-gray-500">
                         ({teams[curElem.Team1Id].teamType})
                       </p>
                     </div>
@@ -116,7 +116,7 @@ const PastMatchCard = (props) => {
                       <p className={`${teamName} ml-1 hidden lg:flex`}>
                         {curElem.Team2Id}
                       </p>
-                      <p className="text-sm">
+                      <p className="text-[12px] text-gray-500">
                         ({teams[curElem.Team2Id].teamType})
                       </p>
                     </div>

@@ -12,15 +12,16 @@ export async function getServerSideProps() {
   const querySnapshot = await getDocs(
     query(
       collection(db, "participating-teams"),
-      orderBy("points", "desc"),
-      orderBy("NRR", "desc")
     )
   );
 
   const maleTable = [];
   const femaleTable = [];
   querySnapshot.forEach((doc) => {
+ // console.log("hiii");
+ 
     let data = doc.data();
+    //console.log(data);
     if (data.teamGender == "Male") {
       maleTable.push(data);
     } else {
@@ -36,6 +37,8 @@ export async function getServerSideProps() {
 }
 
 export default function PointsTable({ maleTable, femaleTable }) {
+  //console.log(maleTable);
+
   const [selectedGender, setSelectedGender] = useState("male");
   const [selectedPool, setSelectedPool] = useState("pool1");
   const [selectedType, setSelectedType] = useState("gs");

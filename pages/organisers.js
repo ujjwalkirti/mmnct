@@ -35,7 +35,7 @@ export async function getServerSideProps() {
       designers.push(data);
     } else if (data.position == "content writer") {
       content_creators.push(data);
-    } else {
+    } else if (data.position == "Infra and In-House"){
       in_house.push(data);
     }
   });

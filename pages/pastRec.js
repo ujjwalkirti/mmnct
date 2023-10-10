@@ -113,9 +113,9 @@ const PastRec=({teamList, matchData,coordinators,
   const StylesBasedonChoice = (choice) => {
     if (selectedChoice === choice) {
       if (selectedGender === "male") {
-        return "bg-[#508CD4] font-[700] text-[25px] md:text-[39px] md:w-auto md:h-[71px] leading-[24.38px] text-white h-[70px] w-[103px] px-2 shadow-lg";
+        return "bg-[#508CD4] font-[700] text-[20px] md:text-[39px] md:w-auto md:h-[71px] leading-[24.38px] text-white h-[70px] w-[103px] px-2 shadow-lg";
       } else  {
-        return "bg-[#CE3AB3] font-[700] text-[25px] md:text-[39px] md:w-auto md:h-[71px] leading-[24.38px] text-white h-[70px] w-[124px] px-2 shadow-lg";
+        return "bg-[#CE3AB3] font-[700] text-[20px] md:text-[39px] md:w-auto md:h-[71px] leading-[24.38px] text-white h-[70px] w-[124px] px-2 shadow-lg";
       }
     } else {
       return "";

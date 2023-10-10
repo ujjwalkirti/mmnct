@@ -5,7 +5,9 @@ const PointCard = (props) => {
   const teamStyle = "flex items-center justify-center";
   const teamName = "font-extrabold text-lg";
   const shortformstyle = "h-[48px] md:h-[60px] rounded-full";
+  //console.log(props.data[0]);
   if (!props.data[0]) {
+
     return <></>;
   }
   var ind = 0;
@@ -15,6 +17,20 @@ const PointCard = (props) => {
         curElem.teamLogo = (curElem.teamLogo.length ? curElem.teamLogo : "https://mir-s3-cdn-cf.behance.net/projects/404/168243107813919.Y3JvcCwzMDAwLDIzNDYsMCw0MjM.jpg");
         if (props.data[1] === "male" && curElem.teamGender === "Male" && curElem.pool === props.data[2]) {
           ind = ind + 1;
+          const runRate = curElem.runRate || [];
+          const superOver = curElem.superOver  || 0;
+          const noOfMatchWon = runRate.filter(val => val > 0).length;
+          const bonus = runRate.filter(val => val >= 1.25).length;
+          const noOfMatchPlayed =runRate.length;
+
+
+
+          const arrSum = runRate.reduce((acc, val) => acc + val, 0);
+
+          // Calculate the average
+          const netRunRate =noOfMatchPlayed > 0 ?( arrSum / noOfMatchPlayed).toFixed(2) : "0.00";
+        //console.log(noOfMatchPlayed + " "+bonus+" "+noOfMatchWon);
+
           return (
             <div className="flex flex-row md:flex-row pt-5 pb-5  justify-center md:justify-evenly items-center my-2 bg-white w-full lg:w-full  min-h-79 lg:h-[90px] xl:h-[150px] rounded-[8px] mx-auto shadow-lg ">
               <div className="w-1/4 flex  items-center justify-center">
@@ -40,27 +56,29 @@ const PointCard = (props) => {
               </div>
               <div className="w-1/4 flex  items-center justify-center">
                 <p className="text-[15px] xl:text-[25px] lg:text-[20px] font-[600]">
-                  {curElem.points}
+                  {/* {curElem.points} */}
+                 {noOfMatchWon*2+superOver*2+bonus}
                 </p>
               </div>
               <div className="w-1/4 flex  items-center justify-center">
                 <p className="text-[15px] xl:text-[25px] lg:text-[20px] font-[600]">
-                  {curElem.matchPlayed}
+                  {/* {curElem.matchPlayed} */}
+                  {noOfMatchPlayed}
                 </p>
               </div>
               <div className="w-1/4 flex  items-center justify-center">
                 <p className="text-[15px] xl:text-[25px] lg:text-[20px] font-[600]">
-                  {curElem.matchWon}
+                  {noOfMatchWon + superOver}
                 </p>
               </div>
               <div className="w-1/4 flex  items-center justify-center">
                 <p className="text-[15px] xl:text-[25px] lg:text-[20px] font-[600]">
-                  {curElem.matchPlayed - curElem.matchWon}
+                  {noOfMatchPlayed - (noOfMatchWon +superOver)}
                 </p>
               </div>
               <div className="w-1/4 flex  items-center justify-center">
                 <p className="text-[15px] xl:text-[25px] lg:text-[20px] font-[600]">
-                  {curElem.NRR}
+                  {netRunRate}
                 </p>
               </div>
             </div>
@@ -70,6 +88,13 @@ const PointCard = (props) => {
           curElem.teamGender === "Female" && props.data[2] === curElem.pool
         ) {
           ind = ind + 1;
+          const runRate = curElem.runRate || [];
+          const superOver = curElem.superOver  || 0;
+          const noOfMatchWon = runRate.filter(val => val > 0).length;
+          const bonus = runRate.filter(val => val >= 1.25).length;
+          const noOfMatchPlayed =runRate.length;
+          const arrSum = runRate.reduce((acc, val) => acc + val, 0);
+          const netRunRate =noOfMatchPlayed > 0 ?( arrSum / noOfMatchPlayed).toFixed(2) : "0.00";
           return (
             <div className="flex flex-row md:flex-row pt-5 pb-5  justify-center md:justify-evenly items-center my-2 bg-white w-full lg:w-full  min-h-79 lg:h-[90px] xl:h-[150px] rounded-[8px] mx-auto shadow-lg">
               <div className="w-1/4 flex  items-center justify-center">
@@ -96,27 +121,30 @@ const PointCard = (props) => {
               </div>
               <div className="w-1/4 flex  items-center justify-center">
                 <p className="text-[15px] xl:text-[25px] lg:text-[20px] font-[600]">
-                  {curElem.points}
+                {noOfMatchWon*2+superOver*2+bonus}
                 </p>
               </div>
               <div className="w-1/4 flex  items-center justify-center">
                 <p className="text-[15px] xl:text-[25px] lg:text-[20px] font-[600]">
-                  {curElem.matchPlayed}
+                  {/* {curElem.matchPlayed} */}
+                  {noOfMatchPlayed}
                 </p>
               </div>
               <div className="w-1/4 flex  items-center justify-center">
                 <p className="text-[15px] xl:text-[25px] lg:text-[20px] font-[600]">
-                  {curElem.matchWon}
+                  {/* {curElem.matchWon} */}
+                  {noOfMatchWon + superOver}
                 </p>
               </div>
               <div className="w-1/4 flex  items-center justify-center">
                 <p className="text-[15px] xl:text-[25px] lg:text-[20px] font-[600]">
-                  {curElem.matchPlayed - curElem.matchWon}
+                  {/* {curElem.matchPlayed - curElem.matchWon} */}
+                  {noOfMatchPlayed - (noOfMatchPlayed +superOver)}
                 </p>
               </div>
               <div className="w-1/4 flex  items-center justify-center">
                 <p className="text-[15px] xl:text-[25px] lg:text-[20px] font-[600]">
-                  {curElem.NRR}
+                   {netRunRate}
                 </p>
               </div>
             </div>
