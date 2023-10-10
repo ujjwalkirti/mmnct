@@ -59,7 +59,7 @@ export default function Home({ teamList, sponsorImgList, matches }) {
           </button>
         </Link>
       </div>
-      // <SponsorCarousel urls={sponsorImgList} />
+      {/* <SponsorCarousel urls={sponsorImgList} /> */}
 
       <Footer />
     </div>
