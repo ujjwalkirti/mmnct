@@ -9,7 +9,7 @@ const options = [
   { name: "Fixtures", url: "/fixtures" },
   { name: "Points Table", url: "/points-table" },
  { name: "Polls", url: "/polls" },
-  // { name: "Memories", url: "/memories" },
+  { name: "Memories", url: "/memories" },
   { name: "Notice", url: "/notice" },
   { name: "Organising Team", url: "/organisers" },
   {name:"Past Records", url: "/pastRec" },
