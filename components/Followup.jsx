@@ -48,14 +48,14 @@ const options = [
     to: "to-orange-500",
     special: false,
   },
-  // {
-  //   name: "MEMORIES",
-  //   url: "/memories",
-  //   from: "from-yellow-400",
-  //   via: "via-yellow-600",
-  //   to: "to-orange-700",
-  //   special: false,
-  // },
+  {
+    name: "MEMORIES",
+    url: "/memories",
+    from: "from-yellow-400",
+    via: "via-yellow-600",
+    to: "to-orange-700",
+    special: false,
+  },
   {
     name: "DEVELOPERS ❤️",
     url: "/developer",
