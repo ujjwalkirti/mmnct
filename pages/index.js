@@ -59,7 +59,7 @@ export default function Home({ teamList, sponsorImgList, matches }) {
           </button>
         </Link>
       </div>
-      {/* <SponsorCarousel urls={sponsorImgList} /> */}
+      <SponsorCarousel urls={sponsorImgList} />
 
       <Footer />
     </div>
@@ -91,15 +91,15 @@ export async function getServerSideProps() {
     data.push(temp);
   });
 
-  // const imageListRef = ref(storage, "sponsors/");
-  // const imageList = await listAll(imageListRef);
+  const imageListRef = ref(storage, "sponsors/");
+  const imageList = await listAll(imageListRef);
 
-  // const sponsor_img = await Promise.all(
-  //   imageList.items.map(async (imageRef) => {
-  //     const url = await getDownloadURL(imageRef);
-  //     return url;
-  //   })
-  // );
+  const sponsor_img = await Promise.all(
+    imageList.items.map(async (imageRef) => {
+      const url = await getDownloadURL(imageRef);
+      return url;
+    })
+  );
 
   let matches = [];
   let localMatches = [];
@@ -123,7 +123,7 @@ export async function getServerSideProps() {
   return {
     props: {
       teamList: data,
-      // sponsorImgList: sponsor_img,
+       sponsorImgList: sponsor_img,
       matches: matches,
     },
   };
