@@ -31,16 +31,17 @@ const UpcomingMatches = ({ matches }) => {
     // console.log(matches);
 
     matches?.map((match, index) => {
+      // console.log(match,index);
       if (
         match?.category === "male" &&
-        index > 0 &&
+        index >= 0 &&
         match?.timeDate === todayDate &&
         match?.status.toLowerCase() !== "past"
       ) {
         setMenMatches((menMatches) => [...menMatches, match]);
       } else if (
         match?.category === "female" &&
-        index > 0 &&
+        index >= 0 &&
         match?.timeDate === todayDate &&
         match?.status !== "past"
       ) {

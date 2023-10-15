@@ -1,6 +1,7 @@
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import HomeCard from "./HomeCard";
+
 // import { SiGooglemaps } from "react-icons/si";
 // import Banner from "./Banner";
 
@@ -50,6 +51,7 @@ function HomePage({ teamlist }) {
 
       <div className="w-full md:w-4/5 md:mx-auto flex flex-col md:flex-row md:items-center md:justify-between">
         {/* graphic and venue along with days to go */}
+
         <div>
           {/* <HomeCard /> */}
           <div className=" flex justify-center items-center w-4/5 md:w-[400px] days-counter mx-auto md:mx-0 md:mb-4 md:gap-4 h-[116px] md:h-[150px]">
@@ -66,6 +68,7 @@ function HomePage({ teamlist }) {
               </p>
             </div>
           </div>
+
           <p className="font-[600] text-[20px] hidden md:flex my-10  md:mx-auto leading-[24.38px]">
             Bring back the Cheers! Bring back the Slogans!
           </p>
@@ -121,7 +124,7 @@ const WinnersAnnouncement = ({ teamlist }) => {
 
   const winnerStyle = "font-bold font-3xl";
 
-  console.log(teamlist);
+  //console.log(teamlist);
 
   if (teamlist.length === 0) {
     return <div>loading...</div>;

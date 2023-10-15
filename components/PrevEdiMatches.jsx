@@ -56,7 +56,7 @@ import { getDocs, collection } from "firebase/firestore";
 
 
 export default function PrevEdMatch ({matchData})  {
-  console.log(matchData);
+ // console.log(matchData);
 
   const [selectedGender, setSelectedGender] = useState("male");
   const [selectedTime, setSelectedTime] = useState("present");

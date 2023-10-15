@@ -1,5 +1,6 @@
 import React from "react";
 import { useState } from "react";
+import Link from "next/link";
 import Head from "next/head";
 import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
@@ -30,7 +31,7 @@ export async function getServerSideProps(context) {
 
         // Get all the documents from the collection participating-team-member having the teamId as data.id
         let member_col = collection(db, "participating-team-member");
-        let q = query(member_col, where("teamId", "==", data.id),where("edition", "==", "17"));
+        let q = query(member_col, where("teamId", "==", data.id), where("edition", "==", "17"));
         await getDocs(q).then((querySnapshot) => {
           querySnapshot.forEach((doc) => {
             let data = doc.data();
@@ -151,37 +152,39 @@ function teamDetails({ teamDetails, members }) {
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mx-4 md:mx-16 gap-6">
               {members.map((member, index) => (
-                <div className="relative" key={index}>
-                  <Image
-                    src={
-                      member.imgUrl != ""
-                        ? member.imgUrl
-                        : teamDetails.teamGender == "Male"
-                        ? "/male.jpg"
-                        : "/female.jpg"
-                    }
-                    alt="team member"
-                    width={1920}
-                    height={1080}
-                    className="rounded-xl"
-                  />
-                  <div class="absolute top-0 mt-20 right-0 bottom-0 left-0 bg-gradient-to-b from-transparent to-gray-700 shadow-xl"></div>
-                  <div className="absolute bottom-2 w-full text-white text-center font-light">
-                    <p className="text-sm font-semibold">{member.name}</p>
-                    {member.id == teamDetails.captainId && (
-                      <p className="text-xs font-semibold">Captain</p>
-                    )}
-                    {member.id == teamDetails.viceCaptainId && (
-                      <p className="text-xs font-semibold">Vice-Captain</p>
-                    )}
-                    {member.roll_no != "" && (
-                      <p className="text-xs">{member.roll_no}</p>
-                    )}
-                    {member.branch != "" && (
-                      <p className="text-xs">{member.branch}</p>
-                    )}
+                <Link href={`/player-details/${member.id}`} >
+                  <div className="relative" key={index}>
+                    <Image
+                      src={
+                        member.imgUrl != ""
+                          ? member.imgUrl
+                          : teamDetails.teamGender == "Male"
+                            ? "/male.jpg"
+                            : "/female.jpg"
+                      }
+                      alt="team member"
+                      width={1920}
+                      height={1080}
+                      className="rounded-xl"
+                    />
+                    <div class="absolute top-0 mt-20 right-0 bottom-0 left-0 bg-gradient-to-b from-transparent to-gray-700 shadow-xl"></div>
+                    <div className="absolute bottom-2 w-full text-white text-center font-light">
+                      <p className="text-sm font-semibold">{member.name}</p>
+                      {member.id == teamDetails.captainId && (
+                        <p className="text-xs font-semibold">Captain</p>
+                      )}
+                      {member.id == teamDetails.viceCaptainId && (
+                        <p className="text-xs font-semibold">Vice-Captain</p>
+                      )}
+                      {member.roll_no != "" && (
+                        <p className="text-xs">{member.roll_no}</p>
+                      )}
+                      {member.branch != "" && (
+                        <p className="text-xs">{member.branch}</p>
+                      )}
+                    </div>
                   </div>
-                </div>
+                </Link>
               ))}
             </div>
           </div>

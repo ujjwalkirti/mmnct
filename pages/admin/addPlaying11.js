@@ -5,8 +5,18 @@ import { addPlayerToMatch, getPlayersByTeamName } from "../../components/matchFu
 import { child, ref, get } from "firebase/database";
 import { db, database } from "../../components/db/Firebase";
 import { signIn, useSession } from "next-auth/react";
+import {
+  collection,
+  addDoc,
+  doc,
+  query,
+  getDocs,
+  deleteDoc,
+  getCountFromServer,
+  where,
+} from "firebase/firestore";
 
-function AddPlaying11() {
+function AddPlaying11({ auth_users }) {
   const router = useRouter();
   const { matchId } = router.query;
   const { data: session } = useSession();
@@ -186,7 +196,7 @@ function AddPlaying11() {
       </div>
     );
   }
-  console.log(session);
+  //console.log(session);
   if (!validated) {
     return (
       <div className="h-screen w-screen flex flex-col space-y-4 items-center justify-center">

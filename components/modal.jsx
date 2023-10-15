@@ -1,4 +1,4 @@
-import React, { useState , useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import Modal from 'react-modal';
 import { child, ref, get, set, update } from "firebase/database";
 import { database, db } from "./db/Firebase";
@@ -9,7 +9,8 @@ export default function CustomModal({ isOpen, onRequestClose, matchId, onUpdateV
         currBattingTeam: "",
         striker: "",
         nonstriker: "",
-        baller: ""
+        baller: "",
+        comment: ""
     });
     const [currOrder, setCurrOrder] = useState(0);
     const [team1name, setteam1name] = useState("Team 1");
@@ -73,12 +74,12 @@ export default function CustomModal({ isOpen, onRequestClose, matchId, onUpdateV
         setFormData({ ...formData, [name]: value });
     };
 
-    const updateStatusBatsman = async () => {
+    const updateStatusBatsman = async (comment) => {
         const team = (formData.currBattingTeam === "" ? currBattingTeam : formData.currBattingTeam) === team1name ? "Team1Players" : "Team2Players";
         if (formData.striker !== striker) {
             if (striker) {
                 await update(ref(database, `matchDetail/${matchId}/${team}/${striker}`), {
-                    "status": "out",
+                    "status": comment,
                 });
             }
             await update(ref(database, `matchDetail/${matchId}/${team}/${formData.striker}`), {
@@ -93,7 +94,7 @@ export default function CustomModal({ isOpen, onRequestClose, matchId, onUpdateV
         if (formData.nonstriker !== nonstriker) {
             if (nonstriker)
                 await update(ref(database, `matchDetail/${matchId}/${team}/${nonstriker}`), {
-                    "status": "out",
+                    "status": comment,
                 });
             await update(ref(database, `matchDetail/${matchId}/${team}/${formData.nonstriker}`), {
                 "status": "not out",
@@ -118,7 +119,7 @@ export default function CustomModal({ isOpen, onRequestClose, matchId, onUpdateV
             "baller": formData.baller,
             "currBattingTeam": formData.currBattingTeam
         });
-        await updateStatusBatsman();
+        await updateStatusBatsman(formData.comment);
         onUpdateValues(formData.striker, formData.nonstriker, formData.baller, formData.currBattingTeam);
         alert("Match Updated successfully");
         onRequestClose();
@@ -225,7 +226,7 @@ export default function CustomModal({ isOpen, onRequestClose, matchId, onUpdateV
                         </select>
                     </div>
                 </div>
-                            
+
                 {/* current baller */}
                 <div class="md:flex md:items-center mb-6">
                     <div class="md:w-1/3">
@@ -252,6 +253,26 @@ export default function CustomModal({ isOpen, onRequestClose, matchId, onUpdateV
                                     </option>
                                 ))}
                         </select>
+                    </div>
+                </div>
+
+                <div class="md:flex md:items-center mb-6">
+                    <div class="md:w-1/3">
+                        <label
+                            className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4"
+                            for="team_name"
+                        >
+                            Enter Comment Details of How Player got out:
+                        </label>
+                    </div>
+                    <div class="md:w-2/3">
+                        <input
+                            class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
+                            id="match_id"
+                            name="comment"
+                            value={formData.comment}
+                            onChange={handleChange}
+                        />
                     </div>
                 </div>
 

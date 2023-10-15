@@ -59,6 +59,9 @@ const MatchCard = ({ type, team, genderColor }) => {
             {teams[team.Team1Id].teamCode}
           </p>
           <p className={`${teamName} ml-1 hidden lg:flex`}>{team.Team1Id}</p>
+          <p className="text-[12px] text-gray-500">
+            ({teams[team.Team1Id].teamType})
+          </p>
         </div>
 
         {/* timing and date */}
@@ -86,6 +89,9 @@ const MatchCard = ({ type, team, genderColor }) => {
             {teams[team.Team2Id].teamCode}
           </p>
           <p className={`${teamName} ml-1 hidden lg:flex`}>{team.Team2Id}</p>
+          <p className="text-[12px] text-gray-500">
+            ({teams[team.Team2Id].teamType})
+          </p>
         </div>
       </div>
     );

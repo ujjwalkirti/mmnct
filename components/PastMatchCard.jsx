@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { totalScore, getOver } from "../components/matchFunctions";
 import teams from "./teams";
+import Link from "next/link";
 const PastMatchCard = (props) => {
   const teamStyle = "flex items-center gap-2 justify-evenly w-2/5 ";
   const teamName = "font-extrabold text-lg md:text-lg";
@@ -21,6 +22,7 @@ const PastMatchCard = (props) => {
           }
           return (
             <>
+            
               <div className="flex flex-col bg-white md:justify-evenly lg:w-10/12 w-11/12 text-sm items-center justify-center shadow-lg pb-4 mx-4 rounded-lg">
                 {curElem.tag === "" ? (
                   <div></div>
@@ -31,6 +33,7 @@ const PastMatchCard = (props) => {
                     </p>
                   </div>
                 )}
+                <Link href={`/scorecard?matchId=${curElem.id}`} >
                 <div className="flex justify-evenly w-full pt-4">
                   {/* team 1 */}
                   <div className={`${teamStyle}`}>
@@ -122,6 +125,7 @@ const PastMatchCard = (props) => {
                     </div>
                   </div>
                 </div>
+                
                 {/* timing and date */}
                 <div className="flex flex-col items-center justify-center px-2.5">
                   <p className="text-black-400">{curElem.finalComment}</p>
@@ -129,7 +133,9 @@ const PastMatchCard = (props) => {
                     <sup>{curElem.timeDate}</sup>
                   </p>
                 </div>
+                </Link>
               </div>
+
             </>
           );
         })}

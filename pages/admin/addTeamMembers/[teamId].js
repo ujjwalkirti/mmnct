@@ -128,6 +128,7 @@ const teamId = ({ teamDetails, members, captain, viceCaptain, auth_users }) => {
     const playerBranch = e.target[3].value;
     const roll_no = e.target[4].value;
     const edition=e.target[5].value;
+    const role=e.target[6].value;
     let downloadURL = "";
     if (file != null) {
       const storageRef = ref(storage, `players/${file.name}`);
@@ -151,7 +152,8 @@ const teamId = ({ teamDetails, members, captain, viceCaptain, auth_users }) => {
       imgUrl: downloadURL,
       branch: playerBranch,
       roll_no: roll_no,
-      edition: edition
+      edition: edition,
+      role : role
     });
 
     alert("Player added successfully");
@@ -432,6 +434,7 @@ const teamId = ({ teamDetails, members, captain, viceCaptain, auth_users }) => {
                         <th className="px-8 py-2">Branch</th>
                         <th className="px-10 py-2">Roll No.</th>
                         <th className="px-10 py-2">Edition</th>
+                        <th className="px-10 py-2">Role</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -457,6 +460,7 @@ const teamId = ({ teamDetails, members, captain, viceCaptain, auth_users }) => {
                             {member.roll_no == "" ? "-" : member.roll_no}
                           </td>
                           <td className="px-4 py-auto">{member.edition}</td>
+                          <td className="px-4 py-auto">{member.role}</td>
                         </tr>
                       ))}
                     </tbody>
@@ -516,13 +520,26 @@ const teamId = ({ teamDetails, members, captain, viceCaptain, auth_users }) => {
                   </label>
                 </div>
                 <div className="md:w-2/3">
-                  <input
-                    className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
-                    id="type"
-                    type="text"
-                    required
-                  />
-                </div>
+    <select
+      className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
+      id="role"
+      required
+    >
+    <option value="" disabled selected>
+        Choose One
+      </option>
+      <option value="B.Tech">B.Tech I</option>
+      <option value="B.Tech">B.Tech II</option>
+      <option value="B.Tech">B.Tech III</option>
+      <option value="B.Tech">B.Tech IV</option>
+      <option value="B.Tech">M.Tech I</option>
+      <option value="B.Tech">M.Tech II</option>
+      <option value="B.Tech">Phd</option>
+      <option value="Msc">Msc</option>
+      <option value="faculty">faculty</option>
+      <option value="Mess">Mess</option>
+    </select>
+  </div>
               </div>
 
               <div className="md:flex md:items-center mb-6">
@@ -574,8 +591,34 @@ const teamId = ({ teamDetails, members, captain, viceCaptain, auth_users }) => {
                     className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
                     id="edition"
                     type="text"
+                    defaultValue="17"
+                    readOnly
                   />
                 </div>
+              </div>
+              <div className="md:flex md:items-center mb-6">
+                <div className="md:w-1/3">
+                  <label
+                    className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4"
+                    for="edition"
+                  >
+                    Role
+                  </label>
+                </div>
+                <div className="md:w-2/3">
+    <select
+      className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
+      id="role"
+      required
+    >
+    <option value="" disabled selected>
+        Choose One
+      </option>
+      <option value="batsman">Batsman</option>
+      <option value="bowler">Bowler</option>
+      <option value="allrounder">All-Rounder</option>
+    </select>
+  </div>
               </div>
 
               <div className="md:flex md:items-center">
@@ -611,6 +654,7 @@ const teamId = ({ teamDetails, members, captain, viceCaptain, auth_users }) => {
                       <th className="px-8 py-2">Branch </th>
                       <th className="px-10 py-2">Edition</th>
                       <th className="px-10 py-2">Roll No.</th>
+                      <th className="px-10 py-2">Role</th>
                       <th className="px-4 py-2">Delete</th>
                     </tr>
                   </thead>
@@ -640,6 +684,7 @@ const teamId = ({ teamDetails, members, captain, viceCaptain, auth_users }) => {
                         <td className="px-4 py-auto">
                           {member.roll_no == "" ? "-" : member.roll_no}
                         </td>
+                        <td className="px-4 py-auto">{member.role}</td>
                         <td className="text-red-600">
                           <AiFillDelete
                             className="cursor-pointer mx-auto"
