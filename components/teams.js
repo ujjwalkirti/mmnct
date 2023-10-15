@@ -67,18 +67,18 @@ const teams = {
     themeColor: "#60e6f0",
     teamCode: "SRP",
     teamType : "B. Tech IV-B",
-    capt_email : "",
     teamId : "JUbEN3BRZpOhIYVGSLRy",
-    teamCategory : "male"
+    teamCategory : "male",
+    capt_email : "sumitjaiswal00077@gmail.com"
   },
   SPARTANS: {
     teamLogo: "https://firebasestorage.googleapis.com/v0/b/mmnct-fac3f.appspot.com/o/teams_logo%2FSPARTANS.jpg?alt=media&token=1e3a7260-4b78-4575-98ed-68c9d423cbd6",
     themeColor: "#3431d6",
     teamCode: "SPA",
     teamType : "B. Tech IV-A",
-    capt_email : "",
     teamId : "ObsrfbZ2MBD1hIxsMFFb",
-    teamCategory : "male"
+    teamCategory : "male",
+    capt_email : "karansav1212@gmail.com"
   },
   'KNIGHT TEMPLARS': {
     teamLogo: "https://firebasestorage.googleapis.com/v0/b/mmnct-fac3f.appspot.com/o/teams_logo%2FKNIGHT%20TEMPLERS.jpg?alt=media&token=d7db1968-577e-448c-88f5-15ad4e1406ca",
@@ -157,9 +157,9 @@ const teams = {
     themeColor: "#1d6454",
     teamCode: "SUM",
     teamType : "B. Tech I-A",
-    capt_email : "",
     teamId : "xb1iULxkTFD2TCzAEoia",
-    teamCategory : "male"
+    teamCategory : "male",
+    capt_email : "rishiharikota123@gmail.com"
   },
   AMAZONS: {
     teamLogo: "https://firebasestorage.googleapis.com/v0/b/mmnct-fac3f.appspot.com/o/teams_logo%2FAMAZONS.jpg?alt=media&token=77a579de-864c-4c9f-aa7c-3e202110cf19",
