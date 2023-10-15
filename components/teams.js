@@ -60,7 +60,7 @@ const teams = {
     themeColor: "#3431d6",
     teamCode: "SPA",
     teamType : "B. Tech IV-A",
-    capt_email : ""
+    capt_email : "karansav1212@gmail.com"
   },
   'KNIGHT TEMPLARS': {
     teamLogo: "https://firebasestorage.googleapis.com/v0/b/mmnct-fac3f.appspot.com/o/teams_logo%2FKNIGHT%20TEMPLERS.jpg?alt=media&token=d7db1968-577e-448c-88f5-15ad4e1406ca",
@@ -123,7 +123,7 @@ const teams = {
     themeColor: "#1d6454",
     teamCode: "SUM",
     teamType : "B. Tech I-A",
-    capt_email : ""
+    capt_email : "rishiharikota123@gmail.com"
   },
   AMAZONS: {
     teamLogo: "https://firebasestorage.googleapis.com/v0/b/mmnct-fac3f.appspot.com/o/teams_logo%2FAMAZONS.jpg?alt=media&token=77a579de-864c-4c9f-aa7c-3e202110cf19",
