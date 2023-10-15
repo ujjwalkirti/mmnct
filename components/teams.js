@@ -53,7 +53,7 @@ const teams = {
     themeColor: "#60e6f0",
     teamCode: "SRP",
     teamType : "B. Tech IV-B",
-    capt_email : ""
+    capt_email : "sumitjaiswal00077@gmail.com"
   },
   SPARTANS: {
     teamLogo: "https://firebasestorage.googleapis.com/v0/b/mmnct-fac3f.appspot.com/o/teams_logo%2FSPARTANS.jpg?alt=media&token=1e3a7260-4b78-4575-98ed-68c9d423cbd6",
