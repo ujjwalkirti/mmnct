@@ -162,10 +162,13 @@ function teamDetails({ teamDetails, members }) {
                             ? "/male.jpg"
                             : "/female.jpg"
                       }
-                      alt="team member"
-                      width={1920}
-                      height={1080}
-                      className="rounded-xl"
+                      alt="profile_pic"
+                      width={200}
+                      height={100}
+                      className="  flex justify-center  h-full w-full   mx-auto aspect-square   align-middle items-center   sm:align-middle "
+                      style={{
+                        maxHeight: '325px',
+                      }}
                     />
                     <div class="absolute top-0 mt-20 right-0 bottom-0 left-0 bg-gradient-to-b from-transparent to-gray-700 shadow-xl"></div>
                     <div className="absolute bottom-2 w-full text-white text-center font-light">
