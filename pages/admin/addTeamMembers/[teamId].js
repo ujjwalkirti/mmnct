@@ -528,15 +528,15 @@ const teamId = ({ teamDetails, members, captain, viceCaptain, auth_users }) => {
     <option value="" disabled selected>
         Choose One
       </option>
-      <option value="B.Tech">B.Tech I</option>
-      <option value="B.Tech">B.Tech II</option>
-      <option value="B.Tech">B.Tech III</option>
-      <option value="B.Tech">B.Tech IV</option>
-      <option value="B.Tech">M.Tech I</option>
-      <option value="B.Tech">M.Tech II</option>
-      <option value="B.Tech">Phd</option>
+      <option value="B.Tech I">B.Tech I</option>
+      <option value="B.Tech II">B.Tech II</option>
+      <option value="B.Tech III">B.Tech III</option>
+      <option value="B.Tech IV">B.Tech IV</option>
+      <option value="M.Tech I">M.Tech I</option>
+      <option value="M.Tech II">M.Tech II</option>
+      <option value="Phd">Phd</option>
       <option value="Msc">Msc</option>
-      <option value="faculty">faculty</option>
+      <option value="Faculty">faculty</option>
       <option value="Mess">Mess</option>
     </select>
   </div>
@@ -614,9 +614,9 @@ const teamId = ({ teamDetails, members, captain, viceCaptain, auth_users }) => {
     <option value="" disabled selected>
         Choose One
       </option>
-      <option value="batsman">Batsman</option>
-      <option value="bowler">Bowler</option>
-      <option value="allrounder">All-Rounder</option>
+      <option value="Batsman">Batsman</option>
+      <option value="Bowler">Bowler</option>
+      <option value="All-rounder">All-Rounder</option>
     </select>
   </div>
               </div>
