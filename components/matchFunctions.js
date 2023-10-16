@@ -560,6 +560,14 @@ function calculateWomenRunRate(team1TotalScore, team2TotalScore, team1TotalBalls
   // console.log(rate);
   return rate;
 }
+const updateManOfTheMatch =async(matchID,playerName)=>{
+  
+  await update(ref(database, "matchDetail/" + matchID), {
+    "manOfTheMatch":playerName
+  }).then(() => {
+  }).catch(err => console.log(err));
+  
+};
 async function updateNetRunRate(teamOneId, teamTwoId, team1TotalScore, team2TotalScore, team1TotalBalls, team2TotalBalls) {
 
 
@@ -609,6 +617,7 @@ export {
   strikerChange,
   getPlayerScore,
   changeInnings,
-  extraOfInnings
+  extraOfInnings,
+  updateManOfTheMatch
 };
 

@@ -150,7 +150,7 @@ function teamDetails({ teamDetails, members }) {
                 style={{ borderColor: teamDetails.themeColor }}
               ></div>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mx-4 md:mx-16 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mx-4 md:mx-16 gap-6">
               {members.map((member, index) => (
                 <Link href={`/player-details/${member.id}`} >
                   <div className="relative" key={index}>
@@ -165,7 +165,7 @@ function teamDetails({ teamDetails, members }) {
                       alt="profile_pic"
                       width={200}
                       height={100}
-                      className="  flex justify-center  h-full w-full   mx-auto aspect-square   align-middle items-center   sm:align-middle "
+                      className="  flex justify-center  h-full w-full aspect-square  mx-auto align-middle items-center   sm:align-middle "
                       style={{
                         maxHeight: '325px',
                       }}

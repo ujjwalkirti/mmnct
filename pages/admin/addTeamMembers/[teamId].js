@@ -50,7 +50,7 @@ export async function getServerSideProps(context) {
 
       // Get all the documents from the collection participating-team-member having the teamId as data.id
       let member_col = collection(db, "participating-team-member");
-      let q = query(member_col,where("teamId", "==", teamId),where("edition", "==", "17"));
+      let q = query(member_col, where("teamId", "==", teamId), where("edition", "==", "17"));
       await getDocs(q).then((querySnapshot) => {
         querySnapshot.forEach((doc) => {
           let temp = doc.data();
@@ -109,7 +109,7 @@ const teamId = ({ teamDetails, members, captain, viceCaptain, auth_users }) => {
   const [updateCaptain, setUpdateCaptain] = useState(false);
   const [updateViceCaptain, setUpdateViceCaptain] = useState(false);
   const [validated, setValidated] = useState(false);
-  
+
   useEffect(() => {
     auth_users.map((user) => {
       if (user.email === session?.user?.email) {
@@ -127,8 +127,8 @@ const teamId = ({ teamDetails, members, captain, viceCaptain, auth_users }) => {
     const playerType = e.target[2].value;
     const playerBranch = e.target[3].value;
     const roll_no = e.target[4].value;
-    const edition=e.target[5].value;
-    const role=e.target[6].value;
+    const edition = e.target[5].value;
+    const role = e.target[6].value;
     let downloadURL = "";
     if (file != null) {
       const storageRef = ref(storage, `players/${file.name}`);
@@ -153,7 +153,7 @@ const teamId = ({ teamDetails, members, captain, viceCaptain, auth_users }) => {
       branch: playerBranch,
       roll_no: roll_no,
       edition: edition,
-      role : role
+      role: role
     });
 
     alert("Player added successfully");
@@ -442,13 +442,16 @@ const teamId = ({ teamDetails, members, captain, viceCaptain, auth_users }) => {
                         <tr className="border-b" key={index}>
                           <td className="px-4 py-2">
                             {member.imgUrl != "" ? (
-                              <Image
-                                src={member.imgUrl}
-                                width={100}
-                                height={100}
-                                className="border"
-                                alt="No logo"
-                              />
+
+                              <div className="w-20 h-20 overflow-hidden">
+                                <Image
+                                  src={member.imgUrl}
+                                  width={100}
+                                  height={100}
+                                  className="border object-cover w-full h-full"
+                                  alt="No Logo"
+                                />
+                              </div>
                             ) : (
                               <p className="text-center">No logo</p>
                             )}
@@ -486,8 +489,16 @@ const teamId = ({ teamDetails, members, captain, viceCaptain, auth_users }) => {
                     Image
                   </label>
                 </div>
-                <div className="md:w-2/3">
-                  <input id="file" type="file" accept="image/*" />
+                <div className="md:w-1/3">
+                  <input id="file" type="file" accept="image/*" style={{
+                    // width: '100%',
+                    height: 'auto',
+                    display: 'block',
+                    margin: '0 auto',
+                    // Set fixed width and height for the image input
+
+                    maxHeight: '100px', // Adjust the value as needed
+                  }} />
                 </div>
               </div>
 
@@ -520,26 +531,26 @@ const teamId = ({ teamDetails, members, captain, viceCaptain, auth_users }) => {
                   </label>
                 </div>
                 <div className="md:w-2/3">
-    <select
-      className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
-      id="role"
-      required
-    >
-    <option value="" disabled selected>
-        Choose One
-      </option>
-      <option value="B.Tech I">B.Tech I</option>
-      <option value="B.Tech II">B.Tech II</option>
-      <option value="B.Tech III">B.Tech III</option>
-      <option value="B.Tech IV">B.Tech IV</option>
-      <option value="M.Tech I">M.Tech I</option>
-      <option value="M.Tech II">M.Tech II</option>
-      <option value="Phd">Phd</option>
-      <option value="Msc">Msc</option>
-      <option value="Faculty">faculty</option>
-      <option value="Mess">Mess</option>
-    </select>
-  </div>
+                  <select
+                    className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
+                    id="role"
+                    required
+                  >
+                    <option value="" disabled selected>
+                      Choose One
+                    </option>
+                    <option value="B.Tech I">B.Tech I</option>
+                    <option value="B.Tech II">B.Tech II</option>
+                    <option value="B.Tech III">B.Tech III</option>
+                    <option value="B.Tech IV">B.Tech IV</option>
+                    <option value="M.Tech I">M.Tech I</option>
+                    <option value="M.Tech II">M.Tech II</option>
+                    <option value="Phd">Phd</option>
+                    <option value="Msc">Msc</option>
+                    <option value="Faculty">faculty</option>
+                    <option value="Mess">Mess</option>
+                  </select>
+                </div>
               </div>
 
               <div className="md:flex md:items-center mb-6">
@@ -606,19 +617,19 @@ const teamId = ({ teamDetails, members, captain, viceCaptain, auth_users }) => {
                   </label>
                 </div>
                 <div className="md:w-2/3">
-    <select
-      className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
-      id="role"
-      required
-    >
-    <option value="" disabled selected>
-        Choose One
-      </option>
-      <option value="Batsman">Batsman</option>
-      <option value="Bowler">Bowler</option>
-      <option value="All-rounder">All-Rounder</option>
-    </select>
-  </div>
+                  <select
+                    className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
+                    id="role"
+                    required
+                  >
+                    <option value="" disabled selected>
+                      Choose One
+                    </option>
+                    <option value="Batsman">Batsman</option>
+                    <option value="Bowler">Bowler</option>
+                    <option value="All-rounder">All-Rounder</option>
+                  </select>
+                </div>
               </div>
 
               <div className="md:flex md:items-center">
