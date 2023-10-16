@@ -22,7 +22,7 @@ const teams = {
     themeColor: "#575757",
     teamCode: "BEA",
     teamType : "M.Sc",
-    capt_email : "",
+    capt_email : "ishikasanghavi01@gmail.com",
     teamId : "9lIoDoV0MsG2CDN0xCnf",
     teamCategory : "female"
   },
@@ -49,7 +49,7 @@ const teams = {
     themeColor: "#663f7a",
     teamCode: "HRC",
     teamType : "B. Tech III-B",
-    capt_email : "",
+    capt_email : "anujsarvesh99@gmail.com",
     teamId : "GXuxH7N5UKKeghUbHMF5",
     teamCategory : "male"
   },
@@ -58,7 +58,7 @@ const teams = {
     themeColor: "#e02636",
     teamCode: "VAL",
     teamType : "M.Tech & Phd",
-    capt_email : "",
+    capt_email : "d21ce003@ced.svnit.ac.in",
     teamId : "HT7MP2wV6atHS5nWUI17",
     teamCategory : "female"
   },
@@ -85,7 +85,7 @@ const teams = {
     themeColor: "#bb8d1b",
     teamCode: "KNT",
     teamType : "B. Tech II-B",
-    capt_email : "",
+    capt_email : "anmolone8@gmail.com",
     teamId : "Q3nfwc0Ieeuz7SQ8DqYE",
     teamCategory : "male"
   },
@@ -103,7 +103,7 @@ const teams = {
     themeColor: "#7f1d1c",
     teamCode: "ASR",
     teamType : "M. Tech II",
-    capt_email : "",
+    capt_email : "peeyushsemwal16@gmail.com",
     teamId : "XzU3FlhqMTeDAilclCC7",
     teamCategory : "male"
   },
@@ -121,7 +121,7 @@ const teams = {
     themeColor: "#a33a0f",
     teamCode: "VIK",
     teamType : "B. Tech II-A",
-    capt_email : "",
+    capt_email : "shubhamkumarsingh424@gmail.com",
     teamId : "ehCGojuhAdZH5xiRUi0U",
     teamCategory : "male"
   },
@@ -139,7 +139,7 @@ const teams = {
     themeColor: "#ed4447",
     teamCode: "AMO",
     teamType : "M. Tech I",
-    capt_email : "",
+    capt_email : "p23is011@coed.svnit.ac.in",
     teamId : "u7N3G75tw3PZ5CVFY5tz",
     teamCategory : "male"
   },
