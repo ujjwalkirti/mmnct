@@ -166,7 +166,7 @@ const teams = {
     themeColor: "#334e6b",
     teamCode: "AMZ",
     teamType : "B. Tech IV",
-    capt_email : "",
+    capt_email : "sakshibhushan5@gmail.com",
     teamId : "ydK5fqL5SofiJ1zA4AIZ",
     teamCategory : "female"
   },
