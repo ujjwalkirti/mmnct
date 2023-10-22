@@ -39,7 +39,7 @@ const UpdateMan= ({ auth_users }) => {
                 return;
             }
     
-            let snapshot = await get(child(dbref, "match/" + enteredMatchId));
+            let snapshot = await get(child(dbref, "matchDetail/" + enteredMatchId));
             
             // Assuming snapshot.val() contains the required data structure
             setteam1name(snapshot.val().Team1Id);
@@ -60,7 +60,7 @@ const UpdateMan= ({ auth_users }) => {
     //     setcurrId(matchId.target.value);
     //     const dbref = ref(database);
     //     let snapshot = await get(
-    //       child(dbref, "match/" + matchId.target.value)
+    //       child(dbref, "matchDetail/" + matchId.target.value)
     //     );
     const submitData = async (e) => {
         e.preventDefault();

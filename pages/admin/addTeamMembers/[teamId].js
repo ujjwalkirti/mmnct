@@ -449,7 +449,7 @@ const teamId = ({ teamDetails, members, captain, viceCaptain, auth_users }) => {
                                   width={100}
                                   height={100}
                                   className="border object-cover w-full h-full"
-                                  alt="No Logo"
+                                  alt="Team Logo"
                                 />
                               </div>
                             ) : (
@@ -496,7 +496,7 @@ const teamId = ({ teamDetails, members, captain, viceCaptain, auth_users }) => {
                     display: 'block',
                     margin: '0 auto',
                     // Set fixed width and height for the image input
-
+                   
                     maxHeight: '100px', // Adjust the value as needed
                   }} />
                 </div>
@@ -683,6 +683,7 @@ const teamId = ({ teamDetails, members, captain, viceCaptain, auth_users }) => {
                               height={100}
                               className="border"
                               alt="Team Logo"
+
                             />
                           ) : (
                             <p className="text-center">No logo</p>

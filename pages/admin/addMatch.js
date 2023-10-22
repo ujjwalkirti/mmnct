@@ -38,7 +38,7 @@ const AddMatch = ({ auth_users }) => {
     //console.log(snapshot.val());
     setFormData({
       ...formData,
-      id: snapshot.val() === null ? 1 : Object.keys(snapshot.val()).length + 1,
+      id: snapshot.val() === null ? 1 : Object.keys(snapshot.val()).length,
     });
   };
 
@@ -164,19 +164,19 @@ const AddMatch = ({ auth_users }) => {
                 <option value="">---</option>
                 <option value="IMMORTALS">IMMORTALS</option>
                 <option value="SHAOLIN MONKS">SHAOLIN MONKS</option>
-                <option value="BELONIANS">BELONIANS</option>
+                <option value="BEALONIANS">BEALONIANS</option>
                 <option value="AVENGERS">AVENGERS</option>
                 <option value="VENGEANCE">VENGEANCE</option>
                 <option value="HERCULEANS">HERCULEANS</option>
-                <option value="VALKAYRIES">VALKAYRIES</option>
-                <option value="SCORPIANS">SCORPIANS</option>
+                <option value="VALKYRIES">VALKYRIES</option>
+                <option value="SCORPIONS">SCORPIONS</option>
                 <option value="SPARTANS">SPARTANS</option>
                 <option value="KNIGHT TEMPLARS">KNIGHT TEMPLARS</option>
                 <option value="ATHENIANS">ATHENIANS</option>
                 <option value="ASSYRIANS">ASSYRIANS</option>
                 <option value="NINJAS">NINJAS</option>
                 <option value="VIKINGS">VIKINGS</option>
-                <option value="SAMARTIANS">SAMARTIANS</option>
+                <option value="SAMARITANS">SAMARITANS</option>
                 <option value="AMORITES">AMORITES</option>
                 <option value="PARTHIANS">PARTHIANS</option>
                 <option value="SUMERIANS">SUMERIANS</option>
@@ -208,19 +208,19 @@ const AddMatch = ({ auth_users }) => {
                 <option value="">---</option>
                 <option value="IMMORTALS">IMMORTALS</option>
                 <option value="SHAOLIN MONKS">SHAOLIN MONKS</option>
-                <option value="BELONIANS">BELONIANS</option>
+                <option value="BEALONIANS">BEALONIANS</option>
                 <option value="AVENGERS">AVENGERS</option>
                 <option value="VENGEANCE">VENGEANCE</option>
                 <option value="HERCULEANS">HERCULEANS</option>
-                <option value="VALKAYRIES">VALKAYRIES</option>
-                <option value="SCORPIANS">SCORPIANS</option>
+                <option value="VALKYRIES">VALKYRIES</option>
+                <option value="SCORPIONS">SCORPIONS</option>
                 <option value="SPARTANS">SPARTANS</option>
                 <option value="KNIGHT TEMPLARS">KNIGHT TEMPLARS</option>
                 <option value="ATHENIANS">ATHENIANS</option>
                 <option value="ASSYRIANS">ASSYRIANS</option>
                 <option value="NINJAS">NINJAS</option>
                 <option value="VIKINGS">VIKINGS</option>
-                <option value="SAMARITANS">SAMARTIANS</option>
+                <option value="SAMARITANS">SAMARITANS</option>
                 <option value="AMORITES">AMORITES</option>
                 <option value="PARTHIANS">PARTHIANS</option>
                 <option value="SUMERIANS">SUMERIANS</option>

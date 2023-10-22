@@ -53,7 +53,7 @@ const PastMatchCard = (props) => {
                         {curElem.Team1Id}
                       </p>
                       <p className="text-[12px] text-gray-500">
-                        ({teams[curElem.Team1Id].teamType})
+                        ({teams[curElem.Team1Id]?.teamType})
                       </p>
                     </div>
                     <div>
@@ -109,7 +109,7 @@ const PastMatchCard = (props) => {
                         {curElem.Team2Id}
                       </p>
                       <p className="text-[12px] text-gray-500">
-                        ({teams[curElem.Team2Id].teamType})
+                        ({teams[curElem.Team2Id]?.teamType})
                       </p>
                     </div>
                   </div>

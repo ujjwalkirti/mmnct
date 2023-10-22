@@ -50,6 +50,12 @@ const Footer = () => {
           <Link href="/polls">
             <p>Polls</p>
           </Link>
+          <Link href="/stars">
+            <p>Stars</p>
+          </Link>
+          <Link href="/notice">
+            <p>Notice</p>
+          </Link>
           <Link href="/memories">
             <p>Memories</p>
           </Link>
@@ -65,6 +71,9 @@ const Footer = () => {
           <Link href="/faq">
             <p>FAQs</p>
           </Link>
+          {/* <Link href="/developer">
+            <p>Developer ❤️</p>
+          </Link> */}
         </div>
         <div className="grid grid-cols-1 lg:grid-cols-3 mt-6 lg:mt-10 col-span-1 gap-y-5">
           <div className="lg:col-span-2 flex lg:justify-end justify-center">

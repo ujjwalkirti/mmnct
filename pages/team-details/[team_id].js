@@ -154,6 +154,30 @@ function teamDetails({ teamDetails, members }) {
               {members.map((member, index) => (
                 <Link href={`/player-details/${member.id}`} >
                   <div className="relative" key={index}>
+                  {/* <div className="w-20 h-20 overflow-hidden">
+                                <Image
+                                  src={member.imgUrl}
+                                  width={100}
+                                  height={100}
+                                  className="border object-cover w-full h-full"
+                                  alt="Team Logo"
+                                />
+                              </div> */}
+                              {/* <Image
+                src={playerStats.imgUrl !== ""
+                  ? playerStats.imgUrl
+                  : gender == "boy"
+                    ? "/male.jpg"
+                    : "/female.jpg"}
+                alt="profile_pic"
+                width={200}
+                height={100}
+                className={`${gender === "girl"
+                  ? " rounded-full flex justify-center h-full w-full  mx-auto aspect-square   align-middle items-center ring-4 ring-offset-4 ring-pink-500 sm:align-middle  "
+                  : " rounded-full flex justify-center  w-4/5   mx-auto aspect-square   align-middle items-center ring-4 ring-offset-4 ring-blue-500 sm:align-middle "
+                  }
+                 `}
+              /> */}
                     <Image
                       src={
                         member.imgUrl != ""
@@ -162,14 +186,20 @@ function teamDetails({ teamDetails, members }) {
                             ? "/male.jpg"
                             : "/female.jpg"
                       }
-                      alt="profile_pic"
-                      width={200}
-                      height={100}
-                      className="  flex justify-center  h-full w-full aspect-square  mx-auto align-middle items-center   sm:align-middle "
-                      style={{
-                        maxHeight: '325px',
-                      }}
-                    />
+                    //   alt="team member"
+                    //   width={1920}
+                    //   height={1080}
+                    //  className="rounded-xl w-100 h-100"
+                    alt="profile_pic"
+                width={200}
+                height={100}
+                className="  flex justify-center  h-full w-full aspect-square  mx-auto align-middle items-center   sm:align-middle "
+                style={{
+       
+    maxHeight: '325px', // Set the maximum height
+  }}
+ />
+                    
                     <div class="absolute top-0 mt-20 right-0 bottom-0 left-0 bg-gradient-to-b from-transparent to-gray-700 shadow-xl"></div>
                     <div className="absolute bottom-2 w-full text-white text-center font-light">
                       <p className="text-sm font-semibold">{member.name}</p>

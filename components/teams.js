@@ -17,7 +17,7 @@ const teams = {
     teamId : "8ryESqeoBZO343wOzDRu",
     teamCategory : "male"
   },
-  BELONIANS: {
+  BEALONIANS: {
     teamLogo: "https://firebasestorage.googleapis.com/v0/b/mmnct-fac3f.appspot.com/o/teams_logo%2FBEALONIANS.jpg?alt=media&token=f8dbdc65-406c-4e8a-9525-cde25ab184d3",
     themeColor: "#575757",
     teamCode: "BEA",
@@ -53,7 +53,7 @@ const teams = {
     teamId : "GXuxH7N5UKKeghUbHMF5",
     teamCategory : "male"
   },
-  VALKAYRIES: {
+  VALKYRIES: {
     teamLogo: "https://firebasestorage.googleapis.com/v0/b/mmnct-fac3f.appspot.com/o/teams_logo%2FVALKYRIES.jpg?alt=media&token=6dacfce2-5592-4d39-8acd-77901b738114",
     themeColor: "#e02636",
     teamCode: "VAL",
@@ -62,7 +62,7 @@ const teams = {
     teamId : "HT7MP2wV6atHS5nWUI17",
     teamCategory : "female"
   },
-  SCORPIANS: {
+  SCORPIONS: {
     teamLogo: "https://firebasestorage.googleapis.com/v0/b/mmnct-fac3f.appspot.com/o/teams_logo%2FSCORPIONS.jpg?alt=media&token=88de3656-2ad7-4c34-872e-a1af51a1e8e2",
     themeColor: "#60e6f0",
     teamCode: "SRP",

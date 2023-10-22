@@ -30,7 +30,7 @@ const createMatch = async (ID, dateTime, Team1ID, Team2ID, category) => {
     status: "upcoming",
     category: category,
     currOrder: 1,
-    manofthematch : ""
+    manofthematch: ""
   }).then(() => {
     console.log("mattch added");
   }).catch(err => console.log(err));
@@ -103,6 +103,20 @@ const getOver = (score, prev, extra) => {
   let overFormat = (currOver.toString()) + "." + currBall.toString();
   return [overFormat, Over]
 }
+
+const getPlayerScored = (score) => {
+  var totalRuns = 0;
+  //var ballPlayed = 0;
+  if (score) {
+    for (var i = 0; i < 10; i++) {
+      if (score[i]) {
+        totalRuns += i * score[i];
+      }
+    }
+  }
+  return totalRuns;
+};
+
 const addPlayerToMatch = async (matchID, teamID, playerID, playerName) => {
   // Retrieve the current match data
   //let teamID="Team1Players";
@@ -239,7 +253,7 @@ async function getPlayersByTeamName(teamName) {
 
       //Query the "participating-team-member" collection for players with the matching "teamId"
       const playersCollection = collection(db, "participating-team-member");
-      const playersQuery = query(playersCollection, where("teamId", "==", teamId),where("edition","==","17"));
+      const playersQuery = query(playersCollection, where("teamId", "==", teamId), where("edition", "==", "17"));
       const querySnapshot = await getDocs(playersQuery);
 
       const players = [];
@@ -282,30 +296,33 @@ const updateTeam1PlayerScore = async (matchID, playerID, run) => {
 
     //console.log("player is"+ player);
     //console.log(scoreArray);
-    if (run.endsWith("w") || run.endsWith("r")) {
-      run = parseInt(run);
-      // console.log(run+"  w");
-    }
-    else if (run.endsWith("nb")) {
-      run = parseInt(run);
-      //console.log(run+"  nb");
-    }
-    else if (run.endsWith("b")) {
-      //run=parseInt(run);
-      run = 0;
-    }
-    if (!isNaN(run)) { // Check if 'run' is a valid number
-      scoreArray[run] = (scoreArray[run] || 0) + 1;
-      // Update the player's score in the database
-      try {
-        await update(matchRef, {
-          [`${playerID}/score`]: scoreArray,
-        });
-      } catch (err) {
-        console.error("Error updating player score:", err);
+    if (run) {
+      if (run.endsWith("w") || run.endsWith("r")) {
+        run = parseInt(run);
+        // console.log(run+"  w");
       }
-    } else {
-      console.log("Invalid run value. Score not updated.");
+      else if (run.endsWith("nb")) {
+        run = parseInt(run);
+        //console.log(run+"  nb");
+      }
+      else if (run.endsWith("b")) {
+        //run=parseInt(run);
+        run = 0;
+      }
+
+      if (!isNaN(run)) { // Check if 'run' is a valid number
+        scoreArray[run] = (scoreArray[run] || 0) + 1;
+        // Update the player's score in the database
+        try {
+          await update(matchRef, {
+            [`${playerID}/score`]: scoreArray,
+          });
+        } catch (err) {
+          console.error("Error updating player score:", err);
+        }
+      } else {
+        console.log("Invalid run value. Score not updated.");
+      }
     }
   } else {
     console.log("Player or team not found in the match data.");
@@ -323,33 +340,35 @@ const updateTeam2PlayerScore = async (matchID, playerID, run) => {
   if (matchData && matchData[playerID]) {
     const player = matchData[playerID];
     const scoreArray = player.score;
-
-    if (run.endsWith("w") || run.endsWith("r")) {
-      run = parseInt(run);
-      // console.log(run+"  w");
-    }
-    else if (run.endsWith("nb")) {
-      run = parseInt(run);
-      //console.log(run+"  nb");
-    }
-    else if (run.endsWith("b")) {
-      //run=parseInt(run);
-      run = 0;
-    }
-
-    if (!isNaN(run)) {
-      // Check if 'run' is a valid number
-      scoreArray[run] = (scoreArray[run] || 0) + 1;
-      // Update the player's score in the database
-      try {
-        await update(matchRef, {
-          [`${playerID}/score`]: scoreArray,
-        });
-      } catch (err) {
-        console.error("Error updating player score:", err);
+    if (run) {
+      if (run.endsWith("w") || run.endsWith("r")) {
+        run = parseInt(run);
+        // console.log(run+"  w");
       }
-    } else {
-      console.log("Invalid run value. Score not updated.");
+      else if (run.endsWith("nb")) {
+        run = parseInt(run);
+        //console.log(run+"  nb");
+      }
+      else if (run.endsWith("b")) {
+        //run=parseInt(run);
+        run = 0;
+      }
+
+
+      if (!isNaN(run)) {
+        // Check if 'run' is a valid number
+        scoreArray[run] = (scoreArray[run] || 0) + 1;
+        // Update the player's score in the database
+        try {
+          await update(matchRef, {
+            [`${playerID}/score`]: scoreArray,
+          });
+        } catch (err) {
+          console.error("Error updating player score:", err);
+        }
+      } else {
+        console.log("Invalid run value. Score not updated.");
+      }
     }
   }
 };
@@ -367,23 +386,25 @@ const updateTeam1BowlersStats = async (matchID, playerID, run) => {
   if (matchData && matchData[playerID]) {
     const player = matchData[playerID];
     const scoreArray = player.score;
+    if (run) {
+      scoreArray[12]++;
+      if (run.endsWith("w")) {
+        scoreArray[14] = scoreArray[14] + 1;
+      }
+      else if (run.endsWith("nb") || run.endsWith("wd")) {
+        scoreArray[13] = scoreArray[13] + 1;
+        scoreArray[12]--;
+      }
+      else if (run.endsWith("b")) {
+        //run=parseInt(run);
+        run = 0;
+      }
+      var runs = parseInt(run);
 
-    scoreArray[12]++;
-    if (run.endsWith("w")) {
-      scoreArray[14] = scoreArray[14] + 1;
-    }
-    else if (run.endsWith("nb") || run.endsWith("wd")) {
-      scoreArray[13] = scoreArray[13] + 1;
-      scoreArray[12]--;
-    }
-    else if (run.endsWith("b")) {
-      //run=parseInt(run);
-      run = 0;
-    }
-    var runs = parseInt(run);
+      scoreArray[13] = scoreArray[13] + runs;
 
-    scoreArray[13] = scoreArray[13] + runs;
-    // Update the player's run and wicket in the database
+      // Update the player's run and wicket in the database
+    }
     try {
       await update(matchRef, {
         [`${playerID}/score`]: scoreArray,
@@ -408,20 +429,23 @@ const updateTeam2BowlersStats = async (matchID, playerID, run) => {
     const player = matchData[playerID];
     const scoreArray = player.score;
 
-    scoreArray[12]++;
-    if (run.endsWith("w")) {
-      scoreArray[14] = scoreArray[14] + 1;
+    if (run) {
+
+      scoreArray[12]++;
+      if (run.endsWith("w")) {
+        scoreArray[14] = scoreArray[14] + 1;
+      }
+      if (run.endsWith("nb") || run.endsWith("wd")) {
+        scoreArray[13] = scoreArray[13] + 1;
+        scoreArray[12]--;
+      }
+      else if (run.endsWith("b")) {
+        //run=parseInt(run);
+        run = 0;
+      }
+      var runs = parseInt(run);
+      scoreArray[13] = scoreArray[13] + runs;
     }
-    if (run.endsWith("nb") || run.endsWith("wd")) {
-      scoreArray[13] = scoreArray[13] + 1;
-      scoreArray[12]--;
-    }
-    else if (run.endsWith("b")) {
-      //run=parseInt(run);
-      run = 0;
-    }
-    var runs = parseInt(run);
-    scoreArray[13] = scoreArray[13] + runs;
     // Update the player's run and wicket in the database
     try {
       await update(matchRef, {
@@ -466,11 +490,11 @@ async function afterMatchClosed(matchId) {
 
   let playerDetail = Object.entries(data.Team1Players);
   for (const [key, value] of playerDetail) {
-    await updatePlayerHistory(key, value, matchId, data.Team2Id);
+    await updatePlayerHistory(key, value, matchId, data.Team2Id, data.Team1Players);
   }
   playerDetail = Object.entries(data.Team2Players);
   for (const [key, value] of playerDetail) {
-    await updatePlayerHistory(key, value, matchId, data.Team1Id);
+    await updatePlayerHistory(key, value, matchId, data.Team1Id, data.Team2Players);
   }
   return 0;
 }
@@ -483,7 +507,7 @@ const getPlayerScore = (players, player) => {
   if (players) {
     for (var i = 0; i < 10; i++) {
       if (players[player]) {
-       // console.log(players[player]);
+        // console.log(players[player]);
         totalRuns += i * players[player]?.score[i];
         ballPlayed += players[player]?.score[i];
       }
@@ -492,10 +516,10 @@ const getPlayerScore = (players, player) => {
   return totalRuns + "(" + ballPlayed + ")";
 }
 
-async function updatePlayerHistory(playerId, playerData, matchId, OpponentId) {
+async function updatePlayerHistory(playerId, playerData, matchId, OpponentId, data) {
 
   const playerDocRef = doc(db, `participating-team-member/${playerId}`);
-  playerData[11] = getPlayerScore(playerData.score);
+  playerData.score[11] = getPlayerScored(playerData.score);
   getDoc(playerDocRef)
     .then((docSnapshot) => {
       if (docSnapshot.exists()) {
@@ -513,9 +537,9 @@ async function updatePlayerHistory(playerId, playerData, matchId, OpponentId) {
         } else {
           const existingStats = data['stats'];
           const updatedStats = existingStats.map((value, index) => {
-            (index !== 11) ?
+            return (index !== 11) ?
               value + playerData.score[index] :
-              (playerData[11] > value ? playerData[11] : value)
+              (playerData.score[11] > value ? playerData.score[11] : value)
           })
           const updateObject = {
             stats: updatedStats,
@@ -560,13 +584,13 @@ function calculateWomenRunRate(team1TotalScore, team2TotalScore, team1TotalBalls
   // console.log(rate);
   return rate;
 }
-const updateManOfTheMatch =async(matchID,playerName)=>{
-  
+const updateManOfTheMatch = async (matchID, playerName) => {
+
   await update(ref(database, "matchDetail/" + matchID), {
-    "manOfTheMatch":playerName
+    "manOfTheMatch": playerName
   }).then(() => {
   }).catch(err => console.log(err));
-  
+
 };
 async function updateNetRunRate(teamOneId, teamTwoId, team1TotalScore, team2TotalScore, team1TotalBalls, team2TotalBalls) {
 

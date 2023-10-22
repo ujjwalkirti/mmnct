@@ -33,8 +33,8 @@ const PastMatchCard = (props) => {
                     </p>
                   </div>
                 )}
-                <Link href={`/scorecard?matchId=${curElem.id}`} >
-                <div className="flex justify-evenly w-full pt-4">
+                <Link href={`/scorecard?matchId=${curElem.id}`} className="w-full" >
+                <div className="flex justify-between items-center w-full pt-4">
                   {/* team 1 */}
                   <div className={`${teamStyle}`}>
                     <div className={teamNameStyle}>

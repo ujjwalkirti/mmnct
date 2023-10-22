@@ -113,7 +113,7 @@ function daysCaluclator() {
   var date_to_reply = new Date("2023-10-26");
   var timeinmilisec = date_to_reply.getTime() - today.getTime();
   // console.log(Math.floor(timeinmilisec / (1000 * 60 * 60 * 24)));
-  return Math.floor(timeinmilisec / (1000 * 60 * 60 * 24));
+  return Math.floor((timeinmilisec / (1000 * 60 * 60 * 24)) + 1);
 }
 
 // this component is hard coded and is used only for announcing who won

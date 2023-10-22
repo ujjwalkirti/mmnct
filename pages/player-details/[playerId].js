@@ -6,6 +6,7 @@ import Image from "next/image";
 import { TbCricket } from "react-icons/tb";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
+import Link from "next/link";
 import { db } from "../../components/db/Firebase";
 import PlayerPastRecord from "../../components/playerpastrecord";
 import teams from "../../components/teams";
@@ -24,6 +25,7 @@ import {
 const PlayerDetails = () => {
   const router = useRouter();
   const [gender, setGender] = useState("boy");
+  const [playerTeam,setPlayerTeam] = useState("");
   const getTeamCategory = () => {
     Object.keys(teams).map((key) => {
       const value = teams[key];
@@ -95,6 +97,7 @@ const PlayerDetails = () => {
         if (value.teamId === playerStats.teamId) {
          // console.log(value.teamCategory);
           (value.teamCategory === "female" ? setGender("girl") : setGender("boy"));
+          setPlayerTeam(key);
         }
       })
     };
@@ -142,8 +145,8 @@ const PlayerDetails = () => {
       <Navbar />
       <div className={`${gender === "girl" ? " " : ""}text-white`}>
         <div className="w-5/6 mx-auto my-4 shadow-lg text-black bg-white rounded-md">
-          <div className="flex justify-center  p-4 flex-col md:flex-row  gap-10 border-none  ">
-            <div className=" ">
+          <div className="w-fit mx-auto flex justify-center  p-4 flex-col md:flex-row  gap-10 border-none  ">
+            
               <Image
                 src={playerStats.imgUrl !== ""
                   ? playerStats.imgUrl
@@ -154,19 +157,24 @@ const PlayerDetails = () => {
                 width={200}
                 height={100}
                 className={`${gender === "girl"
-                  ? " rounded-full flex justify-center h-full w-full  mx-auto aspect-square   align-middle items-center ring-4 ring-offset-4 ring-pink-500 sm:align-middle  "
-                  : " rounded-full flex justify-center  w-4/5   mx-auto aspect-square   align-middle items-center ring-4 ring-offset-4 ring-blue-500 sm:align-middle "
+                  ? " rounded-full flex justify-center h-[280px] w-[280px]  mx-auto aspect-square   align-middle items-center ring-4 ring-offset-4 ring-pink-500 sm:align-middle  "
+                  : " rounded-full flex justify-center h-[280px] w-[280px]    mx-auto aspect-square   align-middle items-center ring-4 ring-offset-4 ring-blue-500 sm:align-middle "
                   }
                  `}
               />
-            </div>
+            
 
             {/* <hr className=" h-1  bg-green-500 my-3 lg:hidden md:hidden sm:block" /> */}
             <div className="     px-2  ">
-              <p className=" text-5xl font-medium md:mt-4 text-center md:text-left lg:text-left mt-2 ">
+              <p className=" text-3xl font-bold uppercase md:mt-4 text-center md:text-left lg:text-left mt-2 ">
                 {" "}
                 {playerStats?.name}
                 {/* {player Name} */}
+              </p>
+              <p className={gender == "boy" ? `text-lg font-medium md:mt-4 text-center md:text-left lg:text-left mt-2 text-blue-500` 
+              :`text-lg font-medium md:mt-4 text-center md:text-left lg:text-left mt-2 text-pink-500`}>
+                {" "}
+                {playerTeam}
               </p>
               <p className="text-lg font-bold md:mt-4 text-center md:text-left lg:text-left mt-2">
                 {" "}
@@ -184,7 +192,7 @@ const PlayerDetails = () => {
               <p className=" flex  text-lg font-bold text-center md:text-left lg:text-left md:mt-4 justify-center md:justify-start lg:justify-start mt-2">
                 {/* Role :{" "} */}
                 {/* <TbCricket className=" text-lg mx-2 font-medium h-[30px] w-[20px]" />{" "} */}
-                {playerStats?.role === "" || playerStats.role === undefined ? "All-Rounder" : playerStats.role}
+                {playerStats.role}
                 {/* {Role} */}
               </p>
             </div>
@@ -425,14 +433,14 @@ const PlayerDetails = () => {
             containerClass="carousel-container"
             autoPlay={true}
           >
-            <>
-              {playerStats.pastrecords &&
-                Object.keys(playerStats.pastrecords).reverse().map((key) => {
-                  const value = playerStats.pastrecords[key];
+            {playerStats?.pastrecords ?
+                Object.keys(playerStats?.pastrecords).reverse().map((key) => {
+                  const value = playerStats?.pastrecords[key];
                   // Render PlayerPastRecord component here with value and key
-                  return <PlayerPastRecord value={value} id={key} gender={gender} />;
-                })}
-            </>
+                  return <Link href={`/scorecard?matchId=${key}`}><PlayerPastRecord value={value} id={key} key={key} gender={gender} /></Link>;
+                }) :<></>}
+              
+            
           </Carousel>
         </div>
       </div>

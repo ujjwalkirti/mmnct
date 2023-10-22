@@ -90,6 +90,44 @@ export default function PointsTable({ maleTable, femaleTable }) {
 
     return finalDecision;
   }
+  const sortedMaleTable = maleTable.sort((teamA, teamB) => {
+    const teamARunRate=teamA.runRate || [];
+    const teamBRunRate=teamB.runRate || [];
+    const positiveTermsA = teamARunRate.filter((val) => val > 0).length;
+    const positiveTermsB = teamBRunRate.filter((val) => val > 0).length;
+  
+    if (positiveTermsA !== positiveTermsB) {
+      return positiveTermsB - positiveTermsA;
+    }
+  
+    const avgRunRateA = calculateAverage(teamARunRate);
+    const avgRunRateB = calculateAverage(teamBRunRate);
+  
+    return avgRunRateB - avgRunRateA;
+  });
+  
+  const sortedFemaleTable = femaleTable.sort((teamA, teamB) => {
+    const teamARunRate=teamA.runRate || [];
+    const teamBRunRate=teamB.runRate || [];
+    const positiveTermsA = teamARunRate.filter((val) => val > 0).length;
+    const positiveTermsB = teamBRunRate.filter((val) => val > 0).length;
+  
+    if (positiveTermsA !== positiveTermsB) {
+      return positiveTermsB - positiveTermsA;
+    }
+  
+    const avgRunRateA = calculateAverage(teamARunRate);
+    const avgRunRateB = calculateAverage(teamBRunRate);
+  
+    return avgRunRateB - avgRunRateA;
+  });
+  
+  // Function to calculate the average of an array
+  function calculateAverage(arr) {
+    const sum = arr.reduce((acc, val) => acc + val, 0);
+    return arr.length > 0 ? sum / arr.length : 0;
+  }
+  
 
   return (
     <>
@@ -251,18 +289,18 @@ export default function PointsTable({ maleTable, femaleTable }) {
                     </div>
                   </div>
                   <div className="h-px bg-white"></div>
-                  <center>
+                  {/* <center>
                       <br></br>
                       <p className="py-2 px-3 text-[#00000] font-[800] w-[180px] h-[36px] text-[20px] md:text-[40px] mb-3 flex justify-center items-center md:w-[360px] md:h-[66px]">
                         <span>COMING SOON...</span>
                       </p>
                       <br></br>
-                    </center>
-                  {/* {selectedGender === "male" ? (
-                    <PointCard data={[maleTable, selectedGender, selectedPool]} />
+                    </center> */}
+                  {selectedGender === "male" ? (
+                    <PointCard data={[sortedMaleTable, selectedGender, selectedPool]} />
                   ) : (
-                    <PointCard data={[femaleTable, selectedGender, selectedPool]} />
-                  )} */}
+                    <PointCard data={[sortedFemaleTable, selectedGender, selectedPool]} />
+                  )}
                 </div>) : (
                 <div>
                   <div className="flex text-sm text-white leading-7">
@@ -287,9 +325,9 @@ export default function PointsTable({ maleTable, femaleTable }) {
                   </div>
                   <div className="h-px bg-white"></div>
                   {selectedGender === "male" ? (
-                    <PointCardElimination data={[maleTable, selectedGender, "yes"]} />
+                    <PointCardElimination data={[sortedMaleTable, selectedGender, "yes"]} />
                   ) : (
-                    <PointCardElimination data={[femaleTable, selectedGender, "yes"]} />
+                    <PointCardElimination data={[sortedFemaleTable, selectedGender, "yes"]} />
                   )}
                 </div>
               )}
@@ -466,18 +504,18 @@ export default function PointsTable({ maleTable, femaleTable }) {
                       </div>
                     </div>
                     <div className="h-px bg-white"></div>
-                    <center>
+                    {/* <center>
                       <br></br>
                       <p className="py-2 px-3 text-[#00000] font-[800] w-[180px] h-[36px] text-[20px] md:text-[40px] mb-3 flex justify-center items-center md:w-[360px] md:h-[66px]">
                         <span>COMING SOON...</span>
                       </p>
                       <br></br>
-                    </center>
-                    {/* {selectedGender === "male" ? (
-                      <PointCard data={[maleTable, selectedGender, selectedPool]} />
+                    </center> */}
+                    {selectedGender === "male" ? (
+                      <PointCard data={[sortedMaleTable, selectedGender, selectedPool]} />
                     ) : (
-                      <PointCard data={[femaleTable, selectedGender, selectedPool]} />
-                    )} */}
+                      <PointCard data={[sortedFemaleTable, selectedGender, selectedPool]} />
+                    )}
                   </div>) : (
                   <div>
                     <div className="flex text-sm text-white leading-7">

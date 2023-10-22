@@ -800,7 +800,7 @@ const WinnersAnnouncement = ({ teamlist }) => {
   // console.log(teamlist);
 
   if (teamlist.length === 0) {
-    return <div>loading...</div>;
+    return <div className="mx-auto" >loading...</div>;
   } else {
     return (
       <div className="flex flex-col  w-full lg:flex-row justify-evenly py-10  ">
