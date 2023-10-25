@@ -114,204 +114,329 @@ export default function Stars({ playerStats }) {
   };
 
   const getTopBatsman = () => {
-    setTop5malebatsman([...malePlayers].sort((a, b) => {
-      if (a.stats === undefined && b.stats === undefined) return 0;
-      else if (a.stats === undefined) return 1;
-      else if (b.stats === undefined) return -1;
-      
-      const scoreDiff = getPlayerScored(b.stats) - getPlayerScored(a.stats);
-      
-      if (scoreDiff === 0) {
-     
-        const strikeRateDiff = calculateStrikeRate(getPlayerScored(b.stats),getPlayerBalls(b.stats)) - calculateStrikeRate(getPlayerScored(a.stats),getPlayerBalls(a.stats));
-        return strikeRateDiff;
-      }
-      
-      return scoreDiff;
-    }).slice(0, 5));
+    setTop5malebatsman(
+      [...malePlayers]
+        .sort((a, b) => {
+          if (a.stats === undefined && b.stats === undefined) return 0;
+          else if (a.stats === undefined) return 1;
+          else if (b.stats === undefined) return -1;
 
-    setTop5femalebatsman([...femalePlayers].sort((a, b) => {
-      if (a.stats === undefined && b.stats === undefined) return 0;
-      else if (a.stats === undefined) return 1;
-      else if (b.stats === undefined) return -1;
-      
-      const scoreDiff = getPlayerScored(b.stats) - getPlayerScored(a.stats);
-      
-      if (scoreDiff === 0) {
-     
-        const strikeRateDiff = calculateStrikeRate(getPlayerScored(b.stats),getPlayerBalls(b.stats)) - calculateStrikeRate(getPlayerScored(a.stats),getPlayerBalls(a.stats));
-        return strikeRateDiff;
-      }
-      
-      return scoreDiff;
-    }).slice(0, 5));
-  }
+          const scoreDiff = getPlayerScored(b.stats) - getPlayerScored(a.stats);
+
+          if (scoreDiff === 0) {
+            const strikeRateDiff =
+              calculateStrikeRate(
+                getPlayerScored(b.stats),
+                getPlayerBalls(b.stats)
+              ) -
+              calculateStrikeRate(
+                getPlayerScored(a.stats),
+                getPlayerBalls(a.stats)
+              );
+            return strikeRateDiff;
+          }
+
+          return scoreDiff;
+        })
+        .slice(0, 5)
+    );
+
+    setTop5femalebatsman(
+      [...femalePlayers]
+        .sort((a, b) => {
+          if (a.stats === undefined && b.stats === undefined) return 0;
+          else if (a.stats === undefined) return 1;
+          else if (b.stats === undefined) return -1;
+
+          const scoreDiff = getPlayerScored(b.stats) - getPlayerScored(a.stats);
+
+          if (scoreDiff === 0) {
+            const strikeRateDiff =
+              calculateStrikeRate(
+                getPlayerScored(b.stats),
+                getPlayerBalls(b.stats)
+              ) -
+              calculateStrikeRate(
+                getPlayerScored(a.stats),
+                getPlayerBalls(a.stats)
+              );
+            return strikeRateDiff;
+          }
+
+          return scoreDiff;
+        })
+        .slice(0, 5)
+    );
+  };
 
   const getTopBaller = () => {
-    setTop5malebowler([...malePlayers].sort((a, b) => {
-      if (a.stats === undefined && b.stats === undefined) return 0;
-      else if (a.stats === undefined) return 1;
-      else if (b.stats === undefined) return -1;
-      
-      const wicketDiff = b.stats[14] - a.stats[14];
-      
-      if (wicketDiff === 0) {
-        // If wickets are the same, sort based on economy rate
-        const economyRateDiff = calculateEconomyRate(a.stats[13], a.stats[12]) - calculateEconomyRate(b.stats[13], b.stats[12]);
-        return economyRateDiff;
-      }
-      
-      return wicketDiff;
-    })
-    .slice(0, 5));
+    setTop5malebowler(
+      [...malePlayers]
+        .sort((a, b) => {
+          if (a.stats === undefined && b.stats === undefined) return 0;
+          else if (a.stats === undefined) return 1;
+          else if (b.stats === undefined) return -1;
 
-    setTop5femalebowler([...femalePlayers].sort((a, b) => {
-      if (a.stats === undefined && b.stats === undefined) return 0;
-      else if (a.stats === undefined) return 1;
-      else if (b.stats === undefined) return -1;
-      
-      const wicketDiff = b.stats[14] - a.stats[14];
-      
-      if (wicketDiff === 0) {
-        // If wickets are the same, sort based on economy rate
-        const economyRateDiff = calculateEconomyRate(a.stats[13], a.stats[12]) - calculateEconomyRate(b.stats[13], b.stats[12]);
-        return economyRateDiff;
-      }
-      
-      return wicketDiff;
-    }).slice(0, 5));
-  }
+          const wicketDiff = b.stats[14] - a.stats[14];
 
+          if (wicketDiff === 0) {
+            // If wickets are the same, sort based on economy rate
+            const economyRateDiff =
+              calculateEconomyRate(a.stats[13], a.stats[12]) -
+              calculateEconomyRate(b.stats[13], b.stats[12]);
+            return economyRateDiff;
+          }
+
+          return wicketDiff;
+        })
+        .slice(0, 5)
+    );
+
+    setTop5femalebowler(
+      [...femalePlayers]
+        .sort((a, b) => {
+          if (a.stats === undefined && b.stats === undefined) return 0;
+          else if (a.stats === undefined) return 1;
+          else if (b.stats === undefined) return -1;
+
+          const wicketDiff = b.stats[14] - a.stats[14];
+
+          if (wicketDiff === 0) {
+            // If wickets are the same, sort based on economy rate
+            const economyRateDiff =
+              calculateEconomyRate(a.stats[13], a.stats[12]) -
+              calculateEconomyRate(b.stats[13], b.stats[12]);
+            return economyRateDiff;
+          }
+
+          return wicketDiff;
+        })
+        .slice(0, 5)
+    );
+  };
 
   const getTopSixer = () => {
-    setTop5malesixer([...malePlayers].sort((a, b) => {
-      if (a.stats === undefined && b.stats === undefined) return 0;
-      else if (a.stats === undefined) return 1;
-      else if (b.stats === undefined) return -1;
-  
-      const sixesDiff = b.stats[6] - a.stats[6];
-      if (sixesDiff === 0) {
-        // If the number of sixes is the same, sort based on strike rate
-        const strikeRateDiff = calculateStrikeRate(getPlayerScored(b.stats),getPlayerBalls(b.stats)) - calculateStrikeRate(getPlayerScored(a.stats),getPlayerBalls(a.stats));
-        return strikeRateDiff;
-      }
-  
-      return sixesDiff;
-    }).slice(0, 5));
+    setTop5malesixer(
+      [...malePlayers]
+        .sort((a, b) => {
+          if (a.stats === undefined && b.stats === undefined) return 0;
+          else if (a.stats === undefined) return 1;
+          else if (b.stats === undefined) return -1;
 
-    setTop5femalesixer([...femalePlayers].sort((a, b) => {
-      if (a.stats === undefined && b.stats === undefined) return 0;
-      else if (a.stats === undefined) return 1;
-      else if (b.stats === undefined) return -1;
-  
-      const sixesDiff = b.stats[6] - a.stats[6];
-      if (sixesDiff === 0) {
-        // If the number of sixes is the same, sort based on strike rate
-        const strikeRateDiff = calculateStrikeRate(getPlayerScored(b.stats),getPlayerBalls(b.stats)) - calculateStrikeRate(getPlayerScored(a.stats),getPlayerBalls(a.stats));
-        return strikeRateDiff;
-      }
-  
-      return sixesDiff;
-    }).slice(0, 5));
-  }
+          const sixesDiff = b.stats[6] - a.stats[6];
+          if (sixesDiff === 0) {
+            // If the number of sixes is the same, sort based on strike rate
+            const strikeRateDiff =
+              calculateStrikeRate(
+                getPlayerScored(b.stats),
+                getPlayerBalls(b.stats)
+              ) -
+              calculateStrikeRate(
+                getPlayerScored(a.stats),
+                getPlayerBalls(a.stats)
+              );
+            return strikeRateDiff;
+          }
 
+          return sixesDiff;
+        })
+        .slice(0, 5)
+    );
+
+    setTop5femalesixer(
+      [...femalePlayers]
+        .sort((a, b) => {
+          if (a.stats === undefined && b.stats === undefined) return 0;
+          else if (a.stats === undefined) return 1;
+          else if (b.stats === undefined) return -1;
+
+          const sixesDiff = b.stats[6] - a.stats[6];
+          if (sixesDiff === 0) {
+            // If the number of sixes is the same, sort based on strike rate
+            const strikeRateDiff =
+              calculateStrikeRate(
+                getPlayerScored(b.stats),
+                getPlayerBalls(b.stats)
+              ) -
+              calculateStrikeRate(
+                getPlayerScored(a.stats),
+                getPlayerBalls(a.stats)
+              );
+            return strikeRateDiff;
+          }
+
+          return sixesDiff;
+        })
+        .slice(0, 5)
+    );
+  };
 
   const getTopfourer = () => {
-    setTop5malefourer([...malePlayers].sort((a, b) => {
-      if (a.stats === undefined && b.stats === undefined) return 0;
-      else if (a.stats === undefined) return 1;
-      else if (b.stats === undefined) return -1;
-  
-      const fourDiff = b.stats[4] - a.stats[4];
-      if (fourDiff === 0) {
-        // If the number of sixes is the same, sort based on strike rate
-        const strikeRateDiff = calculateStrikeRate(getPlayerScored(b.stats),getPlayerBalls(b.stats)) - calculateStrikeRate(getPlayerScored(a.stats),getPlayerBalls(a.stats));
-        return strikeRateDiff;
-      }
-  
-      return fourDiff;
-    }).slice(0, 5));
+    setTop5malefourer(
+      [...malePlayers]
+        .sort((a, b) => {
+          if (a.stats === undefined && b.stats === undefined) return 0;
+          else if (a.stats === undefined) return 1;
+          else if (b.stats === undefined) return -1;
 
-    setTop5femalefourer([...femalePlayers].sort((a, b) => {
-      if (a.stats === undefined && b.stats === undefined) return 0;
-      else if (a.stats === undefined) return 1;
-      else if (b.stats === undefined) return -1;
-  
-      const fourDiff = b.stats[4] - a.stats[4];
-      if (fourDiff === 0) {
-        // If the number of sixes is the same, sort based on strike rate
-        const strikeRateDiff =calculateStrikeRate(getPlayerScored(b.stats),getPlayerBalls(b.stats)) - calculateStrikeRate(getPlayerScored(a.stats),getPlayerBalls(a.stats));
-        return strikeRateDiff;
-      }
-  
-      return fourDiff;
-    }).slice(0, 5));
-  }
+          const fourDiff = b.stats[4] - a.stats[4];
+          if (fourDiff === 0) {
+            // If the number of sixes is the same, sort based on strike rate
+            const strikeRateDiff =
+              calculateStrikeRate(
+                getPlayerScored(b.stats),
+                getPlayerBalls(b.stats)
+              ) -
+              calculateStrikeRate(
+                getPlayerScored(a.stats),
+                getPlayerBalls(a.stats)
+              );
+            return strikeRateDiff;
+          }
 
+          return fourDiff;
+        })
+        .slice(0, 5)
+    );
+
+    setTop5femalefourer(
+      [...femalePlayers]
+        .sort((a, b) => {
+          if (a.stats === undefined && b.stats === undefined) return 0;
+          else if (a.stats === undefined) return 1;
+          else if (b.stats === undefined) return -1;
+
+          const fourDiff = b.stats[4] - a.stats[4];
+          if (fourDiff === 0) {
+            // If the number of sixes is the same, sort based on strike rate
+            const strikeRateDiff =
+              calculateStrikeRate(
+                getPlayerScored(b.stats),
+                getPlayerBalls(b.stats)
+              ) -
+              calculateStrikeRate(
+                getPlayerScored(a.stats),
+                getPlayerBalls(a.stats)
+              );
+            return strikeRateDiff;
+          }
+
+          return fourDiff;
+        })
+        .slice(0, 5)
+    );
+  };
 
   const getTophighestbatsaman = () => {
-    setTop5malehighestbatsman([...malePlayers].sort((a, b) => {
-      if (a.stats === undefined && b.stats === undefined) return 0;
-      else if (a.stats === undefined) return 1;
-      else if (b.stats === undefined) return -1;
-  
-      const highestDiff = b.stats[11] - a.stats[11];
-      if (highestDiff === 0) {
-        // If the number of sixes is the same, sort based on strike rate
-        const strikeRateDiff = calculateStrikeRate(getPlayerScored(b.stats),getPlayerBalls(b.stats)) - calculateStrikeRate(getPlayerScored(a.stats),getPlayerBalls(a.stats));
-        return strikeRateDiff;
-      }
-  
-      return highestDiff;
-    }).slice(0, 5));
-    setTop5femalehighestbatsman([...femalePlayers].sort((a, b) => {
-      if (a.stats === undefined && b.stats === undefined) return 0;
-      else if (a.stats === undefined) return 1;
-      else if (b.stats === undefined) return -1;
-  
-      const highestDiff = b.stats[11] - a.stats[11];
-      if (highestDiff === 0) {
-        // If the number of sixes is the same, sort based on strike rate
-        const strikeRateDiff = calculateStrikeRate(getPlayerScored(b.stats),getPlayerBalls(b.stats)) - calculateStrikeRate(getPlayerScored(a.stats),getPlayerBalls(a.stats));
-        return strikeRateDiff;
-      }
-  
-      return highestDiff;
-    }).slice(0, 5));
-  }
+    setTop5malehighestbatsman(
+      [...malePlayers]
+        .sort((a, b) => {
+          if (a.stats === undefined && b.stats === undefined) return 0;
+          else if (a.stats === undefined) return 1;
+          else if (b.stats === undefined) return -1;
+
+          const highestDiff = b.stats[11] - a.stats[11];
+          if (highestDiff === 0) {
+            // If the number of sixes is the same, sort based on strike rate
+            const strikeRateDiff =
+              calculateStrikeRate(
+                getPlayerScored(b.stats),
+                getPlayerBalls(b.stats)
+              ) -
+              calculateStrikeRate(
+                getPlayerScored(a.stats),
+                getPlayerBalls(a.stats)
+              );
+            return strikeRateDiff;
+          }
+
+          return highestDiff;
+        })
+        .slice(0, 5)
+    );
+    setTop5femalehighestbatsman(
+      [...femalePlayers]
+        .sort((a, b) => {
+          if (a.stats === undefined && b.stats === undefined) return 0;
+          else if (a.stats === undefined) return 1;
+          else if (b.stats === undefined) return -1;
+
+          const highestDiff = b.stats[11] - a.stats[11];
+          if (highestDiff === 0) {
+            // If the number of sixes is the same, sort based on strike rate
+            const strikeRateDiff =
+              calculateStrikeRate(
+                getPlayerScored(b.stats),
+                getPlayerBalls(b.stats)
+              ) -
+              calculateStrikeRate(
+                getPlayerScored(a.stats),
+                getPlayerBalls(a.stats)
+              );
+            return strikeRateDiff;
+          }
+
+          return highestDiff;
+        })
+        .slice(0, 5)
+    );
+  };
 
   const getToptuktukbatsman = () => {
-    setTop5maletuktukbatsman([...malePlayers].sort((a, b) => {
-      if (a.stats === undefined && b.stats === undefined) return 0;
-      else if (a.stats === undefined) return 1;
-      else if (b.stats === undefined) return -1;
-  
-      const tuktukDiff = b.stats[0] - a.stats[0];
-      if (tuktukDiff === 0) {
-        // If the number of sixes is the same, sort based on strike rate
-        const strikeRateDiff = calculateStrikeRate(getPlayerScored(a.stats),getPlayerBalls(a.stats)) - calculateStrikeRate(getPlayerScored(b.stats),getPlayerBalls(b.stats));
-        return strikeRateDiff;
-      }
-  
-      return tuktukDiff;
-    }).slice(0, 5));
+    setTop5maletuktukbatsman(
+      [...malePlayers]
+        .sort((a, b) => {
+          if (a.stats === undefined && b.stats === undefined) return 0;
+          else if (a.stats === undefined) return 1;
+          else if (b.stats === undefined) return -1;
 
-    setTop5femaletuktukbatsman([...femalePlayers].sort((a, b) => {
-      if (a.stats === undefined && b.stats === undefined) return 0;
-      else if (a.stats === undefined) return 1;
-      else if (b.stats === undefined) return -1;
-  
-      const tuktukDiff = b.stats[0] - a.stats[0];
-      if (tuktukDiff === 0) {
-        // If the number of sixes is the same, sort based on strike rate
-        const strikeRateDiff = calculateStrikeRate(getPlayerScored(a.stats),getPlayerBalls(a.stats)) - calculateStrikeRate(getPlayerScored(b.stats),getPlayerBalls(b.stats));
-        return strikeRateDiff;
-      }
-  
-      return tuktukDiff;
-    }).slice(0, 5));
-  }
+          const tuktukDiff = b.stats[0] - a.stats[0];
+          if (tuktukDiff === 0) {
+            // If the number of sixes is the same, sort based on strike rate
+            const strikeRateDiff =
+              calculateStrikeRate(
+                getPlayerScored(a.stats),
+                getPlayerBalls(a.stats)
+              ) -
+              calculateStrikeRate(
+                getPlayerScored(b.stats),
+                getPlayerBalls(b.stats)
+              );
+            return strikeRateDiff;
+          }
 
+          return tuktukDiff;
+        })
+        .slice(0, 5)
+    );
+
+    setTop5femaletuktukbatsman(
+      [...femalePlayers]
+        .sort((a, b) => {
+          if (a.stats === undefined && b.stats === undefined) return 0;
+          else if (a.stats === undefined) return 1;
+          else if (b.stats === undefined) return -1;
+
+          const tuktukDiff = b.stats[0] - a.stats[0];
+          if (tuktukDiff === 0) {
+            // If the number of sixes is the same, sort based on strike rate
+            const strikeRateDiff =
+              calculateStrikeRate(
+                getPlayerScored(a.stats),
+                getPlayerBalls(a.stats)
+              ) -
+              calculateStrikeRate(
+                getPlayerScored(b.stats),
+                getPlayerBalls(b.stats)
+              );
+            return strikeRateDiff;
+          }
+
+          return tuktukDiff;
+        })
+        .slice(0, 5)
+    );
+  };
 
   useEffect(() => {
     const getData = async () => {
@@ -543,12 +668,11 @@ export default function Stars({ playerStats }) {
                 draggable={true}
                 arrows={false}
                 showDots={true}
-                infinite={true}
                 keyBoardControl={true}
                 className="gd-carousel"
                 containerClass="carousel-container"
-                autoPlay={true}
-                autoPlaySpeed={2000}
+                
+                
               >
                 {selectedGender === "male"
                   ? top5malebatsman.map((player, index) => {
@@ -636,12 +760,11 @@ export default function Stars({ playerStats }) {
                 draggable={true}
                 arrows={false}
                 showDots={true}
-                infinite={true}
                 keyBoardControl={true}
                 className="gd-carousel"
                 containerClass="carousel-container"
-                autoPlay={true}
-                autoPlaySpeed={2000}
+                
+               
               >
                 {selectedGender === "male"
                   ? top5malebowler.map((player, index) => (
@@ -687,7 +810,7 @@ export default function Stars({ playerStats }) {
           </div>
           <div className="w-full  flex-col mx-auto mt-10 ">
             <p className="text-center  text-2xl md:text-4xl font-bold mb-5  text-black ">
-              Top 5 Sixer
+              Top 5 Sixers
             </p>
 
             {/* <button
@@ -711,12 +834,11 @@ export default function Stars({ playerStats }) {
                 draggable={true}
                 arrows={false}
                 showDots={true}
-                infinite={true}
                 keyBoardControl={true}
                 className="gd-carousel"
                 containerClass="carousel-container"
-                autoPlay={true}
-                autoPlaySpeed={2000}
+                
+                
               >
                 {selectedGender === "male"
                   ? top5malesixer.map((player, index) => {
@@ -760,7 +882,7 @@ export default function Stars({ playerStats }) {
           </div>
           <div className="w-full  flex-col mx-auto mt-10 ">
             <p className="text-center  text-2xl md:text-4xl font-bold mb-5  text-black ">
-              Top 5 Fourer
+              Top 5 Fourers
             </p>
 
             {/* <button
@@ -789,12 +911,11 @@ export default function Stars({ playerStats }) {
                 draggable={true}
                 arrows={false}
                 showDots={true}
-                infinite={true}
                 keyBoardControl={true}
                 className="gd-carousel"
                 containerClass="carousel-container"
-                autoPlay={true}
-                autoPlaySpeed={2000}
+               
+                
               >
                 {selectedGender === "male"
                   ? top5malefourer.map((player, index) => {
@@ -864,12 +985,10 @@ export default function Stars({ playerStats }) {
                 draggable={true}
                 arrows={false}
                 showDots={true}
-                infinite={true}
                 keyBoardControl={true}
                 className="gd-carousel"
                 containerClass="carousel-container"
-                autoPlay={true}
-                autoPlaySpeed={2000}
+               
               >
                 {selectedGender === "male"
                   ? top5malehighestbatsman.map((player, index) => {
@@ -914,8 +1033,7 @@ export default function Stars({ playerStats }) {
               Top 5 Tuk Tuk Players
             </p>
 
-            
-              {/* <button
+            {/* <button
                 onClick={() => {
                   const container = document.querySelector(".tuktuk");
                   const scrollAmount = -300; // You can adjust the scroll amount as needed
@@ -928,7 +1046,7 @@ export default function Stars({ playerStats }) {
                 <TfiArrowCircleLeft className="h-[25px] w-[25px] md:h-[40px] md:w-[40px] mx-1 md:mr-2" />
               </button> */}
 
-<div className="w-full mx-auto  rounded-md p-5 ">
+            <div className="w-full mx-auto  rounded-md p-5 ">
               <Carousel
                 itemClass="react-multi-carousel-item"
                 partialVisible={false}
@@ -937,12 +1055,9 @@ export default function Stars({ playerStats }) {
                 draggable={true}
                 arrows={false}
                 showDots={true}
-                infinite={true}
                 keyBoardControl={true}
                 className="gd-carousel"
                 containerClass="carousel-container"
-                autoPlay={true}
-                autoPlaySpeed={2000}
               >
                 {selectedGender === "male"
                   ? top5maletutktukbatsman.map((player, index) => {
@@ -969,9 +1084,9 @@ export default function Stars({ playerStats }) {
                         </Link>
                       );
                     })}
-                    </Carousel>
-              </div>
-              {/* <button
+              </Carousel>
+            </div>
+            {/* <button
                 onClick={() => {
                   const container = document.querySelector(".tuktuk");
                   const scrollAmount = 300; // You can adjust the scroll amount as needed
@@ -983,7 +1098,6 @@ export default function Stars({ playerStats }) {
               >
                 <TfiArrowCircleRight className="h-[25px] w-[25px] md:h-[40px] md:w-[40px] mx-1 md:ml-2" />
               </button> */}
-            
           </div>
         </div>
       </div>
@@ -1129,26 +1243,21 @@ const PlayerProfilecard = ({ playerStats, selectedGender, title, Rank }) => {
               </span>
               <span className="   text-center    text-sm font-bold  text-black space-x-1">
                 {" "}
-                {
-                  playerStats &&
-                    playerStats?.stats &&
-                    playerStats?.stats[10] ?
-                    statTitle2 === "Runs Scored" ?
-                      getPlayerScored(playerStats?.stats) :
-                      statTitle2 === "Wickets" ?
-                        playerStats?.stats[14] :
-                        statTitle2 === "Sixes" ?
-                          playerStats?.stats[6] :
-                          statTitle2 === "Fours" ?
-                            playerStats?.stats[4] :
-                            statTitle2 === "Dot Balls" ?
-                              playerStats?.stats[0] :
-                              statTitle2 === "Highest Score" ?
-                        playerStats?.stats[11] :
-                              0 :
-                    0
-                }
-
+                {playerStats && playerStats?.stats && playerStats?.stats[10]
+                  ? statTitle2 === "Runs Scored"
+                    ? getPlayerScored(playerStats?.stats)
+                    : statTitle2 === "Wickets"
+                    ? playerStats?.stats[14]
+                    : statTitle2 === "Sixes"
+                    ? playerStats?.stats[6]
+                    : statTitle2 === "Fours"
+                    ? playerStats?.stats[4]
+                    : statTitle2 === "Dot Balls"
+                    ? playerStats?.stats[0]
+                    : statTitle2 === "Highest Score"
+                    ? playerStats?.stats[11]
+                    : 0
+                  : 0}
               </span>
             </div>
             <hr
@@ -1166,21 +1275,25 @@ const PlayerProfilecard = ({ playerStats, selectedGender, title, Rank }) => {
                 </span>
                 <span className="   text-center    text-sm font-bold  text-black space-x-1">
                   {" "}
-                  {
-  playerStats &&
-    playerStats?.stats  ?
-    statTitle3 === "Economy" &&  playerStats?.stats[12] ?
-      calculateEconomyRate(playerStats?.stats[13], playerStats?.stats[12]) :
-      statTitle3 === "Strike Rate" ?
-        (() => {
-          const strikeRate = calculateStrikeRate(getPlayerScored(playerStats?.stats), getPlayerBalls(playerStats?.stats));
-          {/* console.log(playerStats?.name+" "+getPlayerBalls(playerStats?.stats)); */}
-          return strikeRate;
-        })() :
-        0 :
-    0
-}
-
+                  {playerStats && playerStats?.stats
+                    ? statTitle3 === "Economy" && playerStats?.stats[12]
+                      ? calculateEconomyRate(
+                          playerStats?.stats[13],
+                          playerStats?.stats[12]
+                        )
+                      : statTitle3 === "Strike Rate"
+                      ? (() => {
+                          const strikeRate = calculateStrikeRate(
+                            getPlayerScored(playerStats?.stats),
+                            getPlayerBalls(playerStats?.stats)
+                          );
+                          {
+                            /* console.log(playerStats?.name+" "+getPlayerBalls(playerStats?.stats)); */
+                          }
+                          return strikeRate;
+                        })()
+                      : 0
+                    : 0}
                 </span>
               </div>
             )}
@@ -1263,25 +1376,21 @@ const HighestScoreCard = ({ playerStats, title, selectedGender }) => {
         }`}
       >
         {/* 152 count */}
-        {
-          playerStats &&
-            playerStats?.stats &&
-            playerStats?.stats[10] ?
-            title === "Most Runs" ?
-              getPlayerScored(playerStats?.stats) :
-              title === "Most Wickets" ?
-                playerStats?.stats[14] :
-                title === "Most 6s" ?
-                  playerStats?.stats[6] :
-                  title === "Most 4s" ?
-                    playerStats?.stats[4] :
-                    title === "Most Dot Balls" ?
-                      playerStats?.stats[0] :
-                      title === "Highest Score" ?
-                      playerStats?.stats[11]:
-                      0 :
-            0
-        }{" "}
+        {playerStats && playerStats?.stats && playerStats?.stats[10]
+          ? title === "Most Runs"
+            ? getPlayerScored(playerStats?.stats)
+            : title === "Most Wickets"
+            ? playerStats?.stats[14]
+            : title === "Most 6s"
+            ? playerStats?.stats[6]
+            : title === "Most 4s"
+            ? playerStats?.stats[4]
+            : title === "Most Dot Balls"
+            ? playerStats?.stats[0]
+            : title === "Highest Score"
+            ? playerStats?.stats[11]
+            : 0
+          : 0}{" "}
       </div>
     </div>
   );

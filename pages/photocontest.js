@@ -299,14 +299,14 @@ const photocontest = ({ posts, winners }) => {
                 Hola {session ? session.user.name.split(" ")[0] : "Amigos"}!
               </p>
               <div className="text-xl md:text-2xl pt-4 lg:pt-8 font-light">
-                {/* <p>Explore the wonderful pictures clicked by people and don't
-                forget to like them.</p> */}
-                <p className="font-normal pb-2">Thank you for participating!</p>
+                <p>Explore the wonderful pictures clicked by people and don't
+                forget to like them.</p>
+                {/* <p className="font-normal pb-2">Thank you for participating!</p>
                 <p className="text-lg md:text-xl ">
                   We are excited to announce the winners of the contest.
-                </p>
+                </p> */}
               </div>
-              {/* <input
+              <input
                 accept="image/*"
                 type="file"
                 id="select-image"
@@ -355,8 +355,8 @@ const photocontest = ({ posts, winners }) => {
                     Sign in with Google
                   </button>
                 )}
-              </div> */}
-              {/* {session && (
+              </div>
+              {session && (
                 <button
                   onClick={() => {
                     signOut();
@@ -366,7 +366,7 @@ const photocontest = ({ posts, winners }) => {
                 >
                   Sign out
                 </button>
-              )} */}
+              )}
             </div>
           </div>
         </div>
@@ -395,41 +395,41 @@ const photocontest = ({ posts, winners }) => {
             )}
           </>
         ) : (
-          // <p className="py-28 lg:mt-0 text-center text-xl md:text-2xl font-semibold text-[#411F0D]">
-          //   Sorry, no post is shared yet!
-          //   <br />
-          //   Be the first one to upload your memory.
-          // </p>
-          <>
-            <p className="mt-14 lg:mt-0 text-center text-2xl font-semibold text-[#411F0D]">
-              Winners of the Last Edition Contest
-            </p>
-            <div className="mt-2 mb-12 lg:mb-12 border-b-4 border-[#F4A68D] w-10/12 md:w-2/5 lg:w-3/12 mx-auto"></div>
-            <div className="flex flex-col items-center justify-center">
-              {winners.map((winner, index) => (
-                <div className="shadow-lg w-11/12 md:w-2/3 lg:w-1/3 mb-8">
-                  <div className="bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 py-2 text-center">
-                    <p className="text-white font-semibold">
-                      ✨ 🥇Winner - Day {index + 1} ✨
-                    </p>
-                  </div>
-                  <div className="relative">
-                    <Image
-                      src={winner.downloadUrl}
-                      alt="winner"
-                      width={1920}
-                      height={1080}
-                    />
-                    <div class="absolute top-0 mt-20 right-0 bottom-0 left-0 bg-gradient-to-b from-transparent to-gray-700 shadow-xl"></div>
-                    <div className="absolute bottom-4 w-full text-white text-center font-light">
-                      <p className="text-sm font-semibold">{winner.name}</p>
-                      <p className="text-sm font-semibold">{winner.enroll}</p>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </>
+          <p className="py-28 lg:mt-0 text-center text-xl md:text-2xl font-semibold text-[#411F0D]">
+            Sorry, no post is shared yet!
+            <br />
+            Be the first one to upload your memory.
+          </p>
+          // <>
+          //   <p className="mt-14 lg:mt-0 text-center text-2xl font-semibold text-[#411F0D]">
+          //     Winners of the Last Edition Contest
+          //   </p>
+          //   <div className="mt-2 mb-12 lg:mb-12 border-b-4 border-[#F4A68D] w-10/12 md:w-2/5 lg:w-3/12 mx-auto"></div>
+          //   <div className="flex flex-col items-center justify-center">
+          //     {winners.map((winner, index) => (
+          //       <div className="shadow-lg w-11/12 md:w-2/3 lg:w-1/3 mb-8">
+          //         <div className="bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 py-2 text-center">
+          //           <p className="text-white font-semibold">
+          //             ✨ 🥇Winner - Day {index + 1} ✨
+          //           </p>
+          //         </div>
+          //         <div className="relative">
+          //           <Image
+          //             src={winner.downloadUrl}
+          //             alt="winner"
+          //             width={1920}
+          //             height={1080}
+          //           />
+          //           <div class="absolute top-0 mt-20 right-0 bottom-0 left-0 bg-gradient-to-b from-transparent to-gray-700 shadow-xl"></div>
+          //           <div className="absolute bottom-4 w-full text-white text-center font-light">
+          //             <p className="text-sm font-semibold">{winner.name}</p>
+          //             <p className="text-sm font-semibold">{winner.enroll}</p>
+          //           </div>
+          //         </div>
+          //       </div>
+          //     ))}
+          //   </div>
+          // </>
         )}
       </div>
       <Footer />

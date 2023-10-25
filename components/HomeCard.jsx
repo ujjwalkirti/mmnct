@@ -63,23 +63,62 @@ const HomeCard = () => {
     <div
       key={bowl_value}
       className={`h-[25px] w-[25px] text-xs font-semibold ${bowl_value.toString().slice(-2).toUpperCase().endsWith("W") ||
-          bowl_value.toString().slice(-2).toUpperCase().endsWith("R")
-          ? "bg-red-600"
-          : bowl_value === "4" || bowl_value === "6"
-            ? "bg-[#6360FF]"
-            : bowl_value.toString().slice(-2).toUpperCase().endsWith("WD") ||
-              bowl_value.toString().slice(-2).toUpperCase().endsWith("NB")
-              ? "bg-green-500 text-[10px]"
-              : "bg-gray-500"
+        bowl_value.toString().slice(-2).toUpperCase().endsWith("R")
+        ? "bg-red-600"
+        : bowl_value === "4" || bowl_value === "6"
+          ? "bg-[#6360FF]"
+          : bowl_value.toString().slice(-2).toUpperCase().endsWith("WD") ||
+            bowl_value.toString().slice(-2).toUpperCase().endsWith("NB")
+            ? "bg-green-500 text-[10px]"
+            : "bg-gray-500"
         }  flex justify-center items-center rounded-full text-white ring-2 ring-[#F9BD48]`}>
-      <span className="  ">{bowl_value.toUpperCase() === "0W" ? "W" : bowl_value.slice(-1).toUpperCase() === "R"?`${parseInt(bowl_value, 10)}w`:bowl_value}</span>
+      <span className="  ">{bowl_value.toUpperCase() === "0W" ? "W" : bowl_value.slice(-1).toUpperCase() === "R" ? `${parseInt(bowl_value, 10)}w` : bowl_value}</span>
     </div>
   ));
 
   return (
     <>
       {team?.length === 0 ? (
-        <></>
+        <>
+          {daysCaluclator() < 0 ?
+            <>
+              <div className=" flex justify-center items-center w-4/5 md:w-[400px] days-counter mx-auto md:mx-0 md:mb-4 md:gap-4 h-[116px] md:h-[150px]">
+                <span className="text-[#F45178] font-[800] text-[96px] md:-[120px] leading-[117px] md:leading-[146.28px] text-center w-1/2 md:w-[35%]">
+                  {-daysCaluclator()}
+                </span>
+                <div className="text-[#991746]">
+                  <p className="font-[700] text-[40px] md:text-[48px] leading-[49px]">
+                    DAYS
+                  </p>
+                  <p className="font-[500] text-[40px] md:text-[48px] leading-[49px]">
+                    {" "}
+                    TO GO
+                  </p>
+                </div>
+              </div>
+            </>
+            :
+            <>
+            <div className=" flex justify-center items-center w-4/5 md:w-[400px] days-counter mx-auto md:mx-0 md:mb-4 md:gap-4 h-[116px] md:h-[150px]">
+                {/* <span className="text-[#F45178] font-[800] text-[96px] md:-[120px] leading-[117px] md:leading-[146.28px] text-center w-1/2 md:w-[35%]">
+                  {daysCaluclator()}
+                </span> */}
+                <div className="text-[#991746]">
+                  <p className="font-[700] text-[40px] md:text-[48px] leading-[49px]">
+                    DAY
+                  </p>
+                  {/* <p className="font-[500] text-[40px] md:text-[48px] leading-[49px]">
+                    {" "}
+                    TO GO
+                  </p> */}
+                </div>
+                <span className="text-[#F45178] font-[800] text-[96px] md:-[120px] leading-[117px] md:leading-[146.28px] text-center w-1/2 md:w-[35%]">
+                  {daysCaluclator() + 1}
+                </span>
+              </div>
+              </>
+          }
+        </>
       ) : (
         <Link href={`/scorecard?matchId=${team[0].id}`}>
           <div className=" w-4/5 md:w-[400px] days-counter mx-auto md:mx-0 md:mb-4 md:gap-4 h-auto pt-1 ">
@@ -292,9 +331,9 @@ const HomeCard = () => {
                       : {team[0].Team2Players[team[0].baller]?.score[14]}-
                       {team[0].Team2Players[team[0].baller]?.score[13]}(
                       {Math.floor(
-                        team[0].Team2Players[team[0].baller]?.score[12]  === undefined ? 0 : team[0].Team2Players[team[0].baller]?.score[12] / 6
+                        team[0].Team2Players[team[0].baller]?.score[12] === undefined ? 0 : team[0].Team2Players[team[0].baller]?.score[12] / 6
                       )}
-                      .{team[0].Team2Players[team[0].baller]?.score[12]  === undefined ? 0 : team[0].Team2Players[team[0].baller]?.score[12] % 6})
+                      .{team[0].Team2Players[team[0].baller]?.score[12] === undefined ? 0 : team[0].Team2Players[team[0].baller]?.score[12] % 6})
                     </p>
                   </div>
                 </>
@@ -316,7 +355,7 @@ const HomeCard = () => {
                       : {team[0]?.Team1Players[team[0].baller]?.score[14]}-
                       {team[0]?.Team1Players[team[0].baller]?.score[13]}(
                       {Math.floor(
-                        team[0]?.Team1Players[team[0].baller]?.score[12] === undefined ? 0 :team[0]?.Team1Players[team[0].baller]?.score[12] / 6 
+                        team[0]?.Team1Players[team[0].baller]?.score[12] === undefined ? 0 : team[0]?.Team1Players[team[0].baller]?.score[12] / 6
                       )}
                       .{team[0]?.Team1Players[team[0]?.baller]?.score[12] === undefined ? 0 : team[0]?.Team1Players[team[0]?.baller]?.score[12] % 6})
                     </p>

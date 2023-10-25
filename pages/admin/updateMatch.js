@@ -112,6 +112,7 @@ const UpdateMatch = ({ auth_users }) => {
       let wicket = data.Team1Wicket;
       let extras = data.Team1Extra;
       let prev = data.Team1prev;
+
       if (team1Run.length == 2 && (team1Run[1] === "w" || team1Run[1] === "r")) { wicket++; callModal = true; }
       if (team1Run.length == 3) extras++;
       if ((totalBall - extras) % 6 == 0 && (totalBall - extras) / 6 != 0 && team1Run.length !== 3) { callModal = true; handleForcedStrikerChange() }
@@ -141,6 +142,7 @@ const UpdateMatch = ({ auth_users }) => {
       let wicket = data.Team2Wicket;
       let extras = data.Team2Extra;
       let prev = data.Team2prev;
+
       if (team2Run.length == 2 && (team2Run[1] === "w" || team2Run[1] === "r")) { wicket++; callModal = true; }
       if (team2Run.length == 3) extras++;
       if ((totalBall - extras) % 6 == 0 && (totalBall - extras) / 6 != 0 && team2Run.length !== 3) { callModal = true; handleForcedStrikerChange() }
@@ -293,7 +295,7 @@ const handleEmergencyButton =async(e)=>{
             />
           </div>
         </div>
-        <form class="w-full max-w-sm mx-auto px-4" method="POST">
+        <form class="w-full max-w-[700px]  mx-auto px-4" method="POST">
           {/* current Batting team */}
           <div class="md:flex md:items-center mb-6">
             <div class="md:w-1/3">
@@ -440,7 +442,7 @@ const handleEmergencyButton =async(e)=>{
             <div class="md:w-1/3"></div>
             <div class="md:w-2/3">
               <button
-                class="shadow bg-purple-500 hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
+                class="shadow bg-green-500 hover:bg-green-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
                 type="submit"
                 // onClick={handleForcedStrikerChange}
                 onClick={
@@ -503,7 +505,21 @@ const handleEmergencyButton =async(e)=>{
               />
             </div>
           </div>
-
+              <div className=" flex justify-between w-full">
+         
+          <div class="md:flex md:items-center">
+            <div class="md:w-1/3"></div>
+            <div class="md:w-2/3">
+              <button
+                class="shadow bg-blue-500 hover:bg-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
+                type="submit"
+                onClick={changeMatchInnings}
+              >
+                Change Innings
+              </button>
+            </div>
+          </div>
+          <br></br>
           <div class="md:flex md:items-center">
             <div class="md:w-1/3"></div>
             <div class="md:w-2/3">
@@ -523,24 +539,12 @@ const handleEmergencyButton =async(e)=>{
               <button
                 class="shadow bg-red-500 hover:bg-red-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
                 type="submit"
-                onClick={changeMatchInnings}
-              >
-                Change Innings
-              </button>
-            </div>
-          </div>
-          <br></br>
-          <div class="md:flex md:items-center">
-            <div class="md:w-1/3"></div>
-            <div class="md:w-2/3">
-              <button
-                class="shadow bg-red-500 hover:bg-red-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
-                type="submit"
                 onClick= {handleEmergencyButton}
               >
                 Emergency Button
               </button>
             </div>
+          </div>
           </div>
         </form >
       </div >

@@ -30,7 +30,9 @@ const createMatch = async (ID, dateTime, Team1ID, Team2ID, category) => {
     status: "upcoming",
     category: category,
     currOrder: 1,
-    manofthematch: ""
+    manofthematch: "",
+    toss:"",
+    decision:""
   }).then(() => {
     console.log("mattch added");
   }).catch(err => console.log(err));
@@ -470,24 +472,28 @@ async function changeInnings(matchId) {
 }
 
 async function afterMatchClosed(matchId) {
-  const data = await fetchData(matchId);
-  const Team1totalScore = totalScore(data.Team1Score, data.Team1Extra, data.Team1Wicket);
-  const Team2totalScore = totalScore(data.Team2Score, data.Team2Extra, data.Team2Wicket);
-  // console.log(Team1totalScore);
-  //console.log(Team2totalScore);
 
-  const team1over = getOver(data.Team1Score, data.Team1prev, data.Team1Extra)[0];
-  const team2over = getOver(data.Team2Score, data.Team2prev, data.Team2Extra)[0];
+  const matchNumber = parseInt(matchId, 10);
+  //console.log(matchNumber);
+  if (matchNumber < 22) {
+    const data = await fetchData(matchId);
+    const Team1totalScore = totalScore(data.Team1Score, data.Team1Extra, data.Team1Wicket);
+    const Team2totalScore = totalScore(data.Team2Score, data.Team2Extra, data.Team2Wicket);
+    // console.log(Team1totalScore);
+    //console.log(Team2totalScore);
 
-  const teamOneid = await getTeamIdFromName(data.Team1Id);
-  const teamTwoid = await getTeamIdFromName(data.Team2Id);
-  const team1TotalBalls = Math.floor(parseFloat(team1over) * 6) + parseInt(team1over.split('.')[1] || 0, 10);
-  const team2TotalBalls = Math.floor(parseFloat(team2over) * 6) + parseInt(team2over.split('.')[1] || 0, 10);
+    const team1over = getOver(data.Team1Score, data.Team1prev, data.Team1Extra)[0];
+    const team2over = getOver(data.Team2Score, data.Team2prev, data.Team2Extra)[0];
 
-  //console.log(teamOneid);
-  //console.log(teamTwoid);
-  await updateNetRunRate(teamOneid, teamTwoid, Team1totalScore, Team2totalScore, team1TotalBalls, team2TotalBalls);
+    const teamOneid = await getTeamIdFromName(data.Team1Id);
+    const teamTwoid = await getTeamIdFromName(data.Team2Id);
+    const team1TotalBalls = Math.floor(parseFloat(team1over) * 6) + parseInt(team1over.split('.')[1] || 0, 10);
+    const team2TotalBalls = Math.floor(parseFloat(team2over) * 6) + parseInt(team2over.split('.')[1] || 0, 10);
 
+    //console.log(teamOneid);
+    //console.log(teamTwoid);
+    await updateNetRunRate(teamOneid, teamTwoid, Team1totalScore, Team2totalScore, team1TotalBalls, team2TotalBalls);
+  }
   let playerDetail = Object.entries(data.Team1Players);
   for (const [key, value] of playerDetail) {
     await updatePlayerHistory(key, value, matchId, data.Team2Id, data.Team1Players);
@@ -592,6 +598,15 @@ const updateManOfTheMatch = async (matchID, playerName) => {
   }).catch(err => console.log(err));
 
 };
+const updateToss = async (matchID, winner, choice) => {
+
+  await update(ref(database, "matchDetail/" + matchID), {
+    "toss":winner,
+    "decision": choice
+  }).then(() => {
+  }).catch(err => console.log(err));
+
+};
 async function updateNetRunRate(teamOneId, teamTwoId, team1TotalScore, team2TotalScore, team1TotalBalls, team2TotalBalls) {
 
 
@@ -642,6 +657,7 @@ export {
   getPlayerScore,
   changeInnings,
   extraOfInnings,
-  updateManOfTheMatch
+  updateManOfTheMatch,
+  updateToss
 };
 

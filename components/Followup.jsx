@@ -9,8 +9,8 @@ import OptionsRouter from "./OptionsRouter";
 
 const options = [
   {
-    name: "TRIVIAS",
-    url: "/trivias",
+    name: "STARS",
+    url: "/stars",
     from: "",
     via: "",
     to: "",

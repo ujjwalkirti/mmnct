@@ -1,7 +1,6 @@
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import HomeCard from "./HomeCard";
-
 // import { SiGooglemaps } from "react-icons/si";
 // import Banner from "./Banner";
 
@@ -53,8 +52,21 @@ function HomePage({ teamlist }) {
         {/* graphic and venue along with days to go */}
 
         <div>
-          {/* <HomeCard /> */}
-          <div className=" flex justify-center items-center w-4/5 md:w-[400px] days-counter mx-auto md:mx-0 md:mb-4 md:gap-4 h-[116px] md:h-[150px]">
+          <HomeCard />
+          {/* {(new Date().getDate() === 25 && new Date().getMonth()===9 && new Date().getFullYear() === 2023 )?<>
+            <div className=" flex justify-center items-center w-4/5 md:w-[400px] days-counter mx-auto md:mx-0 md:mb-4 md:gap-4 h-[116px] md:h-[150px]">
+            <div className="text-[#991746]">
+              <p className="font-bold text-lg text-center uppercase md:text-3xl leading-6">
+              Let the games begin!
+              </p>
+              <p className="font-bold text-lg text-center uppercase md:text-3xl leading-6">
+                {" "}
+                🎈 MMNCT  kicks off today! 🎈
+              </p>
+            </div>
+          </div>
+          </>: */}
+          {/* <div className=" flex justify-center items-center w-4/5 md:w-[400px] days-counter mx-auto md:mx-0 md:mb-4 md:gap-4 h-[116px] md:h-[150px]">
             <span className="text-[#F45178] font-[800] text-[96px] md:-[120px] leading-[117px] md:leading-[146.28px] text-center w-1/2 md:w-[35%]">
               {daysCaluclator()}
             </span>
@@ -67,7 +79,8 @@ function HomePage({ teamlist }) {
                 TO GO
               </p>
             </div>
-          </div>
+          </div> */}
+          {/* } */}
 
           <p className="font-[600] text-[20px] hidden md:flex my-10  md:mx-auto leading-[24.38px]">
             Bring back the Cheers! Bring back the Slogans!

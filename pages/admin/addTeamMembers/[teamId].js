@@ -611,7 +611,7 @@ const teamId = ({ teamDetails, members, captain, viceCaptain, auth_users }) => {
                 <div className="md:w-1/3">
                   <label
                     className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4"
-                    for="edition"
+                    for="role"
                   >
                     Role
                   </label>

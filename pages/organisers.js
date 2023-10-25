@@ -104,7 +104,7 @@ export default function Organisers({
         </div>
       </div>
       <div className="text-center mt-28 mb-10">
-        <h1 className="text-3xl font-semibold mb-2">Infra and In-House</h1>
+        <h1 className="text-3xl font-semibold mb-2">Infra and Ground work</h1>
         <div className="border-b-4 border-[#F4A68D] w-9/12 md:w-2/5 lg:w-3/12 mx-auto mb-4 lg:mb-8"></div>
         {in_house.length == 0 && (
           <Image

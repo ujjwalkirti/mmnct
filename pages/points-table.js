@@ -93,8 +93,11 @@ export default function PointsTable({ maleTable, femaleTable }) {
   const sortedMaleTable = maleTable.sort((teamA, teamB) => {
     const teamARunRate=teamA.runRate || [];
     const teamBRunRate=teamB.runRate || [];
-    const positiveTermsA = teamARunRate.filter((val) => val > 0).length;
-    const positiveTermsB = teamBRunRate.filter((val) => val > 0).length;
+    const superOverA=teamA.superOver || 0;
+    const superOverB=teamB.superOver || 0;
+    // console.log(superOverA + " "+superOverB);
+    const positiveTermsA = teamARunRate.filter((val) => val > 0).length +superOverA ;
+    const positiveTermsB = teamBRunRate.filter((val) => val > 0).length+superOverB;
   
     if (positiveTermsA !== positiveTermsB) {
       return positiveTermsB - positiveTermsA;
@@ -273,19 +276,19 @@ export default function PointsTable({ maleTable, femaleTable }) {
                       <p className="">Team</p>
                     </div>
                     <div className="w-1/4 flex  items-center justify-center ">
-                      <p>Points</p>
+                      <p className="text-[10px] md:text-sm" >Points</p>
                     </div>
                     <div className="w-1/4 flex  items-center justify-center pl-2">
-                      <p>Played</p>
+                      <p className="text-[10px] md:text-sm" >Played</p>
                     </div>
                     <div className="w-1/4 flex items-center justify-center ">
-                      <p>Won</p>
+                      <p className="text-[10px] md:text-sm" >Won</p>
                     </div>
                     <div className="w-1/4 flex  items-center justify-center ">
-                      <p className="">Lost</p>
+                      <p  className="text-[10px] md:text-sm" >Lost</p>
                     </div>
                     <div className="w-1/4 flex  items-center justify-center ">
-                      <p className="">NRR</p>
+                      <p  className="text-[10px] md:text-sm" >NRR</p>
                     </div>
                   </div>
                   <div className="h-px bg-white"></div>
