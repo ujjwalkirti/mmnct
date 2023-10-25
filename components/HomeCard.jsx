@@ -410,9 +410,24 @@ const HomeCard = () => {
 };
 
 export default HomeCard;
+function fetchDate() {
+  const date = new Date();
+  let day = date.getDate();
+  let month = date.getMonth() + 1;
+  let year = date.getFullYear();
 
+  if (month.toString().length === 1) {
+    month = "0" + month;
+  }
+
+  // This arrangement can be altered based on how we want the date's format to appear.
+  let currentDate = `${year}-${month}-${day}`;
+  console.log("currentDate",currentDate);
+  return currentDate;
+}
 function daysCaluclator() {
-  var today = new Date();
+  var date = fetchDate();
+  var today = new Date(date);
   var date_to_reply = new Date("2023-10-26");
   var timeinmilisec = today.getTime() - date_to_reply.getTime();
   // console.log(Math.floor(timeinmilisec / (1000 * 60 * 60 * 24)));
