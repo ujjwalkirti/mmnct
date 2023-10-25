@@ -41,7 +41,7 @@ export default function Home({ teamList, sponsorImgList, matches }) {
           <BsFillArrowRightCircleFill className="text-2xl" />
         </Link>
       </div> */}
-      <UpcomingMatches matches={matches} />
+      <UpcomingMatches />
       <ParticipatingTeams teamList={teamList} />
       <TournamentDetails />
       <TournamentHistory />
@@ -50,7 +50,7 @@ export default function Home({ teamList, sponsorImgList, matches }) {
       <div className="flex justify-center item-center mt-8">
         <Link href="/photocontest">
           <button className="bg-[#ffc4b1] text-white font-semibold py-3 px-20 rounded-full">
-            Participate Now! 
+            Participate Now!
             {/* See Winners! */}
           </button>
         </Link>
@@ -102,30 +102,10 @@ export async function getServerSideProps() {
     })
   );
 
-  let matches = [];
-  let localMatches = [];
-  let snapshot = await get(child(dbRef, "matchDetail/"));
-  if (snapshot) {
-    localMatches = snapshot.val();
-    if (localMatches) {
-    const firstKey = Object.keys(localMatches)[0];
-    delete localMatches[firstKey];
-    let todayDate = fetchDate();
-    // localMatches.shift();
-    Object.keys(localMatches).map(key => {
-      const match = localMatches[key];
-      if (match.timeDate === todayDate && match.status !== "past") {
-        matches.push(match);
-      }
-    })
-  }}
-
-
   return {
     props: {
       teamList: data,
-       sponsorImgList: sponsor_img,
-      matches: matches,
+      sponsorImgList: sponsor_img,
     },
   };
 }

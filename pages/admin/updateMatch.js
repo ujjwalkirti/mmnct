@@ -267,11 +267,16 @@ const handleEmergencyButton =async(e)=>{
           </p>
           <p>If run is scored than enter the number of runs scored</p>
           <p>
-            If there's wicket down then input will be : RUNWICKET (i.e. 0w, 1w
-            ,2w){" "}
+            If there's wicket down then input will be : RUNWICKET (i.e. 0w){" "}
+          </p>
+          <p>
+            If there's run out then input will be : RUNWICKET (i.e. 1r,2r,3r ){" "}
           </p>
           <p>
             In case of no-ball input will be : RUN NoBall (i.e. 0nb, 1nb ,2nb){" "}
+          </p>
+          <p>
+            In case of bye run input will be : RUN bye (i.e. 0b, 1b ,2b){" "}
           </p>
           <p>In case of wide input will be : RUN Wide (i.e. 0wd, 1wd ,2wd)</p>
         </div>

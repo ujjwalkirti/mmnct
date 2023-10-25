@@ -422,7 +422,6 @@ function fetchDate() {
 
   // This arrangement can be altered based on how we want the date's format to appear.
   let currentDate = `${year}-${month}-${day}`;
-  console.log("currentDate",currentDate);
   return currentDate;
 }
 function daysCaluclator() {

@@ -3,9 +3,9 @@ import React, { useEffect, useState } from "react";
 import { AiOutlineMan, AiOutlineWoman } from "react-icons/ai";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
-
+import { get, child } from "firebase/database";
 import MatchCard from "./MatchCard";
-
+import { dbRef } from "./db/Firebase";
 function fetchDate() {
   const date = new Date();
   let day = date.getDate();
@@ -21,10 +21,37 @@ function fetchDate() {
   return currentDate;
 }
 
-const UpcomingMatches = ({ matches }) => {
+const UpcomingMatches = () => {
   const [showMenMatches, setShowMenMatches] = useState(true);
   const [menMatches, setMenMatches] = useState([]);
   const [womenMatches, setWomenMatches] = useState([]);
+  const [matches, setMatches] = useState([]);
+  useEffect(() => {
+    // console.log("called");
+    const getData = async() => {
+      let matches = [];
+      let localMatches = [];
+      let snapshot = await get(child(dbRef, "matchDetail/"));
+      if (snapshot) {
+        localMatches = snapshot.val();
+        if (localMatches) {
+          const firstKey = Object.keys(localMatches)[0];
+          delete localMatches[firstKey];
+          let todayDate = fetchDate();
+          // localMatches.shift();
+          Object.keys(localMatches).map(key => {
+            const match = localMatches[key];
+            if (match.timeDate === todayDate && match.status !== "past") {
+              matches.push(match);
+            }
+          })
+        }
+        setMatches(matches);
+        // console.log(matches)
+      }
+    }
+    getData();
+  },[]);
 
   useEffect(() => {
     const todayDate = fetchDate();
@@ -48,7 +75,7 @@ const UpcomingMatches = ({ matches }) => {
         setWomenMatches((womenMatches) => [...womenMatches, match]);
       }
     });
-  }, []);
+  }, [matches]);
 
   const buttonColorCalculator = (sex) => {
     let colorString = "";
@@ -134,7 +161,7 @@ function CapHolders({ male }) {
   const [purpleCapHolder, setPurpleCapHolder] = useState({});
   const [orangeCapHolder, setOrangeCapHolder] = useState({});
 
-  useEffect(() => {}, []);
+  useEffect(() => { }, []);
 
   const playerStyle =
     "flex flex-col items-center justify-center mt-10 w-9/12 lg:w-1/2 mx-auto";

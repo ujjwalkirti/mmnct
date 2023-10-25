@@ -72,7 +72,7 @@ const UpdateMan = ({ auth_users }) => {
       // Assuming you want to update the "ManOfTheMatch" field with the value from the form
       //  UpdateManOfTheMatch(currId, formData.ManOfTheMatch);
       await updateToss(currId, formData.tossWinner, formData.decision);
-    console.log(formData);
+    // console.log(formData);
       alert("Toss Updated successfully");
     } catch (error) {
       console.error("Error updating Man of the Match:", error);
