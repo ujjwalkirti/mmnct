@@ -31,8 +31,8 @@ const createMatch = async (ID, dateTime, Team1ID, Team2ID, category) => {
     category: category,
     currOrder: 1,
     manofthematch: "",
-    toss:"",
-    decision:""
+    toss: "",
+    decision: ""
   }).then(() => {
     console.log("mattch added");
   }).catch(err => console.log(err));
@@ -474,9 +474,9 @@ async function changeInnings(matchId) {
 async function afterMatchClosed(matchId) {
 
   const matchNumber = parseInt(matchId, 10);
+  const data = await fetchData(matchId);
   //console.log(matchNumber);
   if (matchNumber < 22) {
-    const data = await fetchData(matchId);
     const Team1totalScore = totalScore(data.Team1Score, data.Team1Extra, data.Team1Wicket);
     const Team2totalScore = totalScore(data.Team2Score, data.Team2Extra, data.Team2Wicket);
     // console.log(Team1totalScore);
@@ -601,7 +601,7 @@ const updateManOfTheMatch = async (matchID, playerName) => {
 const updateToss = async (matchID, winner, choice) => {
 
   await update(ref(database, "matchDetail/" + matchID), {
-    "toss":winner,
+    "toss": winner,
     "decision": choice
   }).then(() => {
   }).catch(err => console.log(err));
