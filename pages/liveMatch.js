@@ -53,7 +53,7 @@ const HomeCard = () => {
     setCurrOver();
   }, [team]);
 
-  const shortformstyle = " rounded-full h-[62px] aspect-square w-[62px] ";
+  const shortformstyle = "  rounded-full h-[62px] aspect-square w-[62px] lg:h-[100px] lg:w-[100px] ";
   useEffect(() => {
     getdata();
   }, []);
@@ -62,7 +62,7 @@ const HomeCard = () => {
   const over = over_summary.map((bowl_value) => (
     <div
       key={bowl_value}
-      className={`h-[25px] w-[25px] text-xs font-semibold ${bowl_value.toString().slice(-2).toUpperCase().endsWith("W") ||
+      className={`h-[25px] w-[25px] lg:h-[50px] lg:w-[50px] text-xs lg:text-lg font-semibold ${bowl_value.toString().slice(-2).toUpperCase().endsWith("W") ||
           bowl_value.toString().slice(-2).toUpperCase().endsWith("R")
           ? "bg-red-600"
           : bowl_value === "4" || bowl_value === "6"
@@ -82,7 +82,7 @@ const HomeCard = () => {
         <></>
       ) : (
         <Link href={`/scorecard?matchId=${team[0].id}`} className="w-5/6 h-3/5 "  >
-          <div className=" w-full  days-counter mx-auto  pt-1 ">
+          <div className=" w-4/6   days-counter mx-auto  pt-1 ">
             <div className=" w-full my-2 px-2">
               <div className=" flex justify-between text-black items-center">
                 <p className="  text-2xl font-extrabold text-[#F8C156] px-2 bg-white shadow-lg rounded-2xl">
@@ -100,8 +100,8 @@ const HomeCard = () => {
               </div>
             </div>
             <div className=" teams  flex px-2 mb-1">
-              <div className=" team_1 flex justify-around w-1/2">
-                <div className=" flex justify-center text-center items-center w-full sm:w-[50%] flex-col  ">
+              <div className=" team_1 flex justify-around w-1/2 items-center ">
+                <div className=" flex justify-center text-center items-center flex-col  ">
                   <div className="flex flex-row rounded-full justify-center items-center " id="middle" style={{
                           backgroundColor: teams[team[0].Team1Id].themeColor,
                         }}>
@@ -115,16 +115,16 @@ const HomeCard = () => {
                     </div>
                   </div>
                   {/* Team 1 name info */}
-                  <p className=" text-black text-md font-bold">
+                  <p className=" text-black text-md lg:text-xl font-bold">
                     {teams[team[0].Team1Id].teamCode}
                   </p>
-                  <p className="text-[10px] text-gray-500">
+                  <p className="text-[10px] lg:text-[20px] text-gray-500">
                     ({teams[team[0].Team1Id].teamType})
                   </p>
                 </div>
                 <div className=" score text-red-600 w-auto sm:w-[50%] mt-5 text-center  ">
                   {/* team 1 score */}
-                  <p className=" text-lg md:text-xl font-bold">
+                  <p className=" text-lg lg:text-5xl font-bold">
                     {totalScore(
                       team[0].Team1Score,
                       team[0].Team1Extra,
@@ -143,7 +143,7 @@ const HomeCard = () => {
                           team[0].Team1Extra,
                           team[0].Team1Wicket
                         )}
-                        <p className=" text-md md:text-lg text-blue-700 font-bold ">
+                        <p className=" text-md lg:text-3xl text-blue-700 font-bold ">
                           (
                           {totalScore(
                             team[0].Team1Score,
@@ -171,13 +171,13 @@ const HomeCard = () => {
               <div className=" mt-3 flex justify-center ">
                 <Image
                   src="/vector-8.png"
-                  height={50}
-                  width={50}
+                  height={75}
+                  width={75}
                   className=" object-contain aspect-square"
                 />
               </div>
-              <div className=" team_2 flex  flex-row-reverse justify-around  w-1/2">
-                <div className=" flex justify-center text-center items-center w-full sm:w-[50%] flex-col  ">
+              <div className=" team_2 flex items-center flex-row-reverse justify-around  w-1/2">
+                <div className=" flex justify-center text-center items-center  flex-col  ">
                   <div className="flex flex-row " id="middle">
                     <div id="logo" className=" ">
                       <img
@@ -191,15 +191,15 @@ const HomeCard = () => {
                     </div>
                   </div>
                   {/* team 2 name info */}
-                  <p className=" text-black text-sm font-bold">
+                  <p className=" text-black text-sm lg:text-xl font-bold">
                     {teams[team[0].Team2Id].teamCode}
                   </p>
-                  <p className=" text-[10px] text-gray-500">
+                  <p className=" text-[10px] lg:text-[20px] text-gray-500">
                     ({teams[team[0].Team2Id].teamType})
                   </p>
                 </div>
                 <div className=" score w-auto sm:w-[50%] text-red-600 mt-5 text-center ">
-                  <p className=" text-lg md:text-xl font-bold ">
+                  <p className=" text-lg lg:text-5xl font-bold ">
                     {totalScore(
                       team[0].Team2Score,
                       team[0].Team2Extra,
@@ -218,7 +218,7 @@ const HomeCard = () => {
                           team[0].Team2Extra,
                           team[0].Team2Wicket
                         )}
-                        <p className=" text-md md:text-lg font-bold text-blue-600">
+                        <p className=" text-lg md:text-3xl font-bold text-blue-600">
                           (
                           {totalScore(
                             team[0].Team2Score,
@@ -250,10 +250,10 @@ const HomeCard = () => {
                 <>
                   <div className=" Bat_stat text-left  ">
                     {/* batting team stats -- striker and non-striker */}
-                    <p className=" text-sm font-bold mb-1">
+                    <p className=" text-sm lg:text-xl font-bold mb-1">
                       {teams[team[0].Team1Id].teamCode} Batting
                     </p>
-                    <p className=" text-xs font-semibold">
+                    <p className=" text-xs lg:text-lg font-semibold">
                       {
                         team[0].Team1Players[team[0].striker]?.playerName.split(
                           " "
@@ -265,7 +265,7 @@ const HomeCard = () => {
                         <GiCricketBat className=" inline-block rotate-180 text-pink-600 " />
                       </span>
                     </p>
-                    <p className="text-xs font-light pr-1">
+                    <p className="text-xs lg:text-lg font-light pr-1">
                       {
                         team[0].Team1Players[
                           team[0].nonStriker
@@ -280,10 +280,10 @@ const HomeCard = () => {
                   </div>
                   <div className=" Bowl_stat text-right">
                     {/* Active Bowler info */}
-                    <p className=" text-sm font-bold">
+                    <p className=" text-sm lg:text-lg font-bold">
                       {teams[team[0].Team2Id].teamCode}-Bowling
                     </p>
-                    <p className=" text-xs font-light">
+                    <p className=" text-xs lg:text-lg font-light">
                       <GiTennisBall className=" inline-block rotate-180 text-pink-600 " />{" "}
                       {
                         team[0].Team2Players[team[0].baller]?.playerName.split(
@@ -357,7 +357,7 @@ const HomeCard = () => {
             </div>
             <hr className=" h-0 border-dashed bg-[#F8C156]  w-[95%] mx-auto" />
             <div className="Over pb-3 px-2">
-              <div className=" flex justify-center text-sm mb-1 font-bold  text-black ">
+              <div className=" flex justify-center text-xl  mb-1 font-bold  text-black ">
                 THIS OVER
               </div>
               <div className=" Over_detail flex justify-center flex-wrap gap-4 ">
