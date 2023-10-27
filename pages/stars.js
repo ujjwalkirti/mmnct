@@ -55,7 +55,7 @@ const calculateStrikeRate = (runs, balls) => {
 };
 function calculateEconomyRate(runsConceded, noOfBallsBowled) {
   if (noOfBallsBowled === 0) {
-    console.error("Overs bowled cannot be zero.");
+    //console.error("Overs bowled cannot be zero.");
     return null;
   }
 
