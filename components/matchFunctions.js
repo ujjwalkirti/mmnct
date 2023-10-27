@@ -649,7 +649,7 @@ function calculateWomenRunRate(team1TotalScore, team2TotalScore, team1TotalBalls
 const updateManOfTheMatch = async (matchID, playerName) => {
 
   await update(ref(database, "matchDetail/" + matchID), {
-    "manOfTheMatch": playerName
+    "manofthematch": playerName
   }).then(() => {
   }).catch(err => console.log(err));
 
