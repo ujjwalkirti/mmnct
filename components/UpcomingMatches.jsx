@@ -41,7 +41,7 @@ const UpcomingMatches = () => {
           // localMatches.shift();
           Object.keys(localMatches).map(key => {
             const match = localMatches[key];
-            if (match.timeDate === todayDate && match.status !== "past") {
+            if (match.timeDate === todayDate && match.status === "upcoming") {
               matches.push(match);
             }
           })
