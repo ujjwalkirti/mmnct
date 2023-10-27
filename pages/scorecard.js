@@ -65,7 +65,7 @@ const Scorecard = () => {
   };
   function calculateEconomyRate(runsConceded, noOfBallsBowled) {
     if (noOfBallsBowled === 0) {
-      console.error("Overs bowled cannot be zero.");
+      // console.error("Overs bowled cannot be zero.");
       return null;
     }
 
@@ -605,7 +605,7 @@ const Scorecard = () => {
                   <p
                     key={player.playerId}
                     className={` py-2   text-center `}>
-                    {console.log(teamColor)}
+                    {/* {console.log(teamColor)} */}
                     <Link href={`/player-details/${player.playerId}`}>
                       {player.playerName}
                     </Link>
@@ -624,7 +624,7 @@ const Scorecard = () => {
                         : `${teams[matchData?.Team2Id]?.themeColor}`,
                       
                     }}>
-                    {console.log(teamColor)}
+                    {/* {console.log(teamColor)} */}
                     <Link href={`/player-details/${player.playerId}`}>
                       {player.playerName}
                     </Link>
@@ -664,7 +664,7 @@ const Scorecard = () => {
                     ? "bg-white"
                     : `bg-[${teamColor.substring(1, teamColor.length - 1)}]`
                 }  text-center `}>
-                {console.log(teamColor)}
+                {/* {console.log(teamColor)} */}
                 <Link href={`/player-details/${player.playerId}`}>
                   {player.playerName}
                 </Link>
