@@ -95,9 +95,11 @@ export default function PointsTable({ maleTable, femaleTable }) {
     const teamBRunRate=teamB.runRate || [];
     const superOverA=teamA.superOver || 0;
     const superOverB=teamB.superOver || 0;
+    const bonusA=teamA.bonus||0;
+    const bonusB=teamB.bonus||0;
     // console.log(superOverA + " "+superOverB);
-    const positiveTermsA = teamARunRate.filter((val) => val > 0).length +superOverA ;
-    const positiveTermsB = teamBRunRate.filter((val) => val > 0).length+superOverB;
+    const positiveTermsA = teamARunRate.filter((val) => val > 0).length +superOverA+bonusA;
+    const positiveTermsB = teamBRunRate.filter((val) => val > 0).length+superOverB+bonusB;
   
     if (positiveTermsA !== positiveTermsB) {
       return positiveTermsB - positiveTermsA;
@@ -112,9 +114,14 @@ export default function PointsTable({ maleTable, femaleTable }) {
   const sortedFemaleTable = femaleTable.sort((teamA, teamB) => {
     const teamARunRate=teamA.runRate || [];
     const teamBRunRate=teamB.runRate || [];
-    const positiveTermsA = teamARunRate.filter((val) => val > 0).length;
-    const positiveTermsB = teamBRunRate.filter((val) => val > 0).length;
-  
+    const bonusA=teamA.bonus||0;
+    const bonusB=teamB.bonus||0;
+    const superOverA=teamA.superOver || 0;
+    const superOverB=teamB.superOver || 0;
+    // const positiveTermsA = teamARunRate.filter((val) => val > 0).length;
+    // const positiveTermsB = teamBRunRate.filter((val) => val > 0).length;
+    const positiveTermsA = teamARunRate.filter((val) => val > 0).length +superOverA+bonusA;
+    const positiveTermsB = teamBRunRate.filter((val) => val > 0).length+superOverB+bonusB;
     if (positiveTermsA !== positiveTermsB) {
       return positiveTermsB - positiveTermsA;
     }
