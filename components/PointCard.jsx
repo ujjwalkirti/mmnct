@@ -141,7 +141,7 @@ const PointCard = (props) => {
               <div className="w-1/4 flex  items-center justify-center">
                 <p className="text-[15px] xl:text-[25px] lg:text-[20px] font-[600]">
                   {/* {curElem.matchPlayed - curElem.matchWon} */}
-                  {noOfMatchPlayed - (noOfMatchPlayed +superOver)}
+                  {noOfMatchPlayed - (noOfMatchWon +superOver)}
                 </p>
               </div>
               <div className="w-1/4 flex  items-center justify-center">
