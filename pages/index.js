@@ -50,8 +50,8 @@ export default function Home({ teamList, sponsorImgList, matches }) {
       <div className="flex justify-center item-center mt-8">
         <Link href="/photocontest">
           <button className="bg-[#ffc4b1] text-white font-semibold py-3 px-20 rounded-full">
-            Participate Now!
-            {/* See Winners! */}
+            {/* Participate Now! */}
+            See Winners!
           </button>
         </Link>
       </div>

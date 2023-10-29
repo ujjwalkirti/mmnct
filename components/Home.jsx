@@ -22,7 +22,7 @@ function HomePage({ teamlist }) {
 
   useEffect(() => {
     setScreenSize(window.innerWidth);
-    setWinnerTeamList(() => decideWinner("SHM", "SAM", teamlist));
+    setWinnerTeamList(() => decideWinner("VIK", "PAR", teamlist));
   }, []);
 
   return (
@@ -45,14 +45,14 @@ function HomePage({ teamlist }) {
             October, 2023
           </p>
         </div>
-        {/* <WinnersAnnouncement teamlist={winnerTeamList} /> */}
+        <WinnersAnnouncement teamlist={winnerTeamList} />
       </div>
 
       <div className="w-full md:w-4/5 md:mx-auto flex flex-col md:flex-row md:items-center md:justify-between">
         {/* graphic and venue along with days to go */}
 
         <div>
-          <HomeCard />
+          {/* <HomeCard /> */}
           {/* {(new Date().getDate() === 25 && new Date().getMonth()===9 && new Date().getFullYear() === 2023 )?<>
             <div className=" flex justify-center items-center w-4/5 md:w-[400px] days-counter mx-auto md:mx-0 md:mb-4 md:gap-4 h-[116px] md:h-[150px]">
             <div className="text-[#991746]">
@@ -144,7 +144,7 @@ const WinnersAnnouncement = ({ teamlist }) => {
   } else {
     return (
       <div className="flex flex-col lg:flex-row justify-evenly mt-5">
-        <div className={"bg-[#1e648f] " + winnerTabStyle}>
+        <div className={"bg-[#a33a0f] " + winnerTabStyle}>
           <div className="flex-shrink-0 h-14 w-14">
             <Image
               src={teamlist[0].teamLogo}
@@ -159,7 +159,7 @@ const WinnersAnnouncement = ({ teamlist }) => {
             <p className="text-sm">{teamlist[0].teamType}</p>
           </div>
         </div>
-        <div className={"bg-[#fae039] " + winnerTabStyle}>
+        <div className={"bg-[#2dda98] " + winnerTabStyle}>
           <div className="flex-shrink-0 h-14 w-14">
             <Image
               src={teamlist[1].teamLogo}
